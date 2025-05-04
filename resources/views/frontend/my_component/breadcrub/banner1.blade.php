@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="banner_1">
-                        <h1> {{$title}} </h1>
+                        <h1> {{$category ?? 'No Data found'}} > {{$subcategory ?? 'No Data found'}} > <strong class="text-success"> {{$childcategory ?? 'No Data found'}}</strong></h1>
                         <p> {{$caption}}</p>
                     </div>
                 </div>

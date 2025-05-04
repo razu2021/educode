@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Udemy Style Mega Menu</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  <header class="desktop-header" >
+    <div id="desktop-header">
+
+
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center gap-3">
+        <img src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg" alt="Udemy" height="28" />
+        <div class="mega_menu_wrapper">
+          <a href="#" class="nav-link mega_menu">Explore Course</a>
+          <div class="mega_dropdown">
+            <div class="category">
+              <ul>
+                <li>
+                  <a href="#">Development & Programig Technology</a>
+                  <div class="subcategory">
+                    <ul>
+                      <li>
+                        <a href="#">Web Development</a>
+                        <div class="childcategory">
+                          <ul>
+                            <li><a href="#">AWS Certified Solutions Architect – Associate Course</a></li>
+                            <li><a href="#">Vue.js</a></li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li><a href="#">Mobile Apps</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li><a href="#">Human and nature development society</a></li>
+                <li><a href="#">Design</a></li>
+                <li><a href="#">Design</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="search-box mx-3">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Search for anything" />
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <a href="#" class="nav-link d-none d-lg-block">Udemy Business</a>
+        <a href="#" class="nav-link d-none d-lg-block">Teach on Udemy</a>
+        <a href="#" class="nav-link"><i class="bi bi-cart3 fs-5"></i></a>
+        <a href="#" class="btn btn-sm btn-login">Log in</a>
+        <a href="#" class="btn btn-sm btn-signup">Sign up</a>
+        <!-- Inside your header just replace the user icon part with this -->
+        <div class="dropdown">
+            <a href="#" class="btn btn-sm btn-language dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end mt-3" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Dashboard</a></li>
+            <li><a class="dropdown-item" href="#">My Courses</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+        </div>
+  
+      </div>
+    </div>
+</div>  
+<!-- desktop header end here  -->
+
+
+
+
+<!--  mobile header code start here  -->
+
+<!-- HTML: Mobile Menu Section -->
+<section>
+    <div id="mobile_header">
+      <div class="container-fluid d-flex align-items-center justify-content-between">
+        <div class="mobile_side_bar">
+          <a href="#" id="exploreBtn"><i class="bi bi-list"></i> Explore</a>
+        </div>
+        <div class="mobile_logo">
+          <img src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg" height="28" alt="Udemy">
+        </div>
+        <div class="d-flex align-items-center gap-3">
+          <a href="#" class="nav-link"><i class="bi bi-cart3 fs-5"></i></a>
+          <div class="dropdown">
+            <a href="#" class="btn btn-sm btn-language dropdown-toggle" data-bs-toggle="dropdown">
+              <i class="bi bi-person-circle"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end mt-3">
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="#">Dashboard</a></li>
+              <li><a class="dropdown-item" href="#">My Courses</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Mobile Sidebar Menu -->
+      <div class="mobile_sidebar_menu" id="mobileSidebarMenu">
+        
+        <!-- Category Menu -->
+        <div class="menu-panel category-panel active">
+          <div class="menu-header d-flex justify-content-between align-items-center">
+            <h6>Categories</h6>
+            <button id="closeSidebar" class="btn btn-sm btn-danger">&times;</button>
+          </div>
+          <ul class="menu-list">
+            <li data-target="subcategory-panel">Development <i class="bi bi-chevron-right float-end"></i></li>
+            <li data-target="subcategory-panel">Design <i class="bi bi-chevron-right float-end"></i></li>
+          </ul>
+        </div>
+  
+        <!-- Subcategory Menu -->
+        <div class="menu-panel subcategory-panel">
+          <div class="menu-header d-flex justify-content-between align-items-center">
+            <button class="btn btn-sm btn-light back-btn" data-back="category-panel"><i class="bi bi-chevron-left"></i></button>
+            <h6>Subcategories</h6>
+          </div>
+          <ul class="menu-list">
+            <li data-target="childcategory-panel">Web Development <i class="bi bi-chevron-right float-end"></i></li>
+            <li data-target="childcategory-panel">Mobile Apps <i class="bi bi-chevron-right float-end"></i></li>
+          </ul>
+        </div>
+  
+        <!-- Child Category Menu -->
+        <div class="menu-panel childcategory-panel">
+          <div class="menu-header d-flex justify-content-between align-items-center">
+            <button class="btn btn-sm btn-light back-btn" data-back="subcategory-panel"><i class="bi bi-chevron-left"></i></button>
+            <h6>Child Categories</h6>
+          </div>
+          <ul class="menu-list">
+            <li>Laravel</li>
+            <li>Vue.js</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+
+  </header>
+
+
+
+<!--   banner hero section  -->
+<div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-lg-5 py-5">
+      <div class="col-lg-7 text-center text-lg-start">
+        <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">Vertically centered hero sign-up form</h1>
+        <p class="col-lg-10 fs-4">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+      </div>
+      <div class="col-md-10 mx-auto col-lg-5">
+        <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+          </div>
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div>
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+          <hr class="my-4">
+          <small class="text-body-secondary">By clicking Sign up, you agree to the terms of use.</small>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+<hr>
+  <div class="container">
+    <footer class="py-5">
+      <div class="row">
+        <div class="col-6 col-md-2 mb-3">
+          <h5>Section</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+          </ul>
+        </div>
+  
+        <div class="col-6 col-md-2 mb-3">
+          <h5>Section</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+          </ul>
+        </div>
+  
+        <div class="col-6 col-md-2 mb-3">
+          <h5>Section</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+          </ul>
+        </div>
+  
+        <div class="col-md-5 offset-md-1 mb-3">
+          <form>
+            <h5>Subscribe to our newsletter</h5>
+            <p>Monthly digest of what's new and exciting from us.</p>
+            <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+              <label for="newsletter1" class="visually-hidden">Email address</label>
+              <input id="newsletter1" type="email" class="form-control" placeholder="Email address">
+              <button class="btn btn-primary" type="button">Subscribe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+ 
+<!-- JavaScript -->
+<script>
+    const exploreBtn = document.getElementById('exploreBtn');
+    const closeBtn = document.getElementById('closeSidebar');
+    const sidebar = document.getElementById('mobileSidebarMenu');
+    const panels = document.querySelectorAll('.menu-panel');
+    const listItems = document.querySelectorAll('.menu-list li[data-target]');
+    const backButtons = document.querySelectorAll('.back-btn');
+  
+    exploreBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      sidebar.classList.toggle('open');
+      panels.forEach(panel => panel.classList.remove('active'));
+      document.querySelector('.category-panel').classList.add('active');
+    });
+  
+    listItems.forEach(item => {
+      item.addEventListener('click', function () {
+        const target = this.getAttribute('data-target');
+        panels.forEach(panel => panel.classList.remove('active'));
+        document.querySelector('.' + target).classList.add('active');
+      });
+    });
+  
+    backButtons.forEach(btn => {
+      btn.addEventListener('click', function () {
+        const backTo = this.getAttribute('data-back');
+        panels.forEach(panel => panel.classList.remove('active'));
+        document.querySelector('.' + backTo).classList.add('active');
+      });
+    });
+
+
+    closeBtn.addEventListener('click', function () {
+  sidebar.classList.remove('open');
+});
+  </script>
+  
+
+
+
+
+
+     <!-- Dropdown submenu -->
+     @foreach ($globalcoursecategory as $courseCategory)
+     @if ($courseCategory->CourseSubcategory->count())
+         <li class="dropdown-submenu dropend">
+             <a class="dropdown-item dropdown-toggle" href="#">{{ $courseCategory->course_category_name }}</a>
+
+             <ul class="dropdown-menu dropdown-menu-start" data-bs-popper="none">
+                 @foreach ($courseCategory->CourseSubcategory as $courssubcate)
+                     @if ($courssubcate->CourschildCategory->count())
+                         <li class="dropdown-submenu dropend">
+                             <a class="dropdown-item dropdown-toggle" href="#">{{ $courssubcate->course_sub_category_name }}</a>
+
+                             <ul class="dropdown-menu" data-bs-popper="none">
+                                 @foreach ($courssubcate->CourschildCategory as $childcate)
+                                     <li><a class="dropdown-item" href="#">{{ $childcate->course_child_category_name }}</a></li>
+                                 @endforeach
+                             </ul>
+                         </li>
+                     @else
+                         <li><a class="dropdown-item" href="#">{{ $courssubcate->course_sub_category_name }}</a></li>
+                     @endif
+                 @endforeach
+             </ul>
+         </li>
+     @else
+         <li><a class="dropdown-item" href="#">{{ $courseCategory->course_category_name }}</a></li>
+     @endif
+     @endforeach
+
+
+
+
+
+
+</body>
+</html>

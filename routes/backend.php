@@ -6,6 +6,10 @@ use App\Http\Controllers\backend\category\categoryController;
 
 use App\Http\Controllers\backend\category\ChildCategoryController;
 use App\Http\Controllers\backend\category\SubCategoryController;
+use App\Http\Controllers\backend\courses\CourseCategoryController;
+use App\Http\Controllers\backend\courses\CourseChildCategoryController;
+use App\Http\Controllers\backend\courses\CourseController;
+use App\Http\Controllers\backend\courses\CoursesSubCategorys;
 use App\Http\Controllers\backend\other\MetaTagController;
 use Illuminate\Support\Facades\Route;
 
@@ -109,6 +113,106 @@ Route::controller(ChildCategoryController::class)->prefix('admin/dashboard/child
     Route::get('export-zip','export_zip')->name('export_zip'); 
     Route::get('export-single-pdf/{id}/{slug}','export_single_pdf')->name('export_single_pdf'); 
 });
+
+/**------------- Child category route is here ------- */
+Route::controller(CourseCategoryController::class)->prefix('admin/dashboard/course-category/')->name('coursecategory.')->group(function(){
+    Route::get('all','index')->name('all');
+    Route::get('add','add')->name('add');
+    Route::get('view/{id}/{slug}','view')->name('view');
+    Route::get('edit/{id}/{slug}','edit')->name('edit');
+    Route::post('submit','insert')->name('submit');
+    Route::post('update','update')->name('update');
+    Route::delete('softdelete/{id}','softdelete')->name('softdelete');
+    Route::post('restore/{id}','restore')->name('restore');
+    Route::delete('delete/{id}','delete')->name('delete');
+    Route::post('bulk-action','bulkAction')->name('bulkAction');
+    Route::get('recycle','recycle')->name('recycle');
+    Route::get('public/{id}/{slug}','public_status')->name('public');
+    Route::get('private/{id}/{slug}','private_status')->name('private'); 
+    // export route 
+    Route::get('export-pdf','export_pdf')->name('export_pdf'); 
+    Route::get('export-excel','export_excel')->name('export_excel'); 
+    Route::get('export-csv','export_csv')->name('export_csv'); 
+    Route::get('export-zip','export_zip')->name('export_zip'); 
+    Route::get('export-single-pdf/{id}/{slug}','export_single_pdf')->name('export_single_pdf'); 
+});
+/**------------- Child category route is here ------- */
+Route::controller(CoursesSubCategorys::class)->prefix('admin/dashboard/course/sub/category/')->name('coursesubcategory.')->group(function(){
+    Route::get('all','index')->name('all');
+    Route::get('add','add')->name('add');
+    Route::get('view/{id}/{slug}','view')->name('view');
+    Route::get('edit/{id}/{slug}','edit')->name('edit');
+    Route::post('submit','insert')->name('submit');
+    Route::post('update','update')->name('update');
+    Route::delete('softdelete/{id}','softdelete')->name('softdelete');
+    Route::post('restore/{id}','restore')->name('restore');
+    Route::delete('delete/{id}','delete')->name('delete');
+    Route::post('bulk-action','bulkAction')->name('bulkAction');
+    Route::get('recycle','recycle')->name('recycle');
+    Route::get('public/{id}/{slug}','public_status')->name('public');
+    Route::get('private/{id}/{slug}','private_status')->name('private'); 
+    // export route 
+    Route::get('export-pdf','export_pdf')->name('export_pdf'); 
+    Route::get('export-excel','export_excel')->name('export_excel'); 
+    Route::get('export-csv','export_csv')->name('export_csv'); 
+    Route::get('export-zip','export_zip')->name('export_zip'); 
+    Route::get('export-single-pdf/{id}/{slug}','export_single_pdf')->name('export_single_pdf'); 
+});
+/**------------- course  Child category route is here ------- */
+Route::controller(CourseChildCategoryController::class)->prefix('admin/dashboard/course/child/category/')->name('coursechildcategory.')->group(function(){
+    Route::get('all','index')->name('all');
+    Route::get('add','add')->name('add');
+    Route::get('view/{id}/{slug}','view')->name('view');
+    Route::get('edit/{id}/{slug}','edit')->name('edit');
+    Route::post('submit','insert')->name('submit');
+    Route::post('update','update')->name('update');
+    Route::delete('softdelete/{id}','softdelete')->name('softdelete');
+    Route::post('restore/{id}','restore')->name('restore');
+    Route::delete('delete/{id}','delete')->name('delete');
+    Route::post('bulk-action','bulkAction')->name('bulkAction');
+    Route::get('recycle','recycle')->name('recycle');
+    Route::get('public/{id}/{slug}','public_status')->name('public');
+    Route::get('private/{id}/{slug}','private_status')->name('private'); 
+    // export route 
+    Route::get('export-pdf','export_pdf')->name('export_pdf'); 
+    Route::get('export-excel','export_excel')->name('export_excel'); 
+    Route::get('export-csv','export_csv')->name('export_csv'); 
+    Route::get('export-zip','export_zip')->name('export_zip'); 
+    Route::get('export-single-pdf/{id}/{slug}','export_single_pdf')->name('export_single_pdf'); 
+});
+
+
+
+
+
+
+/**------------- Child category route is here ------- */
+Route::controller(CourseController::class)->prefix('admin/dashboard/course/')->name('course.')->group(function(){
+    Route::get('all','index')->name('all');
+    Route::get('add','add')->name('add');
+    Route::get('view/{id}/{slug}','view')->name('view');
+    Route::get('edit/{id}/{slug}','edit')->name('edit');
+    Route::post('submit','insert')->name('submit');
+    Route::post('update','update')->name('update');
+    Route::delete('softdelete/{id}','softdelete')->name('softdelete');
+    Route::post('restore/{id}','restore')->name('restore');
+    Route::delete('delete/{id}','delete')->name('delete');
+    Route::post('bulk-action','bulkAction')->name('bulkAction');
+    Route::get('recycle','recycle')->name('recycle');
+    Route::get('public/{id}/{slug}','public_status')->name('public');
+    Route::get('private/{id}/{slug}','private_status')->name('private'); 
+    // export route 
+    Route::get('export-pdf','export_pdf')->name('export_pdf'); 
+    Route::get('export-excel','export_excel')->name('export_excel'); 
+    Route::get('export-csv','export_csv')->name('export_csv'); 
+    Route::get('export-zip','export_zip')->name('export_zip'); 
+    Route::get('export-single-pdf/{id}/{slug}','export_single_pdf')->name('export_single_pdf'); 
+
+
+
+});
+Route::get('/get-subcategories/{category_id}', [CourseController::class, 'getSubcategories']);
+Route::get('/get-childcategories/{subcategory_id}', [CourseController::class, 'getChildcategories']);
 
 
 

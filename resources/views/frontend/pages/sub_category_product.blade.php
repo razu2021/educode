@@ -15,10 +15,24 @@
         @includeif('frontend/my_component/product/hotsel')
     </div>
     <!-- sub category  -->
-    {{-- <div id="sub_category_list">
-        @includeif('frontend/my_component/product/subcategory_list')
-    </div> --}}
+    <div id="sub_category_list">
+        @includeif('frontend/my_component/product/childcategory_list')
+    </div>
     <!-- category product list   -->
+
+    @foreach ($data->subcategorys as $subcategory)
+    <h4>{{ $subcategory->name }}</h4>
+
+        @foreach ($subcategory->childcategories as $child)
+            <a href="{{route('child_category_product',[$data->url,$subcategory->sub_category_url,$child->child_category_url,$data->slug,$subcategory->slug,$child->slug])}}">{{ $child->child_category_name }}</a><br>
+            <p>{{$data->url}} .. {{$subcategory->sub_category_url}} .. {{$child->child_category_url}}</p>
+            <p>{{$data->slug}} || {{$subcategory->slug}} || {{$subcategory->slug}}</p>
+        @endforeach
+      
+
+    @endforeach
+
+
     <div id="sub_category_list">
         @includeif('frontend/my_component/product/product_card1')
     </div>

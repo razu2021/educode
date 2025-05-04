@@ -22,8 +22,13 @@ class SubCategory extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
-        // category model 
-        public function metaData(){
-            return $this->morphOne(Seo::class, 'seoable', 'model_type', 'unique_id');
-        }
+    //child category 
+    public function childcategories(){
+        return $this->hasMany(ChildCategory::class ,'subcategory_id','id');
+    }
+
+    // category model 
+    public function metaData(){
+        return $this->morphOne(Seo::class, 'seoable', 'model_type', 'unique_id');
+    }
 }

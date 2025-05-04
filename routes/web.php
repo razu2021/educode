@@ -10,11 +10,28 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[FrontendController::class, 'index'])->name('index');
 
-Route::controller(FrontendController::class)->prefix('product/')->group(function(){
-    Route::get('/{url}/{slug}','product_category')->name('product_category'); // category product
-    Route::get('/{category}/{subcategory}/{category_slug}/{subcategory_slug}','sub_category_product')->name('sub_category_product'); // sub category product
-    Route::get('/fashion-and-clothing/man-fashion/t-shirt','sub_sub_category_product')->name('sub_sub_category_product'); // sub category product
+Route::controller(FrontendController::class)->group(function(){
+Route::get('/courses/all-category','all_course_Category')->name('allcoursecategory');
+// Product Category Routes
+Route::get('/product/{url}/{slug}','product_category')->name('product_category');
+Route::get('/product/{categoryUrl}/{subcategoryUrl}/{category_slug}/{subcategory_slug}','sub_category_product')->name('sub_category_product');
+Route::get('/product/{categoryUrl}/{subcategoryUrl}/{childCategoryUrl}/{categorySlug}/{subcategorySlug}/{childCategorySlug}','child_category_product')->name('child_category_product');
+
+// Course Category Routes
+Route::get('/courses/{category_url}','course_Category')->name('coursecategory');
+Route::get('/courses/{category_url}/{course_subcategory}','course_SububCategory')->name('coursesubcategory');
+Route::get('/courses/{category_url}/{course_subcategory}/{course_childCategory}','course_childubCategory')->name('coursechildcategory');
+
 });
+
+
+
+
+
+
+
+
+
 
 
 Route::controller(FrontendController::class)->prefix('product/purchese')->group(function(){

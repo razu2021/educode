@@ -4,6 +4,7 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\CourseCategory;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -31,18 +32,41 @@ class FrontendController extends Controller
     public function sub_category_product($categoryUrl,$subcategoryUrl,$category_slug,$subcategory_slug){
         $data = Category::where('public_status',1)->where('url',$categoryUrl)->where('slug',$category_slug)
         ->with(['subcategorys'=>function($query) use($subcategoryUrl,$subcategory_slug){
-            $query->where('sub_category_url',$subcategoryUrl)->where('slug',$subcategory_slug);
+            $query->where('sub_category_url',$subcategoryUrl)->where('slug',$subcategory_slug)
+            ->with('childcategories');
         }])
         ->firstOrFail();
-       // dd($data);
+        //dd($data);
         return view('frontend.pages.sub_category_product',compact('data'));
     }
-    /** category product  */
-    public function sub_sub_category_product(){
-        return view('frontend.pages.sub_sub_category_product');
+
+
+
+
+
+ /** category product  */
+
+    public function child_category_product($categoryUrl,$subcategoryUrl,$childCategoryUrl,$categorySlug,$subcategorySlug,$childCategorySlug){
+      
+        $data = Category::where('public_status',1)
+            ->where('url',$categoryUrl)
+            ->where('slug',$categorySlug)
+            ->with(['subcategorys' => function($query) use ($subcategoryUrl, $subcategorySlug,$childCategoryUrl, $childCategorySlug) {  // make sure `use` contains all variables
+                $query->where('sub_category_url',$subcategoryUrl)
+                    ->where('slug',$subcategorySlug)
+                    ->with(['childcategories' => function($childQuery) use ($childCategoryUrl, $childCategorySlug){ // pass variables here as well
+                        $childQuery->where('child_category_url',$childCategoryUrl)
+                            ->where('slug',$childCategorySlug);
+                    }]);
+            }])
+            ->firstOrFail();
+      
+    
+        return view('frontend.pages.sub_sub_category_product',compact('data'));
     }
+    
 
-
+   
 
 
 
@@ -51,6 +75,37 @@ class FrontendController extends Controller
         return view('frontend.pages.purchase');
     }
 
+
+
+
+
+
+
+    /** ===============  course category function =========== */
+
+    public function all_course_Category(){
+        $allcategorycourse= CourseCategory::get();
+        return view('frontend.pages.course.Allcategory_course',compact('allcategorycourse'));
+    }
+
+    public function course_Category($category_url){
+        $allcategory = CourseCategory::with('CourseCategorys')->where('url',$category_url)->get();
+
+        //dd($allcategory);
+
+        return view('frontend.pages.course.course_category',compact('allcategory'));
+    }
+
+
+
+    public function course_SububCategory($category_url,$course_subcategory){
+        $allcategory = CourseCategory::where('url',$category_url)->get();
+        return view('frontend.pages.course.course_subcategory',compact('allcategory'));
+    }
+    public function course_childubCategory($category_url,$course_subcategory,$course_childCategory){
+        $allcategory = CourseCategory::where('url',$category_url)->get();
+        return view('frontend.pages.course.course_childcategory',compact('allcategory'));
+    }
 
 
 

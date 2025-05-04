@@ -49,8 +49,6 @@ class MetaTagController extends Controller
     * ---------  view page functionality --------
     **/
     public function view($id,$model_type,$slug){
-        
-     
         $data = Seo::with([
             'metaData',
             'images'
