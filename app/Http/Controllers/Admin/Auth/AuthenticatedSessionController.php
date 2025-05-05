@@ -24,6 +24,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(AdminLoginRequest $request): RedirectResponse
     {
+         // Logout web guard if user is already logged in there
+        Auth::guard('web')->logout();
         $request->authenticate();
 
         $request->session()->regenerate();

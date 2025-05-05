@@ -65,8 +65,8 @@
         <a href="#" class="nav-link d-none d-lg-block">Udemy Business</a>
         <a href="#" class="nav-link d-none d-lg-block">Teach on Udemy</a>
         <a href="#" class="nav-link"><i class="bi bi-cart3 fs-5"></i></a>
-        <a href="#" class="btn btn-sm btn-login">Log in</a>
-        <a href="#" class="btn btn-sm btn-signup">Sign up</a>
+        <a href="{{route('login')}}" class="btn btn-sm btn-login">Log in</a>
+        <a href="{{route('register')}}" class="btn btn-sm btn-signup">Sign up</a>
         <!-- Inside your header just replace the user icon part with this -->
         <div class="dropdown">
             <a href="#" class="btn btn-sm btn-language dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">

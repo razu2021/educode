@@ -22,6 +22,11 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
+    public function create_instractor(): View
+    {
+        return view('auth.instractor_register');
+    }
+
     /**
      * Handle an incoming registration request.
      *
@@ -29,6 +34,14 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        /** -- check the registration path is instractor or student ---- */
+        if($request->route()->getName() === 'instractor.register.submit'){
+            $role= 'is_instructor';
+        }else{
+            $role = 'is_student';
+        }
+
+    
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
@@ -39,6 +52,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role'=> $role,
         ]);
 
         event(new Registered($user));

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 /**================   Admin auth middleware route protection ============ */
-Route::middleware('auth:admin')->group(function(){
+Route::middleware(['auth:admin','admin'])->group(function(){
 /**================   Admin auth middleware route protection ============ */
 
 Route::get('admin/dashboard',[AdminController::class, 'index'])->name('admin.dashboard');
