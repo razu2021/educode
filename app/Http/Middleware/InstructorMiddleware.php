@@ -23,10 +23,11 @@ class InstructorMiddleware
 
             $user_role = $request->user()->role;
 
-            if($user_role !== 'is_instructor'){
-                abort(403);
+            if($user_role === 1){
+                return $next($request);
+                
             }
-
-        return $next($request);
+            abort(403);
+      
     }
 }

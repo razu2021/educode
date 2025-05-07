@@ -17,10 +17,10 @@ Route::middleware('guest')->group(function () {
         ->name('register');
 
     /**------  instractore registration route  */
-    Route::get('instractor/register', [RegisteredUserController::class, 'create_instractor'])
-        ->name('instractor.register');
+    Route::get('instructor/register', [RegisteredUserController::class, 'create_instractor'])
+        ->name('instructor.register');
 
-        Route::post('instractor/register', [RegisteredUserController::class, 'store'])
+        Route::post('instructor/register/submit', [RegisteredUserController::class, 'store'])
         ->name('instractor.register.submit');
 
 

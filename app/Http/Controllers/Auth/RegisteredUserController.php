@@ -36,9 +36,9 @@ class RegisteredUserController extends Controller
     {
         /** -- check the registration path is instractor or student ---- */
         if($request->route()->getName() === 'instractor.register.submit'){
-            $role= 'is_instructor';
+            $role= 2;
         }else{
-            $role = 'is_student';
+            $role = 0;
         }
 
     
@@ -59,6 +59,17 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        if ($user->role === 0) {
+            return redirect()->route('student.dashboard');
+        } elseif ($user->role === 1) {
+            return redirect()->route('instructor.dashboard'); // pending instructor page
+        } elseif ($user->role === 2) {
+            return redirect()->route('dashboard'); // approved instructor
+        }
+
+
+        return redirect()->route('index');
+
+
     }
 }

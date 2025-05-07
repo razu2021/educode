@@ -31,19 +31,25 @@ class AuthenticatedSessionController extends Controller
          
         $user_role = $request->user()->role;
 
+       
 
-        if($user_role === 'is_student'){
+        if ($user_role === 0) {
             return redirect()->route('student.dashboard');
-        }elseif($user_role === 'is_instructor'){
-            return redirect()->route('instructor.dashboard');
-        }else{
-            return redirect('/');
+        } elseif ($user_role === 2) {
+            return redirect()->route('dashboard'); // pending instructor page
+        } elseif ($user_role === 1) {
+
+
+
+
+
+
+
+            return redirect()->route('instructor.dashboard'); // approved instructor
         }
 
 
-
-
-        // return redirect()->intended(route('dashboard', absolute: false));
+       return redirect()->route('/');
 
 
 

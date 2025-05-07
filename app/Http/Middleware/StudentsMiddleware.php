@@ -23,13 +23,13 @@ class StudentsMiddleware
 
             $user_role = $request->user()->role;
 
-            if($user_role !== 'is_student'){
-                abort(403);
+            if($user_role === 0){
+                return $next($request);
             }
 
          
+            abort(403);
 
-
-        return $next($request);
+       
     }
 }
