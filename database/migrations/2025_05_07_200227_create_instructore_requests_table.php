@@ -19,44 +19,45 @@ return new class extends Migration
             // Personal
             $table->string('last_education')->nullable();
             $table->string('location')->nullable();
-            $table->integer('daily_available_hours')->nullable();
+            $table->string('daily_available_hours')->nullable();
 
             // Teaching Experience
-            $table->boolean('has_teaching_experience')->default(false);
+            $table->string('has_teaching_experience')->nullable();
             $table->text('experience_year')->nullable();
-            $table->enum('preferred_student_level', ['beginner', 'intermediate', 'advanced'])->nullable();
+            $table->string('preferred_student_level')->nullable();
 
             // Course Preparation
-            $table->boolean('can_create_thumbnail')->default(false);
-            $table->boolean('can_create_promo_video')->default(false);
-            $table->boolean('has_course_module')->default(false);
-            $table->boolean('has_course_video_upload')->default(false);
-            $table->boolean('can_create_assignments')->default(false);
+            $table->string('can_create_thumbnail')->nullable();
+            $table->string('can_create_promo_video')->nullable();
+            $table->string('has_course_module')->nullable();
+            $table->string('has_course_video_upload')->nullable();
+            $table->string('can_create_assignments')->nullable();
 
             // Technical Setup
             $table->string('able_tolive_class')->nullable();
-            $table->boolean('has_webcam')->default(false);
-            $table->boolean('can_use_video_call_tools')->default(false);
+            $table->string('has_webcam')->nullable();
+            $table->string('can_use_video_call_tools')->nullable();
 
             // Communication
-            $table->boolean('can_reply_within_24h')->default(false);
-            $table->boolean('can_participate_community')->default(false);
-            $table->boolean('available_for_live_qa')->default(false);
+            $table->string('can_reply_within_24h')->nullable();
+            $table->string('can_participate_community')->nullable();
+            $table->string('available_for_live_qa')->nullable();
 
             // Ethics
-            $table->boolean('no_copyright_violation')->default(true);
-            $table->boolean('accepts_review_policy')->default(true);
-            $table->boolean('agrees_to_terms')->default(true);
+            $table->string('no_copyright_violation')->nullable();
+            $table->string('accepts_review_policy')->nullable();
+           
 
             // Social & Marketing
-            $table->boolean('willing_to_promote_course')->default(false);
-            $table->boolean('interested_in_affiliate')->default(false);
-            $table->boolean('plans_more_courses')->default(false);
+            $table->string('willing_to_promote_course')->nullable();
+            $table->string('interested_in_affiliate')->nullable();
+            $table->string('plans_more_courses')->nullable();
 
             // Self-Motivation
             $table->text('why_become_instructor')->nullable();
             $table->text('future_contribution_plan')->nullable();
             $table->text('what_makes_you_unique')->nullable();
+             $table->string('agrees_to_terms')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
