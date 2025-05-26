@@ -29,33 +29,9 @@ Route::get('/courses/{category_url}/{course_subcategory}/{course_childCategory}'
 
 
 
-
-
-
-
-
 Route::controller(FrontendController::class)->prefix('product/purchese')->group(function(){
     Route::get('/fashion-and-clothing/man-fashion/t-shirt/xyz','purchese_product')->name('purchese_product'); // sub category product
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -67,3 +43,5 @@ require __DIR__.'/admin_auth.php';
 require __DIR__.'/student_auth.php';
 require __DIR__.'/instructor_auth.php';
 require __DIR__.'/backend.php';
+require __DIR__.'/site_setting.php';
+require __DIR__.'/instructor_authback.php';

@@ -30,14 +30,14 @@
            
             <!-- navbar deafult end here  -->
                 {{-- navbar 5 --}}
-                @includeIf('backend/admin_component/navbar0_dubble_top') 
-                @includeIf('backend/admin_component/navbar1_verticale')
-                @includeIf('backend/admin_component/navbar2_top')
+                @includeIf('instructor/admin_component/navbar0_dubble_top') 
+                @includeIf('instructor/admin_component/navbar1_verticale')
+                @includeIf('instructor/admin_component/navbar2_top')
 
             <div class="content">
              
-                @includeIf('backend/admin_component/navbar3_top_single_header')
-                @includeIf('backend/admin_component/navbar4_combo')
+                @includeIf('instructor/admin_component/navbar3_top_single_header')
+                @includeIf('instructor/admin_component/navbar4_combo')
                 
                 <!-- ===============================================-->
                 <!--    End of Main Content-->
@@ -50,7 +50,7 @@
                 <!-- ===============================================-->
                 <!--    End of Main Content-->
                 <!-- ===============================================-->
-                @includeIf('backend/admin_component/footer')
+                @includeIf('instructor/admin_component/footer')
             </div>
            
         </div>
@@ -61,8 +61,8 @@
 
 
 
-    @includeIf('backend/admin_component/offcanvas_customize')
-    @includeIf('backend/admin_component/js/script')
+    @includeIf('instructor/admin_component/offcanvas_customize')
+    @includeIf('instructor/admin_component/js/script')
 
     {{-- use for ck editor --}}
     <script>

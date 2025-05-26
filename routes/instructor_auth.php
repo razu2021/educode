@@ -12,6 +12,12 @@ Route::middleware(['auth','instructor'])->group(function(){
 
 Route::get('/instructor/dashboard',[InstructorController::class , 'index'])->name('instructor.dashboard');
 
+Route::controller(InstructorRequestController::class)->prefix('/instructor/dashboard/documents/')->name('instructor_documents.')->group(function(){
+    Route::get('{slug}','instructor_document_upload')->name('document_verification');
+    Route::post('submit','strat_verification')->name('submit');
+    Route::post('update','instructor_document_update')->name('update');
+});
+
 
 
 
@@ -26,6 +32,9 @@ Route::get('/instructor/dashboard',[InstructorController::class , 'index'])->nam
 /**================   Admin auth middleware route protection ============ */
 });
 /**================   Admin auth middleware route protection ============ */
+
+
+
 
 
 Route::middleware(['auth','check_role'])->group(function(){
@@ -57,6 +66,7 @@ Route::middleware(['auth','check_role'])->group(function(){
         Route::post('promote-your-course-on-social-media/update','self_promot_course_update')->name('self_promot_course_update');
         Route::post('why-become-an-instructor/update','self_motivation_update')->name('self_motivation_update');
         Route::post('terms-and-condition/update','condition_update')->name('condition_update');
+        Route::post('aproval-request/sbmit','aproval_status_update')->name('aproval_status_update');
     });
 
 

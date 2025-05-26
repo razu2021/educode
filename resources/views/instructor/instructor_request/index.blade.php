@@ -1,7 +1,24 @@
 @extends('dashboard')
 @section('instructor_request_content')
 <!-- Main Content Start -->
+@php 
+  use App\Models\InstructoreRequest;
+  $auth_user_id = auth()->id();
+  $data = InstructoreRequest::where('user_id',$auth_user_id)->first();
 
+  $totalfields = 32;
+  $progress = 0; // default value
+
+
+  if($data){
+    $fieldupcount = collect($data->toArray())->filter(function($value){
+    return !is_null($value) && $value !== '';
+  })->count();
+
+  $progress = intval(($fieldupcount / $totalfields) * 100);
+  }
+@endphp
+{{-- progress bar code end here  --}}
 
 <div class="container py-5">
     <div class="row g-4">
@@ -12,9 +29,20 @@
                     <img src="{{asset('contents/backend/instructor/img/complete.jpg')}}" alt="Create Course" class="img-fluid">
                 </div>
                 <div class="col-md-9">
-                    <h5>Create an Engaging Course</h5>
+                    <h5><strong>Welcome {{Auth::user()->name}}</strong></h5>
                     <p>Whether you've been teaching for years or are teaching for the first time, you can make an engaging course. We've compiled resources and best practices to help you get to the next level, no matter where you're starting.</p>
-                    <a href="{{route('instructor_request.find_us')}}" class="text-primary">Complete your profile now !</a>
+                    @if($progress  > 80 && $data->approval_status === 0)
+                        <form action="{{route('instructor_request.aproval_status_update')}}" method="post">
+                            @csrf
+                            <Button class="btn btn-success " type="submit">Submit for approval</Button>
+                        </form>
+                    @elseif($data->approval_status === 1)
+                        <p class="text-warning ">Your approval request is pending. Please wait for further updates.</p>
+                    @elseif($data->approval_status === 3)
+                        <p class="text-danger ">Your request has been rejected. It seems some information is missing. Please review and try again </p>
+                    @else
+                        <a href="{{route('instructor_request.find_us')}}" class="text-primary">Complete your profile now </a>
+                    @endif
                 </div>
             </div>
         </div>

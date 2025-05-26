@@ -144,30 +144,30 @@
                     </ul>
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#e-commerce" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-shopping-cart"></span></span><span class="nav-link-text ps-1">E commerce</span></div>
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-shopping-cart"></span></span><span class="nav-link-text ps-1">Instructor</span></div>
                     </a>
                     <ul class="nav collapse" id="e-commerce">
                         <li class="nav-item">
                             <a class="nav-link dropdown-indicator" href="#product" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product</span></div>
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Instructor</span></div>
                             </a>
                             <!-- more inner pages-->
                             <ul class="nav collapse" id="product">
                                 <li class="nav-item">
                                     <a class="nav-link" href="product-list.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product list</span></div>
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">New Request </span></div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="product-grid.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product grid</span></div>
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Rejected </span></div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="product-details.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product details</span></div>
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Active</span></div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
@@ -686,114 +686,123 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                 <li class="nav-item">
                     <!-- label-->
                     <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-                        <div class="col-auto navbar-vertical-label">Modules</div>
+                        <div class="col-auto navbar-vertical-label">Site Settings</div>
                         <div class="col ps-0">
                             <hr class="mb-0 navbar-vertical-divider" />
                         </div>
                     </div>
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#forms" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="forms">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-file-alt"></span></span><span class="nav-link-text ps-1">Forms</span></div>
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-file-alt"></span></span><span class="nav-link-text ps-1">General Settings</span></div>
                     </a>
                     <ul class="nav collapse" id="forms">
                         <li class="nav-item">
                             <a class="nav-link dropdown-indicator" href="#basic" data-bs-toggle="collapse" aria-expanded="false" aria-controls="forms">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Basic</span></div>
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Site Settings </span></div>
                             </a>
                             <!-- more inner pages-->
                             <ul class="nav collapse" id="basic">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="modules/forms/basic/form-control.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Form control</span></div>
+                                    <a class="nav-link" href="{{route('siteinformation.all')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Site Information</span></div>
+                                    </a>
+                                    <!-- more inner pages-->
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('preloader.all')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Preloader</span></div>
+                                    </a>
+                                    <!-- more inner pages-->
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('datetime.all')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Date & Time Formate</span></div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="modules/forms/basic/input-group.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Input group</span></div>
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">TimeZone</span></div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="modules/forms/basic/select.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Select</span></div>
+                                    <a class="nav-link" href="{{route('copyright.all')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Copyright</span></div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="modules/forms/basic/checks.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Checks</span></div>
+                                    <a class="nav-link" href="{{route('iconmanagement.all')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Faveicons</span></div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="modules/forms/basic/range.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Range</span></div>
+                                    <a class="nav-link" href="{{route('customcss.all')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Custom Css</span></div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="modules/forms/basic/layout.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Layout</span></div>
+                                    <a class="nav-link" href="{{route('customscript.all')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Custom Script</span></div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="modules/forms/basic/input-group.html">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Cache Settings</span></div>
+                                    </a>
+                                    <!-- more inner pages-->
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="modules/forms/basic/input-group.html">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Maintenance Mode</span></div>
+                                    </a>
+                                    <!-- more inner pages-->
+                                </li>
+                                
+                               
                             </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link dropdown-indicator" href="#advance" data-bs-toggle="collapse" aria-expanded="false" aria-controls="forms">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Advance</span></div>
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Contact Information</span></div>
                             </a>
                             <!-- more inner pages-->
                             <ul class="nav collapse" id="advance">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="modules/forms/advance/advance-select.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Advance select</span></div>
+                                    <a class="nav-link" href="{{route('siteemail.all')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Email</span></div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="modules/forms/advance/date-picker.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Date picker</span></div>
+                                    <a class="nav-link" href="{{route('sitephone.all')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Phone</span></div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="modules/forms/advance/editor.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Editor</span></div>
+                                    <a class="nav-link" href="{{route('siteaddress.all')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Address</span></div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="modules/forms/advance/emoji-button.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Emoji button</span></div>
+                                    <a class="nav-link" href="{{route('embedmap.all')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1"> Google Map</span></div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
+                               
                                 <li class="nav-item">
-                                    <a class="nav-link" href="modules/forms/advance/file-uploader.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">File uploader</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/forms/advance/input-mask.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Input mask</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/forms/advance/range-slider.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Range slider</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/forms/advance/rating.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Rating</span></div>
+                                    <a class="nav-link" href="{{route('sitesocial.all')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Social Media</span></div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
@@ -820,635 +829,173 @@
                     </ul>
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#tables" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="tables">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-table"></span></span><span class="nav-link-text ps-1">Tables</span></div>
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-table"></span></span><span class="nav-link-text ps-1"> Analytics Integration</span></div>
                     </a>
                     <ul class="nav collapse" id="tables">
+                        
                         <li class="nav-item">
-                            <a class="nav-link" href="modules/tables/basic-tables.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Basic tables</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/tables/advance-tables.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Advance tables</span></div>
+                            <a class="nav-link" href="{{route('googletagmanager.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Google Tag Manager</span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="modules/tables/bulk-select.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Bulk select</span></div>
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Mailchimp</span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
                     </ul>
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#charts" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="charts">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-chart-line"></span></span><span class="nav-link-text ps-1">Charts</span></div>
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-chart-line"></span></span><span class="nav-link-text ps-1"> Authentication </span></div>
                     </a>
                     <ul class="nav collapse" id="charts">
                         <li class="nav-item">
-                            <a class="nav-link" href="modules/charts/chartjs.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Chartjs</span></div>
+                            <a class="nav-link" href="{{route('authcredential.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Login with Social</span></div>
+                            </a>
+                            <!-- more inner pages-->
+                        </li>
+                       
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('authcredential.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Google reCAPTCHA</span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="modules/charts/d3js.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">D3js</span><span class="badge rounded-pill ms-2 badge-subtle-success">New</span></div>
+                            <a class="nav-link" href="{{route('authcredential.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Login & Registration </span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link dropdown-indicator" href="#eCharts" data-bs-toggle="collapse" aria-expanded="false" aria-controls="charts">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">ECharts</span></div>
+                            <a class="nav-link" href="{{route('authcredential.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Two-Factor</span></div>
                             </a>
                             <!-- more inner pages-->
-                            <ul class="nav collapse" id="eCharts">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/charts/echarts/line-charts.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Line charts</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/charts/echarts/bar-charts.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Bar charts</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/charts/echarts/candlestick-charts.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Candlestick charts</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/charts/echarts/geo-map.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Geo map</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/charts/echarts/scatter-charts.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Scatter charts</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/charts/echarts/pie-charts.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Pie charts</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/charts/echarts/gauge-charts.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Gauge charts</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/charts/echarts/radar-charts.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Radar charts</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/charts/echarts/heatmap-charts.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Heatmap charts</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/charts/echarts/how-to-use.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">How to use</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                            </ul>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('authcredential.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Email Verification</span></div>
+                            </a>
+                            <!-- more inner pages-->
+                        </li>
+                       
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('authcredential.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Ip Blacklisting</span></div>
+                            </a>
+                            <!-- more inner pages-->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('authcredential.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Multiple Attempts</span></div>
+                            </a>
+                            <!-- more inner pages-->
+                        </li>
+                       
                     </ul>
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#icons" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="icons">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-shapes"></span></span><span class="nav-link-text ps-1">Icons</span></div>
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-shapes"></span></span><span class="nav-link-text ps-1">Email & Notification</span></div>
                     </a>
                     <ul class="nav collapse" id="icons">
                         <li class="nav-item">
-                            <a class="nav-link" href="modules/icons/font-awesome.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Font awesome</span></div>
+                            <a class="nav-link" href="{{route('emailsetup.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Email Setup</span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="modules/icons/bootstrap-icons.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Bootstrap icons</span></div>
+                            <a class="nav-link" href="{{route('siteadminmail.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Admin Mail</span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="modules/icons/feather.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Feather</span></div>
+                            <a class="nav-link" href="{{route('sendemail.add')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Send Email</span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="modules/icons/material-icons.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Material icons</span></div>
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Email Template Manager</span></div>
+                            </a>
+                            <!-- more inner pages-->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="modules/icons/material-icons.html">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Push Notification</span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
                     </ul>
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#maps" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="maps">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-map"></span></span><span class="nav-link-text ps-1">Maps</span></div>
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-map"></span></span><span class="nav-link-text ps-1"> Payment Gateway </span></div>
                     </a>
                     <ul class="nav collapse" id="maps">
                         <li class="nav-item">
-                            <a class="nav-link" href="modules/maps/google-map.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Google map</span></div>
+                            <a class="nav-link" href="{{route('pgcredential.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Payment Gateway</span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="modules/maps/leaflet-map.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Leaflet map</span></div>
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">PayPal</span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="modules/maps/leaflet-map.html">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Bkash</span></div>
+                            </a>
+                            <!-- more inner pages-->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="modules/maps/leaflet-map.html">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Nagad</span></div>
+                            </a>
+                            <!-- more inner pages-->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="modules/maps/leaflet-map.html">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Rocket</span></div>
+                            </a>
+                            <!-- more inner pages-->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="modules/maps/leaflet-map.html">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">MasterCard</span></div>
+                            </a>
+                            <!-- more inner pages-->
+                        </li>
+                      
                     </ul>
                     <!-- parent pages-->
-                    <a class="nav-link dropdown-indicator" href="#components" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="components">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-puzzle-piece"></span></span><span class="nav-link-text ps-1">Components</span></div>
+
+
+                    <a class="nav-link dropdown-indicator" href="#logs" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="maps">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-map"></span></span><span class="nav-link-text ps-1">Log Check </span></div>
                     </a>
-                    <ul class="nav collapse" id="components">
+                    <ul class="nav collapse" id="logs">
                         <li class="nav-item">
-                            <a class="nav-link" href="modules/components/accordion.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Accordion</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/alerts.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Alerts</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/anchor.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Anchor</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/animated-icons.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Animated icons</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/background.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Background</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/badges.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Badges</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/bottom-bar.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Bottom bar</span><span class="badge rounded-pill ms-2 badge-subtle-success">New</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/breadcrumbs.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Breadcrumbs</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/buttons.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Buttons</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/calendar.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Calendar</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/cards.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Cards</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-indicator" href="#carousel" data-bs-toggle="collapse" aria-expanded="false" aria-controls="components">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Carousel</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                            <ul class="nav collapse" id="carousel">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/components/carousel/bootstrap.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Bootstrap</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/components/carousel/swiper.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Swiper</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/collapse.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Collapse</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/cookie-notice.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Cookie notice</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/countup.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Countup</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/dropdowns.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Dropdowns</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/jquery-components.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Jquery</span><span class="badge rounded-pill ms-2 badge-subtle-success">New</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/list-group.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">List group</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/modals.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Modals</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-indicator" href="#navs-_and_-Tabs" data-bs-toggle="collapse" aria-expanded="false" aria-controls="components">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Navs &amp; Tabs</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                            <ul class="nav collapse" id="navs-_and_-Tabs">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/components/navs-and-tabs/navs.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Navs</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/components/navs-and-tabs/navbar.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Navbar</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/components/navs-and-tabs/vertical-navbar.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Navbar vertical</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/components/navs-and-tabs/top-navbar.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Top nav</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/components/navs-and-tabs/double-top-navbar.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Double top</span><span class="badge rounded-pill ms-2 badge-subtle-success">New</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/components/navs-and-tabs/combo-navbar.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Combo nav</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/components/navs-and-tabs/tabs.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Tabs</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/offcanvas.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Offcanvas</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-indicator" href="#pictures" data-bs-toggle="collapse" aria-expanded="false" aria-controls="components">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Pictures</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                            <ul class="nav collapse" id="pictures">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/components/pictures/avatar.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Avatar</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/components/pictures/images.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Images</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/components/pictures/figures.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Figures</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/components/pictures/hoverbox.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Hoverbox</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/components/pictures/lightbox.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Lightbox</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/progress-bar.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Progress bar</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/placeholder.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Placeholder</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/pagination.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Pagination</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/popovers.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Popovers</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/scrollspy.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Scrollspy</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/search.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Search</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/sortable.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Sortable</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/spinners.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Spinners</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/timeline.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Timeline</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/toasts.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Toasts</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/tooltips.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Tooltips</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/treeview.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Treeview</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/components/typed-text.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Typed text</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-indicator" href="#videos" data-bs-toggle="collapse" aria-expanded="false" aria-controls="components">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Videos</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                            <ul class="nav collapse" id="videos">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/components/videos/embed.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Embed</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="modules/components/videos/plyr.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Plyr</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <!-- parent pages-->
-                    <a class="nav-link dropdown-indicator" href="#utilities" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="utilities">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-fire"></span></span><span class="nav-link-text ps-1">Utilities</span></div>
-                    </a>
-                    <ul class="nav collapse" id="utilities">
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/background.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Background</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/borders.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Borders</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/clearfix.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Clearfix</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/colors.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Colors</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/colored-links.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Colored links</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/display.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Display</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/flex.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Flex</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/float.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Float</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/focus-ring.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Focus ring</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/grid.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Grid</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/icon-link.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Icon link</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/overlayscrollbar.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Overlay scrollbar</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/position.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Position</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/ratio.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Ratio</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/spacing.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Spacing</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/sizing.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Sizing</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/stretched-link.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Stretched link</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/text-truncation.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Text truncation</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/typography.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Typography</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/vertical-align.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Vertical align</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/vertical-rule.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Vertical rule</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/visibility.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Visibility</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="modules/utilities/visually-hidden.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Visually hidden</span></div>
+                            <a class="nav-link" href="">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Log File</span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
                     </ul>
                     <!-- parent pages-->
-                    <a class="nav-link" href="widgets.html" role="button">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-poll"></span></span><span class="nav-link-text ps-1">Widgets</span></div>
+                    
+                   
+                    <!-- parent pages-->
+                    <a class="nav-link" href="{{route('maintenancemode.all')}}" role="button">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><i class="bi bi-sliders"></i></span><span class="nav-link-text ps-1">Maintenance Mode</span></div>
                     </a>
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#multi-level" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="multi-level">

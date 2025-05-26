@@ -25,7 +25,7 @@
       padding: 0.75rem 1.5rem;
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 1;
     }
 
     .dashboard-logo {

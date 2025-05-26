@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\backend\admin\AdminController;
 use App\Http\Controllers\backend\category\categoryController;
 
@@ -11,7 +11,7 @@ use App\Http\Controllers\backend\courses\CourseChildCategoryController;
 use App\Http\Controllers\backend\courses\CourseController;
 use App\Http\Controllers\backend\courses\CoursesSubCategorys;
 use App\Http\Controllers\backend\other\MetaTagController;
-use Illuminate\Support\Facades\Route;
+
 
 
 

@@ -4,6 +4,16 @@ namespace App\Providers;
 
 use App\Models\Category;
 use App\Models\CourseCategory;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
+use Illuminate\Support\Facades\Event;
+// ----- event  ----
+use App\Events\user\UserRegisterEvent;
+//----- listener ---
+use App\Listeners\user\UserRegisterListener; 
+// logviwer
+use Opcodes\LogViewer\Facades\LogViewer;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,5 +44,20 @@ class AppServiceProvider extends ServiceProvider
             'categories'=> $categorys,
             'globalcoursecategory' => $coursecate,
         ]);
+
+
+
+                /**  -----  added Event and  listner  -----*/
+
+        Event::listen(
+            UserRegisterEvent::class, 
+            [UserRegisterListener::class, 'handle']
+        );
+
+
+        /**=====  logviewr route protected code ====== */
+        LogViewer::auth(function ($request) {
+            return Auth::guard('admin')->check();
+        });
     }
 }

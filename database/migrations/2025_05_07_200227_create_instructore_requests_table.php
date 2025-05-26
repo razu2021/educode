@@ -58,6 +58,7 @@ return new class extends Migration
             $table->text('future_contribution_plan')->nullable();
             $table->text('what_makes_you_unique')->nullable();
              $table->string('agrees_to_terms')->nullable();
+             $table->integer('approval_status')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

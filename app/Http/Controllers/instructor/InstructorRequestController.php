@@ -5,7 +5,19 @@ namespace App\Http\Controllers\instructor;
 use App\Http\Controllers\Controller;
 use App\Models\CourseCategory;
 use App\Models\InstructoreRequest;
+use App\Models\UserSocial;
+use App\Models\UserSupportingDocument;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File; 
+use Carbon\Carbon; //----------  defualt -------
+use Illuminate\Support\Str;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+
+
+
 
 
 class InstructorRequestController extends Controller
@@ -264,9 +276,139 @@ class InstructorRequestController extends Controller
         return redirect()->route('dashboard');
     }
 
+    public function aproval_status_update(Request $request){
+
+        $user_id = auth()->id();
+        $update = InstructoreRequest::where('user_id',$user_id)->where('approval_status',0)->update([
+            'approval_status' => 1,
+        ]);
+        // Delete Successfully 
+        if($update){
+            flash()->success(' Thank you! Your request has been received and is being processed.');
+        }else{
+            flash()->error('Informatin Submit Faild !');
+        }
+        return redirect()->back();
+    }
 
 
 
+
+
+    /**=============== instructor document verifcation  function start here ============ */
+    
+ 
+
+    /**------ Profile status   --- */
+    public function instructor_document_upload(){
+
+    $user_id = auth()->id();
+      $data = UserSupportingDocument::where('user_id',$user_id)->first();
+
+       
+        return view('instructor.instructor_request.request.upload_document',compact('data'));
+    }
+
+
+
+    /**=====  insert data into the table ===== */
+    public function strat_verification(Request $request){
+
+        $user_id = auth()->id();
+        $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();
+
+        UserSocial::create([
+            'user_id' => $user_id,
+            'slug' => $slug,
+        ]);
+        UserSupportingDocument::create([
+            'user_id' => $user_id,
+            'slug' => $slug,
+        ]);
+
+        return redirect()->route('instructor_documents.document_verification',[$user_id,$slug]);
+      
+    }
+
+
+
+
+
+    /**------ upload  supporting documents  status   --- */
+    public function instructor_document_update(Request $request){
+        
+         /**--- validation code -- */
+        $request->validate([
+                'images'=> 'required',
+                'certificate'=> 'required',
+                'cv'=> 'required',
+            ],[
+                'images.required'=> ' phone  is Required !',
+                'certificate.required'=> ' Certificet  is Required !',
+                'cv.required'=> ' Cv  is Required !',
+            ]
+        );
+
+        // ------  create a slug & get creator id -------
+        $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();
+        $user_id = auth()->id();
+       
+
+        /**  ------- upload image using image intervention -------- use image top */
+        if($request->hasFile('images')){
+            $file = $request->file('images'); // get actual image 
+            $imageName= time().'_'.rand(10000,100000).'.webp'; // make image name with webp extension
+            $manager= new ImageManager(new Driver()); // image driver use 
+            $realPath = 'uploads/website/preloader/';  // make real path for store name in database
+            $fullPath = $realPath.$imageName; // make full path realpath and imagename 
+            $publicPath =  public_path($realPath); // hard file save directory 
+            if (!File::exists($publicPath)) {
+                File::makeDirectory($publicPath, 0755, true);  // create a directory if the  directory not exist 
+            }
+            /** image manupulate  */
+            $image = $manager->read($file)
+            ->scaleDown(1000)
+            ->cover(100, 100)
+            ->toWebp(90)
+            ->save($publicPath . $imageName);
+
+
+            /** --- Delete old image from directories ------  */
+            $old_path = UserSupportingDocument::where('id', $user_id)->first();
+          
+            $file_paths = public_path($old_path->image);
+
+            if (file_exists($file_paths)) {
+                File::delete($file_paths);
+                flash()->success('Old File Deleted Successfully!');
+            }
+            /** --- Delete old image from directories ------ END --- */
+
+            /**-- save image name in database */
+          $insert=   UserSupportingDocument::where('user_id',$user_id)->where('slug',$slug)->update([
+                'image'=>  $fullPath,
+            ]);
+
+        }
+
+
+
+
+
+
+        // insert Successfully 
+        if($insert){
+            flash()->success('Information Added Successfuly');
+        }else{
+            flash()->error('Informatin Added Faild !');
+        }
+        return redirect()->back();
+
+
+
+    }
+
+    /**=============== instructor document verifcation  function end here ============ */
 
 
 

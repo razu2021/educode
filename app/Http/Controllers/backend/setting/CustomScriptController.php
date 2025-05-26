@@ -1,0 +1,407 @@
+<?php
+
+namespace App\Http\Controllers\backend\setting;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+//use Illuminate\Support\Facades\File; 
+use Barryvdh\DomPDF\Facade\Pdf; //-------------Export --------
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportData\CustomscriptExport;
+use ZipArchive;
+use Illuminate\Support\Facades\Response; 
+use Carbon\Carbon; //----------  defualt -------
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\CustomScript;
+
+class CustomScriptController extends Controller
+{
+   /**
+     * =============================================================
+     * ==============================================================================================  SHOW FUNCTION START HERE ========================================================
+     * =============================================================
+     */
+    public function index(Request $request){
+        $search = $request['search'] ?? "";
+        if($search !=""){
+            $all = CustomScript::where('status',1)->where('custom_script','LIKE',"%$search%")
+           ->get();
+        }else{
+            $all = CustomScript::where('status',1)->get();
+        }
+        return view('backend.setting.customscript.index',compact('all'));
+    }
+
+
+   /**
+    * ---------  add page functionality --------
+    **/
+    public function add(){
+        $totalpost  = CustomScript::get()->count();
+        $latestPost = CustomScript::latest()->first();
+        return view('backend.setting.customscript.add',compact('totalpost','latestPost'));
+    }
+
+
+   /**
+    * ---------  view page functionality --------
+    **/
+    public function view($id,$slug){
+        $data= CustomScript::where('status',1)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        return view('backend.setting.customscript.view',compact('data'));
+    }
+
+
+   /**
+    * ---------  edit page functionality --------
+    **/
+    public function edit($id,$slug){
+        $totalpost  = CustomScript::get()->count();
+        $latestPost = CustomScript::latest()->first();
+        $data= CustomScript::where('status',1)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        return view('backend.setting.customscript.edit',compact('totalpost','latestPost','data'));
+    }
+
+
+   /**
+     * =======================================================================
+     * ==============================================================================================  CREATE FUNCTION START HERE ========================================================
+     * =======================================================================
+     */
+    public function insert(Request $request){
+        /**--- validation code -- */
+        $request->validate([
+                'custom_script'=> 'required',
+            ],[
+               
+                
+                'custom_script.required'=> ' phone  is Required !',
+            ]
+        );
+
+        // ------  create a slug & get creator id -------
+        $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();;
+        $creator = Auth::guard('admin')->user()->id;
+
+       
+
+        //-------  insert category record --------
+        $insert = CustomScript::create([
+          'script_note'=>$request->script_note,
+          'custom_script'=>$request->custom_script,
+            'slug'=>$slug,
+            'creator_id' => $creator,
+            'created_at' => Carbon::now()->toDateTimeString(),
+        ]);
+        // insert Successfully 
+        if($insert){
+            flash()->success('Information Added Successfuly');
+        }else{
+            flash()->error('Informatin Added Faild !');
+        }
+        return redirect()->back();
+    }
+
+
+   /**
+     * ===========================================================
+     * ==============================================================================================  UPDATE FUNCTION START HERE ========================================================
+     * ===========================================================
+     */
+    public function update(Request $request){
+        /**--- validation code -- */
+        $request->validate([
+          
+            'custom_script'=> 'required',
+        ],[
+           
+            'custom_script.required'=> ' phone  is Required !',
+        ]
+    );
+
+
+    //--- get specific Credential for update record & editor id --------
+    $id = $request->id;
+    $slug = $request->slug;
+    $editor = Auth::guard('admin')->user()->id;
+
+    //---------category update -------//
+    $update = CustomScript::where('id',$id)->where('slug',$slug)->update([
+        'script_note'=>$request->script_note,
+        'custom_script'=>$request->custom_script,
+        'editor_id' => $editor,
+        'updated_at' => Carbon::now()->toDateTimeString(),
+    ]);
+    
+
+    // ------insert Successfully--------// 
+    if($update){
+        flash()->success('Information Update Successfuly');
+        return redirect()->route('customscript.view',[$id,$slug]);
+    }else{
+        flash()->error('Informatin Update Faild !');
+    }
+    return redirect()->back();
+
+    } // update end 
+
+
+
+
+
+   /**
+     * =================================================
+     * =========================================================================== SOFT,HEARD DELETE, RESTORE ,RECYCLE,ACTIVE ,DEACTIVE FUNCTION START HERE ========================================================
+     * ================================================
+     */
+    public function softdelete($id){
+        $data= CustomScript::where('id',$id)->first();
+        $data->delete();
+        // ----Delete Successfully ----//
+        if($data){
+            flash()->success('Information Delete Successfuly');
+        }else{
+            flash()->error('Informatin Delete Faild !');
+        }
+        return redirect()->back();
+    }
+
+   /**
+    * ---------  restore  page functionality --------
+    **/
+    public function restore($id){
+        $data = CustomScript::withTrashed()->where('id', $id)->first();
+        $data->restore();
+        // Delete Successfully 
+        if($data){
+            flash()->success('Information Restore Successfuly');
+        }else{
+            flash()->error('Informatin Restore Faild !');
+        }
+        return redirect()->back();
+    }
+
+
+   /**
+    * ---------  Heard Delete  functionality --------
+    **/
+    public function delete($id){
+        $data = CustomScript::onlyTrashed()->where('id', $id)->first();
+        if($data) {
+            $data->forceDelete();
+        flash()->success('Record Deleted Successfully');
+        } else {
+            flash()->error('Delete Record Failed!');
+        }
+        return redirect()->back();
+    }
+    
+
+
+   /**
+    * ---------  Published post  functionality --------//
+    **/
+    public function public_status($id,$slug){
+        $published = CustomScript::where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
+            'public_status'=>1,
+        ]);
+        // Delete Successfully 
+        if($published){
+            flash()->success('Information Published Successfully !');
+        }else{
+            flash()->error('Informatin Published Faild !');
+        }
+        return redirect()->back();
+    }
+
+
+   /**
+    * ---------  Private post  functionality --------//
+    **/
+    public function private_status($id,$slug){
+        $private = CustomScript::where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
+            'public_status'=>0,
+        ]);
+        // Delete Successfully 
+        if($private){
+            flash()->success('Information Private Successfully !');
+        }else{
+            flash()->error('Informatin Private Faild !');
+        }
+        return redirect()->back();
+    }
+
+
+
+   /**
+    * ---------  Recycle  page functionality --------//
+    **/
+    public function recycle(){
+        $all = CustomScript::onlyTrashed()->get();
+        return view('backend.setting.customscript.recycle',compact('all'));
+    }
+
+
+
+
+
+   /**
+     * =====================================================
+     * ==============================================================================================  BULK ACTION FUNCTION START HERE ========================================================
+     * =====================================================
+     */
+
+    public function bulkAction(Request $request)
+    {
+        //----- get multiple items id or bulk record -----//
+        $ids = $request->input('ids', []);
+        $action = $request->input('action');
+    
+        if (empty($ids)) {
+            return response()->json(['success' => false, 'message' => 'No IDs selected.']);
+        }
+    
+        //----- for multiple items soft delete ----//
+        if ($action === 'delete') {
+            CustomScript::whereIn('id', $ids)->delete();
+            return response()->json(['success' => true, 'message' => 'Selected categories deleted.']);
+        }
+        //--- for multiple items heard delete -------//
+        if ($action === 'heard_delete') {
+            $categories = CustomScript::onlyTrashed()->whereIn('id', $ids)->get();
+        
+            foreach ($categories as $category) {
+                // 4. Category force delete
+                $category->forceDelete();
+            }
+        
+            return response()->json(['success' => true, 'message' => 'Selected categories permanently deleted with SEO and images.']);
+        }
+        
+    
+        //---- for multiple items resotre --------//
+        if ($action === 'restore') {
+            $categories = CustomScript::onlyTrashed()->whereIn('id', $ids)->get();
+            if($categories){
+                foreach($categories as $data){
+                    $data->restore();
+                }
+            }
+            return response()->json(['success' => true, 'message' => 'Selected categories archived.']);
+        }
+        //----- for multiple items active ----//
+        if ($action === 'active') {
+            $categories = CustomScript::whereIn('id', $ids)->get();
+
+            if($categories){
+                foreach($categories as $data){
+
+                    CustomScript::whereIn('id',$ids)->where('public_status',0)->update([
+                        'public_status'=>1,
+                    ]);
+                }
+            }
+            return response()->json(['success' => true, 'message' => 'Refund process started.']);
+        }
+
+        //--  for multiple items deactive ----- //
+        if ($action === 'deactive') {
+            $categories = CustomScript::whereIn('id', $ids)->get();
+            if($categories){
+                foreach($categories as $data){
+                    CustomScript::whereIn('id',$ids)->where('public_status',1)->update([
+                        'public_status'=>0,
+                    ]);
+                }
+            }
+            return response()->json(['success' => true, 'message' => 'Refund process started.']);
+        }
+        return response()->json(['success' => false, 'message' => 'Invalid action.']);
+    } // bulk action end here 
+    
+
+
+    /**
+     * ==========================================================
+     * ==============================================================================================  EXPORT FUNCTION START HERE ========================================================
+     * ===========================================================
+     */
+
+    public function export_pdf(){
+        $categories = CustomScript::get();
+       // return view('backend.setting.customscript.export_pdf', compact('categories'));
+        $pdf = Pdf::loadView('backend.setting.customscript.export_pdf', compact('categories')); // get database record 
+        $filename = rand(100000,100000000) . Carbon::now()->format('Y_m_d_His') . '.pdf'; // make pdf file name 
+        return $pdf->download($filename); // download file 
+    }
+
+    /**
+     * ---------  export single pdf functionality ------
+     */
+    public function export_single_pdf($id,$slug){
+        $data = CustomScript::where('id',$id)->where('slug',$slug)->firstOrFail();
+       // return view('backend.setting.customscript.export_pdf', compact('categories'));
+        $pdf = Pdf::loadView('backend.setting.customscript.export_single_pdf', compact('data'));
+        $filename = rand(100000,100000000) . Carbon::now()->format('Y_m_d_His') . '.pdf';
+        return $pdf->download($filename);
+    }
+
+
+    /**
+     * ---------  export Excel or xlsx file functionality ------
+     */
+    public function export_excel(){
+        return Excel::download(new CustomscriptExport, 'info.xlsx');
+    }
+
+    /**
+     * ---------  export csv file functionality ------
+     */
+    public function export_csv(){
+        return Excel::download(new CustomscriptExport, 'info.csv');
+    }
+
+    public function export_zip()
+    {
+        // File paths for CSV, XLSX, and PDF
+        $csvFilePath = storage_path('app/public/info.csv');
+        $xlsxFilePath = storage_path('app/public/info.xlsx');
+        $pdfFilePath = storage_path('app/public/info.pdf');
+
+        // Export CSV file
+        Excel::store(new CustomscriptExport, 'info.csv', 'public');
+        
+        // Export XLSX file
+        Excel::store(new CustomscriptExport, 'info.xlsx', 'public');
+        
+        // Export PDF file
+        $pdf = Pdf::loadView('backend.setting.customscript.export_pdf', ['categories' => CustomScript::all()]);
+        $pdf->save($pdfFilePath);
+
+        // Create a zip file
+        $zip = new ZipArchive;
+        $zipFilePath = storage_path('app/public/information.zip');
+        
+        if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE) {
+            $zip->addFile($csvFilePath, 'info.csv');
+            $zip->addFile($xlsxFilePath, 'info.xlsx');
+            $zip->addFile($pdfFilePath, 'info.pdf');
+            $zip->close();
+        }
+
+        // Return the zip file for download
+       $response = Response::download($zipFilePath)->deleteFileAfterSend(true);
+
+            // Manually delete the CSV, XLSX, and PDF files after the zip file is downloaded
+            unlink($csvFilePath);
+            unlink($xlsxFilePath);
+            unlink($pdfFilePath);
+            return $response;
+    } // export zip end here 
+
+
+
+
+
+}
