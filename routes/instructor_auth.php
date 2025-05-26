@@ -13,12 +13,21 @@ Route::middleware(['auth','instructor'])->group(function(){
 Route::get('/instructor/dashboard',[InstructorController::class , 'index'])->name('instructor.dashboard');
 
 Route::controller(InstructorRequestController::class)->prefix('/instructor/dashboard/documents/')->name('instructor_documents.')->group(function(){
-    Route::get('{slug}','instructor_document_upload')->name('document_verification');
+
+    Route::get('upload/{userid}/{slug}' , 'instructor_document_upload')->name('document_verification');
     Route::post('submit','strat_verification')->name('submit');
     Route::post('update','instructor_document_update')->name('update');
+    //  -------  social media update  route -----
+});
+
+Route::controller(InstructorRequestController::class)->prefix('/instructor/dashboard/social/')->name('user_social.')->group(function(){
+    Route::get('upload/{userid}/{slug}' , 'user_social')->name('add');
+    Route::post('update','user_social_update')->name('update');
+    //  -------  social media update  route -----
 });
 
 
+ 
 
 
 

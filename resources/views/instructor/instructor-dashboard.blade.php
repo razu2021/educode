@@ -6,13 +6,13 @@
     <div class="bg-holder bg-card" style="background-image:url({{asset('contents/backend/assets')}}/assets/img/icons/spot-illustrations/corner-1.png);"></div>
     <!--/.bg-holder-->
     <div class="card-body position-relative">
-        <h5 class="text-warning"><span class="text-success"> Welcome </span> {{Auth::user()->name}}</h5>
-        <p class="fs-10 mb-0">Your storage will be running out soon. Get more space and powerful productivity features.</p>
+        <h4 class="text-warning mb-3"><span class="text-success"> Welcome </span> {{Auth::user()->name}}</h4>
       @if(empty($userverify))
+      <p class="fs-10 mb-0">Your storage will be running out soon. Get more space and powerful productivity features.</p>
         {{-- যদি কোনো ডকুমেন্টই না থাকে --}}
         <form action="{{route('instructor_documents.submit')}}" method="post">
             @csrf
-            <button class="btn btn-danger" type="submit"> 
+            <button class="btn btn-danger mt-3" type="submit"> 
                 Start Profile Verification 
                 <span class="fas fa-chevron-right ms-1" data-fa-transform="shrink-4 down-1"></span>
             </button>
@@ -20,7 +20,7 @@
       
         @elseif(empty($userverify->cv) || empty($userverify->certificate) || empty($userverify->image ) || empty($userverify->userSocial->facebook) || empty($userverify->userSocial->youtube))
             {{-- যদি যেকোনো একটি ফাঁকা থাকে --}}
-            <a class="btn btn-link fs-10 text-warning mt-lg-3 ps-0" href="{{ route('instructor_documents.document_verification',$userverify->user_id ?? 'no')}}">
+            <a class="btn btn-link fs-10 text-warning mt-lg-3 ps-0" href="{{ route('instructor_documents.document_verification',[$userverify->user_id,$userverify->slug])}}">
                 <button class="btn btn-warning">
                     Need to Finish Profile 
                     <span class="fas fa-chevron-right ms-1" data-fa-transform="shrink-4 down-1"></span>
@@ -28,7 +28,12 @@
             </a>
         @else
             {{-- যদি সব কিছু পূর্ণ থাকে --}}
-            <a class="btn btn-link fs-10 text-warning mt-lg-3 ps-0" href="">
+            <h5 class="fs-10 mb-0"><strong> You're almost there!</strong></h5>
+            <p class="fs-10 mb-0"> Now that you've completed all the required steps, it's time to submit your application for review. <br>
+            Once we receive your submission, our team will carefully review your documents and profile to ensure everything meets our guidelines. <br>
+            You can expect a decision within 24 hours.</p>
+            <p class="fs-10 mb-0"> <b> We appreciate your effort and are excited to welcome you to our instructor community! </b></p>
+            <a class="btn btn-link fs-10 text-warning mt-lg-2 ps-0" href="">
                 <button class="btn btn-success">
                     Submit for Review 
                     <span class="fas fa-chevron-right ms-1" data-fa-transform="shrink-4 down-1"></span>
@@ -41,8 +46,6 @@
     </div>
 </div>
 
-<h1></h1>
-<a href="{{ route('instructor_documents.document_verification',$userverify->user_id)}}">{{$userverify->user_id .$userverify->slug}}</a>
 {{-- instructor section end  --}}
 
 

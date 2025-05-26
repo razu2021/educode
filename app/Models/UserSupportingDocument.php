@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class UserSupportingDocument extends Model
 {
-       use SoftDeletes;
+    use SoftDeletes;
     protected $primaryKey = "id";
     protected $guarded=[];
+
+    
 
     public function userSocial()
     {

@@ -35,12 +35,7 @@
                             </a>
                             <!-- more inner pages-->
                         </li>  
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('instructor_documents.document_verification')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Profile Verification</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>  
+                        
                     </ul>
                 </li>
                   

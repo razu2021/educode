@@ -26,7 +26,7 @@ class InstructorRequestController extends Controller
     /**  -- index page  */
     public function index()
     {
-        $user_id = auth()->id();
+        $user_id = auth::id();
     
         $data = InstructoreRequest::where('user_id', $user_id)->first();
     
@@ -107,7 +107,7 @@ class InstructorRequestController extends Controller
     public function insert(Request $request){
 
 
-        $user_id = auth()->id();
+        $user_id = auth::id();
         $alreadyExists = InstructoreRequest::where('user_id', $user_id)->exists();
 
         if ($alreadyExists) {
@@ -126,7 +126,7 @@ class InstructorRequestController extends Controller
 
     /**--------- how to find us update  */
     public function find_us_update(Request $request){
-        $user_id = auth()->id();
+        $user_id = auth::id();
         $update = InstructoreRequest::where('user_id',$user_id)->update([
             'sourcing' => $request->sourcing,
         ]);
@@ -135,7 +135,7 @@ class InstructorRequestController extends Controller
     }
     /**--------- category update */
     public function category_update(Request $request){
-        $user_id = auth()->id();
+        $user_id = auth::id();
         $update = InstructoreRequest::where('user_id',$user_id)->update([
             'category' => $request->category,
         ]);
@@ -144,7 +144,7 @@ class InstructorRequestController extends Controller
     }
     /**--------- Education and  qualification  update */
     public function education_update(Request $request){
-        $user_id = auth()->id();
+        $user_id = auth::id();
         $update = InstructoreRequest::where('user_id',$user_id)->update([
             'last_education' => $request->last_education,
             'location' => $request->location,
@@ -156,7 +156,7 @@ class InstructorRequestController extends Controller
 
 /**----  teaching experience ------- */
     public function teaching_ex_update(Request $request){
-        $user_id = auth()->id();
+        $user_id = auth::id();
         $update = InstructoreRequest::where('user_id',$user_id)->update([
             'has_teaching_experience' => $request->has_teaching_experience,
             'experience_year' => $request->experience_year,
@@ -169,7 +169,7 @@ class InstructorRequestController extends Controller
 
      /**--------- course preparetion  update */
     public function course_pre_update(Request $request){
-        $user_id = auth()->id();
+        $user_id = auth::id();
         $update = InstructoreRequest::where('user_id',$user_id)->update([
             'can_create_thumbnail' => $request->can_create_thumbnail,
             'can_create_promo_video' => $request->can_create_promo_video,
@@ -185,7 +185,7 @@ class InstructorRequestController extends Controller
 
      /**--------- TEchnicale setup   update */
     public function technicale_setup_update(Request $request){
-        $user_id = auth()->id();
+        $user_id = auth::id();
         $update = InstructoreRequest::where('user_id',$user_id)->update([
             'able_tolive_class' => $request->able_tolive_class,
             'has_webcam' => $request->has_webcam,
@@ -198,7 +198,7 @@ class InstructorRequestController extends Controller
 
      /**--------- Comiunication skil  update */
     public function comiunication_skil_update(Request $request){
-        $user_id = auth()->id();
+        $user_id = auth::id();
         $update = InstructoreRequest::where('user_id',$user_id)->update([
             'can_reply_within_24h' => $request->can_reply_within_24h,
             'can_participate_community' => $request->can_participate_community,
@@ -209,7 +209,7 @@ class InstructorRequestController extends Controller
     }
      /**--------- Ethics and commitment update */
     public function ethics_update(Request $request){
-        $user_id = auth()->id();
+        $user_id = auth::id();
         $update = InstructoreRequest::where('user_id',$user_id)->update([
             'no_copyright_violation' => $request->no_copyright_violation,
             'accepts_review_policy' => $request->accepts_review_policy,
@@ -223,7 +223,7 @@ class InstructorRequestController extends Controller
 
      /**--------- self promort your course update */
     public function self_promot_course_update(Request $request){
-        $user_id = auth()->id();
+        $user_id = auth::id();
         $update = InstructoreRequest::where('user_id',$user_id)->update([
             'willing_to_promote_course' => $request->willing_to_promote_course,
             'interested_in_affiliate' => $request->interested_in_affiliate,
@@ -257,7 +257,7 @@ class InstructorRequestController extends Controller
 
 
 
-        $user_id = auth()->id();
+        $user_id = auth::id();
         $update = InstructoreRequest::where('user_id',$user_id)->update([
             'why_become_instructor' => $request->why_become_instructor,
             'future_contribution_plan' => $request->future_contribution_plan,
@@ -269,7 +269,7 @@ class InstructorRequestController extends Controller
 
     public function condition_update(Request $request){
 
-         $user_id = auth()->id();
+         $user_id = auth::id();
         $update = InstructoreRequest::where('user_id',$user_id)->update([
             'agrees_to_terms' => $request->agrees_to_terms,
         ]);
@@ -278,7 +278,7 @@ class InstructorRequestController extends Controller
 
     public function aproval_status_update(Request $request){
 
-        $user_id = auth()->id();
+        $user_id = auth::id();
         $update = InstructoreRequest::where('user_id',$user_id)->where('approval_status',0)->update([
             'approval_status' => 1,
         ]);
@@ -300,10 +300,11 @@ class InstructorRequestController extends Controller
  
 
     /**------ Profile status   --- */
-    public function instructor_document_upload(){
+    public function instructor_document_upload($userid , $slug){
 
-    $user_id = auth()->id();
-      $data = UserSupportingDocument::where('user_id',$user_id)->first();
+
+  
+      $data = UserSupportingDocument::where('user_id',$userid)->where('slug',$slug)->first();
 
        
         return view('instructor.instructor_request.request.upload_document',compact('data'));
@@ -314,7 +315,7 @@ class InstructorRequestController extends Controller
     /**=====  insert data into the table ===== */
     public function strat_verification(Request $request){
 
-        $user_id = auth()->id();
+        $user_id = auth::id();
         $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();
 
         UserSocial::create([
@@ -337,29 +338,31 @@ class InstructorRequestController extends Controller
     /**------ upload  supporting documents  status   --- */
     public function instructor_document_update(Request $request){
         
-         /**--- validation code -- */
-        $request->validate([
-                'images'=> 'required',
-                'certificate'=> 'required',
-                'cv'=> 'required',
-            ],[
-                'images.required'=> ' phone  is Required !',
-                'certificate.required'=> ' Certificet  is Required !',
-                'cv.required'=> ' Cv  is Required !',
-            ]
-        );
-
-        // ------  create a slug & get creator id -------
-        $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();
-        $user_id = auth()->id();
        
+         /**--- validation code -- */
+        // $request->validate([
+        //         'images'=> 'required',
+        //         'certificate'=> 'required',
+        //         'cv'=> 'required',
+        //     ],[
+        //         'images.required'=> ' phone  is Required !',
+        //         'certificate.required'=> ' Certificet  is Required !',
+        //         'cv.required'=> ' Cv  is Required !',
+        //     ]
+        // );
 
+        $id = $request->id;
+        $user_id = $request->user_id;
+        $slug = $request->user_slug;
+        
+
+       
         /**  ------- upload image using image intervention -------- use image top */
         if($request->hasFile('images')){
             $file = $request->file('images'); // get actual image 
             $imageName= time().'_'.rand(10000,100000).'.webp'; // make image name with webp extension
             $manager= new ImageManager(new Driver()); // image driver use 
-            $realPath = 'uploads/website/preloader/';  // make real path for store name in database
+            $realPath = 'uploads/instructor/';  // make real path for store name in database
             $fullPath = $realPath.$imageName; // make full path realpath and imagename 
             $publicPath =  public_path($realPath); // hard file save directory 
             if (!File::exists($publicPath)) {
@@ -374,24 +377,103 @@ class InstructorRequestController extends Controller
 
 
             /** --- Delete old image from directories ------  */
-            $old_path = UserSupportingDocument::where('id', $user_id)->first();
-          
-            $file_paths = public_path($old_path->image);
+            $old_path = UserSupportingDocument::where('user_id', $user_id)->first();
+            if($old_path){
+                $file_paths = public_path($old_path->image);
 
-            if (file_exists($file_paths)) {
-                File::delete($file_paths);
-                flash()->success('Old File Deleted Successfully!');
+                if (file_exists($file_paths)) {
+                    File::delete($file_paths);
+                    flash()->success('Old File Deleted Successfully!');
+                }
             }
+
             /** --- Delete old image from directories ------ END --- */
 
             /**-- save image name in database */
-          $insert=   UserSupportingDocument::where('user_id',$user_id)->where('slug',$slug)->update([
-                'image'=>  $fullPath,
+          $insert =  UserSupportingDocument::where('id',$id)->where('user_id',$user_id)->where('slug',$slug)->update([
+                'image' =>  $fullPath ,
             ]);
 
         }
+        /**------- image upload end here ========= */
+        if($request->hasFile('certificate')){
+            $file = $request->file('certificate');
+
+            $fileName = time() . '-' . rand(10000, 100000) . '.' . $file->getClientOriginalExtension();
+
+            $realPath = 'uploads/instructor/';  // make real path for store name in database
+
+        
+            $publicPath =  public_path($realPath); // hard file save directory 
 
 
+            $file->move($publicPath , $fileName);
+
+            /** --- Delete old image from directories ------  */
+            $old_path = UserSupportingDocument::where('user_id', $user_id)->first();
+            if($old_path){
+                $file_paths = public_path($old_path->certificate);
+
+                if (file_exists($file_paths)) {
+                    File::delete($file_paths);
+                    flash()->success('Old File Deleted Successfully!');
+                }
+            }
+
+            /** --- Delete old image from directories ------ END --- */
+
+
+
+
+             $fullPath = $realPath.$fileName; // make full path realpath and imagename 
+
+             $insert =  UserSupportingDocument::where('id',$id)->where('user_id',$user_id)->where('slug',$slug)->update([
+                 'certificate'=> $fullPath,
+            ]);
+
+
+            
+        }
+        /**------- image upload end here ========= */
+        if ($request->hasFile('cv')) {
+            $file = $request->file('cv');
+
+            // ফাইলের নাম তৈরি
+            $fileName = time() . '-' . rand(10000, 100000) . '.' . $file->getClientOriginalExtension();
+
+            // রিয়েল path যেখানে ফাইল সংরক্ষণ করবে
+            $realPath = 'uploads/instructor/';
+
+            // public path - ফিজিক্যাল ফোল্ডার লোকেশন
+            $publicPath = public_path($realPath);
+
+            // ফাইল মোভ করো public path এ
+            $file->move($publicPath, $fileName);
+
+
+            /** --- Delete old image from directories ------  */
+            $old_path = UserSupportingDocument::where('user_id', $user_id)->first();
+            if($old_path){
+                $file_paths = public_path($old_path->cv);
+
+                if (file_exists($file_paths)) {
+                    File::delete($file_paths);
+                    flash()->success('Old File Deleted Successfully!');
+                }
+            }
+
+            /** --- Delete old image from directories ------ END --- */
+
+            // ডাটাবেজে path সেভ করার জন্য পুরো path তৈরি (public থেকে relative path হিসেবে)
+            $fullPath = $realPath . $fileName;
+
+            // আপডেট করো ডাটাবেজে
+           $insert = UserSupportingDocument::where('id',$id)->where('user_id', $user_id)
+                        ->where('slug', $slug)
+                        ->update([
+                            'cv' => $fullPath,
+                        ]);
+        }
 
 
 
@@ -408,7 +490,55 @@ class InstructorRequestController extends Controller
 
     }
 
+    /**-----  instructor social media update code ------ */
+
+      public function user_social($userid , $slug){
+      $data = UserSocial::where('user_id',$userid)->where('slug',$slug)->first();
+        return view('instructor.instructor_request.request.update_social_media',compact('data'));
+    }
+
+    public function user_social_update(Request $request){
+          /**--- validation code -- */
+        $request->validate([
+                'facebook'=> 'required',
+                'youtube'=> 'required',
+            ],[
+                'facebook.required'=> ' Facebook URL is Required !',
+                'youtube.required'=> ' Youtube URL is Required !',
+            ]
+        );
+
+
+        $id = $request->id;
+        $user_id = $request->user_id;
+        $slug = $request->user_slug;
+
+
+        $update = UserSocial::where('id',$id)->where('user_id',$user_id)->where('slug',$slug)->update([
+            'facebook' => $request->facebook,
+            'twitter' => $request->twitter,
+            'linkedin' => $request->linkedin,
+            'github' => $request->github,
+            'youtube' => $request->youtube,
+        ]);
+
+        // insert Successfully 
+        if($update){
+            flash()->success('Information Save Successfuly');
+             return redirect()->route('instructor.dashboard');
+        }else{
+            flash()->error('Informatin save Faild !');
+        }
+        return redirect()->back();
+
+    }
+
+
+
     /**=============== instructor document verifcation  function end here ============ */
+
+
+
 
 
 

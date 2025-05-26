@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $categorys = Category::where('public_status',1)->get();
+       $categorys = Category::where('public_status',1)->get();
 
         /**  --- course ORM  ---- */
         $coursecate = CourseCategory::with(['CourseSubcategory','CourseSubcategory.CourschildCategory'])->get();
