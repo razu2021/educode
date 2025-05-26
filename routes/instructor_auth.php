@@ -25,22 +25,59 @@ Route::controller(InstructorRequestController::class)->prefix('/instructor/dashb
     Route::post('update','user_social_update')->name('update');
     //  -------  social media update  route -----
 });
-
-
- 
-
-
-
-
-
-
-
-
+Route::controller(InstructorRequestController::class)->prefix('/instructor/application/submission/')->name('application.')->group(function(){
+    Route::post('application/sunmission','application_submit')->name('application_submit');
+    //  -------  social media update  route -----
+});
 
 
 /**================   Admin auth middleware route protection ============ */
 });
 /**================   Admin auth middleware route protection ============ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

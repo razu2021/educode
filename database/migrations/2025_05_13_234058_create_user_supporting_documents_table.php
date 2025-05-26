@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('certificate',255)->nullable();
             $table->string('cv',255)->nullable();
             $table->string('image',255)->nullable();
+            $table->integer('verify')->default(0);
+            $table->string('verify_note',255)->nullable();
             // Defualt 
             $table->string('slug',255)->nullable();
             $table->integer('status')->default(1);

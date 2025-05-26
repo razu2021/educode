@@ -15,7 +15,7 @@ use Carbon\Carbon; //----------  defualt -------
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
-
+use App\Services\ImageUploadService;
 
 
 
@@ -358,43 +358,62 @@ class InstructorRequestController extends Controller
 
        
         /**  ------- upload image using image intervention -------- use image top */
-        if($request->hasFile('images')){
-            $file = $request->file('images'); // get actual image 
-            $imageName= time().'_'.rand(10000,100000).'.webp'; // make image name with webp extension
-            $manager= new ImageManager(new Driver()); // image driver use 
-            $realPath = 'uploads/instructor/';  // make real path for store name in database
-            $fullPath = $realPath.$imageName; // make full path realpath and imagename 
-            $publicPath =  public_path($realPath); // hard file save directory 
-            if (!File::exists($publicPath)) {
-                File::makeDirectory($publicPath, 0755, true);  // create a directory if the  directory not exist 
+        // if($request->hasFile('images')){
+        //     $file = $request->file('images'); // get actual image 
+        //     $imageName= time().'_'.rand(10000,100000).'.webp'; // make image name with webp extension
+        //     $manager= new ImageManager(new Driver()); // image driver use 
+        //     $realPath = 'uploads/instructor/';  // make real path for store name in database
+        //     $fullPath = $realPath.$imageName; // make full path realpath and imagename 
+        //     $publicPath =  public_path($realPath); // hard file save directory 
+        //     if (!File::exists($publicPath)) {
+        //         File::makeDirectory($publicPath, 0755, true);  // create a directory if the  directory not exist 
+        //     }
+        //     /** image manupulate  */
+        //     $image = $manager->read($file)
+        //     ->scaleDown(1000)
+        //     ->cover(100, 100)
+        //     ->toWebp(90)
+        //     ->save($publicPath . $imageName);
+
+
+        //     /** --- Delete old image from directories ------  */
+        //     $old_path = UserSupportingDocument::where('user_id', $user_id)->first();
+        //     if($old_path){
+        //         $file_paths = public_path($old_path->image);
+
+        //         if (file_exists($file_paths)) {
+        //             File::delete($file_paths);
+        //             flash()->success('Old File Deleted Successfully!');
+        //         }
+        //     }
+
+        //     /** --- Delete old image from directories ------ END --- */
+
+        //     /**-- save image name in database */
+        //   $insert =  UserSupportingDocument::where('id',$id)->where('user_id',$user_id)->where('slug',$slug)->update([
+        //         'image' =>  $fullPath ,
+        //     ]);
+
+        // }
+
+            if ($request->hasFile('images')) {
+                $upload = (new ImageUploadService($request->file('images')))
+                            ->setPath('uploads/instructor/')
+                            ->setResize(300, 300)
+                            ->upload();
+
+                $insert = UserSupportingDocument::where('id', $id)
+                            ->where('user_id', $user_id)
+                            ->where('slug', $slug)
+                            ->update([
+                                'image' => $upload,
+                            ]);
+
             }
-            /** image manupulate  */
-            $image = $manager->read($file)
-            ->scaleDown(1000)
-            ->cover(100, 100)
-            ->toWebp(90)
-            ->save($publicPath . $imageName);
 
 
-            /** --- Delete old image from directories ------  */
-            $old_path = UserSupportingDocument::where('user_id', $user_id)->first();
-            if($old_path){
-                $file_paths = public_path($old_path->image);
 
-                if (file_exists($file_paths)) {
-                    File::delete($file_paths);
-                    flash()->success('Old File Deleted Successfully!');
-                }
-            }
 
-            /** --- Delete old image from directories ------ END --- */
-
-            /**-- save image name in database */
-          $insert =  UserSupportingDocument::where('id',$id)->where('user_id',$user_id)->where('slug',$slug)->update([
-                'image' =>  $fullPath ,
-            ]);
-
-        }
         /**------- image upload end here ========= */
         if($request->hasFile('certificate')){
             $file = $request->file('certificate');
@@ -536,6 +555,40 @@ class InstructorRequestController extends Controller
 
 
     /**=============== instructor document verifcation  function end here ============ */
+
+
+    /**=========  submit for admin review ========= */
+
+    public function application_submit(Request $request){
+        $id = $request->id;
+        $user_id = $request->user_id;
+        $slug = $request->user_slug;
+
+        // Document verify request 
+        $update = UserSupportingDocument::where('id',$id)->where('user_id',$user_id)->where('slug',$slug)->where('verify',0)->update([
+            'verify' => 2,
+            
+        ]);
+
+        // social media verify request 
+        $update = UserSocial::where('id',$id)->where('user_id',$user_id)->where('slug',$slug)->where('verify',0)->update([
+            'verify' => 2,
+        ]);
+
+
+
+    // insert Successfully 
+        if($update){
+            flash()->success('Information Save Successfuly');
+             
+        }else{
+            flash()->error('Informatin save Faild !');
+        }
+        return redirect()->back();
+
+
+
+    }
 
 
 

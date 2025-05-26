@@ -6,8 +6,9 @@
     <div class="bg-holder bg-card" style="background-image:url({{asset('contents/backend/assets')}}/assets/img/icons/spot-illustrations/corner-1.png);"></div>
     <!--/.bg-holder-->
     <div class="card-body position-relative">
-        <h4 class="text-warning mb-3"><span class="text-success"> Welcome </span> {{Auth::user()->name}}</h4>
+       
       @if(empty($userverify))
+       <h4 class="text-warning mb-3"><span class="text-success"> Welcome </span> {{Auth::user()->name}}</h4>
       <p class="fs-10 mb-0">Your storage will be running out soon. Get more space and powerful productivity features.</p>
         {{-- যদি কোনো ডকুমেন্টই না থাকে --}}
         <form action="{{route('instructor_documents.submit')}}" method="post">
@@ -20,29 +21,42 @@
       
         @elseif(empty($userverify->cv) || empty($userverify->certificate) || empty($userverify->image ) || empty($userverify->userSocial->facebook) || empty($userverify->userSocial->youtube))
             {{-- যদি যেকোনো একটি ফাঁকা থাকে --}}
+             <h4 class="text-warning mb-3"><span class="text-success"> Welcome </span> {{Auth::user()->name}}</h4>
             <a class="btn btn-link fs-10 text-warning mt-lg-3 ps-0" href="{{ route('instructor_documents.document_verification',[$userverify->user_id,$userverify->slug])}}">
                 <button class="btn btn-warning">
                     Need to Finish Profile 
                     <span class="fas fa-chevron-right ms-1" data-fa-transform="shrink-4 down-1"></span>
                 </button>
             </a>
-        @else
+        @elseif(!empty($userverify->cv) && !empty($userverify->certificate) && !empty($userverify->image ) && !empty($userverify->userSocial->facebook) && !empty($userverify->userSocial->youtube) && $userverify->userSocial->verify ===0 && $userverify->verify === 0 )
             {{-- যদি সব কিছু পূর্ণ থাকে --}}
+             <h4 class="text-warning mb-3"><span class="text-success"> Welcome </span> {{Auth::user()->name}}</h4>
             <h5 class="fs-10 mb-0"><strong> You're almost there!</strong></h5>
             <p class="fs-10 mb-0"> Now that you've completed all the required steps, it's time to submit your application for review. <br>
             Once we receive your submission, our team will carefully review your documents and profile to ensure everything meets our guidelines. <br>
             You can expect a decision within 24 hours.</p>
             <p class="fs-10 mb-0"> <b> We appreciate your effort and are excited to welcome you to our instructor community! </b></p>
-            <a class="btn btn-link fs-10 text-warning mt-lg-2 ps-0" href="">
-                <button class="btn btn-success">
-                    Submit for Review 
-                    <span class="fas fa-chevron-right ms-1" data-fa-transform="shrink-4 down-1"></span>
-                </button>
-            </a>
+           
+            <form action="{{route('application.application_submit')}}" method="post">
+                @csrf
+                  {{-- hidden input --}}
+                    <div>
+                        <input type="hidden" name="id" value="{{$userverify->id}}">
+                        <input type="hidden" name="user_id" value="{{$userverify->user_id}}">
+                        <input type="hidden" name="user_slug" value="{{$userverify->slug}}">
+                    </div>
+                    {{-- end --}}
+                <button class="btn btn-success mt-3"> Submit for Review <span class="fas fa-chevron-right ms-1" data-fa-transform="shrink-4 down-1"></span></button>
+            </form>
+        
+        @elseif($userverify->userSocial->verify === 2 || $userverify->verify === 2 )
+         <h4 class="text-warning mb-3"><span class="text-success"> Welcome </span> {{Auth::user()->name}}</h4>
+        <p>Your request is being carefully reviewed by our administrators. You’ll be notified via the email  once it’s approved.</p>
+        <p class="text-success m-0 ">{{$userverify->verify_note }} || {{$userverify->userSocial->verify_note}}</p>
+        <button class="btn btn-outline-warning mt-3">  Your application is currently being reviewed </button>
+        @elseif($userverify->userSocial->verify === 1 || $userverify->verify === 1)    
+            <h4> <span class="text-success fs-7">Congratulations </span>  <br> {{auth::user()->name}}</h4>
         @endif
-
-
-
     </div>
 </div>
 
