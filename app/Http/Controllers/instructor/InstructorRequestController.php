@@ -16,6 +16,7 @@ use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use App\Services\ImageUploadService;
+use App\Services\FileUploadService;
 
 
 
@@ -337,171 +338,82 @@ class InstructorRequestController extends Controller
 
     /**------ upload  supporting documents  status   --- */
     public function instructor_document_update(Request $request){
-        
-       
          /**--- validation code -- */
-        // $request->validate([
-        //         'images'=> 'required',
-        //         'certificate'=> 'required',
-        //         'cv'=> 'required',
-        //     ],[
-        //         'images.required'=> ' phone  is Required !',
-        //         'certificate.required'=> ' Certificet  is Required !',
-        //         'cv.required'=> ' Cv  is Required !',
-        //     ]
-        // );
+        $request->validate([
+            'images' => 'required|max:2048', // 2MB
+            'certificate' => 'required|max:5120', // 5MB
+            'cv' => 'required|max:5120', // 5MB
+        ], [
+            'images.required' => 'Phone image is required!',
+            'images.max' => 'Phone image must not exceed 2MB.',
+            'certificate.required' => 'Certificate is required!',
+            'certificate.max' => 'Certificate must not exceed 5MB.',
+            'cv.required' => 'CV is required!',
+            'cv.max' => 'CV must not exceed 5MB.',
+        ]);
 
         $id = $request->id;
         $user_id = $request->user_id;
         $slug = $request->user_slug;
         
 
-       
-        /**  ------- upload image using image intervention -------- use image top */
-        // if($request->hasFile('images')){
-        //     $file = $request->file('images'); // get actual image 
-        //     $imageName= time().'_'.rand(10000,100000).'.webp'; // make image name with webp extension
-        //     $manager= new ImageManager(new Driver()); // image driver use 
-        //     $realPath = 'uploads/instructor/';  // make real path for store name in database
-        //     $fullPath = $realPath.$imageName; // make full path realpath and imagename 
-        //     $publicPath =  public_path($realPath); // hard file save directory 
-        //     if (!File::exists($publicPath)) {
-        //         File::makeDirectory($publicPath, 0755, true);  // create a directory if the  directory not exist 
-        //     }
-        //     /** image manupulate  */
-        //     $image = $manager->read($file)
-        //     ->scaleDown(1000)
-        //     ->cover(100, 100)
-        //     ->toWebp(90)
-        //     ->save($publicPath . $imageName);
-
-
-        //     /** --- Delete old image from directories ------  */
-        //     $old_path = UserSupportingDocument::where('user_id', $user_id)->first();
-        //     if($old_path){
-        //         $file_paths = public_path($old_path->image);
-
-        //         if (file_exists($file_paths)) {
-        //             File::delete($file_paths);
-        //             flash()->success('Old File Deleted Successfully!');
-        //         }
-        //     }
-
-        //     /** --- Delete old image from directories ------ END --- */
-
-        //     /**-- save image name in database */
-        //   $insert =  UserSupportingDocument::where('id',$id)->where('user_id',$user_id)->where('slug',$slug)->update([
-        //         'image' =>  $fullPath ,
-        //     ]);
-
-        // }
-
-            if ($request->hasFile('images')) {
-                $upload = (new ImageUploadService($request->file('images')))
-                            ->setPath('uploads/instructor/')
-                            ->setResize(300, 300)
-                            ->upload();
-
-                $insert = UserSupportingDocument::where('id', $id)
-                            ->where('user_id', $user_id)
-                            ->where('slug', $slug)
-                            ->update([
-                                'image' => $upload,
-                            ]);
-
-            }
-
-
-
-
-        /**------- image upload end here ========= */
-        if($request->hasFile('certificate')){
-            $file = $request->file('certificate');
-
-            $fileName = time() . '-' . rand(10000, 100000) . '.' . $file->getClientOriginalExtension();
-
-            $realPath = 'uploads/instructor/';  // make real path for store name in database
-
-        
-            $publicPath =  public_path($realPath); // hard file save directory 
-
-
-            $file->move($publicPath , $fileName);
-
-            /** --- Delete old image from directories ------  */
-            $old_path = UserSupportingDocument::where('user_id', $user_id)->first();
-            if($old_path){
-                $file_paths = public_path($old_path->certificate);
-
-                if (file_exists($file_paths)) {
-                    File::delete($file_paths);
-                    flash()->success('Old File Deleted Successfully!');
-                }
-            }
-
-            /** --- Delete old image from directories ------ END --- */
-
-
-
-
-             $fullPath = $realPath.$fileName; // make full path realpath and imagename 
-
-             $insert =  UserSupportingDocument::where('id',$id)->where('user_id',$user_id)->where('slug',$slug)->update([
-                 'certificate'=> $fullPath,
-            ]);
-
-
-            
-        }
-        /**------- image upload end here ========= */
-        if ($request->hasFile('cv')) {
-            $file = $request->file('cv');
-
-            // ফাইলের নাম তৈরি
-            $fileName = time() . '-' . rand(10000, 100000) . '.' . $file->getClientOriginalExtension();
-
-            // রিয়েল path যেখানে ফাইল সংরক্ষণ করবে
-            $realPath = 'uploads/instructor/';
-
-            // public path - ফিজিক্যাল ফোল্ডার লোকেশন
-            $publicPath = public_path($realPath);
-
-            // ফাইল মোভ করো public path এ
-            $file->move($publicPath, $fileName);
-
-
-            /** --- Delete old image from directories ------  */
-            $old_path = UserSupportingDocument::where('user_id', $user_id)->first();
-            if($old_path){
-                $file_paths = public_path($old_path->cv);
-
-                if (file_exists($file_paths)) {
-                    File::delete($file_paths);
-                    flash()->success('Old File Deleted Successfully!');
-                }
-            }
-
-            /** --- Delete old image from directories ------ END --- */
-
-            // ডাটাবেজে path সেভ করার জন্য পুরো path তৈরি (public থেকে relative path হিসেবে)
-            $fullPath = $realPath . $fileName;
-
-            // আপডেট করো ডাটাবেজে
-           $insert = UserSupportingDocument::where('id',$id)->where('user_id', $user_id)
-                        ->where('slug', $slug)
-                        ->update([
-                            'cv' => $fullPath,
+        /**======== upload image via the service class start ====== */
+        if ($request->hasFile('images')) {
+            //---- find old image for delete -----
+            $exixtimage = UserSupportingDocument::where('user_id', $user_id)->first();
+            $oldimage = $exixtimage->image;
+            // upload image in local folder path via tha service class
+            $upload = (new ImageUploadService($request->file('images')))
+                        ->setPath('uploads/instructor/')->setResize(531, 650)->setOldImage($oldimage ?? '')->upload();
+            // ------  save image in database 
+            $insert = UserSupportingDocument::where('id', $id)
+                        ->where('user_id', $user_id)->where('slug', $slug)->update([
+                            'image' => $upload,
                         ]);
         }
+        /**======== upload image via the service end ====== */
 
 
+        /**======== upload file via the service class start ====== */
+        if ($request->hasFile('certificate')) {
+            //---- find old image for delete -----
+            $exixtfile = UserSupportingDocument::where('user_id', $user_id)->first();
+            $oldfile = $exixtfile->certificate;
+            // upload image in local folder path via tha service class
+            $upload = (new FileUploadService($request->file('certificate')))
+                        ->setPath('uploads/instructor/')
+                        ->setOldFile($oldfile ?? '')->upload();
+            // ------  save image in database 
+            $insert = UserSupportingDocument::where('id', $id)
+                        ->where('user_id', $user_id)->where('slug', $slug)->update([
+                            'certificate' => $upload,
+                        ]);
+        }
+        /**======== upload image via the service end ====== */
 
+
+        /**======== upload file via the service class start ====== */
+        if ($request->hasFile('cv')) {
+            //---- find old image for delete -----
+            $exixtfile = UserSupportingDocument::where('user_id', $user_id)->first();
+            $oldfile = $exixtfile->cv;
+            // upload image in local folder path via tha service class
+            $upload = (new FileUploadService($request->file('cv')))
+                        ->setPath('uploads/instructor/')
+                        ->setOldFile($oldfile ?? '')->upload();
+            // ------  save image in database 
+            $insert = UserSupportingDocument::where('id', $id)
+                        ->where('user_id', $user_id)->where('slug', $slug)->update([
+                            'cv' => $upload,
+                        ]);
+        }
+        /**======== upload image via the service end ====== */
 
         // insert Successfully 
         if($insert){
-            flash()->success('Information Added Successfuly');
+            flash()->success('Information Save Successfuly');
         }else{
-            flash()->error('Informatin Added Faild !');
+            flash()->error('Informatin Save Faild !');
         }
         return redirect()->back();
 
@@ -575,8 +487,6 @@ class InstructorRequestController extends Controller
             'verify' => 2,
         ]);
 
-
-
     // insert Successfully 
         if($update){
             flash()->success('Information Save Successfuly');
@@ -585,8 +495,6 @@ class InstructorRequestController extends Controller
             flash()->error('Informatin save Faild !');
         }
         return redirect()->back();
-
-
 
     }
 

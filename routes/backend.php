@@ -11,9 +11,7 @@ use App\Http\Controllers\backend\courses\CourseChildCategoryController;
 use App\Http\Controllers\backend\courses\CourseController;
 use App\Http\Controllers\backend\courses\CoursesSubCategorys;
 use App\Http\Controllers\backend\other\MetaTagController;
-
-
-
+use App\Http\Controllers\backend\subscription\SubscriptionPlanController;
 
 /**================   Admin auth middleware route protection ============ */
 Route::middleware(['auth:admin','admin'])->group(function(){
@@ -219,6 +217,29 @@ Route::get('/get-childcategories/{subcategory_id}', [CourseController::class, 'g
 
 
 
+
+/**------------- subscription plan  is here ------- */
+Route::controller(SubscriptionPlanController::class)->prefix('admin/dashboard/subscriptionplan/')->name('subscriptionplan.')->group(function(){
+    Route::get('all','index')->name('all');
+    Route::get('add','add')->name('add');
+    Route::get('view/{id}/{slug}','view')->name('view');
+    Route::get('edit{id}/{slug}','edit')->name('edit');
+    Route::post('submit','insert')->name('submit');
+    Route::post('update','update')->name('update');
+    Route::delete('softdelete/{id}','softdelete')->name('softdelete');
+    Route::post('restore/{id}','restore')->name('restore');
+    Route::delete('delete/{id}','delete')->name('delete');
+    Route::post('bulk-action','bulkAction')->name('bulkAction');
+    Route::get('recycle','recycle')->name('recycle');
+    Route::get('public/{id}/{slug}','public_status')->name('public');
+    Route::get('private/{id}/{slug}','private_status')->name('private'); 
+    // export route 
+    Route::get('export-pdf','export_pdf')->name('export_pdf'); 
+    Route::get('export-excel','export_excel')->name('export_excel'); 
+    Route::get('export-csv','export_csv')->name('export_csv'); 
+    Route::get('export-zip','export_zip')->name('export_zip'); 
+    Route::get('export-single-pdf/{id}/{slug}','export_single_pdf')->name('export_single_pdf'); 
+});
 
 
 

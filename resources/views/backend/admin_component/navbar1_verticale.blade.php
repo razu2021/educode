@@ -72,6 +72,7 @@
                             <!-- more inner pages-->
                         </li>
                     </ul>
+                   
                 </li>
                 <li class="nav-item">
                     <!-- label-->
@@ -319,6 +320,19 @@
                             </a>
                             <!-- more inner pages-->
                         </li>
+                    </ul>
+                    {{-- pricing  --}}
+                     <a class="nav-link dropdown-indicator" href="#pricing" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="pricing">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-tags"></span></span><span class="nav-link-text ps-1">Pricing</span></div>
+                    </a>
+                    <ul class="nav collapse" id="pricing">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('subscriptionplan.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Pricing default</span></div>
+                            </a>
+                            <!-- more inner pages-->
+                        </li>
+                        
                     </ul>
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#support-desk" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="support-desk">
@@ -572,23 +586,7 @@
                         </li>
                     </ul>
                     <!-- parent pages-->
-                    <a class="nav-link dropdown-indicator" href="#pricing" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="pricing">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-tags"></span></span><span class="nav-link-text ps-1">Pricing</span></div>
-                    </a>
-                    <ul class="nav collapse" id="pricing">
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages/pricing/pricing-default.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Pricing default</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages/pricing/pricing-alt.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Pricing alt</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                    </ul>
+
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#faq" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="faq">
                         <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-question-circle"></span></span><span class="nav-link-text ps-1">Faq</span></div>

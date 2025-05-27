@@ -13,11 +13,12 @@
 <div class="col-12 col-lg-8 offset-lg-2 mb-3">
   <div class="card h-lg-100">
     <div class="card-header bg-body-tertiary">
-      <h4>Uploads Documents</h4>
+      <h4>Instructor Identity Verification</h4>
     </div>
     <div class="card-body p-4 p-sm-5">
      <div class="text-center">
-         <h5 class="mb-0">Upload your Supporting Documents</h5><small>all Nesassary Documents for your Verification</small>
+         <h5 class="mb-0">Upload your Supporting Documents</h5>
+         <p class="fs-10">To become a verified instructor, kindly upload your necessary identification and qualification documents. This process is essential to maintain a trusted learning environment.</b>
      </div>
 
      <div class="mb-5 mt-5" style="">
@@ -47,8 +48,9 @@
             <div class="row gx-2">
                   <div class="col-12 col-lg-8 mb-1">
                       <label class="form-label" for="images">Upload Your Passport Size Photograph</label>
-                      <input class="form-control" name="images" id="images" type="file" value="{{$data->image ?? "No image Found"}}">
+                      <input class="form-control" name="images" id="images" type="file" value="{{$data->image ?? "No image Found"}}" accept="image/*">
                       <label class="text-danger fw-medium">@error('images') {{$message}} @enderror</label>
+                      <input type="hidden" name="images" value="{{$data->image}}">
                   </div>
                   <div class="col-12 col-lg-4 mb-1 text-end">
                     @if($data->image !== "")
@@ -73,8 +75,9 @@
             <p><strong>Academic or Course Certificate </strong> Kindly upload any relevant academic or professional course certificates that demonstrate your expertise in the subject(s) you want to teach. These documents help us ensure the quality and credibility of our platform's instructors.</p> 
             <div class="col-12 mb-1">
                 <label class="form-label" for="certificate">  Upload your Academic or Course Certificate </label>
-                <input class="form-control" name="certificate" id="certificate" type="file" value="{{$data->certificate ?? "No file Found"}}">
+                <input class="form-control" name="certificate" id="certificate" type="file" value="{{$data->certificate}}" accept="application/pdf">
                 <label class="text-danger fw-medium">@error('certificate') {{$message}} @enderror</label>
+                <input type="hidden" name="certificate" value="{{$data->certificate}}">
             </div>
             <div style="width: 100%; height: 400px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; position: relative;">
               @if($data->certificate)
@@ -106,8 +109,10 @@
           <p><strong>Upload Your Latest CV / Resume</strong>Upload a copy of your most recent CV or resume outlining your educational background, professional experience, and relevant achievements. This helps us better understand your qualifications and teaching potential.</p>
             <div class="col-12 mb-1">
                 <label class="form-label" for="cv"> Upload Your Latest CV / Resume</label>
-                <input class="form-control" name="cv" id="cv" type="file" value="{{$data->cv ?? "No file Found"}}" >
+                <input class="form-control" name="cv" id="cv" type="file" value="{{$data->cv}}" accept="application/pdf">
+                <input type="hidden"  name="cv" value="{{$data->cv}}">
                 <label class="text-danger fw-medium">@error('cv') {{$message}} @enderror</label>
+                
 
                 <a href="{{ asset($data->cv) }}" target="_blank" class="btn btn-primary mt-3">View PDF</a>
             </div>
