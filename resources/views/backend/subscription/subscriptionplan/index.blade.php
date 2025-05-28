@@ -12,7 +12,7 @@
 
 @push('scripts')
 <script>
-  const bulkActionUrl = "{{ route('siteaddress.bulkAction') }}";
+  const bulkActionUrl = "{{ route('subscriptionplan.bulkAction') }}";
   const csrfToken = "{{ csrf_token() }}";
 </script>
 @endpush
@@ -30,7 +30,7 @@
                   <div class="input-group">
                     <input type="text" name="search" class="form-control" placeholder="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                    <a href="{{route('siteaddress.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
+                    <a href="{{route('subscriptionplan.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
                   </div>
                 </form>
             </div>
@@ -61,7 +61,7 @@
 
           <div id="table-purchases-replace-element" class="d-flex align-items-center">
               <!-- New Button -->
-            <a href="{{route('siteaddress.add')}}">
+            <a href="{{route('subscriptionplan.add')}}">
               <button class="btn btn-falcon-default btn-sm" type="button">
                 <i class="fas fa-plus"></i>
                 <span class="d-none d-sm-inline-block ms-1">New</span>
@@ -69,7 +69,7 @@
             </a>
 
               <!-- Filter Button -->
-            <a href="{{route('siteaddress.recycle')}}">
+            <a href="{{route('subscriptionplan.recycle')}}">
               <button class="btn btn-falcon-default btn-sm mx-2" type="button">
                 <i class="fas fa-recycle"></i>
                 <span class="d-none d-sm-inline-block ms-1">Recycle</span>
@@ -84,10 +84,10 @@
                   <span class="d-none d-sm-inline-block ms-1">Export</span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="exportDropdown">
-                  <li><a class="dropdown-item" href="{{route('siteaddress.export_pdf')}}">Export as PDF</a></li>
-                  <li><a class="dropdown-item" href="{{route('siteaddress.export_excel')}}">Export as Excel</a></li>
-                  <li><a class="dropdown-item" href="{{route('siteaddress.export_csv')}}">Export as CSV</a></li>
-                  <li><a class="dropdown-item" href="{{route('siteaddress.export_zip')}}">Export as Zip</a></li>
+                  <li><a class="dropdown-item" href="{{route('subscriptionplan.export_pdf')}}">Export as PDF</a></li>
+                  <li><a class="dropdown-item" href="{{route('subscriptionplan.export_excel')}}">Export as Excel</a></li>
+                  <li><a class="dropdown-item" href="{{route('subscriptionplan.export_csv')}}">Export as CSV</a></li>
+                  <li><a class="dropdown-item" href="{{route('subscriptionplan.export_zip')}}">Export as Zip</a></li>
                 </ul>
               </div>
               
@@ -111,7 +111,10 @@
                 </div>
               </th>
            
-              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="des">Address</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="des">Plan For</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="des">Plan Name</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="des">Plan price</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="des">Course Limit</th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap " data-sort="time">Created At </th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap " data-sort="name">Creator</th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap text-center" data-sort="status">Public Status</th>
@@ -126,7 +129,10 @@
                   <input class="form-check-input" type="checkbox" data-bulk-select-row value="{{ $data->id }}">
                 </div>
               </td>
-              <td class="align-middle white-space-nowrap phone">{{$data->address}}</td>
+              <td class="align-middle white-space-nowrap phone">{{$data->plan_for}}</td>
+              <td class="align-middle white-space-nowrap phone">{{$data->name}}</td>
+              <td class="align-middle white-space-nowrap phone">{{$data->price}}</td>
+              <td class="align-middle white-space-nowrap phone">{{$data->course_limit}}</td>
               <td class="align-middle white-space-nowrap product">{{ $data->created_at->format('d M, Y - h:i A') }}</td>
               <td class="align-middle white-space-nowrap product">{{ $data->creator->name }} </td>
               <td class="align-middle text-center fs-9 white-space-nowrap payment">
@@ -144,10 +150,10 @@
                     <i class="fas fa-ellipsis-h fs-10"></i>
                   </button>
                   <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-recent-purchase-table-0">
-                    <a class="dropdown-item" href="{{route('siteaddress.view',[$data->id, $data->slug])}}">View</a>
-                    <a class="dropdown-item" href="{{route('siteaddress.edit',[$data->id, $data->slug])}}">Edit</a>
+                    <a class="dropdown-item" href="{{route('subscriptionplan.view',[$data->id, $data->slug])}}">View</a>
+                    <a class="dropdown-item" href="{{route('subscriptionplan.edit',[$data->id, $data->slug])}}">Edit</a>
                     <!-- Hidden form to submit DELETE request -->
-                    <form id="deleteForm{{ $data->id }}" action="{{ route('siteaddress.softdelete', $data->id) }}" method="POST" style="display: none;">
+                    <form id="deleteForm{{ $data->id }}" action="{{ route('subscriptionplan.softdelete', $data->id) }}" method="POST" style="display: none;">
                       @csrf
                       @method('DELETE')
                     </form>
@@ -156,11 +162,11 @@
 
                     <div class="dropdown-divider"></div>
                     @if($data->public_status === 0)
-                      <a class="dropdown-item text-success" href="{{route('siteaddress.public',[$data->id, $data->slug])}}">Active</a>
+                      <a class="dropdown-item text-success" href="{{route('subscriptionplan.public',[$data->id, $data->slug])}}">Active</a>
                     @else 
-                     <a class="dropdown-item text-warning" href="{{route('siteaddress.private',[$data->id, $data->slug])}}">Deactive</a>
+                     <a class="dropdown-item text-warning" href="{{route('subscriptionplan.private',[$data->id, $data->slug])}}">Deactive</a>
                     @endif 
-                    <a class="dropdown-item" href="{{route('siteaddress.export_single_pdf',[$data->id, $data->slug])}}">Export PDF</a>
+                    <a class="dropdown-item" href="{{route('subscriptionplan.export_single_pdf',[$data->id, $data->slug])}}">Export PDF</a>
                 
                   </div>
                 </div>

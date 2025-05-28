@@ -7,5 +7,18 @@ use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
-    //
+    
+    /***
+     * ------- instructor Payment management --------
+     */
+
+     public function instructor_payment_stripe(){
+
+        
+     }
+
+
+
+
+
 }

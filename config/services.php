@@ -35,4 +35,23 @@ return [
         ],
     ],
 
+
+/**
+ * ---- payment Intrigation systems ---------
+ */
+
+'stripe' => [
+    'key' => env('pk_test_51RTeOhBMC6Mpq9IqZYwL9JAZHCWztqyXTcxPNovR4ggENaHGSkOGH1hvG5Os2MXnbMrCX8UT3b7vJSZPqyTGDHnk00WFJjdASU'),
+    'secret' => env('sk_test_51RTeOhBMC6Mpq9IqEEqCPRyVTvfDkwaGjuvRWkvLkR8w2cmGdU52aexOmGX5jDrND1fWzksWTMOtDFMvw5R3Ci2y00D2EDgIoM'),
+],
+
+
+
+
+
+
+
+
+
+
 ];

@@ -1,4 +1,8 @@
 <?php
+
+use App\Http\Controllers\backend\subscription\PaymentController;
+use App\Http\Controllers\backend\subscription\SubscriptionController;
+use App\Http\Controllers\instructor\BillingCheckoutController;
 use App\Http\Controllers\instructor\InstructorController;
 use App\Http\Controllers\instructor\InstructorRequestController;
 use Illuminate\Support\Facades\Route;
@@ -11,6 +15,8 @@ Route::middleware(['auth','instructor'])->group(function(){
 
 
 Route::get('/instructor/dashboard',[InstructorController::class , 'index'])->name('instructor.dashboard');
+
+
 
 Route::controller(InstructorRequestController::class)->prefix('/instructor/dashboard/documents/')->name('instructor_documents.')->group(function(){
 
@@ -29,6 +35,45 @@ Route::controller(InstructorRequestController::class)->prefix('/instructor/appli
     Route::post('application/sunmission','application_submit')->name('application_submit');
     //  -------  social media update  route -----
 });
+
+
+
+
+
+
+
+//---------------------------------------------------------------------------------------------------------------------
+
+Route::get('/instructor/subscription/price',[BillingCheckoutController::class ,'instructor_plan_price'])->name('instructor_paln_price');
+Route::get('/instructor/subscription/checkout/{id}/{slug}',[BillingCheckoutController::class ,'instructor_plan_checkout'])->name('instructor_paln_checkout');
+
+
+
+
+/**------------  payment route setup -------- */
+
+Route::get('/instructor/payment/stripe/{id}/{slug}',[SubscriptionController::class ,'instructor_payment_stripe'])->name('instructor_payment_stripe');
+Route::post('/payment/stripe', [PaymentController::class, 'pay'])->name('payment.stripe');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /**================   Admin auth middleware route protection ============ */

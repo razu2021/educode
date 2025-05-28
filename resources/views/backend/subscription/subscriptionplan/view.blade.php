@@ -9,8 +9,8 @@
                       <h5 class="mb-2 mb-md-0">Information Detail's</h5>
                     </div>
                     <div class="col-auto">
-                        <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button"><a href="{{route('siteaddress.add')}}">Discard</a></button>
-                        <button class="btn btn-primary" role="button"> <a class="text-white" href="{{route('siteaddress.all')}}">All Items </a> </button>
+                        <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button"><a href="{{route('subscriptionplan.add')}}">Discard</a></button>
+                        <button class="btn btn-primary" role="button"> <a class="text-white" href="{{route('subscriptionplan.all')}}">All Items </a> </button>
                     </div>
                   </div>
                 </div>
@@ -26,10 +26,51 @@
                             <table class="table table-bordered">
                                 <tbody>
                                   <tr>
-                                    <td>Address</td>
+                                    <td>Plan for </td>
                                     <td><i class="bi bi-chevron-double-right"></i></td>
-                                    <td>{{$data->address}}</td>
+                                    <td>{{$data->plan_for}}</td>
                                   </tr>
+                                  {{-- end --}}
+                                  <tr>
+                                    <td>Plan Name </td>
+                                    <td><i class="bi bi-chevron-double-right"></i></td>
+                                    <td>{{$data->name}}</td>
+                                  </tr>
+                                  {{-- end --}}
+                                  <tr>
+                                    <td>Plan Price </td>
+                                    <td><i class="bi bi-chevron-double-right"></i></td>
+                                    <td>{{$data->price}} BDT</td>
+                                  </tr>
+                                  {{-- end --}}
+                                  <tr>
+                                    <td>Plan Interval </td>
+                                    <td><i class="bi bi-chevron-double-right"></i></td>
+                                    <td>{{$data->interval}}</td>
+                                  </tr>
+                                  {{-- end --}}
+                                  <tr>
+                                    <td>Course Limit </td>
+                                    <td><i class="bi bi-chevron-double-right"></i></td>
+                                    <td>{{$data->course_limit}}</td>
+                                  </tr>
+                                  {{-- end --}}
+                                  <tr>
+                                    <td>Plan Type </td>
+                                    <td><i class="bi bi-chevron-double-right"></i></td>
+                                    @if($data->plan_type === 0)
+                                      <td>Free Subscription</td>
+                                    @else
+                                      <td>Paid Subscription</td>
+                                    @endif
+                                  </tr>
+                                  {{-- end --}}
+                                  <tr>
+                                    <td>Plan Features </td>
+                                    <td><i class="bi bi-chevron-double-right"></i></td>
+                                    <td>{!! $data->features !!}</td>
+                                  </tr>
+                                  {{-- end --}}
                                 
                                   <tr>
                                     <td>Slug </td>

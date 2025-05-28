@@ -72,11 +72,21 @@ class SubscriptionPlanController extends Controller
     public function insert(Request $request){
         /**--- validation code -- */
         $request->validate([
-                'address'=> 'required',
+                'plan_for'=> 'required',
+                'name'=> 'required',
+                'price'=> 'required',
+                'interval'=> 'required',
+                'course_limit'=> 'required',
+                'plan_type'=> 'required',
+                'features'=> 'required',
             ],[
-               
-                
-                'address.required'=> ' phone  is Required !',
+                'plan_for.required'=> 'Plan user  is Required !',
+                'name.required'=> 'Plan Name is Required !',
+                'price.required'=> 'Plan Price is Required !',
+                'interval.required'=> 'Plan Duration is Required !',
+                'course_limit.required'=> 'Course Limit is Required !',
+                'plan_type.required'=> 'Plan Type is Required !',
+                'features.required'=> 'Plan Features is Required !',
             ]
         );
 
@@ -88,7 +98,13 @@ class SubscriptionPlanController extends Controller
 
         //-------  insert category record --------
         $insert = SubscriptionPlan::create([
-          'address'=>$request->address,
+            'plan_for'=>$request->plan_for,
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'interval'=>$request->interval,
+            'course_limit'=>$request->course_limit,
+            'plan_type'=>$request->plan_type,
+            'features'=>$request->features,
             'slug'=>$slug,
             'creator_id' => $creator,
             'created_at' => Carbon::now()->toDateTimeString(),
@@ -110,15 +126,25 @@ class SubscriptionPlanController extends Controller
      */
     public function update(Request $request){
         /**--- validation code -- */
-        $request->validate([
-          
-            'address'=> 'required',
-        ],[
-           
-            'address.required'=> ' phone  is Required !',
-        ]
-    );
-
+    $request->validate([
+                'plan_for'=> 'required',
+                'name'=> 'required',
+                'price'=> 'required|integer',
+                'interval'=> 'required',
+                'course_limit'=> 'required',
+                'plan_type'=> 'required',
+                'features'=> 'required',
+            ],[
+                'plan_for.required'=> 'Plan user  is Required !',
+                'name.required'=> 'Plan Name is Required !',
+                'price.required'=> 'Plan Price is Required !',
+                'price.integer'=> 'Plan Price must be Integer  !',
+                'interval.required'=> 'Plan Duration is Required !',
+                'course_limit.required'=> 'Course Limit is Required !',
+                'plan_type.required'=> 'Plan Type is Required !',
+                'features.required'=> 'Plan Features is Required !',
+            ]
+        );
 
     //--- get specific Credential for update record & editor id --------
     $id = $request->id;
@@ -127,26 +153,26 @@ class SubscriptionPlanController extends Controller
 
     //---------category update -------//
     $update = SubscriptionPlan::where('id',$id)->where('slug',$slug)->update([
-        'address'=>$request->address,
+        'plan_for'=>$request->plan_for,
+        'name'=>$request->name,
+        'price'=>$request->price,
+        'interval'=>$request->interval,
+        'course_limit'=>$request->course_limit,
+        'plan_type'=>$request->plan_type,
+        'features'=>$request->features,
         'editor_id' => $editor,
         'updated_at' => Carbon::now()->toDateTimeString(),
     ]);
-    
-
     // ------insert Successfully--------// 
     if($update){
         flash()->success('Information Update Successfuly');
-        return redirect()->route('siteaddress.view',[$id,$slug]);
+        return redirect()->route('subscriptionplan.view',[$id,$slug]);
     }else{
         flash()->error('Informatin Update Faild !');
     }
     return redirect()->back();
 
     } // update end 
-
-
-
-
 
    /**
      * =================================================

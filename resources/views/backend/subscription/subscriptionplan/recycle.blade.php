@@ -12,7 +12,7 @@
 
 @push('scripts')
 <script>
-  const bulkActionUrl = "{{ route('siteaddress.bulkAction') }}";
+  const bulkActionUrl = "{{ route('subscriptionplan.bulkAction') }}";
   const csrfToken = "{{ csrf_token() }}";
 </script>
 @endpush
@@ -30,7 +30,7 @@
                   <div class="input-group">
                     <input type="text" name="search" class="form-control" placeholder="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                    <a href="{{route('siteaddress.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
+                    <a href="{{route('subscriptionplan.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
                   </div>
                 </form>
             </div>
@@ -59,7 +59,7 @@
 
           <div id="table-purchases-replace-element" class="d-flex align-items-center">
               <!-- New Button -->
-            <a href="{{route('siteaddress.add')}}">
+            <a href="{{route('subscriptionplan.add')}}">
               <button class="btn btn-falcon-default btn-sm" type="button">
                 <i class="fas fa-plus"></i>
                 <span class="d-none d-sm-inline-block ms-1">New</span>
@@ -67,7 +67,7 @@
             </a>
 
               <!-- Filter Button -->
-            <a href="{{route('siteaddress.all')}}">
+            <a href="{{route('subscriptionplan.all')}}">
               <button class="btn btn-falcon-default btn-sm mx-2" type="button">
                 <i class="fas fa-recycle"></i>
                 <span class="d-none d-sm-inline-block ms-1">All Infomations</span>
@@ -134,7 +134,7 @@
                   </button>
                   <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-recent-purchase-table-0">
                     <!-- Hidden form to submit DELETE request -->
-                    <form id="deleteForm{{ $data->id }}" action="{{ route('siteaddress.delete', $data->id) }}" method="POST" style="display: none;">
+                    <form id="deleteForm{{ $data->id }}" action="{{ route('subscriptionplan.delete', $data->id) }}" method="POST" style="display: none;">
                       @csrf
                       @method('DELETE')
                     </form>
@@ -144,7 +144,7 @@
                       
 
                         <!-- Hidden Form -->
-                        <form id="restoreForm{{ $data->id }}" action="{{ route('siteaddress.restore', $data->id) }}" method="POST" style="display: none;">
+                        <form id="restoreForm{{ $data->id }}" action="{{ route('subscriptionplan.restore', $data->id) }}" method="POST" style="display: none;">
                         @csrf
                      
                         </form>

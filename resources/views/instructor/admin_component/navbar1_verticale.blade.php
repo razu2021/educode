@@ -301,51 +301,17 @@
                     </ul>
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#support-desk" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="support-desk">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-ticket-alt"></span></span><span class="nav-link-text ps-1">Support desk</span></div>
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-ticket-alt"></span></span><span class="nav-link-text ps-1">Plan & Price</span></div>
                     </a>
                     <ul class="nav collapse" id="support-desk">
                         <li class="nav-item">
-                            <a class="nav-link" href="table-view.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Table view</span></div>
+                            <a class="nav-link" href="{{route('instructor_paln_price')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Plan & Prices </span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="card-view.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Card view</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contacts.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Contacts</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact-details.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Contact details</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="tickets-preview.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Tickets preview</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="quick-links.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Quick links</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="app/support-desk/reports.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Reports</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
+                       
+                        
                     </ul>
                 </li>
                

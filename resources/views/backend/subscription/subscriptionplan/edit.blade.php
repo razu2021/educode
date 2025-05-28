@@ -9,13 +9,13 @@
                       <h5 class="mb-2 mb-md-0">Update a Categorie</h5>
                     </div>
                     <div class="col-auto">
-                        <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button"><a href="{{route('siteaddress.add')}}">Discard</a></button>
-                        <button class="btn btn-primary" role="button"> <a class="text-white" href="{{route('siteaddress.all')}}">All Items </a> </button>
+                        <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button"><a href="{{route('subscriptionplan.add')}}">Discard</a></button>
+                        <button class="btn btn-primary" role="button"> <a class="text-white" href="{{route('subscriptionplan.all')}}">All Items </a> </button>
                     </div>
                   </div>
                 </div>
               </div>
-          <form action="{{route('siteaddress.update')}}" method="post" enctype="multipart/form-data">
+          <form action="{{route('subscriptionplan.update')}}" method="post" enctype="multipart/form-data">
           @csrf
             <div class="row">
                 <div class="col-lg-8">
@@ -30,11 +30,57 @@
                                 <input class="form-control" name="slug" id="slug" type="hidden" value="{{$data->slug}}">
                                 {{-- input hidden --}}
                               
+                                <!-- end -->
                                 <div class="col-12 mb-1">
-                                    <label class="form-label" for="address">Address:</label>
-                                    <input class="form-control" name="address" id="phone" type="text" value="{{$data->address}}">
-                                    <label class="text-danger fw-medium">@error('address') {{$message}} @enderror</label>
+                                    <label class="form-label" for="plan_for"> Plan for : <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
+                                    <select class="form-control" name="plan_for" id="plan_for">
+                                      <option value="{{$data->plan_for}}">{{$data->plan_for}}</option>
+                                      <option value="instructor" {{ old('plan_for') == 'instructor' ? 'selected' : '' }}>Instructor</option>
+                                      <option value="student"  {{ old('plan_for') == 'student' ? 'selected' : '' }}>Student</option>
+                                    </select>
+                                    <label class="text-danger fw-medium">@error('plan_for') {{$message}} @enderror</label>
                                 </div>
+                                {{-- end --}}
+                                <div class="col-4 mb-1">
+                                    <label class="form-label" for="title">Plan Name : <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
+                                    <input class="form-control" name="name" id="name" type="text" value="{{$data->name}}">
+                                    <label class="text-danger fw-medium">@error('name') {{$message}} @enderror</label>
+                                </div>
+                              <!-- end -->
+                                <div class="col-4 mb-1">
+                                    <label class="form-label" for="price">Plan Price : <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
+                                    <input class="form-control" name="price" id="price" type="text" value="{{$data->price}}">
+                                    <label class="text-danger fw-medium">@error('price') {{$message}} @enderror</label>
+                                </div>
+                              <!-- end -->
+                                <div class="col-4 mb-1">
+                                    <label class="form-label" for="interval">Plan Interval : <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
+                                    <input class="form-control" name="interval" id="interval" type="text" value="{{$data->interval}}">
+                                    <label class="text-danger fw-medium">@error('interval') {{$message}} @enderror</label>
+                                </div>
+                              <!-- end -->
+                                <div class="col-6 mb-1">
+                                    <label class="form-label" for="course_limit">Course Limit : <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
+                                    <input class="form-control" name="course_limit" id="course_limit" type="number" value="{{$data->course_limit}}">
+                                    <label class="text-danger fw-medium">@error('course_limit') {{$message}} @enderror</label>
+                                </div>
+                              <!-- end -->
+                                <div class="col-6 mb-1">
+                                    <label class="form-label" for="plan_type">Plan Type : <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
+                                    <select class="form-control" name="plan_type" id="plan_type">
+                                      <option value="{{$data->plan_type}}">{{$data->plan_type}}</option>
+                                      <option value="0" {{ old('plan_type') == '0' ? 'selected' : '' }}>Free Subscription</option>
+                                      <option value="1" {{ old('plan_type') == '1' ? 'selected' : '' }}>Paid Subscription</option>
+                                    </select>
+                                    <label class="text-danger fw-medium">@error('plan_type') {{$message}} @enderror</label>
+                                </div>
+                              <!-- end -->
+                               <div class="col-12 mb-1">
+                                    <label class="form-label" for="features">Plan Features : <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
+                                    <textarea class="form-control" name="features" id="description" cols="10" value="{{$data->features}}">{!! $data->features !!}</textarea>
+                                    <label class="text-danger fw-medium">@error('features') {{$message}} @enderror</label>
+                                </div>
+                                {{-- end  --}}
                                 
                                 
                             </div>
