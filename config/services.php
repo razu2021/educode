@@ -37,11 +37,12 @@ return [
 
 
 /**
- * ---- payment Intrigation systems ---------
- */
-
-
-
+* ---- payment Intrigation systems ---------
+*/
+'stripe' => [
+    'key' => env('STRIPE_KEY'),
+    'secret' => env('STRIPE_SECRET'),
+],
 
 
 

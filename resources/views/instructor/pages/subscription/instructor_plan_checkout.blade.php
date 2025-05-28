@@ -59,7 +59,7 @@
                 <div class="card-body">
                     <!-- Error & Button -->
                   <div id="card-errors" class="text-danger mt-2"></div>
-                  <form >
+                  <form>
                     {{-- check button --}}
                     <div class="row gx-0 ps-2 mb-4">
                       <div class="col-sm-8 px-3">
@@ -138,64 +138,46 @@
 <script src="https://js.stripe.com/v3/"></script>
 
 <script>
-  const stripe =  Stripe(''); // Replace with your key
-  const elements = stripe.elements();
+    const stripe = Stripe("{{ config('services.stripe.key') }}"); // Your publishable key
+    const elements = stripe.elements();
+    
+    const cardNumber = elements.create('cardNumber');
+    cardNumber.mount('#card-number-element');
 
-  const style = {
-    base: {
-      fontSize: '16px',
-      color: '#32325d',
-      '::placeholder': { color: '#a0aec0' }
-    },
-    invalid: { color: '#fa755a' }
-  };
+    const cardExpiry = elements.create('cardExpiry');
+    cardExpiry.mount('#card-expiry-element');
 
-  const cardNumber = elements.create('cardNumber', { style });
-  cardNumber.mount('#card-number-element');
+    const cardCvc = elements.create('cardCvc');
+    cardCvc.mount('#card-cvc-element');
 
-  const cardExpiry = elements.create('cardExpiry', { style });
-  cardExpiry.mount('#card-expiry-element');
+    const cardHolderName = document.getElementById('card-holder-name');
+    const cardButton = document.getElementById('card-button');
+    const clientSecret = "{{ $clientSecret }}";
 
-  const cardCvc = elements.create('cardCvc', { style });
-  cardCvc.mount('#card-cvc-element');
+    cardButton.addEventListener('click', async (e) => {
+        e.preventDefault();
 
+        const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: cardNumber,
+                billing_details: {
+                    name: cardHolderName.value
+                }
+            }
+        });
 
-  const cardHolderName = document.getElementById('card-holder-name')
-  const cardButton = document.getElementById('card-button');
-  const cardErrors = document.getElementById('card-errors');
-
-  cardButton.addEventListener('click', async (e) => {
-    e.preventDefault();
-    cardErrors.textContent = ''; // Clear old errors
-
-    if (!cardHolderName.value.trim()) {
-      cardErrors.textContent = 'Card holder name is required.';
-      return;
-    }
-
-    const { setupIntent, error } = await stripe.confirmCardSetup(
-      "{{ $clientSecret }}", // ✅ Backend থেকে পাঠানো client_secret
-      {
-        payment_method: {
-          card: cardNumber,
-          billing_details: { name: cardHolderName.value }
+        if (error) {
+            alert(error.message); // Show error to your customer
+        } else {
+            if (paymentIntent.status === 'succeeded') {
+                // ✅ Success - Now call a route to save subscription info
+              window.location.href = "{{ route('payment.success') }}";
+                // Optionally submit a hidden form to server
+            }
         }
-      }
-    );
-
-    if (error) {
-      cardErrors.textContent = error.message;
-    } else {
-      console.log("✅ Card setup successful:", setupIntent);
-
-      // এখন AJAX বা form submit দিয়ে setupIntent.payment_method পাঠাও
-      // উদাহরণ:
-      document.getElementById('payment_method').value = setupIntent.payment_method;
-      document.getElementById('payment-form').submit();
-    }
-  });
-  
+    });
 </script>
+
 
 
 
