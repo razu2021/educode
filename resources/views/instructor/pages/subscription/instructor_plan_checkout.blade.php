@@ -138,7 +138,7 @@
 <script src="https://js.stripe.com/v3/"></script>
 
 <script>
-  const stripe =  Stripe('{{ config('services.stripe.key') }}'); // Replace with your key
+  const stripe =  Stripe(''); // Replace with your key
   const elements = stripe.elements();
 
   const style = {
@@ -160,7 +160,7 @@
   cardCvc.mount('#card-cvc-element');
 
 
- const cardHolderName = document.getElementById('card-holder-name');
+  const cardHolderName = document.getElementById('card-holder-name')
   const cardButton = document.getElementById('card-button');
   const cardErrors = document.getElementById('card-errors');
 
