@@ -53,12 +53,12 @@ Route::get('/instructor/subscription/checkout/{id}/{slug}',[BillingCheckoutContr
 /**------------  payment route setup -------- */
 
 Route::get('/instructor/payment/stripe/{id}/{slug}',[SubscriptionController::class ,'instructor_payment_stripe'])->name('instructor_payment_stripe');
+
+
 Route::post('/payment/initiate', [PaymentController::class, 'initiatePayment'])->name('payment_initiate');
 
-Route::get('/instructor/payment/success', function () {
-    return view('instructor.pages.subscription.payment_success');
-})->name('payment.success');
-
+Route::post('/payment/complete', [PaymentController::class, 'completePayment'])->name('payment.complete');
+Route::get('/payment/success', [PaymentController::class, 'payment_success'])->name('payment.success');
 
 
 

@@ -18,7 +18,7 @@ class StripePaymentService implements PaymentInterface
     {
         // Stripe টাকা ধরে cent-এ, তাই 100 গুণ করতে হবে
         $intent = PaymentIntent::create([
-            'amount' => $amount * 100,
+            'amount' => round($amount * 100),
             'currency' => 'usd',
             'payment_method_types' => ['card'],
         ]);

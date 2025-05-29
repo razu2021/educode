@@ -8,11 +8,17 @@ use App\Services\Payment\PaymentGatewayFactory;
 class PaymentController extends Controller
 {
     
-    public function initiatePayment()
+    public function initiatePayment(Request $request)
     {
-        $gateway = PaymentGatewayFactory::make();
+         dd($request->all());
 
-        $paymentData = $gateway->createPaymentIntent(20); // 20 USD
+    $amount = $request->amount; // frontend থেকে আসবে
+
+
+
+    $gateway = PaymentGatewayFactory::make();
+    $paymentData = $gateway->createPaymentIntent($amount);
+
 
         return response()->json([
             'clientSecret' => $paymentData['clientSecret'],
@@ -20,11 +26,15 @@ class PaymentController extends Controller
     }
 
 
+ public function completePayment(Request $request)
+{
+   return "payment complete";
+}
 
     /**============  payment success page ========= */
-    // public function payment_success(){
+    public function payment_success(){
         
-    //     return view('instructor.pages.payment_success');
-    // }
+        return view('instructor.pages.subscription.payment_success');
+    }
 
 }

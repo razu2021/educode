@@ -59,7 +59,10 @@
                 <div class="card-body">
                     <!-- Error & Button -->
                   <div id="card-errors" class="text-danger mt-2"></div>
-                  <form>
+                  <form id="paymentForm" action="{{route('payment.complete')}}" method="post">
+                    @csrf
+                    <input type="hidden" id="final-amount" name="amount" value="{{ $data->price }}">
+
                     {{-- check button --}}
                     <div class="row gx-0 ps-2 mb-4">
                       <div class="col-sm-8 px-3">
@@ -137,7 +140,7 @@
 <!-- Include Stripe.js -->
 <script src="https://js.stripe.com/v3/"></script>
 
-<script>
+{{-- <script>
     const stripe = Stripe("{{ config('services.stripe.key') }}"); // Your publishable key
     const elements = stripe.elements();
     
@@ -175,6 +178,100 @@
                 // Optionally submit a hidden form to server
             }
         }
+    });
+</script>
+  --}}
+
+
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const stripe = Stripe("{{ config('services.stripe.key') }}"); // Publishable key
+        const elements = stripe.elements();
+
+        const cardNumber = elements.create('cardNumber');
+        cardNumber.mount('#card-number-element');
+
+        const cardExpiry = elements.create('cardExpiry');
+        cardExpiry.mount('#card-expiry-element');
+
+        const cardCvc = elements.create('cardCvc');
+        cardCvc.mount('#card-cvc-element');
+
+        // Now form submit
+        $('#paymentForm').submit(async function (e) {
+            e.preventDefault();
+
+            const cardHolderName = $('#card-holder-name').val();
+            const amount = $('#final-amount').val();
+
+            $('#card-button').prop('disabled', true).text('Processing...');
+            let clientSecret ="{{ $clientSecret }}";
+
+            console.log('Initiating payment...');
+
+            try {
+                const res = await fetch("{{ route('payment_initiate') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    body: JSON.stringify({ amount: amount }),
+                });
+
+                console.log('Fetch response received');
+                const data = await res.json();
+                if (data.clientSecret) {
+                    clientSecret = data.clientSecret;
+                } else {
+                    throw new Error(data.error || 'PaymentIntent creation failed');
+                }
+            } catch (err) {
+                alert(err.message);
+                $('#card-button').prop('disabled', false).text('Confirm & Pay');
+                return;
+            }
+
+            const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: cardNumber,
+                    billing_details: { name: cardHolderName },
+                },
+            });
+
+            if (error) {
+                alert(error.message);
+                $('#card-button').prop('disabled', false).text('Confirm & Pay');
+                return;
+            }
+
+            if (paymentIntent.status === 'succeeded') {
+                const formData = new FormData(this);
+                formData.append('payment_intent_id', paymentIntent.id);
+
+                $.ajax({
+                    url: "{{ route('payment.complete') }}",
+                    method: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    success: function () {
+                        window.location.href = "{{ route('payment.success') }}";
+                    },
+                    error: function (xhr) {
+                        alert(xhr.responseJSON?.message || 'Failed to save payment.');
+                    },
+                    complete: function () {
+                        $('#card-button').prop('disabled', false).text('Confirm & Pay');
+                    }
+                });
+            }
+        });
     });
 </script>
 
