@@ -8,7 +8,7 @@
 
 @php 
   $price = $data->price ;
-  $copon_perc = 5%; 
+  $copon_perc = 5; 
   $copon_fixed = 30;
   $totalprice = $price - $copon_perc ;
 
@@ -74,7 +74,7 @@
             <div id="card-errors" class="text-danger mt-2"></div>
             <form>
               {{-- check button --}}
-              <input type="text" name="amount" id="final-amount" value="{{$data->price}}">
+              <input type="text" name="amount" id="final-amount" value="{{$data->usd_price}}">
               <div class="row gx-0 ps-2 mb-4">
                 <div class="col-sm-8 px-3">
                   <div class="mb-3">

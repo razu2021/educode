@@ -14,24 +14,43 @@ class StripePaymentService implements PaymentInterface
        Stripe::setApiKey(config('services.stripe.secret')); // ✅ এটা stripe এর গোপন key set করে
     }
 
-    public function makePayment($amount)
+    public function createPaymentIntent($amount)
     {
-        // Stripe টাকা ধরে cent-এ, তাই 100 গুণ করতে হবে
-        $intent = PaymentIntent::create([
-            'amount' => round($amount * 100),
-            'currency' => 'usd',
-            'payment_method_types' => ['card'],
-        ]);
 
-        return [
-            'clientSecret' => $intent->client_secret,
-            'intentId' => $intent->id,
-        ];
+
+        try{
+
+            // Stripe টাকা ধরে cent-এ, তাই 100 গুণ করতে হবে
+            $intent = PaymentIntent::create([
+                'amount' => round($amount * 100),
+                'currency' => 'usd',
+                'payment_method_types' => ['card'],
+            ]);
+
+            return [
+                'clientSecret' => $intent->client_secret,
+                'intentId' => $intent->id,
+            ];
+        }catch(\Exception $e){
+             throw new \Exception("Stripe PaymentIntent creation failed: " . $e->getMessage());
+        }
+
+
     }
+    
+
+
+
+    public function makePayment(array $data){
+      
+    }
+
+
+
 
     public function handleWebhook(Request $request)
     {
-       
+      
     }
 
 
