@@ -13,6 +13,7 @@ class PaymentGatewayFactory {
 
         return match ($gateway) {
             'stripe' => new StripePaymentService(),
+            'sslcommerz' => new SSLCommerzPaymentService(),
             default => throw new \Exception("Unsupported Payment Gateway"),
         };
 

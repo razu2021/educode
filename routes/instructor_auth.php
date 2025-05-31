@@ -67,6 +67,18 @@ Route::get('/payment/success', [PaymentController::class, 'payment_success'])->n
 
 
 
+Route::get('/payment/now', [PaymentController::class, 'paywithsslCommerz'])->name('sslcommerz');
+Route::get('/payment/fail', [PaymentController::class, 'fail'])->name('payment.fail');
+Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
+
+
+
+
+
+
+
+
+
 
 
 

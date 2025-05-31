@@ -37,4 +37,39 @@ class PaymentController extends Controller
         return view('instructor.pages.subscription.payment_success');
     }
 
+
+
+
+
+    // =============  using ssl commerce =========
+
+    public function paywithsslCommerz(){
+        $data = [
+        'amount' => 1000,
+        'success_url' => route('payment.success'),
+        'fail_url' => route('payment.fail'),
+        'cancel_url' => route('payment.cancel'),
+        'customer_name' => 'Md Razu Hossain Raj',
+        'email' => 'raj@example.com',
+        'phone' => '017xxxxxxxx',
+    ];
+
+    $gateway = PaymentGatewayFactory::make('sslcommerz');
+    return $gateway->makePayment($data);
+    
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+

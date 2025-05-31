@@ -17,7 +17,13 @@ return Application::configure(basePath: dirname(__DIR__))
             'student' => \App\Http\Middleware\StudentsMiddleware::class,
             'instructor' => \App\Http\Middleware\InstructorMiddleware::class,
             'check_role' => \App\Http\Middleware\InstructorIsActiveMiddleware::class,
+
+
         ]);
+
+        // ---- global middleware register  settings 
+        
+         $middleware->prepend(\App\Http\Middleware\EmailConfigMiddleware::class);
         
     })
     ->withExceptions(function (Exceptions $exceptions) {

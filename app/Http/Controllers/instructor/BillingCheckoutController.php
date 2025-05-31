@@ -19,8 +19,8 @@ class BillingCheckoutController extends Controller
     /**========   instructor plan and price Checkout page ======= */
 
     public function instructor_plan_checkout($id,$slug){
-        $gateway = PaymentGatewayFactory::make();
-        $paymentData = $gateway->createPaymentIntent(20); // $20
+        $gateway = PaymentGatewayFactory::make(); 
+        $paymentData = $gateway->makePayment($amount); // $20
         $clientSecret = $paymentData['clientSecret'];
         $data = SubscriptionPlan::where('id',$id)->where('slug',$slug)->first();
         return view('instructor.pages.subscription.instructor_plan_checkout',compact('data','clientSecret'));

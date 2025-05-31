@@ -1,33 +1,27 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Http\Middleware;
 
-use App\Mail\SendEmail;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\Mail;
+use Closure;
+use Illuminate\Http\Request;
 use App\Models\EmailSetup;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Config;
 
-class SendEmailJob implements ShouldQueue
+class EmailConfigMiddleware
 {
-    use Queueable;
-
-    public $emailData;
     /**
-     * Create a new job instance.
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function __construct(array $emailData)
-    {
-        $this->emailData = $emailData;
-    }
 
-    /**
-     * Execute the job.
-     */
-    public function handle(): void
-    {
+    
 
+
+
+    public function handle(Request $request, Closure $next): Response
+    {
         $mail = EmailSetup::where('public_status',1)->first();
 
         if($mail){
@@ -42,17 +36,8 @@ class SendEmailJob implements ShouldQueue
             Config::set('mail.from.name', $mail->from_name);
         }
 
+      
 
-
-
-
-        
-        Mail::to($this->emailData['mail_to'])->send(new SendEmail(
-            $this->emailData['mail_subject'],
-            $this->emailData['mail_body'],
-            $this->emailData['mail_attachments'] ?? []
-        ));
-
-        
+        return $next($request);
     }
 }
