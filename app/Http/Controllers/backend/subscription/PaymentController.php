@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend\subscription;
 
 use App\Http\Controllers\Controller;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Services\Payment\PaymentGatewayFactory;
 class PaymentController extends Controller
@@ -10,14 +11,11 @@ class PaymentController extends Controller
     
     public function initiatePayment(Request $request)
     {
-         dd($request->all());
-
-    $amount = $request->amount; // frontend থেকে আসবে
 
 
-
-    $gateway = PaymentGatewayFactory::make();
-    $paymentData = $gateway->createPaymentIntent($amount);
+        $amount = $request->amount; // frontend থেকে আসবে
+        $gateway = PaymentGatewayFactory::make();
+        $paymentData = $gateway->createPaymentIntent($amount);
 
 
         return response()->json([
@@ -28,6 +26,12 @@ class PaymentController extends Controller
 
  public function completePayment(Request $request)
 {
+
+    $insert = Subscription::create([
+        'plan_id'=>1,
+        'user_id'=>1,
+    ]);
+
    return "payment complete";
 }
 

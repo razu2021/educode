@@ -15,7 +15,8 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('plan_for'); // Free, Standard, Premium
             $table->string('name'); // Free, Standard, Premium
-            $table->integer('price')->default(0); // Free হলে 0
+            $table->decimal('price', 8, 2)->nullable();
+            $table->decimal('usd_price', 8, 2)->nullable();
             $table->longText('features')->nullable(); // JSON format অথবা টেক্সট
             $table->string('interval')->default('monthly'); // monthly, yearly
             $table->integer('course_limit')->default(1); // free plan e 1 ta course limit

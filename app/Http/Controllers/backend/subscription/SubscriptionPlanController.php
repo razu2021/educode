@@ -94,13 +94,20 @@ class SubscriptionPlanController extends Controller
         $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();;
         $creator = Auth::guard('admin')->user()->id;
 
-       
+       // price to use convert 
+
+        $usd = 110 ; // 1use === 110 taka 
+        $usd_price = round($request->price / $usd, 2) ;
+
+
+       // dd($usd_price);
 
         //-------  insert category record --------
         $insert = SubscriptionPlan::create([
             'plan_for'=>$request->plan_for,
             'name'=>$request->name,
             'price'=>$request->price,
+            'usd_price'=>$usd_price,
             'interval'=>$request->interval,
             'course_limit'=>$request->course_limit,
             'plan_type'=>$request->plan_type,
