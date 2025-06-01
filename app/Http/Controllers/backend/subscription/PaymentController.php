@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Services\Payment\PaymentGatewayFactory;
+use App\Services\Payment\StripePaymentService;
+
 class PaymentController extends Controller
 {
     
@@ -67,6 +69,25 @@ class PaymentController extends Controller
 
 
 
+
+
+/**=============  stripe webhook secrate function ======= */
+
+    public function handle_webhook_request(Request $request){
+
+        $gateway = new StripePaymentService();    // gate webhook secret come form stripe dashboard .....  
+
+        return $gateway->handleWebhook($request);
+        
+    }
+
+
+    public function handleSuccess(){
+
+        return " data save succesfuly ";
+    }
+
+/**=============  stripe webhook secrate function ======= */
 
 
 

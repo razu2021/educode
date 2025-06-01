@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\backend\subscription\PaymentController;
 use App\Http\Controllers\frontend\FrontendController;
 
 use Illuminate\Support\Facades\Route;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/',[FrontendController::class, 'index'])->name('index');
+
+
 
 Route::controller(FrontendController::class)->group(function(){
 Route::get('/courses/all-category','all_course_Category')->name('allcoursecategory');
