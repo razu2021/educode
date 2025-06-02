@@ -73,8 +73,11 @@
               <!-- Error & Button -->
             <div id="card-errors" class="text-danger mt-2"></div>
             <form>
+              <input type="text" name="plan_id" id="plan_id" value="{{$data->id}}">
+              <input type="text" name="plan_slug" id="plan_slug" value="{{$data->slug}}">
               {{-- check button --}}
               <input type="text" name="amount" id="final-amount" value="{{$data->usd_price}}">
+
               <div class="row gx-0 ps-2 mb-4">
                 <div class="col-sm-8 px-3">
                   <div class="mb-3">
@@ -168,11 +171,16 @@
     const cardHolderName = document.getElementById('card-holder-name');
     const cardButton = document.getElementById('card-button');
 
+    let paymentIntentId = null;
+    let attempts = 0;
+    const maxAttempts = 10;
+    const interval = 3000;
+
     cardButton.addEventListener('click', async (e) => {
         e.preventDefault();
 
-        const amount = $('#final-amount').val(); // Add this input field in your form
-       // const plan_id = $('#selected-plan-id').val(); // If you're using plans
+        const planId = document.getElementById('plan_id').value;
+        const planSlug = document.getElementById('plan_slug').value;
 
         // 1️⃣ Step 1: Get clientSecret from backend
         let clientSecret = null;
@@ -184,18 +192,22 @@
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                body: JSON.stringify({
-                    amount: amount,
-                   
+                    body: JSON.stringify({
+                    plan_id: planId,
+                    plan_slug: planSlug
                 })
             });
 
             const data = await res.json();
-            if (data.clientSecret) {
+            // --- this id come form backend 
+            if (data.clientSecret && data.payment_intent_id) {
                 clientSecret = data.clientSecret;
+                paymentIntentId = data.payment_intent_id;
             } else {
                 throw new Error(data.message || 'Failed to initiate payment');
             }
+            //--------------
+
         } catch (err) {
            document.getElementById('card-error').innerText = err.message;
             return;
@@ -215,36 +227,38 @@
                document.getElementById('card-error').innerText = error.message; // Show Stripe error here
         } else {
             if (paymentIntent.status === 'succeeded') {
-                // 3️⃣ Step 3: Save payment in DB
-               $.ajax({
-                  url: "{{ route('payment.complete') }}",
-                  method: "POST",
-                  data: {
-                      _token: "{{ csrf_token() }}",
-                      payment_intent_id: paymentIntent.id,
-                      amount: paymentIntent.amount,
-                      status: paymentIntent.status
-                  },
-                  beforeSend: function () {
-                      // 🔄 Loader show or button disable
-                      $('#card-button').prop('disabled', true).text('Procesing...');
-                  },
-                  success: function () {
-                      // ✅ Success redirect
-                      window.location.href = "{{ route('payment.success') }}";
-                  },
-                  error: function (xhr) {
-                      // ❌ Show error
-                      alert(xhr.responseJSON?.message || 'Payment save failed.');
-                  },
-                  complete: function () {
-                      // ✅ Always run, even on error
-                      $('#card-button').prop('disabled', false).text('Confirm & Pay');
-                  }
-              });
+              checkPaymentStatus();
             }
         }
     });
+
+    async function checkPaymentStatus() {
+        if (!paymentIntentId) return;
+
+        $.ajax({
+            url: "{{ route('payment.status') }}",
+            method: "GET",
+            data: { payment_intent_id: paymentIntentId },
+            success: function(response) {
+                if (response.status === 'success') {
+                    window.location.href = "{{ route('payment.success') }}";
+                } else if (response.status === 'failed') {
+                    window.location.href = "{{ route('payment.failed') }}";
+                } else {
+                    $('#status-message').text('Payment processing, please wait...');
+                    if (attempts < maxAttempts) {
+                        attempts++;
+                        setTimeout(checkPaymentStatus, interval);
+                    } else {
+                        alert("Payment timeout. Please contact support.");
+                    }
+                }
+            },
+            error: function() {
+                alert("Status check failed.");
+            }
+        });
+    }
 </script>
 
 

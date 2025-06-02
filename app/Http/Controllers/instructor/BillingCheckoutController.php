@@ -25,17 +25,9 @@ class BillingCheckoutController extends Controller
         if (!$data) {
             abort(404, "Subscription Plan not found");
         }
-
-        $amount = $data->usd_price;  // get plan price in USD
-
-        $gateway = PaymentGatewayFactory::make();  // get payment gateway instance
-
-        $paymentData = $gateway->createPaymentIntent($amount);  // create payment intent
-
-        $clientSecret = $paymentData['clientSecret'] ?? null;  // safely get clientSecret
-
-        return view('instructor.pages.subscription.instructor_plan_checkout', compact('data', 'clientSecret'));
+        return view('instructor.pages.subscription.instructor_plan_checkout', compact('data'));
     }
+
 
 
 
