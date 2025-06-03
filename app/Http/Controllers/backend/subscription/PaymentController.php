@@ -27,10 +27,9 @@ class PaymentController extends Controller
         $gateway = PaymentGatewayFactory::make();
         $paymentData = $gateway->createPaymentIntent($plan_data);
 
-
-        return response()->json([
-               'clientSecret' => $paymentData->client_secret,
-              'payment_intent_id' => $paymentData->id,
+      return response()->json([
+            'clientSecret' => $paymentData['clientSecret'],
+            'payment_intent_id' => $paymentData['intentId'],
         ]);
     }
 
@@ -77,8 +76,8 @@ class PaymentController extends Controller
                 'user_id'=>$user_id,
             ]);
 
-            Log::info("✅ Subscription and payment saved for user_id: $user_id");
-            return view('instructor.pages.subscription.payment_success');
+          
+             return response()->json(['status' => 'received'], 200);
      
         
     }
@@ -88,8 +87,16 @@ class PaymentController extends Controller
 
     /**============  payment success page ========= */
     public function payment_status(Request $request){
-        
-        $payment = Payment::where('payment_id',$$request->payment_intent_id)->first();
+
+
+        Log::info("payment intend id " . $request->payment_intent_id);
+
+
+        $payment = Payment::where('payment_id',$request->payment_intent_id)->first();
+
+        Log::info('Payment data ' . $payment);
+
+
         if (!$payment) {
         return response()->json(['status' => 'processing']);
         }

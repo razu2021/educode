@@ -73,6 +73,8 @@
               <!-- Error & Button -->
             <div id="card-errors" class="text-danger mt-2"></div>
             <form>
+              @csrf
+
               <input type="text" name="plan_id" id="plan_id" value="{{$data->id}}">
               <input type="text" name="plan_slug" id="plan_slug" value="{{$data->slug}}">
               {{-- check button --}}
@@ -157,6 +159,7 @@
 <script src="https://js.stripe.com/v3/"></script>
 <script>
     const stripe = Stripe("{{ config('services.stripe.key') }}");
+    const paymentinitiateUrl = "{{ route('payment_initiate') }}";
     const elements = stripe.elements();
 
     const cardNumber = elements.create('cardNumber');
@@ -186,7 +189,7 @@
         let clientSecret = null;
 
         try {
-            const res = await fetch("{{ route('payment_initiate') }}", {
+            const res = await fetch(paymentinitiateUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -199,6 +202,7 @@
             });
 
             const data = await res.json();
+            
             // --- this id come form backend 
             if (data.clientSecret && data.payment_intent_id) {
                 clientSecret = data.clientSecret;
