@@ -1,11 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Udemy Style Mega Menu</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>online course learn anything on your schedule | Educode </title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{{asset('contents/frontend/assets')}}/assetss/css/bootstrap.min.css">
+
+  <!-- Animate.css for Animations -->
+  <link rel="stylesheet" href="{{asset('contents/frontend/assets')}}/assetss/css/animate.min.css">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="{{asset('contents/frontend/assets')}}/assetss/css/fontawesome.min.css">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="{{asset('contents/frontend/assets')}}/assetss/css/icofont.min.css">
+
+  <!-- Slick Slider (Carousel) -->
+  <link rel="stylesheet" href="{{asset('contents/frontend/assets')}}/assetss/css/slick.css">
+  <link rel="stylesheet" href="{{asset('contents/frontend/assets')}}/assetss/css/slick-theme.css">
+
+  <!-- owl Slider (Carousel) -->
+  <link rel="stylesheet" href="{{asset('contents/frontend/assets')}}/assetss/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="{{asset('contents/frontend/assets')}}/assetss/css/owl.theme.default.min.css">
+
+  <!-- AOS (Animate on Scroll) -->
+  <link rel="stylesheet" href="{{asset('contents/frontend/assets')}}/assetss/css/aos.css">
+
+  <!-- Custom SCSS/CSS -->
+  <link rel="stylesheet" href="{{asset('contents/frontend/assets')}}/assetss/css/style.css">
+  <!-- main scss/css -->
+  <link rel="stylesheet" href="{{asset('contents/frontend/assets')}}/assetss/css/scss/main.css">
+
   <link rel="stylesheet" href="{{asset('contents/frontend/assets/css')}}/style.css">
 
 </head>
@@ -14,7 +45,7 @@
     <div id="desktop-header">
     <div class="container-fluid d-flex align-items-center justify-content-between">
       <div class="d-flex align-items-center gap-3">
-        <img src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg" alt="Udemy" height="28" />
+        <img src="{{asset('contents/frontend/assets')}}/assetss/images/logo/image.svg" alt="Udemy" height="180px" />
         <div class="mega_menu_wrapper">
           <a href="{{route('allcoursecategory')}}" class="nav-link mega_menu">Explore Course</a>
           <div class="mega_dropdown">
@@ -62,8 +93,8 @@
         <input type="text" placeholder="Search for anything" />
       </div>
       <div class="d-flex align-items-center gap-3">
-        <a href="#" class="nav-link d-none d-lg-block">Udemy Business</a>
-        <a href="#" class="nav-link d-none d-lg-block">Teach on Udemy</a>
+        <a href="#" class="nav-link d-none d-lg-block">Educode Business</a>
+        <a href="#" class="nav-link d-none d-lg-block">Teach on Edu</a>
         <a href="#" class="nav-link"><i class="bi bi-cart3 fs-5"></i></a>
         <a href="{{route('login')}}" class="btn btn-sm btn-login">Log in</a>
         <a href="{{route('register')}}" class="btn btn-sm btn-signup">Sign up</a>
@@ -273,7 +304,35 @@
 
 
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Page Content Goes Here -->
+<!-- jQuery (Required for some plugins) -->
+<script src="{{asset('contents/frontend/assets')}}/assetss/js/jquery-3.7.1.min.js"></script>
+<!--  Bootstrap js  -->
+<script src="{{asset('contents/frontend/assets')}}/assetss/js/bootstrap.min.js"></script>
+<!-- fontwesome js  -->
+<script src="{{asset('contents/frontend/assets')}}/assetss/js/fontawesome.min.js"></script>
+<!--  owl Carousel js  -->
+<script src="{{asset('contents/frontend/assets')}}/assetss/js/owl.carousel.min.js"></script>
+<!-- slick js  -->
+<script src="{{asset('contents/frontend/assets')}}/assetss/js/slick.min.js"></script>
+<!-- aos animate js  -->
+<script src="{{asset('contents/frontend/assets')}}/assetss/js/aos.js"></script>
+<!-- wow  animate js  -->
+<script src="{{asset('contents/frontend/assets')}}/assetss/js/wow.min.js"></script>
+<!-- custom code for owl slider -->
+<script src="{{asset('contents/frontend/assets')}}/assetss/js/owl_slider.js"></script>
+<!-- custom code for slick slider -->
+<script src="{{asset('contents/frontend/assets')}}/assetss/js/slick_slider.js"></script>
+<!-- custom js  -->
+<script src="{{asset('contents/frontend/assets')}}/assetss/js/custom.js"></script>
+<!-- AOS animate initialization  js  -->
+<script>
+    AOS.init();
+</script>
+<!-- Initialize WOW -->
+<script>
+    new WOW().init();
+</script>
  
 <!-- JavaScript -->
 <script>
