@@ -1,1 +1,320 @@
-/*# sourceMappingURL=main.css.map */
+/*=============  common css  ================*/
+/*=============  common css  ================*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*=========== variable css ============*/
+/*=========  theme 1 variable ========*/
+section {
+  background-color: #fff;
+}
+
+/*--- section variable --*/
+/**=======  banner image css common ====*/
+/*=========== variable css ============*/
+body {
+  background-color: #fff;
+  scroll-behavior: unset;
+  overflow-x: hidden;
+  font-family: sans-serif;
+}
+
+a {
+  color: #000;
+  font-size: 1.6rem;
+  padding: 0.5rem 0rem;
+  font-weight: 400;
+  margin: 0;
+  text-decoration: none;
+}
+
+p {
+  color: #333333;
+  font-size: 1.7rem;
+  font-weight: 400;
+  padding: 0.5rem 0rem;
+  margin: 0;
+}
+
+h1 {
+  color: #000;
+  font-size: 3.6rem;
+  font-weight: 400;
+  padding: 0.5rem 0rem;
+  margin: 0;
+}
+
+h2 {
+  color: #000;
+  font-size: 3rem;
+  font-weight: 400;
+  padding: 0.5rem 0rem;
+  margin: 0;
+}
+
+h3 {
+  color: #000;
+  font-size: 2.4rem;
+  font-weight: 400;
+  padding: 0.5rem 0rem;
+  margin: 0;
+}
+
+h4 {
+  color: #000;
+  font-size: 1.8rem;
+  font-weight: 400;
+  padding: 0.5rem 0rem;
+  margin: 0;
+}
+
+h5 {
+  color: #000;
+  font-size: 1.4rem;
+  font-weight: 400;
+  padding: 0.5rem 0rem;
+  margin: 0;
+}
+
+h6 {
+  color: #000;
+  font-size: 1.2rem;
+  font-weight: 400;
+  padding: 0.5rem 0rem;
+  margin: 0;
+}
+
+ol, ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  list-style-type: none;
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+ol li {
+  list-style-type: none;
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.heading1 {
+  font-family: "Roboto";
+  font-weight: 900;
+}
+
+button {
+  font-size: 1.6rem;
+}
+
+/*=====  button style ====*/
+.button1 a button {
+  border: none;
+  background-color: #EAA636;
+  border-radius: 0.5rem;
+  padding: 0.7rem;
+  color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.button1 a button:hover {
+  background: transparent;
+  color: #EAA636;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  transition: all 0.35s;
+}
+
+/*=== comon banner for all site */
+#banner_images {
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  padding-top: 0rem;
+}
+
+.banner_image_bg {
+  background-color: rgba(55, 68, 253, 0.57);
+}
+
+.theme1_banner_text {
+  padding: 15rem 0rem;
+}
+.theme1_banner_text h1 {
+  color: #000;
+  font-size: 4.8rem;
+  font-weight: 400;
+  padding: 0.5rem 0rem;
+  margin: 0;
+  font-weight: 900;
+  font-family: "Roboto";
+}
+.theme1_banner_text a {
+  color: red;
+}
+
+#bg_image {
+  background-image: url("../../image/banner/banner1.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+.bg_overlay {
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.not_found img {
+  width: auto;
+  height: auto;
+  padding: 0rem 2rem;
+}
+.not_found h2 {
+  color: #000;
+  font-size: 5rem;
+  font-weight: 900;
+  padding: 2rem 0rem;
+  margin: 0;
+}
+.not_found p {
+  color: #000;
+  font-size: 2.2rem;
+  font-weight: 600;
+  padding: 0.5rem 0rem;
+  margin: 0;
+}
+.not_found p a {
+  color: #EAA636;
+  font-size: 2.2rem;
+}
+
+/**  ==== custom input code ======*/
+.contact_form {
+  margin: 0 5%;
+}
+
+.custom_input label {
+  font-size: 1.6rem;
+}
+.custom_input input {
+  padding: 0.5rem;
+  width: 100%;
+  font-size: 1.6rem;
+}
+.custom_input textarea {
+  width: 100%;
+}
+.custom_input span {
+  font-size: 1.4rem;
+}
+.custom_input button {
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.7rem;
+  background-color: #EAA636;
+  color: #fff;
+  font-size: 1.8rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.form_button {
+  font-size: 1.6rem;
+}
+
+.subciber_form {
+  background-color: #EAA636;
+}
+
+/*---------  section code -----*/
+.section-padding {
+  padding: 6rem 0rem;
+}
+
+.section1 {
+  background-color: #fff;
+}
+
+.section2 {
+  background-color: #EEF2F5;
+}
+
+/*=============  common css  ================*/
+/*=============  common css  ================*/
+@media (max-width: 575.98px) {
+  html {
+    font-size: 50.5%;
+  }
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  html {
+    font-size: 47.5%;
+  }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  html {
+    font-size: 52.5%;
+  }
+}
+@media (max-width: 1199.98px) {
+  html {
+    font-size: 57.5%;
+  }
+  /*=======  header menu 2 css end =========*/
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  html {
+    font-size: 57.5%;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+  html {
+    font-size: 62.5%;
+  }
+}
+@media (min-width: 1400px) {
+  html {
+    font-size: 62.5%;
+  }
+}
+/*--------  banner1 css start here ============**/
+.banner1 {
+  padding: 4rem 0rem;
+}
+
+.banner1bg {
+  background-color: #fff;
+  border-radius: 1.5rem;
+  overflow-x: hidden;
+  min-height: 40rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.banner1_content {
+  display: grid;
+  align-content: center;
+  min-height: 100%;
+  padding: 0rem 2rem;
+}
+.banner1_content h1 {
+  color: #0D0C23;
+  font-size: 6rem;
+  font-weight: 700;
+  padding: 0.5rem 0rem;
+  margin: 0;
+  padding-bottom: 2rem;
+}
+.banner1_content h1 strong {
+  color: #754FFE;
+}
+.banner1_content p {
+  border-left: 0.6rem solid #754FFE;
+  padding: 0rem 0.5rem;
+}
+
+.banner1_image img {
+  width: 50rem;
+}/*# sourceMappingURL=main.css.map */

@@ -1,0 +1,36 @@
+@import "_compaile.scss" ;
+/*--------  banner1 css start here ============**/
+
+.banner1{
+    padding: 4rem 0rem;
+}
+.banner1bg{
+    background-color: #fff;
+    border-radius: 1.5rem;
+    overflow-x: hidden;
+    min-height: 40rem;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+}
+.banner1_content{
+    display: grid;
+    align-content: center;
+    min-height: 100%; // যদি vertically center চাও
+    padding: 0rem 2rem;
+    h1{
+        @include heading_tag1($font-size:6rem,$font-weight:700,$color:#0D0C23);
+        padding-bottom: 2rem ;
+        strong{
+            color: #754FFE;
+        }
+    };
+    p{
+        border-left: .6rem solid #754FFE;
+        padding: 0rem .5rem ;
+    }
+}
+.banner1_image{
+    img{
+        width: 50rem;
+    }
+}

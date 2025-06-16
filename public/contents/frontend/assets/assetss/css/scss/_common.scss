@@ -1,0 +1,249 @@
+@import "_mixing.scss";
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*=========== variable css ============*/
+
+// color variable 
+
+$anchor: #000;
+$paragraph : #333333;
+$span : #f0f0f0;
+$heading1 : #000;
+$heading2 : #000;
+$heading3 : #000;
+$heading4 : #000;
+$heading5 : #000;
+$heading6 : #000;
+
+// background 
+$bodybackground : #fff;
+
+
+
+// text size variable 
+$anchor_size : 1.6rem;
+$link_color:#EAA636;
+
+$paragraph_size : 1.7rem;
+
+
+// overflow variable 
+
+
+
+/*=========  theme 1 variable ========*/
+$headertop1_theme1:#111111;
+$theme1_icon_color : #EAA636;
+$header1_theme1 : #fff;
+$header1_hover_a : #EAA636;
+$header1_contact_bg : #800deb;
+
+$footer1bg : rgba(0,0,0,0.85);
+$footer1_heading : #fff;
+$footer1_caption : #f1f1f1;
+$footer1_menu_heading : #f1f1f1;
+$footer1_text_opacity: 100%;
+$footer1_address_bg:transparent;
+
+
+section{
+    background-color: #fff;
+}
+
+/*--- section variable --*/
+
+$section1_bg:#fff; 
+$section2_bg:#EEF2F5; 
+$section_padding: 6rem 0rem;
+
+/**=======  banner image css common ====*/
+$banner_overlay : linear-gradient(90deg, rgba(255,255,255,0.85) 0%, rgba(255,118,236,0.4234068627450981) 50%, rgba(4,0,255,0.41220238095238093) 100%);
+$banner_heading_color: #000;
+$banner_link_color: red;
+/*=========== variable css ============*/
+
+body{
+    background-color:$bodybackground;
+    scroll-behavior: unset;
+    overflow-x: hidden;
+    font-family:sans-serif;
+}
+
+a{
+    @include anchor_tag($color: $anchor);
+}
+p{
+    @include paragraph_tag($color: $paragraph,$font-size:$paragraph_size);
+}
+h1{
+    @include heading_tag1();
+}
+h2{
+    @include heading_tag2();
+}
+h3{
+    @include heading_tag3();
+}
+h4{
+    @include heading_tag4();
+}
+h5{
+    @include heading_tag5();
+}
+h6{
+    @include heading_tag6();
+}
+ol,ul{
+    margin: 0;
+    padding: 0;
+}
+ul li{
+    list-style-type: none;
+    margin: 0;
+    font-size: 1.6rem;
+}
+ol li{
+    list-style-type: none;
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+.heading1{
+    font-family: 'Roboto';
+    font-weight: 900;
+}
+
+button{
+    font-size: 1.6rem;
+}
+
+/*=====  button style ====*/
+// button 1--------------------------
+
+$btn1_background: #EAA636;
+$btn1_color: #fff;
+
+.button1{
+    a{
+        button{
+            @include button1($border:none,$background:$btn1_background,$color:$btn1_color);
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+            &:hover{
+                background: transparent;
+                color: #EAA636;
+                box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+                transition: all 0.35s;
+            }
+        }
+    }
+}
+
+
+
+
+
+
+/*=== comon banner for all site */
+#banner_images{
+    //background-image: url('../../image/banner/banner3.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover; 
+    padding-top: 0rem;
+}
+.banner_image_bg{
+    background-color: rgba(55, 68, 253, 0.57);
+}
+.theme1_banner_text{
+    padding:15rem 0rem;
+    h1{
+        @include heading_tag1($color:$banner_heading_color,$font-size:4.8rem);
+        font-weight: 900;
+        font-family: 'Roboto';
+    }
+    a{
+        color:$banner_link_color;
+    }
+}
+
+#bg_image{
+    background-image: url('../../image/banner/banner1.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover; 
+}
+.bg_overlay{
+    background-color: rgba(255,255,255,0.75);
+}
+
+//*==========  page not found ===*//
+.not_found{
+   img{
+    width: auto;
+    height: auto;
+    padding: 0rem 2rem;
+   }
+    h2{
+        @include heading_tag2($font-size:5rem , $font-weight:900,$padding:2rem 0rem,)
+    }
+    p{
+        @include paragraph_tag($font-size:2.2rem,$font-weight:600);
+        a{color:$theme1_icon_color;font-size: 2.2rem;}
+    }
+}
+
+
+/**  ==== custom input code ======*/
+.contact_form{
+    margin: 0 5%;
+}
+.custom_input {
+    label{
+        font-size: 1.6rem;
+    }
+    input{
+        padding: .5rem ;
+        width: 100%;
+        font-size: 1.6rem;
+    }
+    textarea{
+        width: 100%;
+    }
+
+    span{
+        font-size: 1.4rem;
+    }
+    button{
+        border: none;
+        padding: .5rem;
+        border-radius: .7rem;
+        background-color: #EAA636;
+        color: #fff;
+        font-size: 1.8rem;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    }
+}
+.form_button{
+    font-size: 1.6rem;
+}
+// subscriber form
+.subciber_form{
+    background-color: #EAA636;
+ 
+}
+/*---------  section code -----*/
+.section-padding{
+    padding: $section_padding
+}
+.section1{
+    background-color: $section1_bg;
+}
+.section2{
+    background-color: $section2_bg;
+}
+
+
