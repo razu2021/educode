@@ -54,10 +54,8 @@
   }
 
   /* Mega Menu */
-  .mega_menu_wrapper{
-    a{
-        font-size: 1.6rem;
-    }
+  .mega_menu_wrapper a{
+    font-size: 1.6rem;
 }
   .mega_menu_wrapper {
     position: relative;
