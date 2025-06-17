@@ -8,7 +8,6 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="{{asset('contents/frontend/assets')}}/assetss/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
   <!-- Animate.css for Animations -->
   <link rel="stylesheet" href="{{asset('contents/frontend/assets')}}/assetss/css/animate.min.css">
@@ -45,8 +44,11 @@
   <header class="desktop-header" >
     <div id="desktop-header">
     <div class="container-fluid d-flex align-items-center justify-content-between">
-      <div class="d-flex align-items-center gap-3">
-        <img src="{{asset('contents/frontend/assets')}}/assetss/images/logo/image.svg" alt="Udemy" height="28" />
+      <div class="d-flex align-items-center gap-3"> 
+       <svg width="200" height="60" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="40" font-family="Poppins, sans-serif" font-size="36" fill="#000">Educode</text>
+      </svg>
+
         <div class="mega_menu_wrapper">
           <a href="{{route('allcoursecategory')}}" class="nav-link mega_menu">Explore Course</a>
           <div class="mega_dropdown">
@@ -89,11 +91,11 @@
           </div>
         </div>
       </div>
-      <div class="search-box mx-3 custom_input">
-        <i class="bi bi-search custom_input"></i>
+      <div class="search-box mx-3">
+        <i class="bi bi-search"></i>
         <input type="text" placeholder="Search for anything" />
       </div>
-      <div class="d-flex align-items-center gap-3 mega_menu_wrapper">
+      <div class="d-flex align-items-center gap-3">
         <a href="#" class="nav-link d-none d-lg-block">Educode Business</a>
         <a href="#" class="nav-link d-none d-lg-block">Teach on Edu</a>
         <a href="#" class="nav-link"><i class="bi bi-cart3 fs-5"></i></a>
@@ -112,8 +114,6 @@
             <li><a class="dropdown-item" href="#">Logout</a></li>
             </ul>
         </div>
-       
-        
   
       </div>
     </div>
@@ -306,13 +306,12 @@
 
 
 
+
 <!-- Page Content Goes Here -->
 <!-- jQuery (Required for some plugins) -->
 <script src="{{asset('contents/frontend/assets')}}/assetss/js/jquery-3.7.1.min.js"></script>
 <!--  Bootstrap js  -->
 <script src="{{asset('contents/frontend/assets')}}/assetss/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
 <!-- fontwesome js  -->
 <script src="{{asset('contents/frontend/assets')}}/assetss/js/fontawesome.min.js"></script>
 <!--  owl Carousel js  -->
@@ -337,7 +336,7 @@
 <script>
     new WOW().init();
 </script>
-
+ 
 <!-- JavaScript -->
 <script>
   const exploreBtn = document.getElementById('exploreBtn');
