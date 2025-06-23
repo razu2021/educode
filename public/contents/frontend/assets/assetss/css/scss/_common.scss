@@ -57,7 +57,7 @@ section{
 /*--- section variable --*/
 
 $section1_bg:#fff; 
-$section2_bg:#EEF2F5; 
+$section2_bg:#F8F9FA; 
 $section_padding: 6rem 0rem;
 
 /**=======  banner image css common ====*/
@@ -148,36 +148,8 @@ $btn1_color: #fff;
 
 
 /*=== comon banner for all site */
-#banner_images{
-    //background-image: url('../../image/banner/banner3.jpg');
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover; 
-    padding-top: 0rem;
-}
-.banner_image_bg{
-    background-color: rgba(55, 68, 253, 0.57);
-}
-.theme1_banner_text{
-    padding:15rem 0rem;
-    h1{
-        @include heading_tag1($color:$banner_heading_color,$font-size:4.8rem);
-        font-weight: 900;
-        font-family: 'Roboto';
-    }
-    a{
-        color:$banner_link_color;
-    }
-}
-
-#bg_image{
-    background-image: url('../../image/banner/banner1.jpg');
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover; 
-}
-.bg_overlay{
-    background-color: rgba(255,255,255,0.75);
+.breadcrumb1{
+    background-color: #000;
 }
 
 //*==========  page not found ===*//

@@ -109,7 +109,9 @@ class FrontendController extends Controller
 
 
 
-
+    public function course_details(){
+        return view('frontend.pages.course.course_details');
+    }
 
 
 

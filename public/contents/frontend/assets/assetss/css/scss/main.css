@@ -130,42 +130,8 @@ button {
 }
 
 /*=== comon banner for all site */
-#banner_images {
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  padding-top: 0rem;
-}
-
-.banner_image_bg {
-  background-color: rgba(55, 68, 253, 0.57);
-}
-
-.theme1_banner_text {
-  padding: 15rem 0rem;
-}
-.theme1_banner_text h1 {
-  color: #000;
-  font-size: 4.8rem;
-  font-weight: 400;
-  padding: 0.5rem 0rem;
-  margin: 0;
-  font-weight: 900;
-  font-family: "Roboto";
-}
-.theme1_banner_text a {
-  color: red;
-}
-
-#bg_image {
-  background-image: url("../../image/banner/banner1.jpg");
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-}
-
-.bg_overlay {
-  background-color: rgba(255, 255, 255, 0.75);
+.breadcrumb1 {
+  background-color: #000;
 }
 
 .not_found img {
@@ -239,7 +205,7 @@ button {
 }
 
 .section2 {
-  background-color: #EEF2F5;
+  background-color: #F8F9FA;
 }
 
 /*=============  common css  ================*/
@@ -502,4 +468,347 @@ button {
 }
 .course-card .course-content .btn-gradient:hover {
   background: linear-gradient(to right, #7a1fc9, #3a78cc);
+}
+
+/*===========   instructor card design ========**/
+.instructor-card {
+  background: #fff;
+  border-radius: 1.6rem;
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  max-width: 32rem;
+  margin: auto;
+}
+.instructor-card:hover {
+  transform: translateY(-0.4rem);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+}
+.instructor-card .avatar {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 0.3rem solid #eee;
+}
+.instructor-card .name {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #222;
+}
+.instructor-card .title {
+  font-size: 1.3rem;
+  color: #666;
+}
+.instructor-card .skills .skill {
+  background: #eef2ff;
+  color: #4f46e5;
+  font-size: 1.2rem;
+  padding: 0.4rem 1rem;
+  border-radius: 1.2rem;
+  margin: 0 0.3rem;
+  display: inline-block;
+}
+.instructor-card .meta {
+  font-size: 1.2rem;
+  color: #444;
+}
+.instructor-card .meta i {
+  margin-right: 0.4rem;
+  color: #7b4fff;
+}
+.instructor-card a.btn {
+  font-size: 1.3rem;
+  padding: 0.6rem 1.4rem;
+}
+
+/*===========  testimonial css start here =======*/
+.testimonial-card {
+  background: #fff;
+  border-radius: 1.6rem;
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.06);
+  transition: all 0.4s ease;
+  max-width: 36rem;
+  margin: auto;
+  opacity: 0.6;
+  transform: scale(0.95);
+}
+.testimonial-card .testimonial_image img {
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 0.2rem solid #ddd;
+}
+.testimonial-card .name {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+.testimonial-card .testimonial-text {
+  font-size: 1.4rem;
+  color: #444;
+  margin-bottom: 1rem;
+}
+.testimonial-card .rating i {
+  font-size: 1.4rem;
+}
+
+.owl-carousel .owl-item.center .testimonial-card {
+  opacity: 1;
+  transform: scale(1.05);
+  border: 2px solid #7b4fff;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+}
+
+/*=================  faq css start here =========*/
+.faq-section {
+  padding: 5rem 2rem;
+  background-color: #f8f9fa;
+}
+.faq-section .faq-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #212529;
+}
+.faq-section .accordion {
+  max-width: 70rem;
+  margin: 0 auto;
+}
+.faq-section .accordion .accordion-item {
+  border: none;
+  margin-bottom: 1.2rem;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+.faq-section .accordion .accordion-item .accordion-header .accordion-button {
+  font-size: 1.6rem;
+  font-weight: 600;
+  padding: 1.5rem 2rem;
+  background-color: #ffffff;
+  color: #212529;
+  box-shadow: none;
+}
+.faq-section .accordion .accordion-item .accordion-header .accordion-button::after {
+  transition: transform 0.3s ease;
+}
+.faq-section .accordion .accordion-item .accordion-header .accordion-button:not(.collapsed)::after {
+  transform: rotate(180deg);
+}
+.faq-section .accordion .accordion-item .accordion-header .accordion-button:focus {
+  box-shadow: none;
+}
+.faq-section .accordion .accordion-item .accordion-body {
+  font-size: 1.4rem;
+  color: #555;
+  padding: 1.5rem 2rem;
+  background-color: #fafafa;
+  border-top: 0.1rem solid #eee;
+}
+
+/*===============   blog card css start here =====*/
+.blog-card {
+  max-width: 36rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.blog-card:hover {
+  transform: translateY(-0.4rem);
+  box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.15);
+}
+.blog-card:hover .card-image img {
+  transform: scale(1.1) translateY(-0.5rem);
+}
+.blog-card .card-image {
+  position: relative;
+  overflow: hidden;
+  height: 20rem;
+}
+.blog-card .card-image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.blog-card .card-image .tag {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.2rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.blog-card .card-content {
+  padding: 2rem;
+}
+.blog-card .card-content .title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #212529;
+}
+.blog-card .card-content .excerpt {
+  font-size: 1.4rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+.blog-card .card-content .author {
+  display: flex;
+  align-items: center;
+}
+.blog-card .card-content .author img {
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  margin-right: 1.2rem;
+}
+.blog-card .card-content .author .info .name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #333;
+}
+.blog-card .card-content .author .info .date {
+  font-size: 1.2rem;
+  color: #777;
+}
+
+/*==========  join student & insructor =========*/
+.cta-card {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  border-radius: 2rem;
+  overflow: hidden;
+  min-height: 25rem;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+.cta-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(40, 0, 80, 0.1);
+  z-index: 1;
+}
+.cta-card .cta-content, .cta-card .cta-img {
+  position: relative;
+  z-index: 2;
+}
+.cta-card .cta-title {
+  font-size: 2.9rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+  color: #fff;
+}
+.cta-card .cta-subtitle {
+  font-size: 1.4rem;
+  opacity: 0.9;
+  color: #fff;
+}
+.cta-card .btn {
+  font-size: 1.4rem;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+}
+.cta-card .btn:hover {
+  background-color: #fff;
+  color: #7b4fff;
+}
+.cta-card .cta-img {
+  max-width: 12rem;
+}
+.cta-card .cta-img img {
+  width: 100%;
+  border-radius: 1rem;
+}
+@media (max-width: 768px) {
+  .cta-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .cta-card .cta-img {
+    margin-top: 1.5rem;
+    max-width: 14rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/*=======================================================================  index page css end herre ========================================**/
+.course-hero {
+  background-color: #0f0f0f;
+  color: #fff;
+}
+.course-hero .breadcrumb {
+  font-size: 1.3rem;
+}
+.course-hero .breadcrumb a, .course-hero .breadcrumb span {
+  color: #ccc;
+}
+.course-hero .course-title {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #fff;
+}
+.course-hero .course-subtitle {
+  font-size: 1.5rem;
+  color: #aaa;
+}
+.course-hero .course-meta {
+  font-size: 1.3rem;
+  color: #ccc;
+}
+.course-hero .course-meta a {
+  color: #4fbcff;
+  text-decoration: none;
+}
+.course-hero .course-meta a:hover {
+  text-decoration: underline;
+}
+.course-hero .video-wrapper {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.course-hero .video-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.course-hero .video-wrapper .play-btn {
+  width: 5rem;
+  height: 5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.course-hero .video-wrapper .play-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
 }/*# sourceMappingURL=main.css.map */

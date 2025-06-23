@@ -24,3 +24,28 @@
         navText: ["<span class='new_prev'>  <  </span>", "<span class='new_next'> > </span>"],
     });
   });
+
+
+  /**========  testimonial slider start here ======== */
+$(document).ready(function(){
+  $('.testimonial-carousel').owlCarousel({
+    loop: true,
+    center: true, // ✅ center item
+    margin: 20,
+    autoplay: true,
+    autoplayTimeout: 4000,
+    autoplayHoverPause: true,
+    smartSpeed: 600,
+    responsive: {
+      0: {
+        items: 1
+      },
+      768: {
+        items: 2
+      },
+      992: {
+        items: 3
+      }
+    }
+  });
+});

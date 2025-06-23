@@ -298,11 +298,12 @@
 </section>
 {{-- --- course end here  --}}
 
-<section class="py-5">
+<section class="section-padding section2">
   <div class="container">
     <div class="row g-4">
       
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+      @for ($i = 0; $i < 8; $i++ )
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-4">
         <div class="category_card1 text-center p-4 shadow-sm rounded">
           <div class="icon text-primary mb-3 fs-2">
             <i class="bi bi-brush"></i>
@@ -311,37 +312,42 @@
           <p class="text-muted small mb-0">120+ Courses</p>
         </div>
       </div>
+     @endfor
+    
 
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="category_card1 text-center p-4 shadow-sm rounded">
-          <div class="icon text-success mb-3 fs-2">
-            <i class="bi bi-code-slash"></i>
+    
+
+    </div>
+  </div>
+</section>
+{{--   instructor card design  --}}
+<section>
+  <div class="container section-padding">
+    <div class="row">
+      @for ($i = 0; $i < 8; $i++)
+      <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 mt-4">
+        <div class="instructor-card p-4 rounded-4 text-center">
+          <img src="{{asset('contents/frontend/assets/assetss/images/course/i1.jpg')}}" alt="Instructor" class="avatar mb-3">
+          <h4 class="name">Md Razu Hossain Raj</h4>
+          <p class="title">Full Stack Developer</p>
+
+          <div class="skills my-2">
+            <span class="skill">Laravel</span>
+            <span class="skill">Vue.js</span>
+            <span class="skill">API</span>
           </div>
-          <h6 class="fw-bold mb-1">Development</h6>
-          <p class="text-muted small mb-0">300+ Courses</p>
-        </div>
-      </div>
 
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="category_card1 text-center p-4 shadow-sm rounded">
-          <div class="icon text-danger mb-3 fs-2">
-            <i class="bi bi-bar-chart-fill"></i>
+          <div class="meta d-flex justify-content-center gap-4 my-3">
+            <div><i class="bi bi-people"></i> 1.2k Students</div>
+            <div><i class="bi bi-book"></i> 12 Courses</div>
           </div>
-          <h6 class="fw-bold mb-1">Marketing</h6>
-          <p class="text-muted small mb-0">90+ Courses</p>
-        </div>
-      </div>
 
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="category_card1 text-center p-4 shadow-sm rounded">
-          <div class="icon text-warning mb-3 fs-2">
-            <i class="bi bi-currency-dollar"></i>
-          </div>
-          <h6 class="fw-bold mb-1">Finance</h6>
-          <p class="text-muted small mb-0">60+ Courses</p>
+          <a href="#" class="btn btn-outline-primary btn-sm rounded-pill">View Profile</a>
         </div>
-      </div>
 
+      </div>
+       @endfor
+      {{-- col end  --}}
     </div>
   </div>
 </section>
@@ -350,7 +356,151 @@
 
 
 
+{{--  testimonila start here  --}}
+<section class="testimonial-slider-section  section-padding section2">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="section-title">Student Feedback</h2>
+      <p class="section-subtitle">From real learners</p>
+    </div>
 
+    <div class="owl-carousel testimonial-carousel">
+      @for ($i = 0; $i < 5; $i++)
+      <div class="testimonial-card p-4 rounded-4 m-4">
+        <div class="d-flex align-items-center mb-3 testimonial_image">
+          <img src="{{asset('contents/frontend/assets/assetss/images/course/i1.jpg')}}" class="avatars me-3" alt="User">
+          <div>
+            <h5 class="name mb-0">Razu Hossain</h5>
+            <small class="role text-muted">Full Stack Dev</small>
+          </div>
+        </div>
+        <p class="testimonial-text">
+          "Absolutely amazing experience! Highly recommended for every developer."
+        </p>
+        <div class="rating">
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
+        </div>
+      </div>
+      @endfor
+    </div>
+  </div>
+</section>
+
+
+
+{{--  testimonila end here  --}}
+
+
+{{--  faq use start here  --}}
+<section class="faq-section section-padding">
+  <div class="container">
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+    <div class="accordion" id="faqAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+            What is your return policy?
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            We offer a 30-day money-back guarantee. No questions asked!
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+            How do I access my courses?
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            You can access your courses by logging into your account and going to “My Courses”.
+          </div>
+        </div>
+      </div>
+      <!-- Add more items as needed -->
+    </div>
+  </div>
+</section>
+
+{{--  faq use end here  --}}
+
+{{-- blog start here  --}}
+<section class="section-padding">
+  <div class="container">
+    <div class="row ">
+      @for ($i = 0; $i < 4; $i++ )
+      <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 mt-4 d-flex justify-content-center">
+          <div class="blog-card">
+            <div class="card-image">
+              <img src="{{asset('contents/frontend/assets/assetss/images/course/c2.jpg')}}" alt="Blog Image">
+              <span class="tag">Tutorial</span>
+            </div>
+            <div class="card-content">
+              <h3 class="title">Master Laravel in 30 Days</h3>
+              <p class="excerpt">
+                Learn everything from routing to deploying in this comprehensive Laravel bootcamp!
+              </p>
+              <div class="author">
+                <img src="{{asset('contents/frontend/assets/assetss/images/course/c2.jpg')}}" alt="Author">
+                <div class="info">
+                  <span class="name">Md Razu Hossain Raj</span>
+                  <span class="date">June 23, 2025</span>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      {{-- col end  --}}
+      @endfor
+    </div>
+  </div>
+</section>
+{{-- blog start end here  --}}
+
+<section class="cta-section py-5">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Student Card -->
+      <div class="col-12 col-md-6">
+        <div class="cta-card text-white d-flex justify-content-between align-items-center p-4 rounded-4 h-100"
+             style="background-image: url('{{asset('contents/frontend/assets/assetss/images/course/image_1.png')}}');">
+          <div class="cta-content">
+            <h2 class="cta-title">Join now to <br> start learning</h2>
+            <p class="cta-subtitle">Learn from our quality instructors!</p>
+            <a href="#" class="btn btn-light fw-semibold px-4 py-2 mt-2">Get started</a>
+          </div>
+          {{-- <div class="cta-img">
+            <img src="{{ asset('images/student.png') }}" alt="Student" class="img-fluid">
+          </div> --}}
+        </div>
+      </div>
+
+      <!-- Instructor Card -->
+      <div class="col-12 col-md-6">
+        <div class="cta-card text-white d-flex justify-content-between align-items-center p-4 rounded-4 h-100"
+             style="background-image: url('{{asset('contents/frontend/assets/assetss/images/course/image_2.png')}}');">
+          <div class="cta-content">
+            <h2 class="cta-title">Become a new <br> instructor</h2>
+            <p class="cta-subtitle">Teach thousands of students and earn money!</p>
+            <a href="#" class="btn btn-light fw-semibold px-4 py-2 mt-2">Join now</a>
+          </div>
+          {{-- <div class="cta-img">
+            <img src="{{ asset('images/instructor.png') }}" alt="Instructor" class="img-fluid">
+          </div> --}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{-- instructor and student join end here  --}}
 
 
 

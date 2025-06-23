@@ -25,6 +25,8 @@ Route::get('/courses/{category_url}','course_Category')->name('coursecategory');
 Route::get('/courses/{category_url}/{course_subcategory}','course_SububCategory')->name('coursesubcategory');
 Route::get('/courses/{category_url}/{course_subcategory}/{course_childCategory}','course_childubCategory')->name('coursechildcategory');
 
+Route::get('course/details','course_details')->name('course_details');
+
 });
 
 
