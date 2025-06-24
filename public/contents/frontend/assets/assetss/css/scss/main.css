@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*=============  common css  ================*/
 /*=============  common css  ================*/
 * {
@@ -811,4 +812,461 @@ button {
 .course-hero .video-wrapper .play-btn:hover {
   background: rgba(255, 255, 255, 0.3);
   transform: scale(1.1);
+}
+
+/*-=========  course about css========*/
+.course-about-section {
+  background-color: #fff;
+  padding: 4rem 0;
+  border: 1px solid #e0e0e0;
+}
+.course-about-section .section-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1.6rem;
+}
+.course-about-section .course-description {
+  font-size: 1.6rem;
+  color: #555;
+  max-width: 70rem;
+}
+.course-about-section .about-subtitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 1.2rem;
+}
+.course-about-section .about-list {
+  list-style: none;
+  padding-left: 0;
+}
+.course-about-section .about-list li {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: start;
+  gap: 1rem;
+  color: #444;
+}
+.course-about-section .about-list li i {
+  color: #7b4fff;
+  font-size: 1.6rem;
+  margin-top: 0.3rem;
+}
+
+/*--------  course content strat here ---------**/
+.course-curriculum .section-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+.course-curriculum .accordion-item {
+  border: none;
+  margin-bottom: 1rem;
+  border-radius: 0.6rem;
+  overflow: hidden;
+  box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.05);
+}
+.course-curriculum .accordion-item .accordion-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+  background: #f8f9fa;
+  padding: 1.4rem 2rem;
+}
+.course-curriculum .accordion-item .accordion-button .duration {
+  font-size: 1.4rem;
+  color: #666;
+}
+.course-curriculum .accordion-item .accordion-button:focus {
+  box-shadow: none;
+}
+.course-curriculum .accordion-item .accordion-body {
+  background: #fff;
+  padding: 1.2rem 2rem;
+}
+.course-curriculum .accordion-item .accordion-body .topic-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.course-curriculum .accordion-item .accordion-body .topic-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #eee;
+  color: #444;
+}
+.course-curriculum .accordion-item .accordion-body .topic-list li i {
+  color: #7b4fff;
+  margin-right: 0.6rem;
+  font-size: 1.6rem;
+}
+.course-curriculum .accordion-item .accordion-body .topic-list li .time {
+  font-size: 1.4rem;
+  color: #777;
+}
+
+.preview-btn {
+  font-size: 1.4rem;
+  color: #7b4fff;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.preview-btn:hover {
+  text-decoration: underline;
+}
+.preview-btn i {
+  font-size: 1.6rem;
+}
+
+.topic-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+.topic-list li .topic-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 500;
+}
+.topic-list li .topic-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/*==========  course description start here ===========*/
+.course-description-section {
+  background: #fff;
+  padding: 4rem 0;
+}
+.course-description-section .section-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #333;
+}
+.course-description-section .description-content {
+  font-size: 1.6rem;
+  color: #444;
+  line-height: 1.7;
+}
+.course-description-section .description-content p {
+  margin-bottom: 1.6rem;
+}
+.course-description-section .description-content ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1.6rem;
+}
+.course-description-section .description-content ul li {
+  position: relative;
+  padding-left: 2.4rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.6rem;
+}
+.course-description-section .description-content ul li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #7b4fff;
+  font-weight: bold;
+}
+
+/*======= instructor section for course details ======*/
+.instructor-profile-section {
+  background-color: #fff;
+  padding: 4rem 0;
+}
+.instructor-profile-section .instructor-img {
+  width: 12rem;
+  height: 12rem;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 0.3rem solid #7b4fff;
+  box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.08);
+}
+.instructor-profile-section .instructor-name {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+.instructor-profile-section .instructor-title {
+  font-size: 1.5rem;
+  color: #777;
+  margin-bottom: 1.4rem;
+}
+.instructor-profile-section .instructor-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  list-style: none;
+  padding-left: 0;
+  font-size: 1.5rem;
+}
+.instructor-profile-section .instructor-stats li {
+  color: #444;
+}
+.instructor-profile-section .instructor-stats li strong {
+  color: #7b4fff;
+  font-weight: 700;
+  margin-right: 0.3rem;
+}
+.instructor-profile-section .instructor-bio {
+  font-size: 1.6rem;
+  color: #444;
+  line-height: 1.7;
+}
+.instructor-profile-section .instructor-bio p {
+  margin-bottom: 1.2rem;
+}
+
+/*==========   course review strat here =====*/
+.course-review-section {
+  background-color: #f8f9fb;
+  padding: 4rem 0;
+}
+.course-review-section .section-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #333;
+}
+.course-review-section .average-rating .score {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #7b4fff;
+}
+.course-review-section .average-rating .stars {
+  font-size: 1.8rem;
+  color: #f7c600;
+}
+.course-review-section .average-rating .total-reviews {
+  font-size: 1.4rem;
+  color: #777;
+}
+.course-review-section .rating-bars .bar-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.course-review-section .rating-bars .bar-row .star-label {
+  width: 5rem;
+  font-size: 1.4rem;
+  color: #444;
+}
+.course-review-section .rating-bars .bar-row .bar {
+  flex: 1;
+  background: #ddd;
+  height: 0.8rem;
+  border-radius: 0.4rem;
+  overflow: hidden;
+}
+.course-review-section .rating-bars .bar-row .bar .fill {
+  height: 100%;
+  background: #7b4fff;
+}
+.course-review-section .rating-bars .bar-row .percent {
+  width: 4rem;
+  font-size: 1.3rem;
+  color: #555;
+}
+.course-review-section .review-card {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.05);
+}
+.course-review-section .review-card .review-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.course-review-section .review-card .review-header .avatar {
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 0.2rem solid #ddd;
+}
+.course-review-section .review-card .review-header .name {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #333;
+}
+.course-review-section .review-card .review-header .stars {
+  font-size: 1.4rem;
+}
+.course-review-section .review-card .review-text {
+  font-size: 1.5rem;
+  color: #444;
+}
+.course-review-section .review-card .review-date {
+  font-size: 1.3rem;
+}
+
+/*=====  course card 2 ========*/
+.card_2 {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  max-width: 32rem;
+  margin: auto;
+}
+.card_2:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.08);
+}
+.card_2 .card-image {
+  position: relative;
+}
+.card_2 .card-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.card_2 .card-image .badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background-color: #ffc107;
+  color: #222;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  border-radius: 1rem;
+}
+.card_2 .card-content {
+  padding: 1.6rem;
+}
+.card_2 .card-content .course-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  color: #333;
+}
+.card_2 .card-content .instructor {
+  font-size: 1.4rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
+.card_2 .card-content .rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+.card_2 .card-content .rating .stars {
+  color: #f7c600;
+}
+.card_2 .card-content .rating .rating-value {
+  font-weight: 600;
+  color: #333;
+}
+.card_2 .card-content .rating .review-count {
+  color: #666;
+  font-size: 1.3rem;
+}
+.card_2 .card-content .price .current {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #7b4fff;
+  margin-right: 1rem;
+}
+.card_2 .card-content .price .old {
+  font-size: 1.4rem;
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+/*=======  price card design ========*/
+.sticky-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 2rem;
+  z-index: 10;
+}
+.sticky-card .tab-header .tab {
+  font-weight: 600;
+  font-size: 1.4rem;
+  padding: 0.4rem 1.2rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+.sticky-card .tab-header .tab.active {
+  border-bottom-color: #7b4fff;
+  color: #7b4fff;
+}
+.sticky-card .price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+}
+.sticky-card .price .old-price {
+  font-size: 1.4rem;
+  color: #999;
+  text-decoration: line-through;
+  margin-left: 0.8rem;
+}
+.sticky-card .price .discount {
+  font-size: 1.4rem;
+  color: #f03;
+  margin-left: 0.5rem;
+}
+.sticky-card .limited-offer {
+  font-size: 1.3rem;
+  margin-top: 0.5rem;
+}
+.sticky-card .button-group .btn {
+  font-size: 1.5rem;
+  border-radius: 0.6rem;
+}
+.sticky-card .link-group a {
+  font-size: 1.3rem;
+  color: #7b4fff;
+  text-decoration: none;
+}
+.sticky-card .link-group a:hover {
+  text-decoration: underline;
+}
+.sticky-card .coupon-box input {
+  font-size: 1.4rem;
+}
+.sticky-card .coupon-box .btn {
+  font-size: 1.7rem;
+}
+.sticky-card .personal-plan h6 {
+  font-size: 1.5rem;
+}
+.sticky-card .personal-plan p {
+  font-size: 1.3rem;
+}
+.sticky-card .personal-plan small {
+  font-size: 1.2rem;
+}
+.sticky-card .personal-plan button {
+  font-size: 1.4rem;
 }/*# sourceMappingURL=main.css.map */

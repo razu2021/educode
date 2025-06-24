@@ -650,3 +650,543 @@
     }
   }
 }
+
+/*-=========  course about css========*/
+.course-about-section {
+  background-color: #fff;
+  padding: 4rem 0;
+  border: 1px solid #e0e0e0;
+
+  .section-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1.6rem;
+  }
+
+  .course-description {
+    font-size: 1.6rem;
+    color: #555;
+    max-width: 70rem;
+  }
+
+  .about-subtitle {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-list {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: start;
+      gap: 1rem;
+      color: #444;
+
+      i {
+        color: #7b4fff;
+        font-size: 1.6rem;
+        margin-top: 0.3rem;
+      }
+    }
+  }
+}
+/*--------  course content strat here ---------**/
+.course-curriculum {
+  .section-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+
+  .accordion-item {
+    border: none;
+    margin-bottom: 1rem;
+    border-radius: 0.6rem;
+    overflow: hidden;
+    box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.05);
+
+    .accordion-button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.6rem;
+      font-weight: 600;
+      background: #f8f9fa;
+      padding: 1.4rem 2rem;
+
+      .duration {
+        font-size: 1.4rem;
+        color: #666;
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    .accordion-body {
+      background: #fff;
+      padding: 1.2rem 2rem;
+
+      .topic-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 1.5rem;
+          padding: 0.6rem 0;
+          border-bottom: 1px solid #eee;
+          color: #444;
+
+          i {
+            color: #7b4fff;
+            margin-right: 0.6rem;
+            font-size: 1.6rem;
+          }
+
+          .time {
+            font-size: 1.4rem;
+            color: #777;
+          }
+        }
+      }
+    }
+  }
+}
+
+.preview-btn {
+  font-size: 1.4rem;
+  color: #7b4fff;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  i {
+    font-size: 1.6rem;
+  }
+}
+
+.topic-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+
+  .topic-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 500;
+  }
+
+  .topic-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+/*==========  course description start here ===========*/
+.course-description-section {
+  background: #fff;
+  padding: 4rem 0;
+
+  .section-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+
+  .description-content {
+    font-size: 1.6rem;
+    color: #444;
+    line-height: 1.7;
+
+    p {
+      margin-bottom: 1.6rem;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 1.6rem;
+
+      li {
+        position: relative;
+        padding-left: 2.4rem;
+        margin-bottom: 1.2rem;
+        font-size: 1.6rem;
+
+        &::before {
+          content: "✔";
+          position: absolute;
+          left: 0;
+          color: #7b4fff;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+/*======= instructor section for course details ======*/
+.instructor-profile-section {
+  background-color: #fff;
+  padding: 4rem 0;
+
+  .instructor-img {
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 0.3rem solid #7b4fff;
+    box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.08);
+  }
+
+  .instructor-name {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+
+  .instructor-title {
+    font-size: 1.5rem;
+    color: #777;
+    margin-bottom: 1.4rem;
+  }
+
+  .instructor-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    list-style: none;
+    padding-left: 0;
+    font-size: 1.5rem;
+
+    li {
+      color: #444;
+
+      strong {
+        color: #7b4fff;
+        font-weight: 700;
+        margin-right: 0.3rem;
+      }
+    }
+  }
+
+  .instructor-bio {
+    font-size: 1.6rem;
+    color: #444;
+    line-height: 1.7;
+
+    p {
+      margin-bottom: 1.2rem;
+    }
+  }
+}
+
+
+/*==========   course review strat here =====*/
+.course-review-section {
+  background-color: #f8f9fb;
+  padding: 4rem 0;
+
+  .section-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+
+  .average-rating {
+    .score {
+      font-size: 4rem;
+      font-weight: 800;
+      color: #7b4fff;
+    }
+
+    .stars {
+      font-size: 1.8rem;
+      color: #f7c600;
+    }
+
+    .total-reviews {
+      font-size: 1.4rem;
+      color: #777;
+    }
+  }
+
+  .rating-bars {
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+
+      .star-label {
+        width: 5rem;
+        font-size: 1.4rem;
+        color: #444;
+      }
+
+      .bar {
+        flex: 1;
+        background: #ddd;
+        height: 0.8rem;
+        border-radius: 0.4rem;
+        overflow: hidden;
+
+        .fill {
+          height: 100%;
+          background: #7b4fff;
+        }
+      }
+
+      .percent {
+        width: 4rem;
+        font-size: 1.3rem;
+        color: #555;
+      }
+    }
+  }
+
+  .review-card {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.05);
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .avatar {
+        width: 4.8rem;
+        height: 4.8rem;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 0.2rem solid #ddd;
+      }
+
+      .name {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .stars {
+        font-size: 1.4rem;
+      }
+    }
+
+    .review-text {
+      font-size: 1.5rem;
+      color: #444;
+    }
+
+    .review-date {
+      font-size: 1.3rem;
+    }
+  }
+}
+
+/*=====  course card 2 ========*/
+.card_2 {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  max-width: 32rem;
+  margin: auto;
+
+  &:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.08);
+  }
+
+  .card-image {
+    position: relative;
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background-color: #ffc107;
+      color: #222;
+      font-size: 1.2rem;
+      font-weight: 600;
+      padding: 0.4rem 1rem;
+      border-radius: 1rem;
+    }
+  }
+
+  .card-content {
+    padding: 1.6rem;
+
+    .course-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      color: #333;
+    }
+
+    .instructor {
+      font-size: 1.4rem;
+      color: #777;
+      margin-bottom: 1rem;
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+
+      .stars {
+        color: #f7c600;
+      }
+
+      .rating-value {
+        font-weight: 600;
+        color: #333;
+      }
+
+      .review-count {
+        color: #666;
+        font-size: 1.3rem;
+      }
+    }
+
+    .price {
+      .current {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #7b4fff;
+        margin-right: 1rem;
+      }
+
+      .old {
+        font-size: 1.4rem;
+        color: #aaa;
+        text-decoration: line-through;
+      }
+    }
+  }
+}
+
+/*=======  price card design ========*/
+.sticky-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 2rem;
+  z-index: 10;
+
+  .tab-header {
+    .tab {
+      font-weight: 600;
+      font-size: 1.4rem;
+      padding: 0.4rem 1.2rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+
+      &.active {
+        border-bottom-color: #7b4fff;
+        color: #7b4fff;
+      }
+    }
+  }
+
+  .price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+
+    .old-price {
+      font-size: 1.4rem;
+      color: #999;
+      text-decoration: line-through;
+      margin-left: 0.8rem;
+    }
+
+    .discount {
+      font-size: 1.4rem;
+      color: #f03;
+      margin-left: 0.5rem;
+    }
+  }
+
+  .limited-offer {
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+  }
+
+  .button-group .btn {
+    font-size: 1.5rem;
+    border-radius: 0.6rem;
+  }
+
+  .link-group a {
+    font-size: 1.3rem;
+    color: #7b4fff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .coupon-box {
+    input {
+      font-size: 1.4rem;
+    }
+
+    .btn {
+      font-size: 1.7rem;
+    }
+  }
+
+  .personal-plan h6 {
+    font-size: 1.5rem;
+  }
+
+  .personal-plan p {
+    font-size: 1.3rem;
+  }
+
+  .personal-plan small {
+    font-size: 1.2rem;
+  }
+  .personal-plan button {
+    font-size: 1.4rem;
+  }
+}
