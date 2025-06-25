@@ -158,7 +158,7 @@
                     <span class="text-dark ms-2">Bestseller</span><br>
                     <span class="text-muted">Sponser: www.educode.com</span>
                   </p>
-                  <a href="#" class="btn btn-gradient w-100 mt-3">View More Information</a>
+                  <a href="{{route('course_details')}}" class="btn btn-gradient w-100 mt-3">View More Information</a>
                 </div>
               </div>
             </div>
@@ -199,7 +199,7 @@
                     <span class="text-dark ms-2">Bestseller</span><br>
                     <span class="text-muted">Sponser: www.educode.com</span>
                   </p>
-                  <a href="#" class="btn btn-gradient w-100 mt-3">View More Information</a>
+                  <a href="{{route('course_details')}}" class="btn btn-gradient w-100 mt-3">View More Information</a>
                 </div>
               </div>
             </div>
@@ -247,7 +247,7 @@
           @endfor
           
         </div>
-        <a href="#" class="btn btn-gradient w-100 mt-3">View More Course</a>
+        <a href="{{route('course_details')}}" class="btn btn-gradient w-100 mt-3">View More Course</a>
       </div>
       {{-- col end --}}
         {{-- course end  --}}
@@ -288,7 +288,7 @@
           @endfor
          
         </div>
-         <a href="#" class="btn btn-gradient w-100 mt-3">View More Course</a>
+         <a href="{{route('course_details')}}" class="btn btn-gradient w-100 mt-3">View More Course</a>
       </div>
       {{-- col end --}}
         {{-- course end  --}}

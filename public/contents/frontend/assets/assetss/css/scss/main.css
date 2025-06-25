@@ -855,6 +855,25 @@ button {
   margin-top: 0.3rem;
 }
 
+.course-description-wrapper .short-text {
+  font-size: 1.6rem;
+  color: #444;
+}
+.course-description-wrapper .full-description {
+  font-size: 1.6rem;
+  color: #444;
+  margin-top: 1.2rem;
+}
+.course-description-wrapper .see-more-btn {
+  font-size: 1.4rem;
+  color: #6b46c1;
+  font-weight: 600;
+  text-decoration: none;
+}
+.course-description-wrapper .see-more-btn:hover {
+  text-decoration: underline;
+}
+
 /*--------  course content strat here ---------**/
 .course-curriculum .section-title {
   font-size: 2.4rem;
@@ -1269,4 +1288,141 @@ button {
 }
 .sticky-card .personal-plan button {
   font-size: 1.4rem;
+}
+
+/*=======  instuctor page css start herre =======================*/
+.instructor-banner {
+  background-color: #f4f1ff;
+}
+.instructor-banner .section-label {
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 0.6rem;
+}
+.instructor-banner .instructor-name {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+.instructor-banner .instructor-bio {
+  font-size: 1.6rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+.instructor-banner .instructor-badge {
+  background-color: #e9dcff;
+  color: #6b46c1;
+  font-size: 1.4rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.8rem;
+  font-weight: 500;
+}
+.instructor-banner .instructor-card {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+.instructor-banner .instructor-card:hover {
+  transform: translateY(-0.4rem);
+}
+.instructor-banner .instructor-card img {
+  border: 2px solid #e9dcff;
+  height: 16rem;
+  width: 16rem;
+}
+.instructor-banner .btn-icon {
+  border: 1px solid #6b46c1;
+  color: #6b46c1;
+  background: transparent;
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.6rem;
+  font-size: 1.6rem;
+  transition: all 0.2s ease;
+}
+.instructor-banner .btn-icon:hover {
+  background-color: #6b46c1;
+  color: #fff;
+}
+.instructor-banner .stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+.instructor-banner .stat-label {
+  font-size: 1.4rem;
+  color: #666;
+}
+
+.instructor-card-2 {
+  background-color: #fff;
+  border-radius: 1.6rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  margin-bottom: -65%;
+}
+.instructor-card-2 .card-img-top {
+  height: 20rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.instructor-card-2 .card-body {
+  padding: 2rem;
+}
+.instructor-card-2 .card-body .card-title {
+  font-size: 2rem;
+}
+.instructor-card-2 .card-body .text-muted {
+  font-size: 1.4rem;
+}
+.instructor-card-2 .card-body .stat {
+  text-align: center;
+}
+.instructor-card-2 .card-body .stat h6 {
+  font-size: 1.6rem;
+  color: #000;
+}
+.instructor-card-2 .card-body .stat small {
+  font-size: 1.2rem;
+  color: #888;
+}
+.instructor-card-2 .card-body .rating .badge {
+  font-size: 1.4rem;
+}
+.instructor-card-2 .card-body .btn {
+  font-size: 1.3rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 0.6rem;
+}
+.instructor-card-2:hover {
+  transform: translateY(-0.4rem);
+  box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.08);
+}
+
+/*================================  payment page csss ===========*/
+.payment-initiate-page {
+  background-color: #f9f9fb;
+}
+.payment-initiate-page .card {
+  border-radius: 1.6rem;
+}
+.payment-initiate-page .card h2 {
+  font-size: 2.4rem;
+}
+.payment-initiate-page .card h5 {
+  font-size: 1.6rem;
+  color: #333;
+}
+.payment-initiate-page .card p {
+  font-size: 1.4rem;
+  color: #555;
+}
+.payment-initiate-page .card button.btn {
+  border-radius: 0.6rem;
+  font-size: 1.6rem;
 }/*# sourceMappingURL=main.css.map */

@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class SSLCommerzPaymentService implements  PaymentInterface 
 {
+
+    public function createPaymentIntent($amount){
+         return null;
+    }
+
     public function makePayment(array $data){
 
         $post_data = [];

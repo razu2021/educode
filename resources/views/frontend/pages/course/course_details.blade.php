@@ -348,7 +348,7 @@
 
           <div class="button-group mb-3">
             <button class="btn btn-primary w-100 mb-2">Add to cart</button>
-            <button class="btn btn-outline-primary w-100">Buy now</button>
+            <button class="btn btn-outline-primary w-100"> <a href="{{route('ssl_payment_initiate')}}">Buy now</a></button>
           </div>
 
           <p class="text-muted text-center mb-3">30-Day Money-Back Guarantee<br>Full Lifetime Access</p>

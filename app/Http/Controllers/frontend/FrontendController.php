@@ -109,8 +109,13 @@ class FrontendController extends Controller
 
 
 
+    // course detais 
     public function course_details(){
         return view('frontend.pages.course.course_details');
+    }
+    // instructor  detais 
+    public function instructor_details(){
+        return view('frontend.pages.course.instructor_profile');
     }
 
 

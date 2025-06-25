@@ -20,14 +20,26 @@ Route::get('/product/{url}/{slug}','product_category')->name('product_category')
 Route::get('/product/{categoryUrl}/{subcategoryUrl}/{category_slug}/{subcategory_slug}','sub_category_product')->name('sub_category_product');
 Route::get('/product/{categoryUrl}/{subcategoryUrl}/{childCategoryUrl}/{categorySlug}/{subcategorySlug}/{childCategorySlug}','child_category_product')->name('child_category_product');
 
+
 // Course Category Routes
 Route::get('/courses/{category_url}','course_Category')->name('coursecategory');
 Route::get('/courses/{category_url}/{course_subcategory}','course_SububCategory')->name('coursesubcategory');
 Route::get('/courses/{category_url}/{course_subcategory}/{course_childCategory}','course_childubCategory')->name('coursechildcategory');
 
 Route::get('course/details','course_details')->name('course_details');
+Route::get('instructor/details','instructor_details')->name('instructor_details');
 
 });
+
+/**
+* -------------  SSLCommerze Payment Route Start here -----------
+*/
+Route::controller(PaymentController::class)->middleware(['auth'])->group(function(){
+    Route::get('payment/initiate','sslpayment_initiate')->name('ssl_payment_initiate');
+
+});
+
+
 
 
 

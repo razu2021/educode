@@ -127,6 +127,24 @@ class PaymentController extends Controller
 
     // =============  using ssl commerce =========
 
+
+
+
+
+
+
+
+    /**--------------------------  
+     * 
+     * SSLCommerze Payment function start here 
+     * 
+     * ---------------------- */
+    public function sslpayment_initiate(){
+
+        return view('backend.subscription.payment.sslpayment_initiate');
+    }
+
+
     public function paywithsslCommerz(){
         $data = [
         'amount' => 1000,
@@ -136,11 +154,11 @@ class PaymentController extends Controller
         'customer_name' => 'Md Razu Hossain Raj',
         'email' => 'raj@example.com',
         'phone' => '017xxxxxxxx',
-    ];
+        ];
 
-    $gateway = PaymentGatewayFactory::make('sslcommerz');
-    return $gateway->makePayment($data);
-    
+        $gateway = PaymentGatewayFactory::make('sslcommerz');
+        return $gateway->makePayment($data);
+        
     }
 
 
@@ -154,6 +172,7 @@ class PaymentController extends Controller
 
 
 
+/**  controller end here  */
 }
 
 
