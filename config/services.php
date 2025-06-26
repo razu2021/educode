@@ -45,10 +45,10 @@ return [
         'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
     ],
 
-    'sslcommerz' => [
-    'store_id' => env('SSLCOMMERZ_STORE_ID'),
-    'store_password' => env('SSLCOMMERZ_STORE_PASSWORD'),
-    ],
+    // 'sslcommerz' => [
+    // 'store_id' => env('SSLCOMMERZ_STORE_ID'),
+    // 'store_password' => env('SSLCOMMERZ_STORE_PASSWORD'),
+    // ],
 
 
 

@@ -37,6 +37,12 @@ Route::get('instructor/details','instructor_details')->name('instructor_details'
 Route::controller(PaymentController::class)->middleware(['auth'])->group(function(){
     Route::get('payment/initiate','sslpayment_initiate')->name('ssl_payment_initiate');
 
+    Route::post('/payment/create/url',  'ssl_paymentCreate')->name('ssl_payment.create');
+    Route::get('/payment/success/url',  'ssl_paymentSuccess')->name('ssl_payment.success');
+    Route::get('/payment/fail/url', 'ssl_paymentFail')->name('ssl_payment.fail');
+    Route::get('/payment/cancel/url', 'ssl_paymentCancel')->name('ssl_payment.cancel');
+
+
 });
 
 

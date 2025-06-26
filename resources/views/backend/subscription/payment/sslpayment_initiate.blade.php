@@ -35,10 +35,9 @@
           <hr class="my-4">
 
           <!-- Confirm Button -->
-          <form action="#" method="POST">
+          <form action="{{route('ssl_payment.create')}}" method="POST">
             @csrf
             <input type="hidden" name="amount" value="500">
-            <input type="hidden" name="transaction_id" value="TXN_123456">
             <input type="hidden" name="name" value="{{ auth()->user()->name }}">
             <input type="hidden" name="email" value="{{ auth()->user()->email }}">
             <input type="hidden" name="phone" value="01812345678">

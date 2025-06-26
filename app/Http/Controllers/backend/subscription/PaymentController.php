@@ -145,18 +145,23 @@ class PaymentController extends Controller
     }
 
 
-    public function paywithsslCommerz(){
+    public function ssl_paymentCreate(Request $request){
+
+        $Tax_id=  'Tax_'.time().rand(10000,10000000);
+
         $data = [
         'amount' => 1000,
-        'success_url' => route('payment.success'),
-        'fail_url' => route('payment.fail'),
-        'cancel_url' => route('payment.cancel'),
-        'customer_name' => 'Md Razu Hossain Raj',
-        'email' => 'raj@example.com',
-        'phone' => '017xxxxxxxx',
+        'success_url' => route('ssl_payment.success'),
+        'fail_url' => route('ssl_payment.fail'),
+        'cancel_url' => route('ssl_payment.cancel'),
+        'customer_name' => $request->name,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'tax_id' => $Tax_id,
         ];
 
         $gateway = PaymentGatewayFactory::make('sslcommerz');
+        
         return $gateway->makePayment($data);
         
     }

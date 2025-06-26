@@ -1,6 +1,6 @@
 <?php 
 return [
-    'active_gateway' => env('PAYMENT_GATEWAY', 'stripe'),
+    'active_gateway' => env('PAYMENT_GATEWAY', 'sslcommerz'),
 
     'gateways' => [
         'stripe' => [
