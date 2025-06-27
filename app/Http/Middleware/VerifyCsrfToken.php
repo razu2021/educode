@@ -14,6 +14,9 @@ class VerifyCsrfToken extends Middleware
 
     protected $except = [
         'stripe/webhook', // 👈 Stripe CLI এই URL এ POST করবে
+         'sslcommerz/ipn', // ⛔ এই route এ CSRF লাগবে না
     ];
   
+
+
 }

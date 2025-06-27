@@ -17,8 +17,12 @@ return new class extends Migration
         $table->unsignedBigInteger('user_id')->nullable(); // ✅ for users table
         $table->string('payment_gateway')->nullable(); // stripe
         $table->string('payment_id')->nullable();
-        $table->string('currency')->default('USD');
+        $table->string('tran_id')->nullable();
+        $table->string('val_id')->nullable();
+        $table->string('currency')->default('BDT');
         $table->decimal('amount', 10, 2);
+        $table->decimal('store_amount', 10, 2);
+        $table->enum('payment_status', ['PENDING', 'VALID', 'FAILED', 'CANCELLED'])->default('PENDING');
         $table->integer('status')->default(1);
         $table->integer('public_status')->default(0);
         $table->text('payload')->nullable();

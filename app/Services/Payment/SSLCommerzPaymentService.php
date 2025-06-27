@@ -3,6 +3,8 @@
 namespace App\Services\Payment;
 use App\Services\Payment\PaymentInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Models\Payment;
 
 
 class SSLCommerzPaymentService implements  PaymentInterface 
@@ -20,7 +22,7 @@ class SSLCommerzPaymentService implements  PaymentInterface
         $post_data['store_passwd'] = config('payment.gateways.sslcommerz.store_password');
         $post_data['total_amount'] = $data['amount'];
         $post_data['currency'] = "BDT";
-        $post_data['tran_id'] = uniqid(); // unique transaction id
+        $post_data['tran_id'] = $data['tran_id']; // unique transaction id
 
         // Success, Fail, Cancel URLs
         $post_data['success_url'] = $data['success_url'];
@@ -68,11 +70,74 @@ class SSLCommerzPaymentService implements  PaymentInterface
 
 
 
+public function handleWebhook(Request $request)
+{
+    Log::info('SSLCommerz IPN Data:', $request->all());
 
-    public function handleWebhook(Request $request)
-    {
-       
+    $tran_id = $request->input('tran_id');
+    $status  = strtoupper($request->input('status'));
+
+    if (!$tran_id) {
+        Log::warning('No tran_id in IPN');
+        return false;
     }
+
+    $payment = Payment::where('tran_id', $tran_id)->first();
+
+    if (!$payment) {
+        Log::warning("Payment not found for tran_id: $tran_id");
+        return false;
+    }
+
+    if (in_array($payment->payment_status, ['success', 'failed', 'cancelled'])) {
+        Log::info('Already processed payment for tran_id: ' . $tran_id);
+        return true;
+    }
+
+    if ($status === 'VALID' || $status === 'SUCCESS') {
+        $payment->update([
+            'val_id'        => $request->input('val_id'),
+            'store_amount'  => $request->input('store_amount'),
+            'currency'      => $request->input('currency'),
+            'payment_status'=> 'VALID',
+            'status'        => 1,
+            'payload'       => json_encode($request->all()),
+        ]);
+    } elseif ($status === 'FAILED') {
+        $payment->update([
+            'payment_status' => 'FAILED',
+            'status'         => 0,
+            'payload'        => json_encode($request->all()),
+        ]);
+    } elseif ($status === 'CANCELLED') {
+        $payment->update([
+            'payment_status' => 'CANCELLED',
+            'status'         => 0,
+            'payload'        => json_encode($request->all()),
+        ]);
+    } else {
+        $payment->update([
+            'payment_status' => 'PENDING',
+            'status'         => 0,
+            'payload'        => json_encode($request->all()),
+        ]);
+    }
+
+    return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 

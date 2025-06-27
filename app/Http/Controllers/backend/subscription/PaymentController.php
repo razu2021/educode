@@ -147,7 +147,14 @@ class PaymentController extends Controller
 
     public function ssl_paymentCreate(Request $request){
 
-        $Tax_id=  'Tax_'.time().rand(10000,10000000);
+        $trans_id=  'Tax_'.time().rand(10000,10000000);
+
+        $paymentcreate = Payment::create([
+            'amount' => 1000,
+            'store_amount' => 1000,
+            'tran_id' => $trans_id ,
+        ]);
+
 
         $data = [
         'amount' => 1000,
@@ -157,7 +164,7 @@ class PaymentController extends Controller
         'customer_name' => $request->name,
         'email' => $request->email,
         'phone' => $request->phone,
-        'tax_id' => $Tax_id,
+        'tran_id' => $trans_id,
         ];
 
         $gateway = PaymentGatewayFactory::make('sslcommerz');
@@ -167,6 +174,35 @@ class PaymentController extends Controller
     }
 
 
+    public function handleIpn(Request $request)
+    {
+        Log::info('✅ handleIpn METHOD HIT');
+
+        try {
+            $gateway = PaymentGatewayFactory::make('sslcommerz');
+            Log::info('✅ Gateway created:', [$gateway]);
+
+            $result = $gateway->handleWebhook($request);
+            Log::info('✅ Webhook handled:', [$result]);
+
+            return response()->json(['message' => 'IPN Processed'], 200);
+        } catch (\Throwable $e) {
+            Log::error('❌ IPN Error: ' . $e->getMessage());
+            return response()->json(['error' => 'Server Error'], 500);
+        }
+    }
+
+
+
+    public function ssl_paymentSuccess(Request $request){
+        return view('backend.subscription.payment.sslpayment_success');
+    }
+    public function ssl_paymentFail(Request $request){
+        return "payment Faild ";
+    }
+    public function ssl_paymentCancel(Request $request){
+        return "payment Cancel ";
+    }
 
 
 

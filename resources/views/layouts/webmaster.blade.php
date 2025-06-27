@@ -4,6 +4,8 @@
    <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
   <title>online course learn anything on your schedule | Educode </title>
 
   <!-- Bootstrap CSS -->
@@ -45,7 +47,7 @@
     <div id="desktop-header">
     <div class="container-fluid d-flex align-items-center justify-content-between">
       <div class="d-flex align-items-center gap-3"> 
-       <img src="{{asset('contents/frontend/assets/images/logo/image/svg')}}" alt="logo">
+      <a href="{{route('index')}}"> <img src="{{asset('contents/frontend/assets/assetss')}}/images/logo/logo.svg" alt="Educode" height="50px"></a>
 
         <div class="mega_menu_wrapper">
           <a href="{{route('allcoursecategory')}}" class="nav-link mega_menu">Explore Course</a>
@@ -131,7 +133,7 @@
           <a href="#" id="exploreBtn"><i class="bi bi-list"></i> Explore</a>
         </div>
         <div class="mobile_logo">
-          <img src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg" height="28" alt="Udemy">
+          <a href="{{route('index')}}"> <img src="{{asset('contents/frontend/assets/assetss')}}/images/logo/logo.svg" alt="Educode" height="50px"></a>
         </div>
         <div class="d-flex align-items-center gap-3">
           <a href="#" class="nav-link"><i class="bi bi-cart3 fs-5"></i></a>

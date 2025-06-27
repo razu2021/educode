@@ -18,6 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'student' => \App\Http\Middleware\StudentsMiddleware::class,
             'instructor' => \App\Http\Middleware\InstructorMiddleware::class,
             'check_role' => \App\Http\Middleware\InstructorIsActiveMiddleware::class,
+            'csrf_exclude' => \App\Http\Middleware\VerifyCsrfToken::class,
+           
 
 
         ]);
@@ -25,6 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // ---- global middleware register  settings 
         
          $middleware->prepend(\App\Http\Middleware\EmailConfigMiddleware::class);
+       
         
         
     })
