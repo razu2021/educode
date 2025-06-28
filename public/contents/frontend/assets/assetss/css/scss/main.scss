@@ -1410,3 +1410,280 @@ $border-radius: 1.2rem;
     }
   }
 }
+
+
+/*=======  populer topics design =======*/
+
+.popular-topics {
+  .section-title {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .topic-card {
+    background-color: #fff;
+    border-radius: 1.2rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+
+    .icon {
+      font-size: 3rem;
+    }
+
+    .title {
+      font-size: 1.6rem;
+      font-weight: 500;
+    }
+
+    .desc {
+      font-size: 1.2rem;
+      color: #666;
+    }
+
+    &:hover {
+      transform: translateY(-0.3rem);
+      box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  @media (max-width: 576px) {
+    .topic-card {
+      padding: 1.5rem;
+    }
+  }
+}
+
+/*=======  all course and filter design =======*/
+
+.all-courses {
+  background-color: #f9f9f9;
+
+  .filter-sidebar {
+    .accordion-button {
+      font-size: 1.4rem;
+      padding: 1rem;
+    }
+
+    .form-check-label {
+      font-size: 1.3rem;
+    }
+  }
+
+  .course-card {
+    img {
+      object-fit: cover;
+    }
+
+    h5 {
+      font-size: 1.6rem;
+    }
+
+    p {
+      font-size: 1.3rem;
+    }
+
+    span, strong {
+      font-size: 1.4rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .course-card {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
+
+/**----------   course filter design ===============*/
+
+.filter-sidebar {
+  .accordion-button {
+    font-size: 1.4rem;
+    background-color: #f8f9fa;
+    color: #333;
+    padding: 1rem 1.2rem;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  .accordion-item {
+    border: none;
+
+    .accordion-body {
+      padding: 1rem;
+
+      .form-check {
+        font-size: 1.3rem;
+
+        .form-check-label {
+          margin-left: 0.5rem;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  h4 {
+    font-size: 1.8rem;
+    color: #222;
+  }
+}
+
+/*=========  course card 3  design ========*/
+
+.course_card3 {
+  display: flex;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 1.2rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  flex-wrap: wrap;
+
+  .course-thumb {
+    img {
+      width: 20rem;
+    //  height: 14rem;
+      object-fit: cover;
+      border-radius: 0.6rem;
+    }
+  }
+
+  .course-content {
+    flex: 1;
+    position: relative;
+
+    .course-title {
+      font-size: 1.6rem;
+      line-height: 1.4;
+    }
+    .fs-16{
+      font-size: 1.8rem;
+    }
+
+    .card3_des {
+      font-size: 1.5rem;
+    }
+
+    .card3_name {
+      font-size: 1.3rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .card3_review{
+      span{
+        font-size: 1.2rem;
+      }
+    }
+
+    .badge {
+      font-size: 1.1rem;
+      padding: 0.3rem 0.8rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    flex-wrap: nowrap;
+    .course-thumb img {
+      width: 18rem;
+      height: auto;
+    }
+  }
+}
+
+
+/*=======  category menu slider =====*/
+
+.category-slider-section {
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  border-bottom: 1px solid gray;
+
+  .category_menu_sliders {
+    .category_menu_slider {
+      padding: 1rem;
+
+      .category-link {
+        display: inline-block;
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: #333;
+        padding: 1rem 1rem;
+        border-radius: 3rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #6c5ce7;
+          color: #fff;
+          transform: translateY(-0.2rem);
+        }
+      }
+    }
+  }
+}
+
+/*==========  course review =======*/
+
+.course-review-form {
+  max-width: 60rem;
+  margin: auto;
+  padding: 3rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+
+  h4 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  label {
+    font-size: 1.4rem;
+  }
+
+  input,
+  textarea {
+    font-size: 1.3rem;
+  }
+
+  .btn {
+    font-size: 1.4rem;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+  }
+
+  .rating-stars {
+    input {
+      display: none;
+    }
+
+    label {
+      font-size: 2rem;
+      color: #ccc;
+      cursor: pointer;
+      transition: color 0.2s;
+
+      &:hover,
+      &:hover ~ label,
+      input:checked ~ label {
+        color: #f39c12;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    padding: 2rem;
+  }
+}

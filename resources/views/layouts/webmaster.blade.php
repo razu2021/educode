@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <meta name="csrf-token" content="{{ csrf_token() }}">
-
+ <link rel="icon" href="{{asset('contents/frontend/assets/assetss')}}/images/logo/icon.png" sizes="16x16" type="image/x-icon" style="border-radius:50%;">
   <title>online course learn anything on your schedule | Educode </title>
 
   <!-- Bootstrap CSS -->

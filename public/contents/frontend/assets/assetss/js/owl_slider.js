@@ -22,6 +22,21 @@
         nav:true,
         margin:10,
         navText: ["<span class='new_prev'>  <  </span>", "<span class='new_next'> > </span>"],
+      responsive: {
+      0: {
+        items: 1,
+        margin:30,
+      },
+      768: {
+        items: 2
+      },
+      992: {
+        items: 3
+      },
+      1199: {
+        items: 4
+      }
+    }
     });
   });
 
@@ -45,6 +60,35 @@ $(document).ready(function(){
       },
       992: {
         items: 3
+      }
+    }
+  });
+});
+
+
+  /**========  testimonial slider start here ======== */
+$(document).ready(function(){
+  $('.category_menu_sliders').owlCarousel({
+    loop: false,
+    margin: 20,
+    autoplay: true,
+    autoplayTimeout: 4000,
+    autoplayHoverPause: true,
+    smartSpeed: 600,
+    dots:false,
+    nav:false,
+    responsive: {
+      0: {
+        items: 3
+      },
+      768: {
+        items: 4
+      },
+      992: {
+        items: 3
+      },
+      1200: {
+        items: 10
       }
     }
   });

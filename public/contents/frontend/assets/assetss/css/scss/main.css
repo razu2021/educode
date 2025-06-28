@@ -209,6 +209,11 @@ button {
   background-color: #F8F9FA;
 }
 
+/*==================    banner css ============*/
+.course_banner {
+  background-color: #18130b;
+}
+
 /*=============  common css  ================*/
 /*=============  common css  ================*/
 @media (max-width: 575.98px) {
@@ -1425,4 +1430,222 @@ button {
 .payment-initiate-page .card button.btn {
   border-radius: 0.6rem;
   font-size: 1.6rem;
+}
+
+/*=======  populer topics design =======*/
+.popular-topics .section-title {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #333;
+}
+.popular-topics .topic-card {
+  background-color: #fff;
+  border-radius: 1.2rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+.popular-topics .topic-card .icon {
+  font-size: 3rem;
+}
+.popular-topics .topic-card .title {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+.popular-topics .topic-card .desc {
+  font-size: 1.2rem;
+  color: #666;
+}
+.popular-topics .topic-card:hover {
+  transform: translateY(-0.3rem);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.08);
+}
+@media (max-width: 576px) {
+  .popular-topics .topic-card {
+    padding: 1.5rem;
+  }
+}
+
+/*=======  all course and filter design =======*/
+.all-courses {
+  background-color: #f9f9f9;
+}
+.all-courses .filter-sidebar .accordion-button {
+  font-size: 1.4rem;
+  padding: 1rem;
+}
+.all-courses .filter-sidebar .form-check-label {
+  font-size: 1.3rem;
+}
+.all-courses .course-card img {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.all-courses .course-card h5 {
+  font-size: 1.6rem;
+}
+.all-courses .course-card p {
+  font-size: 1.3rem;
+}
+.all-courses .course-card span, .all-courses .course-card strong {
+  font-size: 1.4rem;
+}
+@media (max-width: 768px) {
+  .all-courses .course-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .all-courses .course-card img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/**----------   course filter design ===============*/
+.filter-sidebar .accordion-button {
+  font-size: 1.4rem;
+  background-color: #f8f9fa;
+  color: #333;
+  padding: 1rem 1.2rem;
+}
+.filter-sidebar .accordion-button:focus {
+  box-shadow: none;
+}
+.filter-sidebar .accordion-item {
+  border: none;
+}
+.filter-sidebar .accordion-item .accordion-body {
+  padding: 1rem;
+}
+.filter-sidebar .accordion-item .accordion-body .form-check {
+  font-size: 1.3rem;
+}
+.filter-sidebar .accordion-item .accordion-body .form-check .form-check-label {
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+.filter-sidebar h4 {
+  font-size: 1.8rem;
+  color: #222;
+}
+
+/*=========  course card 3  design ========*/
+.course_card3 {
+  display: flex;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 1.2rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  flex-wrap: wrap;
+}
+.course_card3 .course-thumb img {
+  width: 20rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 0.6rem;
+}
+.course_card3 .course-content {
+  flex: 1;
+  position: relative;
+}
+.course_card3 .course-content .course-title {
+  font-size: 1.6rem;
+  line-height: 1.4;
+}
+.course_card3 .course-content .fs-16 {
+  font-size: 1.8rem;
+}
+.course_card3 .course-content .card3_des {
+  font-size: 1.5rem;
+}
+.course_card3 .course-content .card3_name {
+  font-size: 1.3rem;
+}
+.course_card3 .course-content p {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.course_card3 .course-content .card3_review span {
+  font-size: 1.2rem;
+}
+.course_card3 .course-content .badge {
+  font-size: 1.1rem;
+  padding: 0.3rem 0.8rem;
+}
+@media (max-width: 576px) {
+  .course_card3 {
+    flex-wrap: nowrap;
+  }
+  .course_card3 .course-thumb img {
+    width: 18rem;
+    height: auto;
+  }
+}
+
+/*=======  category menu slider =====*/
+.category-slider-section {
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  border-bottom: 1px solid gray;
+}
+.category-slider-section .category_menu_sliders .category_menu_slider {
+  padding: 1rem;
+}
+.category-slider-section .category_menu_sliders .category_menu_slider .category-link {
+  display: inline-block;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #333;
+  padding: 1rem 1rem;
+  border-radius: 3rem;
+  transition: all 0.3s ease;
+}
+.category-slider-section .category_menu_sliders .category_menu_slider .category-link:hover {
+  background-color: #6c5ce7;
+  color: #fff;
+  transform: translateY(-0.2rem);
+}
+
+/*==========  course review =======*/
+.course-review-form {
+  max-width: 60rem;
+  margin: auto;
+  padding: 3rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+}
+.course-review-form h4 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+.course-review-form label {
+  font-size: 1.4rem;
+}
+.course-review-form input,
+.course-review-form textarea {
+  font-size: 1.3rem;
+}
+.course-review-form .btn {
+  font-size: 1.4rem;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+}
+.course-review-form .rating-stars input {
+  display: none;
+}
+.course-review-form .rating-stars label {
+  font-size: 2rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.course-review-form .rating-stars label:hover, .course-review-form .rating-stars label:hover ~ label,
+.course-review-form .rating-stars label input:checked ~ label {
+  color: #f39c12;
+}
+@media (max-width: 576px) {
+  .course-review-form {
+    padding: 2rem;
+  }
 }/*# sourceMappingURL=main.css.map */
