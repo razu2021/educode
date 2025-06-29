@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('course_category_id')->nullable();
-            $table->unsignedBigInteger('course_subcategory_id')->nullable();
-            $table->unsignedBigInteger('course_childcategory_id')->nullable();
-            $table->foreign('course_category_id')->references('id')->on('course_categories')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->nullable();
+            $table->unsignedBigInteger('course_category_id')->nullable(); // ✅ match with bigIncrements
+            $table->unsignedBigInteger('course_subcategory_id')->nullable(); // ✅ match with bigIncrements
+            $table->unsignedBigInteger('course_childcategory_id')->nullable(); // ✅ match with bigIncrements
             $table->string('course_name')->nullable();
             $table->string('course_title')->nullable();
             $table->text('course_des')->nullable();
@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('course_lable',255)->nullable();
             $table->string('course_time',255)->nullable();
             $table->string('course_image',255)->nullable();
+            $table->enum('label', ['top','trending','upcoming','free','new','featured','beginner','popular','best_seller','bundle',])->nullable();
+            $table->integer('sell')->default(0)->nullable();
             $table->string('slug',255)->nullable();
             $table->integer('creator_id')->nullable();
             $table->integer('editor_id')->nullable();
@@ -34,6 +36,11 @@ return new class extends Migration
             $table->integer('public_status')->default(0);
             $table->timestamps();
             $table->softDeletes();
+
+
+             $table->foreign('course_category_id')->references('id')->on('course_categories')->onDelete('cascade');
+             $table->foreign('course_subcategory_id')->references('id')->on('course_sub_categories')->onDelete('cascade');
+             $table->foreign('course_childcategory_id')->references('id')->on('course_child_categories')->onDelete('cascade');
         });
     }
 

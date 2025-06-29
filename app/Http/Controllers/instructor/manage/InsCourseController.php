@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\backend\courses;
+namespace App\Http\Controllers\instructor\manage;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -20,8 +20,7 @@ use App\Models\CourseChildCategory;
 use App\Models\Seo;
 use App\Models\Seo_image;
 use App\Helpers\ImageUploadHelper;
-
-class CourseController extends Controller
+class InsCourseController extends Controller
 {
      /**
      * =============================================================
@@ -29,14 +28,15 @@ class CourseController extends Controller
      * =============================================================
      */
     public function index(Request $request){
+        $user_id = Auth::user()->id;
         $search = $request['search'] ?? "";
         if($search !=""){
-            $all = Course::where('status',1)->where('course_name','LIKE',"%$search%")
+            $all = Course::where('user_id',$user_id)->where('status',1)->where('course_name','LIKE',"%$search%")
             ->orWhere('course_title','LIKE',"%$search%")->orWhere('course_des','LIKE',"%$search%")->get();
         }else{
-            $all = Course::where('status',1)->get();
+            $all = Course::where('user_id',$user_id)->where('status',1)->get();
         }
-        return view('backend.courses.course.index',compact('all'));
+        return view('instructor.manage.course.index',compact('all'));
     }
 
 
@@ -65,7 +65,7 @@ public function getChildcategories($subcategory_id)
         $latestPost = Course::latest()->first();
         $courseCategory = CourseCategory::with(['CourseSubcategory','CourseSubcategory.CourschildCategory'])->get();
         //dd($courseCategory);
-        return view('backend.courses.course.add',compact('totalpost','latestPost','courseCategory'));
+        return view('instructor.manage.course.add',compact('totalpost','latestPost','courseCategory'));
     }
 
 
@@ -79,7 +79,7 @@ public function getChildcategories($subcategory_id)
         'metaData.images' // ✅ nested eager load (Seo -> Seo_image
         ])->where('status',1)->where('id',$id)->where('slug',$slug)->firstOrFail();
         
-        return view('backend.courses.course.view',compact('data'));
+        return view('instructor.manage.course.view',compact('data'));
     }
 
 
@@ -94,7 +94,7 @@ public function getChildcategories($subcategory_id)
         },
         'metaData.images' // ✅ nested eager load (Seo -> Seo_image
         ])->where('status',1)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        return view('backend.courses.course.edit',compact('totalpost','latestPost','data'));
+        return view('instructor.manage.course.edit',compact('totalpost','latestPost','data'));
     }
 
 
@@ -120,7 +120,7 @@ public function getChildcategories($subcategory_id)
 
         // ------  create a slug & get creator id -------
         $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();;
-        $creator = Auth::guard('admin')->user()->id;
+        $user_id = Auth::user()->id;
 
         //------- make a custom url for -------
         $categoryname = strtolower($request->course_name) ;
@@ -146,7 +146,7 @@ public function getChildcategories($subcategory_id)
             'course_time'=>$request->course_time,
             'slug'=>$slug,
             'url'=>$url,
-            'creator_id' => $creator,
+            'user_id' => $user_id,
             'created_at' => Carbon::now()->toDateTimeString(),
         ]);
 
@@ -167,7 +167,7 @@ public function getChildcategories($subcategory_id)
        
         $insert->metaData()->create([
             'unique_id'=>$insert->id,
-            'creator_id'=>$creator,
+            'user_id'=>$user_id,
             'slug'=>$slug,
         ]);
 
@@ -349,7 +349,7 @@ public function getChildcategories($subcategory_id)
     **/
     public function recycle(){
         $all = Course::onlyTrashed()->get();
-        return view('backend.courses.course.recycle',compact('all'));
+        return view('instructor.manage.course.recycle',compact('all'));
     }
 
 
@@ -464,8 +464,8 @@ public function getChildcategories($subcategory_id)
 
     public function export_pdf(){
         $categories = Course::get();
-       // return view('backend.courses.course.export_pdf', compact('categories'));
-        $pdf = Pdf::loadView('backend.courses.course.export_pdf', compact('categories')); // get database record 
+       // return view('instructor.manage.course.export_pdf', compact('categories'));
+        $pdf = Pdf::loadView('instructor.manage.course.export_pdf', compact('categories')); // get database record 
         $filename = 'course-categories_'.rand(100000,100000000) . Carbon::now()->format('Y_m_d_His') . '.pdf'; // make pdf file name 
         return $pdf->download($filename); // download file 
     }
@@ -475,8 +475,8 @@ public function getChildcategories($subcategory_id)
      */
     public function export_single_pdf($id,$slug){
         $data = Course::where('id',$id)->where('slug',$slug)->firstOrFail();
-       // return view('backend.courses.course.export_pdf', compact('categories'));
-        $pdf = Pdf::loadView('backend.courses.course.export_single_pdf', compact('data'));
+       // return view('instructor.manage.course.export_pdf', compact('categories'));
+        $pdf = Pdf::loadView('instructor.manage.course.export_single_pdf', compact('data'));
         $filename = 'course-categories_'.rand(100000,100000000) . Carbon::now()->format('Y_m_d_His') . '.pdf';
         return $pdf->download($filename);
     }
@@ -510,7 +510,7 @@ public function getChildcategories($subcategory_id)
         Excel::store(new CategoryExport, 'info.xlsx', 'public');
         
         // Export PDF file
-        $pdf = Pdf::loadView('backend.courses.course.export_pdf', ['categories' => Course::all()]);
+        $pdf = Pdf::loadView('instructor.manage.course.export_pdf', ['categories' => Course::all()]);
         $pdf->save($pdfFilePath);
 
         // Create a zip file
@@ -533,7 +533,4 @@ public function getChildcategories($subcategory_id)
             unlink($pdfFilePath);
             return $response;
     } // export zip end here 
-
-
-
 }

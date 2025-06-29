@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('seos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->nullable();
             $table->unsignedBigInteger('unique_id')->nullable();
             $table->string('model_type')->nullable();
             // General SEO

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('role');
+            $table->enum('badge', ['bestseller','new_seller','top_rated','verified','regular'])->default('regular');
             $table->rememberToken();
             $table->timestamps();
         });

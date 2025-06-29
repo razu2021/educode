@@ -5,6 +5,7 @@ use App\Http\Controllers\backend\subscription\SubscriptionController;
 use App\Http\Controllers\instructor\BillingCheckoutController;
 use App\Http\Controllers\instructor\InstructorController;
 use App\Http\Controllers\instructor\InstructorRequestController;
+use App\Http\Controllers\instructor\manage\InsCourseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 
@@ -77,22 +78,54 @@ Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payme
 
 
 
+/**====
+ * 
+ * ===============   manage route start here ======================
+ */
+
+ /**------------- Child category route is here ------- */
+Route::controller(InsCourseController::class)->prefix('instructor/dashboard/course/')->name('ins_course.')->group(function(){
+    Route::get('all','index')->name('all');
+    Route::get('add','add')->name('add');
+    Route::get('view/{id}/{slug}','view')->name('view');
+    Route::get('edit/{id}/{slug}','edit')->name('edit');
+    Route::post('submit','insert')->name('submit');
+    Route::post('update','update')->name('update');
+    Route::delete('softdelete/{id}','softdelete')->name('softdelete');
+    Route::post('restore/{id}','restore')->name('restore');
+    Route::delete('delete/{id}','delete')->name('delete');
+    Route::post('bulk-action','bulkAction')->name('bulkAction');
+    Route::get('recycle','recycle')->name('recycle');
+    Route::get('public/{id}/{slug}','public_status')->name('public');
+    Route::get('private/{id}/{slug}','private_status')->name('private'); 
+    // export route 
+    Route::get('export-pdf','export_pdf')->name('export_pdf'); 
+    Route::get('export-excel','export_excel')->name('export_excel'); 
+    Route::get('export-csv','export_csv')->name('export_csv'); 
+    Route::get('export-zip','export_zip')->name('export_zip'); 
+    Route::get('export-single-pdf/{id}/{slug}','export_single_pdf')->name('export_single_pdf'); 
 
 
 
-
-
-
-
-
-
-
-
-
-
-/**================   Admin auth middleware route protection ============ */
 });
-/**================   Admin auth middleware route protection ============ */
+Route::get('/get-subcategories/instructor/{category_id}', [InsCourseController::class, 'getSubcategories']);
+Route::get('/get-childcategories/instructor/{subcategory_id}', [InsCourseController::class, 'getChildcategories']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**================   instructor  auth middleware route protection ============ */
+});
+/**================   instructor auth middleware route protection ============ */
 
 
 
@@ -159,6 +192,8 @@ Route::middleware(['auth','check_role'])->group(function(){
 
 
         Route::post('insert','insert')->name('submit');
+
+
 
         Route::post('how-to-find-us/update','find_us_update')->name('find_us_update');
         Route::post('category/update','category_update')->name('category_update');

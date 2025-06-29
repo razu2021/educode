@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('course_prices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('course_id'); // must match courses.id type
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // price কে সেট করছে
             $table->decimal('original_price', 8, 2);
             $table->decimal('discounted_price', 8, 2)->nullable();
@@ -32,6 +32,7 @@ return new class extends Migration
             $table->integer('public_status')->default(0);
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         });
     }
 

@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\Payment;
 use Illuminate\Http\Request;
+
 interface  PaymentInterface{
 
 public function createPaymentIntent($amount);  // use for stripe payment 
