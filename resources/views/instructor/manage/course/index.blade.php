@@ -1,5 +1,5 @@
-@extends('layouts.adminmaster')
-@section('admin_contents')
+@extends('layouts.instructormaster')
+@section('instructor_contents')
 @if(session('success'))
     <script>
         Swal.fire({
@@ -173,6 +173,10 @@
                 </div>
               </td>
             </tr>
+
+
+
+            
             @endforeach
 
             {{-- tr end here  --}}
@@ -195,7 +199,26 @@
         <div class="col-auto d-flex"><button class="btn btn-sm btn-primary disabled" type="button" data-list-pagination="prev" disabled=""><span>Previous</span></button><button class="btn btn-sm btn-primary px-4 ms-2" type="button" data-list-pagination="next"><span>Next</span></button></div>
       </div>
     </div>
+
+    
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
 
 
 

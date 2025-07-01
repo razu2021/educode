@@ -1,5 +1,5 @@
-@extends('layouts.adminmaster')
-@section('admin_contents')
+@extends('layouts.instructormaster')
+@section('instructor_contents')
     <main>
         <div class="container">
             <div class="card mb-3">

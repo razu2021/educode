@@ -1,5 +1,5 @@
-@extends('layouts.adminmaster')
-@section('admin_contents')
+@extends('layouts.instructormaster')
+@section('instructor_contents')
     <main>
         <div class="container">
             <div class="card mb-3">
@@ -9,8 +9,8 @@
                       <h5 class="mb-2 mb-md-0">Categorie Detail's</h5>
                     </div>
                     <div class="col-auto">
-                        <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button"><a href="{{route('ins_ins_course.add')}}">Discard</a></button>
-                        <button class="btn btn-primary" role="button"> <a class="text-white" href="{{route('ins_ins_course.all')}}">All Items </a> </button>
+                        <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button"><a href="{{route('ins_course.add')}}">Discard</a></button>
+                        <button class="btn btn-primary" role="button"> <a class="text-white" href="{{route('ins_course.all')}}">All Items </a> </button>
                     </div>
                   </div>
                 </div>
@@ -51,6 +51,11 @@
                                     <td>Unique URL</td>
                                     <td><i class="bi bi-chevron-double-right"></i></td>
                                     <td>{{$data->url}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Course Thumbnail</td>
+                                    <td><i class="bi bi-chevron-double-right"></i></td>
+                                    <td><img src="{{asset('uploads/website/'.$data->course_image)}}" alt="" style="height: auto;width:16rem;border-radius:1rem"></td>
                                   </tr>
                                  
                                 </tbody>
@@ -285,7 +290,12 @@
                                     <h6><span class="text-success px-1"> <i class="bi bi-info-circle"></i> </span> <strong class="px-2"> Updated at : </strong> {{ $data->updated_at->format('d M, Y - h:i A') }}  </h6>
                                 </div>
                                 <div class="d-flex border-bottom py-2 ">
-                                    <h6><span class="text-success px-1"> <i class="bi bi-info-circle"></i> </span> <strong class="px-2"> Created by :  </strong> {{ $data->creator->name }}  </h6>
+                                  @if (!empty($data->creator->name))
+                                     <h6><span class="text-success px-1"> <i class="bi bi-info-circle"></i> </span> <strong class="px-2"> Created by :  </strong> {{ $data->creator->name }}  </h6>
+
+                                  @endif
+                                  
+                                   
                                 </div>
                                 <div class="d-flex border-bottom py-2 ">
                                     <h6><span class="text-success px-1"> <i class="bi bi-info-circle"></i> </span> <strong class="px-2"> Updated by :  </strong>

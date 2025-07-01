@@ -18,6 +18,9 @@ class Course extends Model
     public function editor() {
         return $this->belongsTo(Admin::class, 'editor_id', 'id');
     }
+    public function username() {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
    
     // category model 

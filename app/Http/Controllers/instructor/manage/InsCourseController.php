@@ -40,6 +40,19 @@ class InsCourseController extends Controller
     }
 
 
+    public function all_course(){
+        $user_id = Auth::user()->id;
+        $search = $request['search'] ?? "";
+        if($search !=""){
+            $all = Course::where('user_id',$user_id)->where('status',1)->where('course_name','LIKE',"%$search%")
+            ->orWhere('course_title','LIKE',"%$search%")->orWhere('course_des','LIKE',"%$search%")->get();
+        }else{
+            $all = Course::where('user_id',$user_id)->where('status',1)->get();
+        }
+          return view('instructor.manage.course.all_course',compact('all'));
+    }
+
+
    /**
     * ---------  add page functionality --------
     **/

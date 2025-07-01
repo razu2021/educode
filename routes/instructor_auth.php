@@ -86,6 +86,7 @@ Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payme
  /**------------- Child category route is here ------- */
 Route::controller(InsCourseController::class)->prefix('instructor/dashboard/course/')->name('ins_course.')->group(function(){
     Route::get('all','index')->name('all');
+    Route::get('all/course','all_course')->name('all_course');
     Route::get('add','add')->name('add');
     Route::get('view/{id}/{slug}','view')->name('view');
     Route::get('edit/{id}/{slug}','edit')->name('edit');

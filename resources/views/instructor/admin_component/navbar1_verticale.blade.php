@@ -90,36 +90,20 @@
                         <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day"></span></span><span class="nav-link-text ps-1">Courses</span></div>
                     </a>
                     <ul class="nav collapse" id="events">
+
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('coursecategory.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Courses Category</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('coursesubcategory.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Courses Sub Category</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('coursechildcategory.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Courses Child Category</span></div>
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Add New Course</span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('course.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Course's</span></div>
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Manage Course's</span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="event-list.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Event list</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
+                       
                     </ul>
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#e-commerce" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
