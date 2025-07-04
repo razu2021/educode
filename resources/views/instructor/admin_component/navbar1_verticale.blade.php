@@ -87,7 +87,7 @@
                     </ul>
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#events" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day"></span></span><span class="nav-link-text ps-1">Courses</span></div>
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day"></span></span><span class="nav-link-text ps-1">My Courses</span></div>
                     </a>
                     <ul class="nav collapse" id="events">
 
@@ -101,9 +101,105 @@
                             <a class="nav-link" href="{{route('course.all')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Manage Course's</span></div>
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('course.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Prices</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('course.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Module</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('course.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Contents</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('course.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Content Video</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('course.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Attachments</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('course.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Batch</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('course.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Schedule</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('course.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Progress</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('course.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Statistics</span></div>
+                            </a>
+                        </li>
+                 
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('course.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Create Exame</span></div>
+                            </a>
+                        </li>
+                 
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('course.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1"> Exame Qustions </span></div>
+                            </a>
+                        </li>
+                 
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('course.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Exame Result</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('course.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Live Class</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('course.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Class Attendance</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('course.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Class Assignments</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('course.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Assignment Submit</span></div>
+                            </a>
+                        </li>
+                 
+                       
+                    </ul>
+                    <!-- parent pages-->
+                    <a class="nav-link dropdown-indicator" href="#estudent" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day"></span></span><span class="nav-link-text ps-1">Enrolled Students</span></div>
+                    </a>
+                    <ul class="nav collapse" id="estudent">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Add New Course</span></div>
+                            </a>
                             <!-- more inner pages-->
                         </li>
-                       
                     </ul>
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#e-commerce" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
