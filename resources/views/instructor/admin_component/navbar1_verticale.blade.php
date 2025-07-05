@@ -42,7 +42,7 @@
                 <li class="nav-item">
                     <!-- label-->
                     <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-                        <div class="col-auto navbar-vertical-label">Product Management </div>
+                        <div class="col-auto navbar-vertical-label">Course Management </div>
                         <div class="col ps-0">
                         <hr class="mb-0 navbar-vertical-divider" />
                         </div>
@@ -93,104 +93,414 @@
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('ins_course.all_course')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Add New Course</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('course.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Manage Course's</span></div>
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Courses</span></div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('course.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Prices</span></div>
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Create New Course</span></div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('course.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Module</span></div>
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Active Courses</span></div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('course.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Contents</span></div>
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Pending Courses</span></div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('course.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Content Video</span></div>
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Rejected Courses</span></div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('course.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Attachments</span></div>
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1"> Top Selling Courses</span></div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('course.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Batch</span></div>
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Trending Courses</span></div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('course.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Schedule</span></div>
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Featured Courses</span></div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('course.all')}}">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Archived Courses</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Categories</span></div>
+                            </a>
+                        </li>
+                    </ul>
+                    {{-- end --}}
+                    <a class="nav-link dropdown-indicator" href="#course_price" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="bi bi-tag-fill"></span></span><span class="nav-link-text ps-1"> Course Price</span></div>
+                    </a>
+                    <ul class="nav collapse" id="course_price">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Prices</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Add New Prices</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Coupons & Discounts</span></div>
+                            </a>
+                        </li>
+                    </ul>
+                    {{-- end  --}}
+                    <a class="nav-link dropdown-indicator" href="#course_live" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fa fa-video"></span></span><span class="nav-link-text ps-1"> Live Classes </span></div>
+                    </a>
+                    <ul class="nav collapse" id="course_live">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Classes</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Create New Live </span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Class Attandence </span></div>
+                            </a>
+                        </li>
+                    </ul>
+                    {{-- end  --}}
+                    <a class="nav-link dropdown-indicator" href="#course_module" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="bi bi-diagram-3-fill"></span></span><span class="nav-link-text ps-1"> Course Module</span></div>
+                    </a>
+                    <ul class="nav collapse" id="course_module">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Module</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Create New Module</span></div>
+                            </a>
+                        </li>
+                    </ul>
+                    {{-- end  --}}
+                    <a class="nav-link dropdown-indicator" href="#course_content" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="bi bi-diagram-3-fill"></span></span><span class="nav-link-text ps-1"> Course Contents</span></div>
+                    </a>
+                    <ul class="nav collapse" id="course_content">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Content</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Create New Content</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Upload Video Content</span></div>
+                            </a>
+                        </li>
+                    </ul>
+                    {{-- end  --}}
+                    <a class="nav-link dropdown-indicator" href="#course_attachment" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="bi bi-diagram-3-fill"></span></span><span class="nav-link-text ps-1"> Course Attachment</span></div>
+                    </a>
+                    <ul class="nav collapse" id="course_attachment">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Attachment</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Create New Attchament</span></div>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                    {{-- end  --}}
+                    <a class="nav-link dropdown-indicator" href="#course_batch" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="bi bi-diagram-3-fill"></span></span><span class="nav-link-text ps-1"> Course Batch</span></div>
+                    </a>
+                    <ul class="nav collapse" id="course_batch">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Batch</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Create New Batch</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Batch Schedule</span></div>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                    {{-- end  --}}
+                    <a class="nav-link dropdown-indicator" href="#course_anylitics" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events" disablade>
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="bi bi-bar-chart"></span></span><span class="nav-link-text ps-1">Course Analytics</span></div>
+                    </a>
+                    <ul class="nav collapse" id="course_anylitics">
+                        <li class="nav-item" >
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Progress</span></div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('course.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Statistics</span></div>
-                            </a>
-                        </li>
-                 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('course.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Create Exame</span></div>
-                            </a>
-                        </li>
-                 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('course.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1"> Exame Qustions </span></div>
-                            </a>
-                        </li>
-                 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('course.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Exame Result</span></div>
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Copurse Statistics </span></div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('course.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Live Class</span></div>
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">other ---</span></div>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('course.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Class Attendance</span></div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('course.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Class Assignments</span></div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('course.all')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Assignment Submit</span></div>
-                            </a>
-                        </li>
-                 
-                       
+                        
                     </ul>
-                    <!-- parent pages-->
+                    {{-- end  --}}
+                    <!--====================   Live Class ======================= -->
+                    <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                        <div class="col-auto navbar-vertical-label">Assignments & Quizzes </div>
+                        <div class="col ps-0">
+                        <hr class="mb-0 navbar-vertical-divider" />
+                        </div>
+                    </div>
+                   
+                    <a class="nav-link dropdown-indicator" href="#course_assignment" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="bi bi-patch-question"></span></span><span class="nav-link-text ps-1"> Assignments </span></div>
+                    </a>
+                    <ul class="nav collapse" id="course_assignment">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Assignment</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Add New Assignment</span></div>
+                            </a>
+                        </li>
+                    </ul> 
+                    <a class="nav-link dropdown-indicator" href="#course_quizzes" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="bi bi-patch-question"></span></span><span class="nav-link-text ps-1"> Quizzes </span></div>
+                    </a>
+                    <ul class="nav collapse" id="course_quizzes">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Quizzes</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Add New Quizzes</span></div>
+                            </a>
+                        </li>
+                    </ul> 
+                     <!--====================   Student Management  ======================= -->
+                    <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                        <div class="col-auto navbar-vertical-label">Student Management</div>
+                        <div class="col ps-0">
+                        <hr class="mb-0 navbar-vertical-divider" />
+                        </div>
+                    </div>
+                   
+                    <a class="nav-link dropdown-indicator" href="#course_student" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="bi bi-people"></span></span><span class="nav-link-text ps-1">  Students </span></div>
+                    </a>
+                    <ul class="nav collapse" id="course_student">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Student</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Paid Enrolment</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Free Enrolment</span></div>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <a class="nav-link dropdown-indicator" href="#student_messages" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="bi bi-chat-dots"></span></span><span class="nav-link-text ps-1"> Communication  </span></div>
+                    </a>
+                    <ul class="nav collapse" id="student_messages">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Messages</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Direct Messages</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Send Email</span></div>
+                            </a>
+                        </li>
+                    </ul>
+                    <a class="nav-link dropdown-indicator" href="#student_progress" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-spinner"></span></span><span class="nav-link-text ps-1"> Progress  </span></div>
+                    </a>
+                    <ul class="nav collapse" id="student_progress">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Progress</span></div>
+                            </a>
+                        </li>
+                    </ul>
+                     <!--====================   Student Management  ======================= -->
+                    <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                        <div class="col-auto navbar-vertical-label">Sales & Earnings</div>
+                        <div class="col ps-0">
+                        <hr class="mb-0 navbar-vertical-divider" />
+                        </div>
+                    </div>
+                   
+                    <a class="nav-link dropdown-indicator" href="#sales_report" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-dollar-sign"></span></span><span class="nav-link-text ps-1">  Sales & Earnings</span></div>
+                    </a>
+                    <ul class="nav collapse" id="sales_report">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Revenue Reports</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Withdrawals</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Payment Settings</span></div>
+                            </a>
+                        </li>
+                    </ul>
+                    <a class="nav-link dropdown-indicator" href="#course_subscription" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-dollar-sign"></span></span><span class="nav-link-text ps-1"> Subscription Plan</span></div>
+                    </a>
+                    <ul class="nav collapse" id="course_subscription">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Current Plan Details</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Upgrade / Downgrade</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Payment History</span></div>
+                            </a>
+                        </li>
+                    </ul>
+
+
+
+                     <!--====================   Student Management  ======================= -->
+                    <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                        <div class="col-auto navbar-vertical-label">Reviews & Others</div>
+                        <div class="col ps-0">
+                        <hr class="mb-0 navbar-vertical-divider" />
+                        </div>
+                    </div>
+                   
+                    <a class="nav-link dropdown-indicator" href="#course_review" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day"></span></span><span class="nav-link-text ps-1"> Reviews & Feedback</span></div>
+                    </a>
+                    <ul class="nav collapse" id="course_review">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Reviews</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Student Feedback</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Instructor Ratings</span></div>
+                            </a>
+                        </li>
+                    </ul>
+                    <a class="nav-link dropdown-indicator" href="#course_affiliate" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day"></span></span><span class="nav-link-text ps-1"> Affiliate Program</span></div>
+                    </a>
+                    <ul class="nav collapse" id="course_affiliate">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">My Affiliate </span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Promote My Courses</span></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Instructor Ratings</span></div>
+                            </a>
+                        </li>
+                    </ul>
+
+
+
+
+                  
+                     <!--====================   Student Management  ======================= -->
+                    <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                        <div class="col-auto navbar-vertical-label">Support & Help </div>
+                        <div class="col ps-0">
+                        <hr class="mb-0 navbar-vertical-divider" />
+                        </div>
+                    </div>
+                   
                     <a class="nav-link dropdown-indicator" href="#estudent" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day"></span></span><span class="nav-link-text ps-1">Enrolled Students</span></div>
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day"></span></span><span class="nav-link-text ps-1">  Quizzes</span></div>
                     </a>
                     <ul class="nav collapse" id="estudent">
 
@@ -198,202 +508,15 @@
                             <a class="nav-link" href="{{route('ins_course.all_course')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Add New Course</span></div>
                             </a>
-                            <!-- more inner pages-->
+                            
                         </li>
                     </ul>
-                    <!-- parent pages-->
-                    <a class="nav-link dropdown-indicator" href="#e-commerce" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-shopping-cart"></span></span><span class="nav-link-text ps-1">E commerce</span></div>
-                    </a>
-                    <ul class="nav collapse" id="e-commerce">
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-indicator" href="#product" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                            <ul class="nav collapse" id="product">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="product-list.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product list</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="product-grid.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product grid</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="product-details.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product details</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="add-product.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Add product</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-indicator" href="#orders" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Orders</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                            <ul class="nav collapse" id="orders">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="order-list.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Order list</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="order-details.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Order details</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="customers.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Customers</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="customer-details.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Customer details</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="shopping-cart.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Shopping cart</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="checkout.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Checkout</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="billing.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Billing</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="invoice.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Invoice</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                    </ul>
-                    <!-- parent pages-->
-                    <a class="nav-link dropdown-indicator" href="#e-learning" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-learning">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-graduation-cap"></span></span><span class="nav-link-text ps-1">E learning</span><span class="badge rounded-pill ms-2 badge-subtle-success">New</span></div>
-                    </a>
-                    <ul class="nav collapse" id="e-learning">
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-indicator" href="#course" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-learning">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                            <ul class="nav collapse" id="course">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="course-list.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course list</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="course-grid.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course grid</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="course-details.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course details</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="create-a-course.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Create a course</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="student-overview.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Student overview</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="trainer-profile.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Trainer profile</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                    </ul>
-                    <!-- parent pages-->
-                    <a class="nav-link" href="{{route('metatag.all')}}" role="button">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fab fa-trello"></span></span><span class="nav-link-text ps-1">Seo Data</span></div>
-                    </a>
-                    <!-- parent pages-->
-                    <a class="nav-link dropdown-indicator" href="#social" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="social">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-share-alt"></span></span><span class="nav-link-text ps-1">Social</span></div>
-                    </a>
-                    <ul class="nav collapse" id="social">
-                        <li class="nav-item">
-                            <a class="nav-link" href="feed.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Feed</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="activity-log.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Activity log</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="notifications.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Notifications</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="followers.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Followers</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                    </ul>
-                    <!-- parent pages-->
-                    <a class="nav-link dropdown-indicator" href="#support-desk" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="support-desk">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-ticket-alt"></span></span><span class="nav-link-text ps-1">Plan & Price</span></div>
-                    </a>
-                    <ul class="nav collapse" id="support-desk">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('instructor_paln_price')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Plan & Prices </span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                       
-                        
-                    </ul>
-                </li>
+                
+                    {{-- =======  end items ================================================ --}}
+
+
+
+
                
                
                 <li class="nav-item">
