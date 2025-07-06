@@ -33,7 +33,7 @@
                                           <option value="{{ $category->id }}">{{ $category->course_category_name }}</option>
                                       @endforeach
                                   </select>
-                                    <label class="text-danger fw-medium">@error('course_categories_id') {{$message}} @enderror</label>
+                                    <label class="text-danger fw-medium">@error('category_id') {{$message}} @enderror</label>
                                 </div>
                                 <div class="col-4 mb-1">
                                     <label class="form-label" for="course_categories_id">Select Course Category <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
@@ -49,39 +49,6 @@
                                     </select>
                                     <label class="text-danger fw-medium">@error('course_categories_id') {{$message}} @enderror</label>
                                 </div>
-
-
-
-
-
-
-
-                           
-
-
-
-
-
-
-                            
-                              
-                          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                                 {{-- category end --}}
                                 <div class="col-12 mb-1">

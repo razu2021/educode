@@ -57,30 +57,24 @@ class InsCourseController extends Controller
     * ---------  add page functionality --------
     **/
 
-// CourseController.php
-public function getSubcategories($category_id)
-{
-    return response()->json(CourseSubcategory::where('course_category_id', $category_id)->get());
-}
+    // CourseController.php
+        public function getSubcategories($category_id)
+        {
+            return response()->json(CourseSubcategory::where('course_category_id', $category_id)->where('public_status',1)->get());
+        }
 
-public function getChildcategories($subcategory_id)
-{
-    return response()->json(CourseChildCategory::where('course_sub_category_id', $subcategory_id)->get());
-}
-
-
-
-
-
+        public function getChildcategories($subcategory_id)
+        {
+            return response()->json(CourseChildCategory::where('course_sub_category_id', $subcategory_id)->where('public_status',1)->get());
+        }
 
     public function add(){
         $totalpost  = Course::get()->count();
         $latestPost = Course::latest()->first();
-        $courseCategory = CourseCategory::with(['CourseSubcategory','CourseSubcategory.CourschildCategory'])->get();
+        $courseCategory = CourseCategory::where('public_status',1)->with(['CourseSubcategory','CourseSubcategory.CourschildCategory'])->get();
         //dd($courseCategory);
         return view('instructor.manage.course.add',compact('totalpost','latestPost','courseCategory'));
     }
-
 
    /**
     * ---------  view page functionality --------
@@ -120,14 +114,27 @@ public function getChildcategories($subcategory_id)
         //dd($request);
         /**--- validation code -- */
         $request->validate([
+                'category_id'  => 'required',
                 'course_name'  => 'required',
                 'course_title'=> 'required',
                 'course_des'=> 'required',
+                'course_long_des'=> 'required',
+                'course_language'=> 'required',
+                'course_type'=> 'required',
+                'course_lable'=> 'required',
+                'course_time'=> 'required',
+                'images'=> 'required',
             ],[
-                'course_name.required'=> 'Course Category Name is Required !',
+                'category_id.required'=> 'Select Category Name !',
+                'course_name.required'=> 'Course Name is Required !',
                 'course_name.unique' => 'This Course Category Name already exists!',
-                'course_title.required'=> 'Course Category Title is Required !',
-                'course_des.required'=> 'Course Category Description is Required !',
+                'course_title.required'=> 'Course Title is Required !',
+                'course_des.required'=> 'Course Description is Required !',
+                'course_long_des.required'=> 'Course Long Description is Required !',
+                'course_type.required'=> 'Course Type is Required !',
+                'course_lable.required'=> 'Course preferred label is Required !',
+                'course_time.required'=> 'Course duration is Required !',
+                'images.required'=> 'Thumbnail image is Required !',
             ]
         );
 
@@ -157,6 +164,7 @@ public function getChildcategories($subcategory_id)
             'course_type'=>$request->course_type,
             'course_lable'=>$request->course_lable,
             'course_time'=>$request->course_time,
+            'label'=>'new',
             'slug'=>$slug,
             'url'=>$url,
             'user_id' => $user_id,
