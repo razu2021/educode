@@ -97,32 +97,32 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                            <a class="nav-link" href="{{route('ins_course.add')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Create New Course</span></div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                            <a class="nav-link" href="{{route('ins_course.active_course')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Active Courses</span></div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                            <a class="nav-link" href="{{route('ins_course.pending_course')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Pending Courses</span></div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                            <a class="nav-link" href="{{route('ins_course.reject_course')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Rejected Courses</span></div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                            <a class="nav-link" href="{{route('ins_course.topsale_course')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1"> Top Selling Courses</span></div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                            <a class="nav-link" href="{{route('ins_course.tranding_course')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Trending Courses</span></div>
                             </a>
                         </li>
@@ -132,12 +132,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                            <a class="nav-link" href="{{route('ins_course.recycle')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Archived Courses</span></div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                            <a class="nav-link" href="{{route('ins_course.allourse_category')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course Categories</span></div>
                             </a>
                         </li>

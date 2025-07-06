@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('course_image',255)->nullable();
             $table->enum('label', ['top','trending','upcoming','free','new','featured','beginner','popular','best_seller','bundle',])->nullable();
             $table->integer('sell')->default(0)->nullable();
+            $table->integer('view_count')->default(0)->nullable();
             $table->string('slug',255)->nullable();
             $table->integer('creator_id')->nullable();
             $table->integer('editor_id')->nullable();

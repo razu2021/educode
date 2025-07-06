@@ -106,6 +106,14 @@ Route::controller(InsCourseController::class)->prefix('instructor/dashboard/cour
     Route::get('export-zip','export_zip')->name('export_zip'); 
     Route::get('export-single-pdf/{id}/{slug}','export_single_pdf')->name('export_single_pdf'); 
 
+    // extra page route 
+     Route::get('all/active/course','all_active_course')->name('active_course');
+     Route::get('all/pending/course','all_pending_course')->name('pending_course');
+     Route::get('all/reject/course','all_reject_course')->name('reject_course');
+     Route::get('all/top/sale/course','all_topsale_course')->name('topsale_course');
+     Route::get('all/tranding/course','all_tranding_course')->name('tranding_course');
+     Route::get('all/category/course','all_course_category')->name('allourse_category');
+
 
 
 });

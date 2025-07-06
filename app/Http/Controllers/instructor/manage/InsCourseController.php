@@ -554,4 +554,55 @@ class InsCourseController extends Controller
             unlink($pdfFilePath);
             return $response;
     } // export zip end here 
+
+
+
+
+/**=================================  extra page code ==================== */
+    public function all_active_course(){
+        $user_id = Auth::user()->id;
+        $all = Course::where('user_id',$user_id)->where('public_status',1)->get();
+
+        return view('instructor.manage.course.active_course',compact('all'));
+    }
+
+    public function all_pending_course(){
+        $user_id = Auth::user()->id;
+        $all = Course::where('user_id',$user_id)->where('public_status',2)->get();
+
+        return view('instructor.manage.course.pending_course',compact('all'));
+    }
+    public function all_reject_course(){
+        $user_id = Auth::user()->id;
+        $all = Course::where('user_id',$user_id)->where('public_status',3)->get();
+
+        return view('instructor.manage.course.reject_course',compact('all'));
+    }
+    public function all_topsale_course(){
+        $user_id = Auth::user()->id;
+        $all = Course::where('user_id',$user_id)->where('public_status',1)->orderBy('sell','desc')->get();
+
+        return view('instructor.manage.course.topsale_course',compact('all'));
+    }
+    public function all_tranding_course(){
+        $user_id = Auth::user()->id;
+        $all = Course::where('user_id',$user_id)->where('public_status',1)->orderBy('view_count','desc')->get();
+
+        return view('instructor.manage.course.topsale_course',compact('all'));
+    }
+    public function all_course_category(){
+        $user_id = Auth::user()->id;
+        $all = CourseCategory::where('public_status',1)->get();
+
+        return view('instructor.manage.course.allcourse_category',compact('all'));
+    }
+
+
+
+/**=================================  extra page code ==================== */
+
+
+
+
+
 }

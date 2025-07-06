@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\CourseCategory;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -111,6 +112,12 @@ class FrontendController extends Controller
 
     // course detais 
     public function course_details(){
+
+        $course = Course::findOrFail(1);
+
+        // Increase view count
+        $course->increment('view_count');
+
         return view('frontend.pages.course.course_details');
     }
     // instructor  detais 
