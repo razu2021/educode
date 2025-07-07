@@ -26,7 +26,7 @@
                         <div class="card-body">
                             <div class="row gx-2">
                                 <div class="col-4 mb-1">
-                                    <label class="form-label" for="course_categories_id">Select Course Category <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
+                                    <label class="form-label" for="category_id">Select Course Category <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
                                     <select id="categorySelect" name="category_id" class="form-select">
                                       <option value="">Select Category</option>
                                       @foreach ($courseCategory as $category)
@@ -36,18 +36,18 @@
                                     <label class="text-danger fw-medium">@error('category_id') {{$message}} @enderror</label>
                                 </div>
                                 <div class="col-4 mb-1">
-                                    <label class="form-label" for="course_categories_id">Select Course Category <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
+                                    <label class="form-label" for="subcategory_id">Select Course Category <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
                                     <select id="subcategorySelect" name="subcategory_id" class="form-select">
                                       <option value="">Select Subcategory</option>
                                     </select>
-                                    <label class="text-danger fw-medium">@error('course_categories_id') {{$message}} @enderror</label>
+                                    <label class="text-danger fw-medium">@error('subcategory_id') {{$message}} @enderror</label>
                                 </div>
                                 <div class="col-4 mb-1">
-                                    <label class="form-label" for="course_categories_id">Select Course Category <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
+                                    <label class="form-label" for="child_category_id">Select Course Category <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
                                     <select id="childcategorySelect" name="child_category_id" class="form-select ">
                                       <option value="">Select Child Category</option>
                                     </select>
-                                    <label class="text-danger fw-medium">@error('course_categories_id') {{$message}} @enderror</label>
+                                    <label class="text-danger fw-medium">@error('child_category_id') {{$message}} @enderror</label>
                                 </div>
 
                                 {{-- category end --}}

@@ -14,13 +14,15 @@ use Carbon\Carbon; //----------  defualt -------
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\Course_price;
 use App\Models\CourseCategory;
 use App\Models\CourseSubCategory;
 use App\Models\CourseChildCategory;
 use App\Models\Seo;
 use App\Models\Seo_image;
 use App\Helpers\ImageUploadHelper;
-class InsCourseController extends Controller
+
+class InsCoursePriceController extends Controller
 {
      /**
      * =============================================================
@@ -31,25 +33,19 @@ class InsCourseController extends Controller
         $user_id = Auth::user()->id;
         $search = $request['search'] ?? "";
         if($search !=""){
-            $all = Course::where('user_id',$user_id)->where('status',1)->where('course_name','LIKE',"%$search%")
+            $all = Course_price::where('user_id',$user_id)->where('status',1)->where('course_name','LIKE',"%$search%")
             ->orWhere('course_title','LIKE',"%$search%")->orWhere('course_des','LIKE',"%$search%")->get();
         }else{
-            $all = Course::where('user_id',$user_id)->where('status',1)->get();
+            $all = Course_price::where('user_id',$user_id)->where('status',1)->get();
         }
-        return view('instructor.manage.course.index',compact('all'));
+        return view('instructor.manage.courseprice.index',compact('all'));
     }
 
 
     public function all_course(){
         $user_id = Auth::user()->id;
-        $search = $request['search'] ?? "";
-        if($search !=""){
-            $all = Course::where('user_id',$user_id)->where('status',1)->where('course_name','LIKE',"%$search%")
-            ->orWhere('course_title','LIKE',"%$search%")->orWhere('course_des','LIKE',"%$search%")->get();
-        }else{
-            $all = Course::where('user_id',$user_id)->where('status',1)->get();
-        }
-          return view('instructor.manage.course.all_course',compact('all'));
+        $all = Course::with('coursePrice')->where('user_id',$user_id)->where('status',1)->get();
+          return view('instructor.manage.courseprice.all_course',compact('all'));
     }
 
 
@@ -68,25 +64,26 @@ class InsCourseController extends Controller
             return response()->json(CourseChildCategory::where('course_sub_category_id', $subcategory_id)->where('public_status',1)->get());
         }
 
-    public function add(){
-        $totalpost  = Course::get()->count();
-        $latestPost = Course::latest()->first();
-        $courseCategory = CourseCategory::where('public_status',1)->with(['CourseSubcategory','CourseSubcategory.CourschildCategory'])->get();
-        //dd($courseCategory);
-        return view('instructor.manage.course.add',compact('totalpost','latestPost','courseCategory'));
+    public function add($id,$slug){
+        $totalpost  = Course_price::get()->count();
+        $latestPost = Course_price::latest()->first();
+         $user_id = Auth::user()->id;
+        $data = Course::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
+       
+        return view('instructor.manage.courseprice.add',compact('totalpost','latestPost','data'));
     }
 
    /**
     * ---------  view page functionality --------
     **/
     public function view($id,$slug){
-        $data= Course::with(['metaData'=>function($query){
+        $data= Course_price::with(['metaData'=>function($query){
             $query->where('model_type','App\Models\Category'); // metaData filter   
         },
         'metaData.images' // ✅ nested eager load (Seo -> Seo_image
         ])->where('status',1)->where('id',$id)->where('slug',$slug)->firstOrFail();
         
-        return view('instructor.manage.course.view',compact('data'));
+        return view('instructor.manage.courseprice.view',compact('data'));
     }
 
 
@@ -94,14 +91,14 @@ class InsCourseController extends Controller
     * ---------  edit page functionality --------
     **/
     public function edit($id,$slug){
-        $totalpost  = Course::get()->count();
-        $latestPost = Course::latest()->first();
-        $data= Course::with(['metaData'=>function($query){
+        $totalpost  = Course_price::get()->count();
+        $latestPost = Course_price::latest()->first();
+        $data= Course_price::with(['metaData'=>function($query){
             $query->where('model_type','App\Models\Category'); // metaData filter   
         },
         'metaData.images' // ✅ nested eager load (Seo -> Seo_image
         ])->where('status',1)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        return view('instructor.manage.course.edit',compact('totalpost','latestPost','data'));
+        return view('instructor.manage.courseprice.edit',compact('totalpost','latestPost','data'));
     }
 
 
@@ -114,27 +111,9 @@ class InsCourseController extends Controller
         //dd($request);
         /**--- validation code -- */
         $request->validate([
-                'category_id'  => 'required',
-                'course_name'  => 'required',
-                'course_title'=> 'required',
-                'course_des'=> 'required',
-                'course_long_des'=> 'required',
-                'course_language'=> 'required',
-                'course_type'=> 'required',
-                'course_lable'=> 'required',
-                'course_time'=> 'required',
-                'images'=> 'required',
+                'original_price'  => 'required',
             ],[
-                'category_id.required'=> 'Select Category Name !',
-                'course_name.required'=> 'Course Name is Required !',
-                'course_name.unique' => 'This Course Category Name already exists!',
-                'course_title.required'=> 'Course Title is Required !',
-                'course_des.required'=> 'Course Description is Required !',
-                'course_long_des.required'=> 'Course Long Description is Required !',
-                'course_type.required'=> 'Course Type is Required !',
-                'course_lable.required'=> 'Course preferred label is Required !',
-                'course_time.required'=> 'Course duration is Required !',
-                'images.required'=> 'Thumbnail image is Required !',
+                'original_price.required'=> 'Original Price is Required !',
             ]
         );
 
@@ -152,46 +131,21 @@ class InsCourseController extends Controller
         }
 
         //-------  insert category record --------
-        $insert = Course::create([
-            'course_category_id'=>$request->category_id,
-            'course_subcategory_id'=>$request->subcategory_id,
-            'course_childcategory_id'=>$request->child_category_id,
-            'course_name'=>$request->course_name,
-            'course_title'=>$request->course_title,
-            'course_des'=>$request->course_des,
-            'course_long_des'=>$request->course_long_des,
-            'course_language'=>$request->course_language,
-            'course_type'=>$request->course_type,
-            'course_lable'=>$request->course_lable,
-            'course_time'=>$request->course_time,
-            'label'=>'new',
+        $insert = Course_price::create([
+            'original_price'=>$request->original_price,
+            'discounted_price'=>$request->discounted_price,
+            'currency'=>$request->currency,
+            'pricing_type'=>$request->pricing_type,
+            'start_date'=>$request->start_date,
+            'end_date'=>$request->end_date,
+            'course_id'=>$request->course_id,
+            'public_status'=>1,
             'slug'=>$slug,
-            'url'=>$url,
             'user_id' => $user_id,
             'created_at' => Carbon::now()->toDateTimeString(),
         ]);
 
-        // upload thumbnail image 
-        if ($request->hasFile('images')) {
-            // Upload image using helper
-            $imageName = ImageUploadHelper::uploadImage($request->file('images'));
-                        
-            // Save image name to DB or return response
-            Course::where('id', $insert->id)->update([
-                'course_image' => $imageName,
-            ]);
-        }
-
-
-
-      
-       
-        $insert->metaData()->create([
-            'unique_id'=>$insert->id,
-            'user_id'=>$user_id,
-            'slug'=>$slug,
-        ]);
-
+    
 
         // insert Successfully 
         if($insert){
@@ -211,7 +165,7 @@ class InsCourseController extends Controller
     public function update(Request $request){
            /**--- validation code -- */
            $request->validate([
-            'course_name'  => ['required','unique:' . Course::class],
+            'course_name'  => ['required','unique:' . Course_price::class],
               'course_title'=> 'required',
               'course_desc'=> 'required',
           ],[
@@ -238,7 +192,7 @@ class InsCourseController extends Controller
     }
 
     //---------category update -------//
-    $update = Course::where('id',$id)->where('slug',$slug)->update([
+    $update = Course_price::where('id',$id)->where('slug',$slug)->update([
         'course_name'=>$request->course_name,
         'course_title'=>$request->course_title,
         'course_des'=>$request->course_desc,
@@ -269,7 +223,7 @@ class InsCourseController extends Controller
      * ================================================
      */
     public function softdelete($id){
-        $data= Course::where('id',$id)->first();
+        $data= Course_price::where('id',$id)->first();
         $data->delete();
         // ----Delete Successfully ----//
         if($data){
@@ -284,7 +238,7 @@ class InsCourseController extends Controller
     * ---------  restore  page functionality --------
     **/
     public function restore($id){
-        $data = Course::withTrashed()->where('id', $id)->first();
+        $data = Course_price::withTrashed()->where('id', $id)->first();
         $data->restore();
         // Delete Successfully 
         if($data){
@@ -300,7 +254,7 @@ class InsCourseController extends Controller
     * ---------  Heard Delete  functionality --------
     **/
     public function delete($id){
-        $data = Course::onlyTrashed()->where('id', $id)->first();
+        $data = Course_price::onlyTrashed()->where('id', $id)->first();
     
         if($data) {
             // Delete all associated seo_image records first
@@ -335,7 +289,7 @@ class InsCourseController extends Controller
     * ---------  Published post  functionality --------//
     **/
     public function public_status($id,$slug){
-        $published = Course::where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
+        $published = Course_price::where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
             'public_status'=>1,
         ]);
         // Delete Successfully 
@@ -352,7 +306,7 @@ class InsCourseController extends Controller
     * ---------  Private post  functionality --------//
     **/
     public function private_status($id,$slug){
-        $private = Course::where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
+        $private = Course_price::where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
             'public_status'=>0,
         ]);
         // Delete Successfully 
@@ -369,8 +323,8 @@ class InsCourseController extends Controller
     * ---------  Recycle  page functionality --------//
     **/
     public function recycle(){
-        $all = Course::onlyTrashed()->get();
-        return view('instructor.manage.course.recycle',compact('all'));
+        $all = Course_price::onlyTrashed()->get();
+        return view('instructor.manage.courseprice.recycle',compact('all'));
     }
 
 
@@ -395,12 +349,12 @@ class InsCourseController extends Controller
     
         //----- for multiple items soft delete ----//
         if ($action === 'delete') {
-            Course::whereIn('id', $ids)->delete();
+            Course_price::whereIn('id', $ids)->delete();
             return response()->json(['success' => true, 'message' => 'Selected categories deleted.']);
         }
         //--- for multiple items heard delete -------//
         if ($action === 'heard_delete') {
-            $categories = Course::onlyTrashed()->whereIn('id', $ids)->get();
+            $categories = Course_price::onlyTrashed()->whereIn('id', $ids)->get();
         
             foreach ($categories as $category) {
                 // 1. Related SEO খোঁজো
@@ -432,7 +386,7 @@ class InsCourseController extends Controller
     
         //---- for multiple items resotre --------//
         if ($action === 'restore') {
-            $categories = Course::onlyTrashed()->whereIn('id', $ids)->get();
+            $categories = Course_price::onlyTrashed()->whereIn('id', $ids)->get();
             if($categories){
                 foreach($categories as $data){
                     $data->restore();
@@ -442,12 +396,12 @@ class InsCourseController extends Controller
         }
         //----- for multiple items active ----//
         if ($action === 'active') {
-            $categories = Course::whereIn('id', $ids)->get();
+            $categories = Course_price::whereIn('id', $ids)->get();
 
             if($categories){
                 foreach($categories as $data){
 
-                    Course::whereIn('id',$ids)->where('public_status',0)->update([
+                    Course_price::whereIn('id',$ids)->where('public_status',0)->update([
                         'public_status'=>1,
                     ]);
                 }
@@ -457,10 +411,10 @@ class InsCourseController extends Controller
 
         //--  for multiple items deactive ----- //
         if ($action === 'deactive') {
-            $categories = Course::whereIn('id', $ids)->get();
+            $categories = Course_price::whereIn('id', $ids)->get();
             if($categories){
                 foreach($categories as $data){
-                    Course::whereIn('id',$ids)->where('public_status',1)->update([
+                    Course_price::whereIn('id',$ids)->where('public_status',1)->update([
                         'public_status'=>0,
                     ]);
                 }
@@ -484,9 +438,9 @@ class InsCourseController extends Controller
      */
 
     public function export_pdf(){
-        $categories = Course::get();
-       // return view('instructor.manage.course.export_pdf', compact('categories'));
-        $pdf = Pdf::loadView('instructor.manage.course.export_pdf', compact('categories')); // get database record 
+        $categories = Course_price::get();
+       // return view('instructor.manage.courseprice.export_pdf', compact('categories'));
+        $pdf = Pdf::loadView('instructor.manage.courseprice.export_pdf', compact('categories')); // get database record 
         $filename = 'course-categories_'.rand(100000,100000000) . Carbon::now()->format('Y_m_d_His') . '.pdf'; // make pdf file name 
         return $pdf->download($filename); // download file 
     }
@@ -495,9 +449,9 @@ class InsCourseController extends Controller
      * ---------  export single pdf functionality ------
      */
     public function export_single_pdf($id,$slug){
-        $data = Course::where('id',$id)->where('slug',$slug)->firstOrFail();
-       // return view('instructor.manage.course.export_pdf', compact('categories'));
-        $pdf = Pdf::loadView('instructor.manage.course.export_single_pdf', compact('data'));
+        $data = Course_price::where('id',$id)->where('slug',$slug)->firstOrFail();
+       // return view('instructor.manage.courseprice.export_pdf', compact('categories'));
+        $pdf = Pdf::loadView('instructor.manage.courseprice.export_single_pdf', compact('data'));
         $filename = 'course-categories_'.rand(100000,100000000) . Carbon::now()->format('Y_m_d_His') . '.pdf';
         return $pdf->download($filename);
     }
@@ -531,7 +485,7 @@ class InsCourseController extends Controller
         Excel::store(new CategoryExport, 'info.xlsx', 'public');
         
         // Export PDF file
-        $pdf = Pdf::loadView('instructor.manage.course.export_pdf', ['categories' => Course::all()]);
+        $pdf = Pdf::loadView('instructor.manage.courseprice.export_pdf', ['categories' => Course_price::all()]);
         $pdf->save($pdfFilePath);
 
         // Create a zip file
@@ -561,48 +515,45 @@ class InsCourseController extends Controller
 /**=================================  extra page code ==================== */
     public function all_active_course(){
         $user_id = Auth::user()->id;
-        $all = Course::where('user_id',$user_id)->where('public_status',1)->get();
+        $all = Course_price::where('user_id',$user_id)->where('public_status',1)->get();
 
-        return view('instructor.manage.course.active_course',compact('all'));
+        return view('instructor.manage.courseprice.active_course',compact('all'));
     }
     public function all_pending_course(){
         $user_id = Auth::user()->id;
-        $all = Course::where('user_id',$user_id)->where('public_status',2)->get();
+        $all = Course_price::where('user_id',$user_id)->where('public_status',2)->get();
 
-        return view('instructor.manage.course.pending_course',compact('all'));
+        return view('instructor.manage.courseprice.pending_course',compact('all'));
     }
     public function all_reject_course(){
         $user_id = Auth::user()->id;
-        $all = Course::where('user_id',$user_id)->where('public_status',3)->get();
+        $all = Course_price::where('user_id',$user_id)->where('public_status',3)->get();
 
-        return view('instructor.manage.course.reject_course',compact('all'));
+        return view('instructor.manage.courseprice.reject_course',compact('all'));
     }
     public function all_topsale_course(){
         $user_id = Auth::user()->id;
-        $all = Course::where('user_id',$user_id)->where('public_status',1)->orderBy('sell','desc')->get();
+        $all = Course_price::where('user_id',$user_id)->where('public_status',1)->orderBy('sell','desc')->get();
 
-        return view('instructor.manage.course.tops
+        return view('instructor.manage.courseprice.tops
         ale_course',compact('all'));
     }
     public function all_tranding_course(){
         $user_id = Auth::user()->id;
-        $all = Course::where('user_id',$user_id)->where('public_status',1)->orderBy('view_count','desc')->get();
+        $all = Course_price::where('user_id',$user_id)->where('public_status',1)->orderBy('view_count','desc')->get();
 
-        return view('instructor.manage.course.topsale_course',compact('all'));
+        return view('instructor.manage.courseprice.topsale_course',compact('all'));
     }
     public function all_course_category(){
         $user_id = Auth::user()->id;
         $all = CourseCategory::where('public_status',1)->get();
 
-        return view('instructor.manage.course.allcourse_category',compact('all'));
+        return view('instructor.manage.courseprice.allcourse_category',compact('all'));
     }
 
 
 
 /**=================================  extra page code ==================== */
-
-
-
 
 
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\instructor\BillingCheckoutController;
 use App\Http\Controllers\instructor\InstructorController;
 use App\Http\Controllers\instructor\InstructorRequestController;
 use App\Http\Controllers\instructor\manage\InsCourseController;
+use App\Http\Controllers\instructor\manage\InsCoursePriceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 
@@ -113,15 +114,35 @@ Route::controller(InsCourseController::class)->prefix('instructor/dashboard/cour
      Route::get('all/top/sale/course','all_topsale_course')->name('topsale_course');
      Route::get('all/tranding/course','all_tranding_course')->name('tranding_course');
      Route::get('all/category/course','all_course_category')->name('allourse_category');
-
-
-
 });
 Route::get('/get-subcategories/instructor/{category_id}', [InsCourseController::class, 'getSubcategories']);
 Route::get('/get-childcategories/instructor/{subcategory_id}', [InsCourseController::class, 'getChildcategories']);
 
+/**==============  course insert route end here ========================================================================= */
+Route::controller(InsCoursePriceController::class)->prefix('instructor/dashboard/course/price')->name('ins_course_price.')->group(function(){
+    Route::get('all','index')->name('all');
+    Route::get('all/course','all_course')->name('all_course_price');
+    Route::get('add/{id}/{slug}','add')->name('add');
+    Route::get('view/{id}/{slug}','view')->name('view');
+    Route::get('edit/{id}/{slug}','edit')->name('edit');
+    Route::post('submit','insert')->name('submit');
+    Route::post('update','update')->name('update');
+    Route::delete('softdelete/{id}','softdelete')->name('softdelete');
+    Route::post('restore/{id}','restore')->name('restore');
+    Route::delete('delete/{id}','delete')->name('delete');
+    Route::post('bulk-action','bulkAction')->name('bulkAction');
+    Route::get('recycle','recycle')->name('recycle');
+    Route::get('public/{id}/{slug}','public_status')->name('public');
+    Route::get('private/{id}/{slug}','private_status')->name('private'); 
+    // export route 
+    Route::get('export-pdf','export_pdf')->name('export_pdf'); 
+    Route::get('export-excel','export_excel')->name('export_excel'); 
+    Route::get('export-csv','export_csv')->name('export_csv'); 
+    Route::get('export-zip','export_zip')->name('export_zip'); 
+    Route::get('export-single-pdf/{id}/{slug}','export_single_pdf')->name('export_single_pdf'); 
 
-
+ 
+});
 
 
 

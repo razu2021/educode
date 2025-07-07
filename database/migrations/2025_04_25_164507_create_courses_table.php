@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->nullable();
-            $table->unsignedBigInteger('course_category_id')->nullable(); // ✅ match with bigIncrements
+            $table->unsignedBigInteger('course_category_id'); // ✅ match with bigIncrements
             $table->unsignedBigInteger('course_subcategory_id')->nullable(); // ✅ match with bigIncrements
             $table->unsignedBigInteger('course_childcategory_id')->nullable(); // ✅ match with bigIncrements
             $table->string('course_name')->nullable();

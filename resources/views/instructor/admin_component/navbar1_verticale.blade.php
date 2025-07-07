@@ -148,7 +148,7 @@
                     </a>
                     <ul class="nav collapse" id="course_price">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                            <a class="nav-link" href="{{route('ins_course_price.all_course_price')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Prices</span></div>
                             </a>
                         </li>
@@ -495,7 +495,7 @@
                     <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
                         <div class="col-auto navbar-vertical-label">Support & Help </div>
                         <div class="col ps-0">
-                        <hr class="mb-0 navbar-vertical-divider" />
+                        <hr class="mb-0 navbar-vertical-divider"/>
                         </div>
                     </div>
                    

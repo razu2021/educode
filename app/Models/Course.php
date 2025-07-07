@@ -11,6 +11,22 @@ class Course extends Model
     protected $guarded=[];
 
 
+
+    /** ---- course price ---- */
+   public function coursePrice()
+    {
+        return $this->hasOne(Course_price::class, 'course_id', 'id');
+    }
+
+
+
+
+
+
+
+
+
+
     public function creator() {
         return $this->belongsTo(Admin::class, 'creator_id', 'id');
     }
