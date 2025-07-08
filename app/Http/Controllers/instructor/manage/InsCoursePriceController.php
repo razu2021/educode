@@ -77,12 +77,8 @@ class InsCoursePriceController extends Controller
     * ---------  view page functionality --------
     **/
     public function view($id,$slug){
-        $data= Course_price::with(['metaData'=>function($query){
-            $query->where('model_type','App\Models\Category'); // metaData filter   
-        },
-        'metaData.images' // ✅ nested eager load (Seo -> Seo_image
-        ])->where('status',1)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        
+        $user_id = Auth::user()->id;
+        $data=Course_price::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
         return view('instructor.manage.courseprice.view',compact('data'));
     }
 
@@ -93,11 +89,8 @@ class InsCoursePriceController extends Controller
     public function edit($id,$slug){
         $totalpost  = Course_price::get()->count();
         $latestPost = Course_price::latest()->first();
-        $data= Course_price::with(['metaData'=>function($query){
-            $query->where('model_type','App\Models\Category'); // metaData filter   
-        },
-        'metaData.images' // ✅ nested eager load (Seo -> Seo_image
-        ])->where('status',1)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        $user_id = Auth::user()->id;
+        $data=Course_price::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
         return view('instructor.manage.courseprice.edit',compact('totalpost','latestPost','data'));
     }
 
