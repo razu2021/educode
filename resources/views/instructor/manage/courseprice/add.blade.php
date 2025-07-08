@@ -9,8 +9,8 @@
                       <h5 class="mb-2 mb-md-0">Add a Course Price</h5>
                     </div>
                     <div class="col-auto">
-                        <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button"><a href="{{route('ins_course.add')}}">Discard</a></button>
-                        <button class="btn btn-primary" role="button"> <a class="text-white" href="{{route('ins_course.all')}}">All Items </a> </button>
+                        <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button"><a href="#" onclick="window.histroy.back()">Discard</a></button>
+                        <button class="btn btn-primary" role="button"> <a class="text-white" href="{{route('ins_course_price.all_course_price')}}">All Items </a> </button>
                     </div>
                   </div>
                 </div>
@@ -46,15 +46,23 @@
                                     <label class="text-danger fw-medium">@error('discounted_price') {{$message}} @enderror</label>
                                 </div>
                                 {{-- end --}}
-                                <div class="col-6 mb-1">
+                                 <div class="col-6 mb-1">
                                     <label class="form-label" for="pricing_type">Pricing Type: <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
-                                    <input class="form-control" name="pricing_type" id="pricing_type" type="text" value="{{old('pricing_type')}}">
+                                    <select name="pricing_type" id="pricing_type" class="form-control">
+                                     <option value="">Select Pricing Type </option>
+                                      <option value="subscription">Subscription</option>
+                                      <option value="one_time">One Time</option>
+                                    </select>
                                     <label class="text-danger fw-medium">@error('pricing_type') {{$message}} @enderror</label>
                                 </div>
                                 {{-- end --}}
                                 <div class="col-6 mb-1">
-                                    <label class="form-label" for="currency">Currency Type: <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
-                                    <input class="form-control" name="currency" id="currency" type="text" value="{{old('currency')}}">
+                                    <label class="form-label" for="pricing_type">Currency Type: <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
+                                    <select name="currency" id="currency" class="form-control">
+                                    <option value="">Select Currency Type </option>
+                                      <option value="BDT">BDT</option>
+                                      <option value="USD">USD</option>
+                                    </select>
                                     <label class="text-danger fw-medium">@error('currency') {{$message}} @enderror</label>
                                 </div>
                                 {{-- end --}}

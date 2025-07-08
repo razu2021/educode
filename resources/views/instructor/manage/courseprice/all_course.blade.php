@@ -6,12 +6,12 @@
   {{-- search end  --}}
   <div class="row flex-between-center mb-4">
       <div class="col-6 col-sm-auto d-flex align-items-center pe-0">
-      <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Course Infomations </h5>
+      <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Course Price Infomations </h5>
       </div>
       <div class="col-6 col-sm-auto ms-auto text-end ps-0">
       <div id="table-purchases-replace-element" class="d-flex align-items-center">
           <!-- New Button -->
-          <a href="{{route('ins_course.all')}}">
+          <a href="{{route('ins_course_price.all')}}">
           <button class="btn btn-falcon-default btn-sm" type="button">
               <i class="bi bi-sliders"></i>
               <span class="d-none d-sm-inline-block ms-1">Manage All Prices</span>

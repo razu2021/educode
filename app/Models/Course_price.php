@@ -11,7 +11,7 @@ class Course_price extends Model
     protected $guarded=[];
 
     public function courseinfo(){
-       return  $this->belongsTo(Course::class);
+       return  $this->belongsTo(Course::class,'course_id','id');
     }
 
 

@@ -9,18 +9,16 @@
         });
     </script>
 @endif
-
 @push('scripts')
 <script>
-  const bulkActionUrl = "{{ route('ins_course.bulkAction') }}";
+  const bulkActionUrl = "{{ route('ins_course_price.bulkAction') }}";
   const csrfToken = "{{ csrf_token() }}";
 </script>
 @endpush
-
 <div class="card z-1 mb-3" id="recentPurchaseTable" data-list="{&quot;valueNames&quot;:[&quot;name&quot;,&quot;email&quot;,&quot;product&quot;,&quot;payment&quot;,&quot;amount&quot;],&quot;page&quot;:8,&quot;pagination&quot;:true}">
     <div class="card-header">
       <div class="text-center pt-2 pb-2 ">
-        <h4 class="fs-6">Records Management  </h4>  
+        <h4 class="fs-6">Prices Management  </h4>  
       </div>
         {{-- search option  --}}
         <div class="searchess mb-4 ">
@@ -30,7 +28,7 @@
                   <div class="input-group">
                     <input type="text" name="search" class="form-control" placeholder="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                    <a href="{{route('ins_course.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
+                    <a href="{{route('ins_course_price.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
                   </div>
                 </form>
             </div>
@@ -39,10 +37,9 @@
           <!-- ক্যাটেগরি ডেটা টেবিল -->
         </div>
         {{-- search end  --}}
-
       <div class="row flex-between-center">
         <div class="col-6 col-sm-auto d-flex align-items-center pe-0">
-          <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Categorie Infomations </h5>
+          <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Price Infomations </h5>
         </div>
         <div class="col-6 col-sm-auto ms-auto text-end ps-0">
           <div class="d-none" id="table-purchases-actions">
@@ -52,56 +49,44 @@
                 <option value="active">Active</option>
                 <option value="deactive">Deactive</option>
                 <option value="delete">Delete</option>
-                
               </select>
               <button class="btn btn-falcon-default btn-sm ms-2" id="bulk-apply-btn" type="button">Apply</button>
             </div>
           </div>
-          
-
           <div id="table-purchases-replace-element" class="d-flex align-items-center">
               <!-- New Button -->
-            <a href="{{route('ins_course.add')}}">
+            <a href="{{route('ins_course_price.all_course_price')}}">
               <button class="btn btn-falcon-default btn-sm" type="button">
-                <i class="fas fa-plus"></i>
-                <span class="d-none d-sm-inline-block ms-1">New</span>
+                <i class="bi bi-eye-fill"></i>
+                {{-- <span class="d-none d-sm-inline-block ms-1">all</span> --}}
               </button>
             </a>
-
               <!-- Filter Button -->
-            <a href="{{route('ins_course.recycle')}}">
+            <a href="{{route('ins_course_price.recycle')}}">
               <button class="btn btn-falcon-default btn-sm mx-2" type="button">
                 <i class="fas fa-recycle"></i>
-                <span class="d-none d-sm-inline-block ms-1">Recycle</span>
+                {{-- <span class="d-none d-sm-inline-block ms-1">Recycle</span> --}}
               </button>
             </a>
-
               <!-- Export Button -->
-           
-              <div class="dropdown">
+              {{-- <div class="dropdown">
                 <button class="btn btn-falcon-default btn-sm dropdown-toggle d-flex align-items-center" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fas fa-external-link-alt"></i>
                   <span class="d-none d-sm-inline-block ms-1">Export</span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="exportDropdown">
-                  <li><a class="dropdown-item" href="{{route('ins_course.export_pdf')}}">Export as PDF</a></li>
-                  <li><a class="dropdown-item" href="{{route('ins_course.export_excel')}}">Export as Excel</a></li>
-                  <li><a class="dropdown-item" href="{{route('ins_course.export_csv')}}">Export as CSV</a></li>
-                  <li><a class="dropdown-item" href="{{route('ins_course.export_zip')}}">Export as Zip</a></li>
+                  <li><a class="dropdown-item" href="{{route('ins_course_price.export_pdf')}}">Export as PDF</a></li>
+                  <li><a class="dropdown-item" href="{{route('ins_course_price.export_excel')}}">Export as Excel</a></li>
+                  <li><a class="dropdown-item" href="{{route('ins_course_price.export_csv')}}">Export as CSV</a></li>
+                  <li><a class="dropdown-item" href="{{route('ins_course_price.export_zip')}}">Export as Zip</a></li>
                 </ul>
-              </div>
-              
-           
-              
+              </div> --}}
           </div>
         </div>
-
       </div>
     </div>
-
     <div class="card-body px-0 py-0">
       <div class="table-responsive scrollbar">
-
         <table class="table table-sm fs-10 mb-0 overflow-hidden">
           <thead class="bg-200">
             <tr class="">
@@ -110,11 +95,11 @@
                   <input class="form-check-input" id="checkbox-bulk-purchases-select" type="checkbox" data-bulk-select="{&quot;body&quot;:&quot;table-purchase-body&quot;,&quot;actions&quot;:&quot;table-purchases-actions&quot;,&quot;replacedElement&quot;:&quot;table-purchases-replace-element&quot;}">
                 </div>
               </th>
-              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="name">Name</th>
-              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="title">Title</th>
-              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="des">Description</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="name">Price</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="title">Discount</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="des">Prcing Type</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap " data-sort="time">Currency</th> </th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap " data-sort="time">Created At </th>
-              <th class="text-900 sort pe-1 align-middle white-space-nowrap " data-sort="name">Creator</th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap text-center" data-sort="status">Public Status</th>
               <th class="no-sort pe-1 align-middle data-table-row-action text-center">Manage</th>
             </tr>
@@ -127,11 +112,11 @@
                   <input class="form-check-input" type="checkbox" data-bulk-select-row value="{{ $data->id }}">
                 </div>
               </td>
-              <td class="align-middle white-space-nowrap email">{{$data->course_name}}</td>
-              <td class="align-middle white-space-nowrap product">{{$data->course_title}}</td>
-              <td class="align-middle white-space-nowrap product">{{Str::words($data->course_des,10)}}</td>
+              <td class="align-middle white-space-nowrap email">{{$data->original_price}}</td>
+              <td class="align-middle white-space-nowrap product">{{$data->discounted_price ?? 'No Discount'}}</td>
+              <td class="align-middle white-space-nowrap product">{{$data->pricing_type ?? 'No Data'}}</td>
+              <td class="align-middle white-space-nowrap product">{{$data->currency ?? 'No Data'}}</td>
               <td class="align-middle white-space-nowrap product">{{ $data->created_at->format('d M, Y - h:i A') }}</td>
-              <td class="align-middle white-space-nowrap product">razu</td>
               <td class="align-middle text-center fs-9 white-space-nowrap payment">
                 @if ($data->public_status === 1)
                   <small class="badge rounded badge-subtle-success false">Public</small>
@@ -147,10 +132,10 @@
                     <i class="fas fa-ellipsis-h fs-10"></i>
                   </button>
                   <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-recent-purchase-table-0">
-                    <a class="dropdown-item" href="{{route('ins_course.view',[$data->id, $data->slug])}}">View</a>
-                    <a class="dropdown-item" href="{{route('ins_course.edit',[$data->id, $data->slug])}}">Edit</a>
+                    <a class="dropdown-item" href="{{route('ins_course_price.view',[$data->id, $data->slug])}}">View</a>
+                    <a class="dropdown-item" href="{{route('ins_course_price.edit',[$data->id, $data->slug])}}">Edit</a>
                     <!-- Hidden form to submit DELETE request -->
-                    <form id="deleteForm{{ $data->id }}" action="{{ route('ins_course.softdelete', $data->id) }}" method="POST" style="display: none;">
+                    <form id="deleteForm{{ $data->id }}" action="{{ route('ins_course_price.softdelete', $data->id) }}" method="POST" style="display: none;">
                       @csrf
                       @method('DELETE')
                     </form>
@@ -159,28 +144,16 @@
 
                     <div class="dropdown-divider"></div>
                     @if($data->public_status === 0)
-                      <a class="dropdown-item text-success" href="{{route('ins_course.public',[$data->id, $data->slug])}}">Publish</a>
+                      <a class="dropdown-item text-success" href="{{route('ins_course_price.public',[$data->id, $data->slug])}}">Publish</a>
                     @else 
-                     <a class="dropdown-item text-warning" href="{{route('ins_course.private',[$data->id, $data->slug])}}">Private</a>
+                     <a class="dropdown-item text-warning" href="{{route('ins_course_price.private',[$data->id, $data->slug])}}">Draft</a>
                     @endif 
-                    <a class="dropdown-item" href="{{route('ins_course.export_single_pdf',[$data->id, $data->slug])}}">Export PDF</a>
-                    @if (!empty($data->metaData->model_type))
-                      <a class="dropdown-item" href="{{route('metatag.view',[$data->metaData->id,$data->metaData->model_type,$data->metaData->slug])}}">Meta Infomations</a>
-                    @endif
-                    
-
                   </div>
                 </div>
               </td>
             </tr>
-
-
-
-            
             @endforeach
-
             {{-- tr end here  --}}
-
         </tbody>
         </table>
       </div>
@@ -199,29 +172,7 @@
         <div class="col-auto d-flex"><button class="btn btn-sm btn-primary disabled" type="button" data-list-pagination="prev" disabled=""><span>Previous</span></button><button class="btn btn-sm btn-primary px-4 ms-2" type="button" data-list-pagination="next"><span>Next</span></button></div>
       </div>
     </div>
-
-    
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
 @endsection
 
 

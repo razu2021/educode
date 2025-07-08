@@ -20,7 +20,7 @@ use App\Models\CourseSubCategory;
 use App\Models\CourseChildCategory;
 use App\Models\Seo;
 use App\Models\Seo_image;
-use App\Helpers\ImageUploadHelper;
+
 
 class InsCoursePriceController extends Controller
 {
@@ -33,8 +33,8 @@ class InsCoursePriceController extends Controller
         $user_id = Auth::user()->id;
         $search = $request['search'] ?? "";
         if($search !=""){
-            $all = Course_price::where('user_id',$user_id)->where('status',1)->where('course_name','LIKE',"%$search%")
-            ->orWhere('course_title','LIKE',"%$search%")->orWhere('course_des','LIKE',"%$search%")->get();
+            $all = Course_price::where('user_id',$user_id)->where('status',1)->where('original_price','LIKE',"%$search%")
+            ->orWhere('discounted_price','LIKE',"%$search%")->orWhere('currency','LIKE',"%$search%")->orWhere('pricing_type','LIKE','%search%')->get();
         }else{
             $all = Course_price::where('user_id',$user_id)->where('status',1)->get();
         }
@@ -52,17 +52,6 @@ class InsCoursePriceController extends Controller
    /**
     * ---------  add page functionality --------
     **/
-
-    // CourseController.php
-        public function getSubcategories($category_id)
-        {
-            return response()->json(CourseSubcategory::where('course_category_id', $category_id)->where('public_status',1)->get());
-        }
-
-        public function getChildcategories($subcategory_id)
-        {
-            return response()->json(CourseChildCategory::where('course_sub_category_id', $subcategory_id)->where('public_status',1)->get());
-        }
 
     public function add($id,$slug){
         $totalpost  = Course_price::get()->count();
@@ -101,7 +90,6 @@ class InsCoursePriceController extends Controller
      * =======================================================================
      */
     public function insert(Request $request){
-        //dd($request);
         /**--- validation code -- */
         $request->validate([
                 'original_price'  => 'required',
@@ -109,20 +97,9 @@ class InsCoursePriceController extends Controller
                 'original_price.required'=> 'Original Price is Required !',
             ]
         );
-
         // ------  create a slug & get creator id -------
         $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();;
         $user_id = Auth::user()->id;
-
-        //------- make a custom url for -------
-        $categoryname = strtolower($request->course_name) ;
-        $user_input_url  = strtolower($request->custom_url) ;
-        if(!empty($user_input_url)){
-            $url = Str::slug($user_input_url); // Output: "my-new-category-name"
-        }else{
-            $url = Str::slug($categoryname); // Output: "my-new-category-name"
-        }
-
         //-------  insert category record --------
         $insert = Course_price::create([
             'original_price'=>$request->original_price,
@@ -137,12 +114,10 @@ class InsCoursePriceController extends Controller
             'user_id' => $user_id,
             'created_at' => Carbon::now()->toDateTimeString(),
         ]);
-
-    
-
         // insert Successfully 
         if($insert){
             flash()->success('Information Added Successfuly');
+            return redirect()->route('ins_course_price.all_course_price');
         }else{
             flash()->error('Informatin Added Faild !');
         }
@@ -157,57 +132,38 @@ class InsCoursePriceController extends Controller
      */
     public function update(Request $request){
            /**--- validation code -- */
-           $request->validate([
-            'course_name'  => ['required','unique:' . Course_price::class],
-              'course_title'=> 'required',
-              'course_desc'=> 'required',
-          ],[
-              'course_name.required'=> 'Course Category Name is Required !',
-              'course_name.unique' => 'This Course Category Name already exists!',
-              'course_title.required'=> 'Course Category Title is Required !',
-              
-              'course_desc.required'=> 'Course Category Description is Required !',
-          ]
-      );
-    //--- get specific Credential for update record & editor id --------
-    $id = $request->id;
-    $slug = $request->slug;
-    $editor = Auth::guard('admin')->user()->id;
+        $request->validate([
+                'original_price'  => 'required',
+                'currency'  => 'required',
+                'pricing_type'  => 'required',
+            ],[
+                'original_price.required'=> 'Original Price is Required !',
+            ]
+        );
+        //--- get specific Credential for update record & editor id --------
+        $id = $request->id;
+        $slug = $request->slug;
+        $user_id = Auth::user()->id;
 
-
-    // -------  update custom url --------//
-    $categoryname = strtolower($request->course_name) ;
-    $user_input_url  = strtolower($request->custom_url) ;
-    if(!empty($user_input_url)){
-        $url = Str::slug($user_input_url); // Output: "my-new-category-name"
-    }else{
-        $url = Str::slug($categoryname); // Output: "my-new-category-name"
-    }
-
-    //---------category update -------//
-    $update = Course_price::where('id',$id)->where('slug',$slug)->update([
-        'course_name'=>$request->course_name,
-        'course_title'=>$request->course_title,
-        'course_des'=>$request->course_desc,
-        'slug'=>$slug,
-        'url'=>$url,
-        'editor_id' => $editor,
-        'updated_at' => Carbon::now()->toDateTimeString(),
-    ]);
-    
-
-    // ------insert Successfully--------// 
-    if($update){
-        flash()->success('Information Update Successfuly');
-    }else{
-        flash()->error('Informatin Update Faild !');
-    }
-    return redirect()->back();
+        //---------category update -------//
+        $update = Course_price::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->update([
+                'original_price'=>$request->original_price,
+                'discounted_price'=>$request->discounted_price,
+                'currency'=>$request->currency,
+                'pricing_type'=>$request->pricing_type,
+                'start_date'=>$request->start_date,
+                'end_date'=>$request->end_date,
+                'updated_at' => Carbon::now()->toDateTimeString(),
+        ]);
+        // ------insert Successfully--------// 
+        if($update){
+            flash()->success('Information Update Successfuly');
+        }else{
+            flash()->error('Informatin Update Faild !');
+        }
+        return redirect()->route('ins_course_price.view',[$id,$slug]);
 
     } // update end 
-
-
-
 
 
    /**
@@ -216,13 +172,14 @@ class InsCoursePriceController extends Controller
      * ================================================
      */
     public function softdelete($id){
-        $data= Course_price::where('id',$id)->first();
+        $user_id = Auth::user()->id;
+        $data= Course_price::where('user_id',$user_id)->where('id',$id)->first();
         $data->delete();
         // ----Delete Successfully ----//
         if($data){
-            flash()->success('Information Update Successfuly');
+            flash()->success('Information Delete Successfuly');
         }else{
-            flash()->error('Informatin Update Faild !');
+            flash()->error('Informatin Delete Faild !');
         }
         return redirect()->back();
     }
@@ -231,11 +188,12 @@ class InsCoursePriceController extends Controller
     * ---------  restore  page functionality --------
     **/
     public function restore($id){
-        $data = Course_price::withTrashed()->where('id', $id)->first();
+        $user_id = Auth::user()->id;
+        $data = Course_price::withTrashed()->where('user_id',$user_id)->where('id', $id)->first();
         $data->restore();
         // Delete Successfully 
         if($data){
-            flash()->success('Information Restore Successfuly');
+            flash()->success('Information Restore Successfuly!');
         }else{
             flash()->error('Informatin Restore Faild !');
         }
@@ -247,29 +205,11 @@ class InsCoursePriceController extends Controller
     * ---------  Heard Delete  functionality --------
     **/
     public function delete($id){
-        $data = Course_price::onlyTrashed()->where('id', $id)->first();
-    
+        $user_id = Auth::user()->id;
+        $data = Course_price::onlyTrashed()->where('user_id',$user_id)->where('id', $id)->first();
         if($data) {
-            // Delete all associated seo_image records first
-            /**--------- Multiple file delete when you update new file ----------- */
-            $SeoData =  Seo::where('unique_id',$data->id)->first()->id;
-            $seoImage = Seo_image::where('seo_id',$SeoData)->get();
-           // dd($seoImage);
-
-            foreach ($seoImage as $images) {
-                $file_path = public_path('storage/uploads/seo/'.$images->image_name);
-                if (file_exists($file_path)) {
-                    File::delete($file_path);
-                }
-                $images->delete(); 
-            }
-
-            /**---------- multiple file delete end ---------- */
-         
-            // Force delete the category record
             $data->forceDelete();
-    
-        flash()->success('Record Deleted Successfully');
+            flash()->success('Record Deleted Successfully');
         } else {
             flash()->error('Delete Record Failed!');
         }
@@ -282,7 +222,8 @@ class InsCoursePriceController extends Controller
     * ---------  Published post  functionality --------//
     **/
     public function public_status($id,$slug){
-        $published = Course_price::where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
+        $user_id = Auth::user()->id;
+        $published = Course_price::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
             'public_status'=>1,
         ]);
         // Delete Successfully 
@@ -294,12 +235,12 @@ class InsCoursePriceController extends Controller
         return redirect()->back();
     }
 
-
    /**
     * ---------  Private post  functionality --------//
     **/
     public function private_status($id,$slug){
-        $private = Course_price::where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
+        $user_id = Auth::user()->id;
+        $private = Course_price::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
             'public_status'=>0,
         ]);
         // Delete Successfully 
@@ -316,14 +257,10 @@ class InsCoursePriceController extends Controller
     * ---------  Recycle  page functionality --------//
     **/
     public function recycle(){
-        $all = Course_price::onlyTrashed()->get();
+        $user_id = Auth::user()->id;
+        $all = Course_price::onlyTrashed()->where('user_id',$user_id)->get();
         return view('instructor.manage.courseprice.recycle',compact('all'));
     }
-
-
-
-
-
    /**
      * =====================================================
      * ==============================================================================================  BULK ACTION FUNCTION START HERE ========================================================
@@ -333,53 +270,35 @@ class InsCoursePriceController extends Controller
     public function bulkAction(Request $request)
     {
         //----- get multiple items id or bulk record -----//
+     
         $ids = $request->input('ids', []);
         $action = $request->input('action');
-    
+         $user_id = Auth::user()->id;
         if (empty($ids)) {
             return response()->json(['success' => false, 'message' => 'No IDs selected.']);
         }
     
         //----- for multiple items soft delete ----//
         if ($action === 'delete') {
-            Course_price::whereIn('id', $ids)->delete();
-            return response()->json(['success' => true, 'message' => 'Selected categories deleted.']);
+            Course_price::whereIn('id', $ids)->where('user_id',$user_id)->delete();
+            return response()->json(['success' => true, 'message' => 'Selected Items deleted.']);
         }
         //--- for multiple items heard delete -------//
         if ($action === 'heard_delete') {
-            $categories = Course_price::onlyTrashed()->whereIn('id', $ids)->get();
+            $categories = Course_price::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
         
             foreach ($categories as $category) {
-                // 1. Related SEO খোঁজো
-                $seo = Seo::where('unique_id', $category->id)->first();
-        
-                if ($seo) {
-                    // 2. Related SEO Images খোঁজো
-                    $seoImages = Seo_image::where('seo_id', $seo->id)->get();
-        
-                    foreach ($seoImages as $image) {
-                        $file_path = public_path('storage/uploads/seo/' . $image->image_name);
-                        if (file_exists($file_path)) {
-                            File::delete($file_path);
-                        }
-                        $image->delete(); // DB থেকে image রেকর্ড ডিলিট
-                    }
-        
-                    // 3. SEO রেকর্ড ডিলিট করো
-                    $seo->delete();
-                }
-        
                 // 4. Category force delete
                 $category->forceDelete();
             }
         
-            return response()->json(['success' => true, 'message' => 'Selected categories permanently deleted with SEO and images.']);
+            return response()->json(['success' => true, 'message' => 'Selected categories permanently deleted.']);
         }
         
     
         //---- for multiple items resotre --------//
         if ($action === 'restore') {
-            $categories = Course_price::onlyTrashed()->whereIn('id', $ids)->get();
+            $categories = Course_price::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
             if($categories){
                 foreach($categories as $data){
                     $data->restore();
@@ -389,17 +308,16 @@ class InsCoursePriceController extends Controller
         }
         //----- for multiple items active ----//
         if ($action === 'active') {
-            $categories = Course_price::whereIn('id', $ids)->get();
+            $categories = Course_price::whereIn('id', $ids)->where('user_id',$user_id)->get();
 
             if($categories){
                 foreach($categories as $data){
-
-                    Course_price::whereIn('id',$ids)->where('public_status',0)->update([
+                    Course_price::whereIn('id',$ids)->where('public_status',0)->where('user_id',$user_id)->update([
                         'public_status'=>1,
                     ]);
                 }
             }
-            return response()->json(['success' => true, 'message' => 'Refund process started.']);
+            return response()->json(['success' => true, 'message' => 'Active process started.']);
         }
 
         //--  for multiple items deactive ----- //
@@ -407,146 +325,14 @@ class InsCoursePriceController extends Controller
             $categories = Course_price::whereIn('id', $ids)->get();
             if($categories){
                 foreach($categories as $data){
-                    Course_price::whereIn('id',$ids)->where('public_status',1)->update([
+                    Course_price::whereIn('id',$ids)->where('user_id',$user_id)->where('public_status',1)->update([
                         'public_status'=>0,
                     ]);
                 }
             }
-            return response()->json(['success' => true, 'message' => 'Refund process started.']);
+            return response()->json(['success' => true, 'message' => 'Deactive process started.']);
         }
-
-      
-
-
-
         return response()->json(['success' => false, 'message' => 'Invalid action.']);
     } // bulk action end here 
     
-
-
-    /**
-     * ==========================================================
-     * ==============================================================================================  EXPORT FUNCTION START HERE ========================================================
-     * ===========================================================
-     */
-
-    public function export_pdf(){
-        $categories = Course_price::get();
-       // return view('instructor.manage.courseprice.export_pdf', compact('categories'));
-        $pdf = Pdf::loadView('instructor.manage.courseprice.export_pdf', compact('categories')); // get database record 
-        $filename = 'course-categories_'.rand(100000,100000000) . Carbon::now()->format('Y_m_d_His') . '.pdf'; // make pdf file name 
-        return $pdf->download($filename); // download file 
-    }
-
-    /**
-     * ---------  export single pdf functionality ------
-     */
-    public function export_single_pdf($id,$slug){
-        $data = Course_price::where('id',$id)->where('slug',$slug)->firstOrFail();
-       // return view('instructor.manage.courseprice.export_pdf', compact('categories'));
-        $pdf = Pdf::loadView('instructor.manage.courseprice.export_single_pdf', compact('data'));
-        $filename = 'course-categories_'.rand(100000,100000000) . Carbon::now()->format('Y_m_d_His') . '.pdf';
-        return $pdf->download($filename);
-    }
-
-
-    /**
-     * ---------  export Excel or xlsx file functionality ------
-     */
-    public function export_excel(){
-        return Excel::download(new CategoryExport, 'Course-Category.xlsx');
-    }
-
-    /**
-     * ---------  export csv file functionality ------
-     */
-    public function export_csv(){
-        return Excel::download(new CategoryExport, 'Course-Category.csv');
-    }
-
-    public function export_zip()
-    {
-        // File paths for CSV, XLSX, and PDF
-        $csvFilePath = storage_path('app/public/info.csv');
-        $xlsxFilePath = storage_path('app/public/info.xlsx');
-        $pdfFilePath = storage_path('app/public/info.pdf');
-
-        // Export CSV file
-        Excel::store(new CategoryExport, 'info.csv', 'public');
-        
-        // Export XLSX file
-        Excel::store(new CategoryExport, 'info.xlsx', 'public');
-        
-        // Export PDF file
-        $pdf = Pdf::loadView('instructor.manage.courseprice.export_pdf', ['categories' => Course_price::all()]);
-        $pdf->save($pdfFilePath);
-
-        // Create a zip file
-        $zip = new ZipArchive;
-        $zipFilePath = storage_path('app/public/database.zip');
-        
-        if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE) {
-            $zip->addFile($csvFilePath, 'info.csv');
-            $zip->addFile($xlsxFilePath, 'info.xlsx');
-            $zip->addFile($pdfFilePath, 'info.pdf');
-            $zip->close();
-        }
-
-        // Return the zip file for download
-       $response = Response::download($zipFilePath)->deleteFileAfterSend(true);
-
-            // Manually delete the CSV, XLSX, and PDF files after the zip file is downloaded
-            unlink($csvFilePath);
-            unlink($xlsxFilePath);
-            unlink($pdfFilePath);
-            return $response;
-    } // export zip end here 
-
-
-
-
-/**=================================  extra page code ==================== */
-    public function all_active_course(){
-        $user_id = Auth::user()->id;
-        $all = Course_price::where('user_id',$user_id)->where('public_status',1)->get();
-
-        return view('instructor.manage.courseprice.active_course',compact('all'));
-    }
-    public function all_pending_course(){
-        $user_id = Auth::user()->id;
-        $all = Course_price::where('user_id',$user_id)->where('public_status',2)->get();
-
-        return view('instructor.manage.courseprice.pending_course',compact('all'));
-    }
-    public function all_reject_course(){
-        $user_id = Auth::user()->id;
-        $all = Course_price::where('user_id',$user_id)->where('public_status',3)->get();
-
-        return view('instructor.manage.courseprice.reject_course',compact('all'));
-    }
-    public function all_topsale_course(){
-        $user_id = Auth::user()->id;
-        $all = Course_price::where('user_id',$user_id)->where('public_status',1)->orderBy('sell','desc')->get();
-
-        return view('instructor.manage.courseprice.tops
-        ale_course',compact('all'));
-    }
-    public function all_tranding_course(){
-        $user_id = Auth::user()->id;
-        $all = Course_price::where('user_id',$user_id)->where('public_status',1)->orderBy('view_count','desc')->get();
-
-        return view('instructor.manage.courseprice.topsale_course',compact('all'));
-    }
-    public function all_course_category(){
-        $user_id = Auth::user()->id;
-        $all = CourseCategory::where('public_status',1)->get();
-
-        return view('instructor.manage.courseprice.allcourse_category',compact('all'));
-    }
-
-
-
-/**=================================  extra page code ==================== */
-
-
 }
