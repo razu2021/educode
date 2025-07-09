@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cupons', function (Blueprint $table) {
+        Schema::create('discount_coupons', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade'); // কে ভিডিওটা আপলোড করলো
             $table->string('code')->unique(); // e.g., RAJU50
@@ -45,6 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cupons');
+        Schema::dropIfExists('discount_coupons');
     }
 };

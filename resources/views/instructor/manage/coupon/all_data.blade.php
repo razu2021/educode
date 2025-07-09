@@ -11,7 +11,7 @@
       <div class="col-6 col-sm-auto ms-auto text-end ps-0">
       <div id="table-purchases-replace-element" class="d-flex align-items-center">
           <!-- New Button -->
-          <a href="{{route('ins_course_price.all_course_price')}}">
+          <a href="{{route('ins_coupon.all')}}">
           <button class="btn btn-falcon-default btn-sm" type="button">
               <i class="bi bi-sliders"></i>
               <span class="d-none d-sm-inline-block ms-1">Manage All Prices</span>
@@ -65,10 +65,6 @@
 
           @if (!$isDiscountActive)
             <h5 class="text-primary mb-3">{{ number_format($price, 2) }} {{ $currency }}</h5>
-            <h6 class="text-info text-muted mb-3"><strong> Original Price: </strong>{{ number_format($price, 2) }} {{ $currency }}</h6>
-            <h6 class="text-info text-muted mb-3"><strong> Discount Price: </strong>{{ number_format($discount, 2) }} {{ $currency }}</h6>
-            <h6 class="text-info text-muted mb-3"><strong>Discount Start at:</strong>  <del class="text-danger">{{ \Carbon\Carbon::parse($startDate)->format('d M, Y') }}</del></h6>
-            <h6 class="text-info text-muted mb-3"><strong>Discount end at:</strong>  <del class="text-danger">{{ \Carbon\Carbon::parse($endDate)->format('d M, Y') }} </del></h6>
           @else
             @php 
               $finalprice = $price - $discount ; 
@@ -77,34 +73,45 @@
                 {{ number_format($finalprice, 2) }} {{ $currency }}
                 <span class="text-danger fs-9"><del>{{ number_format($price, 2) }}</del></span>
               </h5>
-            <h6 class="text-info text-muted mb-3"><strong> Original Price: </strong>{{ number_format($price, 2) }} {{ $currency }}</h6>
-            <h6 class="text-info text-muted mb-3"><strong> Discount Price: </strong>{{ number_format($discount, 2) }} {{ $currency }}</h6>
-             <h6 class="text-info text-muted mb-3"><strong>Discount Start at:</strong>  {{ \Carbon\Carbon::parse($startDate)->format('d M, Y') }}</h6>
-            <h6 class="text-info text-muted mb-3"><strong>Discount end at:</strong>  {{ \Carbon\Carbon::parse($endDate)->format('d M, Y') }}</h6>
-            
 
           @endif
           @else
               <h5 class="text-primary mb-3">00.00 BDT</h5>
           @endif
 
+        
+          {{-- coupon section --}}
+          @if(!empty($data->courseCoupon))
+          <div>
+            <div class="my-2" style="border: 1px solid  rgb(238, 238, 238);padding:10px">
+                <h6 class="mb-1">Apply Coupon : <strong class="text-primary"> {{$data->courseCoupon->code}}</strong></h6>
+              <form action="">
+                <div>
+                  <input class="form-control mb-2 " type="text" placeholder="Apply Coupon " style="font-size: 14px">
+                </div>
+                <button class="text-center  btn-sm w-100 btn btn-outline-primary">Apply</button>
+              </form>
+            </div>
+          </div>
+          @else
+           <h6 class="text-info mb-3">No Coupon Data Available </h6>
+          @endif
+          {{-- coupon section  --}}
+
           
-        @if($data->coursePrice == '')
-            <a class="btn btn-sm btn-outline-primary w-100" href="{{route('ins_course_price.add',[$data->id, $data->slug])}}"> Create Price </a>
+        @if($data->courseCoupon == '')
+            <a class="btn btn-sm btn-outline-primary w-100" href="{{route('ins_coupon.add',[$data->id, $data->slug])}}"> Create Coupon </a>
         @else 
-           <div class="d-flex justify-content-around ">
-            <a class="btn btn-sm btn-outline-primary w-50 mx-1" href="{{route('ins_course_price.edit',[$data->coursePrice->id, $data->coursePrice->slug])}}"> Edit Price </a>
-            <a class="btn btn-sm btn-outline-info w-50  mx-1" href="{{route('ins_course_price.view',[$data->coursePrice->id, $data->coursePrice->slug])}}"> View Details </a>
-           </div>
+          <div class="d-flex justify-content-around ">
+          <a class="btn btn-sm btn-outline-primary w-50 mx-1" href="{{route('ins_coupon.edit',[$data->coursePrice->id, $data->coursePrice->slug])}}"> Edit Coupon </a>
+          <a class="btn btn-sm btn-outline-info w-50  mx-1" href="{{route('ins_coupon.view',[$data->coursePrice->id, $data->coursePrice->slug])}}"> View Coupon </a>
+          </div>
         @endif 
         </div>
       </div>
     </div>
-
     {{-- col end  --}}
         @endforeach
   </div>
 </div>
-
-
 @endsection

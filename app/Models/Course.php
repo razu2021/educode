@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Stripe\Coupon;
+
 class Course extends Model
 {
     use SoftDeletes;
@@ -13,9 +15,14 @@ class Course extends Model
 
 
     /** ---- course price ---- */
-   public function coursePrice()
+    public function coursePrice()
     {
         return $this->hasOne(Course_price::class, 'course_id', 'id');
+    }
+    /** ---- course price ---- */
+    public function courseCoupon()
+    {
+        return $this->hasOne(DiscountCoupon::class, 'course_id', 'id');
     }
 
 

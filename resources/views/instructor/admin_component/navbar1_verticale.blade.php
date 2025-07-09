@@ -158,8 +158,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Coupons & Discounts</span></div>
+                            <a class="nav-link" href="{{route('ins_coupon.all_data')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Coupons Management </span></div>
                             </a>
                         </li>
                     </ul>

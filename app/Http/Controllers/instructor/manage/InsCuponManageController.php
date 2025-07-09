@@ -10,10 +10,8 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Course_price;
-
-
-
-class InsCoursePriceController extends Controller
+use App\Models\DiscountCoupon;
+class InsCuponManageController extends Controller
 {
      /**
      * =============================================================
@@ -24,19 +22,21 @@ class InsCoursePriceController extends Controller
         $user_id = Auth::user()->id;
         $search = $request['search'] ?? "";
         if($search !=""){
-            $all = Course_price::where('user_id',$user_id)->where('status',1)->where('original_price','LIKE',"%$search%")
+            $all = DiscountCoupon::where('user_id',$user_id)->where('status',1)->where('original_price','LIKE',"%$search%")
             ->orWhere('discounted_price','LIKE',"%$search%")->orWhere('currency','LIKE',"%$search%")->orWhere('pricing_type','LIKE','%search%')->get();
         }else{
-            $all = Course_price::where('user_id',$user_id)->where('status',1)->get();
+            $all = DiscountCoupon::where('user_id',$user_id)->where('status',1)->get();
         }
-        return view('instructor.manage.courseprice.index',compact('all'));
+        return view('instructor.manage.coupon.index',compact('all'));
     }
 
 
-    public function all_course(){
+    public function all_data(){
+       
         $user_id = Auth::user()->id;
-        $all = Course::with('coursePrice')->where('user_id',$user_id)->where('status',1)->get();
-          return view('instructor.manage.courseprice.all_course',compact('all'));
+        $all = Course::with(['coursePrice','courseCoupon'])->where('user_id',$user_id)->where('status',1)->get();
+        //dd($all);
+          return view('instructor.manage.coupon.all_data',compact('all'));
     }
 
 
@@ -45,12 +45,10 @@ class InsCoursePriceController extends Controller
     **/
 
     public function add($id,$slug){
-        $totalpost  = Course_price::get()->count();
-        $latestPost = Course_price::latest()->first();
-         $user_id = Auth::user()->id;
+        $user_id = Auth::user()->id;
         $data = Course::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
        
-        return view('instructor.manage.courseprice.add',compact('totalpost','latestPost','data'));
+        return view('instructor.manage.coupon.add',compact('data'));
     }
 
    /**
@@ -58,8 +56,8 @@ class InsCoursePriceController extends Controller
     **/
     public function view($id,$slug){
         $user_id = Auth::user()->id;
-        $data=Course_price::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        return view('instructor.manage.courseprice.view',compact('data'));
+        $data=DiscountCoupon::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        return view('instructor.manage.coupon.view',compact('data'));
     }
 
 
@@ -67,11 +65,11 @@ class InsCoursePriceController extends Controller
     * ---------  edit page functionality --------
     **/
     public function edit($id,$slug){
-        $totalpost  = Course_price::get()->count();
-        $latestPost = Course_price::latest()->first();
+        $totalpost  = DiscountCoupon::get()->count();
+        $latestPost = DiscountCoupon::latest()->first();
         $user_id = Auth::user()->id;
-        $data=Course_price::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        return view('instructor.manage.courseprice.edit',compact('totalpost','latestPost','data'));
+        $data=DiscountCoupon::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        return view('instructor.manage.coupon.edit',compact('totalpost','latestPost','data'));
     }
 
 
@@ -83,20 +81,25 @@ class InsCoursePriceController extends Controller
     public function insert(Request $request){
         /**--- validation code -- */
         $request->validate([
-                'original_price'  => 'required',
+                'discount_amount'  => 'required',
+                'max_usage'  => 'required',
             ],[
                 'original_price.required'=> 'Original Price is Required !',
             ]
         );
         // ------  create a slug & get creator id -------
-        $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();;
+        $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();
+        $code = strtoupper(Str::random(6)) . mt_rand(1000, 9999);
+        $type = 'course';
+        $discount_type = 'fixed';
         $user_id = Auth::user()->id;
         //-------  insert category record --------
-        $insert = Course_price::create([
-            'original_price'=>$request->original_price,
-            'discounted_price'=>$request->discounted_price,
-            'currency'=>$request->currency,
-            'pricing_type'=>$request->pricing_type,
+        $insert = DiscountCoupon::create([
+            'discount_amount'=>$request->discount_amount,
+            'max_usage'=>$request->max_usage,
+            'code'=>$code,
+            'type'=>$type,
+            'discount_type'=>$discount_type,
             'start_date'=>$request->start_date,
             'end_date'=>$request->end_date,
             'course_id'=>$request->course_id,
@@ -108,7 +111,7 @@ class InsCoursePriceController extends Controller
         // insert Successfully 
         if($insert){
             flash()->success('Information Added Successfuly');
-            return redirect()->route('ins_course_price.all_course_price');
+            return redirect()->route('ins_coupon.all_data');
         }else{
             flash()->error('Informatin Added Faild !');
         }
@@ -137,7 +140,7 @@ class InsCoursePriceController extends Controller
         $user_id = Auth::user()->id;
 
         //---------category update -------//
-        $update = Course_price::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->update([
+        $update = DiscountCoupon::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->update([
                 'original_price'=>$request->original_price,
                 'discounted_price'=>$request->discounted_price,
                 'currency'=>$request->currency,
@@ -152,7 +155,7 @@ class InsCoursePriceController extends Controller
         }else{
             flash()->error('Informatin Update Faild !');
         }
-        return redirect()->route('ins_course_price.view',[$id,$slug]);
+        return redirect()->route('ins_coupon.view',[$id,$slug]);
 
     } // update end 
 
@@ -164,7 +167,7 @@ class InsCoursePriceController extends Controller
      */
     public function softdelete($id){
         $user_id = Auth::user()->id;
-        $data= Course_price::where('user_id',$user_id)->where('id',$id)->first();
+        $data= DiscountCoupon::where('user_id',$user_id)->where('id',$id)->first();
         $data->delete();
         // ----Delete Successfully ----//
         if($data){
@@ -180,7 +183,7 @@ class InsCoursePriceController extends Controller
     **/
     public function restore($id){
         $user_id = Auth::user()->id;
-        $data = Course_price::withTrashed()->where('user_id',$user_id)->where('id', $id)->first();
+        $data = DiscountCoupon::withTrashed()->where('user_id',$user_id)->where('id', $id)->first();
         $data->restore();
         // Delete Successfully 
         if($data){
@@ -197,7 +200,7 @@ class InsCoursePriceController extends Controller
     **/
     public function delete($id){
         $user_id = Auth::user()->id;
-        $data = Course_price::onlyTrashed()->where('user_id',$user_id)->where('id', $id)->first();
+        $data = DiscountCoupon::onlyTrashed()->where('user_id',$user_id)->where('id', $id)->first();
         if($data) {
             $data->forceDelete();
             flash()->success('Record Deleted Successfully');
@@ -214,7 +217,7 @@ class InsCoursePriceController extends Controller
     **/
     public function public_status($id,$slug){
         $user_id = Auth::user()->id;
-        $published = Course_price::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
+        $published = DiscountCoupon::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
             'public_status'=>1,
         ]);
         // Delete Successfully 
@@ -231,7 +234,7 @@ class InsCoursePriceController extends Controller
     **/
     public function private_status($id,$slug){
         $user_id = Auth::user()->id;
-        $private = Course_price::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
+        $private = DiscountCoupon::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
             'public_status'=>0,
         ]);
         // Delete Successfully 
@@ -249,8 +252,8 @@ class InsCoursePriceController extends Controller
     **/
     public function recycle(){
         $user_id = Auth::user()->id;
-        $all = Course_price::onlyTrashed()->where('user_id',$user_id)->get();
-        return view('instructor.manage.courseprice.recycle',compact('all'));
+        $all = DiscountCoupon::onlyTrashed()->where('user_id',$user_id)->get();
+        return view('instructor.manage.coupon.recycle',compact('all'));
     }
    /**
      * =====================================================
@@ -271,12 +274,12 @@ class InsCoursePriceController extends Controller
     
         //----- for multiple items soft delete ----//
         if ($action === 'delete') {
-            Course_price::whereIn('id', $ids)->where('user_id',$user_id)->delete();
+            DiscountCoupon::whereIn('id', $ids)->where('user_id',$user_id)->delete();
             return response()->json(['success' => true, 'message' => 'Selected Items deleted.']);
         }
         //--- for multiple items heard delete -------//
         if ($action === 'heard_delete') {
-            $categories = Course_price::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = DiscountCoupon::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
         
             foreach ($categories as $category) {
                 // 4. Category force delete
@@ -289,7 +292,7 @@ class InsCoursePriceController extends Controller
     
         //---- for multiple items resotre --------//
         if ($action === 'restore') {
-            $categories = Course_price::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = DiscountCoupon::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
             if($categories){
                 foreach($categories as $data){
                     $data->restore();
@@ -299,11 +302,11 @@ class InsCoursePriceController extends Controller
         }
         //----- for multiple items active ----//
         if ($action === 'active') {
-            $categories = Course_price::whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = DiscountCoupon::whereIn('id', $ids)->where('user_id',$user_id)->get();
 
             if($categories){
                 foreach($categories as $data){
-                    Course_price::whereIn('id',$ids)->where('public_status',0)->where('user_id',$user_id)->update([
+                    DiscountCoupon::whereIn('id',$ids)->where('public_status',0)->where('user_id',$user_id)->update([
                         'public_status'=>1,
                     ]);
                 }
@@ -313,10 +316,10 @@ class InsCoursePriceController extends Controller
 
         //--  for multiple items deactive ----- //
         if ($action === 'deactive') {
-            $categories = Course_price::whereIn('id', $ids)->get();
+            $categories = DiscountCoupon::whereIn('id', $ids)->get();
             if($categories){
                 foreach($categories as $data){
-                    Course_price::whereIn('id',$ids)->where('user_id',$user_id)->where('public_status',1)->update([
+                    DiscountCoupon::whereIn('id',$ids)->where('user_id',$user_id)->where('public_status',1)->update([
                         'public_status'=>0,
                     ]);
                 }
@@ -326,6 +329,4 @@ class InsCoursePriceController extends Controller
         return response()->json(['success' => false, 'message' => 'Invalid action.']);
     } // bulk action end here 
     
-
-
 }
