@@ -21,21 +21,20 @@
                 <div class="col-lg-8 mx-auto">
                     <div class="card mb-3">
                         <div class="card-header bg-body-tertiary">
-                          <h5 class="mb-0">Price information</h5>
+                          <h5 class="mb-0">Coupon & Discount information</h5>
                         </div>
                         <div class="card-body">
                             <table class="table table-bordered">
-                                
                                 <tbody>
                                   <tr>
-                                    <td>Original Price</td>
+                                    <td>Discount Type </td>
                                     <td><i class="bi bi-chevron-double-right"></i></td>
-                                    <td>{{$data->original_price}}</td>
+                                    <td>{{$data->discount_type}}</td>
                                   </tr>
                                   <tr>
-                                    <td>Discount Price </td>
+                                    <td>Discount price </td>
                                     <td><i class="bi bi-chevron-double-right"></i></td>
-                                    <td>{{$data->discounted_price ?? 'N/A'}}</td>
+                                    <td>{{$data->discount_amount ?? 'N/A'}}</td>
                                   </tr>
                                  
                                   <tr>
@@ -47,16 +46,6 @@
                                     <td>Discount End at </td>
                                     <td><i class="bi bi-chevron-double-right"></i></td>
                                     <td>{{$data->start_date ?\Carbon\Carbon::parse($data->end_date)->format('d M, Y - h:i A') : 'N/A'  }} </td>
-                                  </tr>
-                                  <tr>
-                                    <td>Discount End at </td>
-                                    <td><i class="bi bi-chevron-double-right"></i></td>
-                                    <td>{{$data->currency ?? 'BDT' }} </td>
-                                  </tr>
-                                  <tr>
-                                    <td>Pricing Type </td>
-                                    <td><i class="bi bi-chevron-double-right"></i></td>
-                                    <td>{{$data->pricing_type ?? 'One Time' }} </td>
                                   </tr>
                                   <tr>
                                     <td>Slug </td>

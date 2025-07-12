@@ -37,57 +37,33 @@
           <h5 class="card-title">{{$data->course_name}}</h5>
           <p>{{$data->course_desc}}</p>
     
-
-          @php 
-              $priceInfo = $data->calculatedPrice;
-          @endphp 
-
-
+        <div id="finalPriceSection-{{ $data->id }}">
+          @include('instructor.manage.coupon.coupon_price_section', ['priceInfo' => $data->calculatedPrice])
+        </div>
+            
           
-      {{-- price information start here  --}}
-          @if(!empty($priceInfo))
-                 <h5 class="text-primary mb-2">
-                  {{ number_format($priceInfo['final_price'], 2) }} {{ $priceInfo['currency'] }}
-
-                  @if($priceInfo['base_price'] < $priceInfo['original_price'])
-                    <span class="text-danger fs-9">
-                      <del>{{ number_format($priceInfo['original_price'], 2) }}</del>
-                    </span>
-                  @endif
-                </h5>
-
-                @if($priceInfo['coupon_discount'] > 0)
-                  <p class="text-success small">
-                    Coupon "{{ $priceInfo['coupon_code'] }}" applied (Saved {{ number_format($priceInfo['coupon_discount'], 2) }} {{ $priceInfo['currency'] }})
-                  </p>
-                @endif
-          @else
-              <h5 class="text-primary mb-3">00.00 BDT</h5>
-          @endif
-      {{-- price information end here --}}
+   
 
 
           {{-- coupon section --}}
          @if(!empty($data->courseCoupon))
             <div>
               <div class="my-2" style="border: 1px solid rgb(238, 238, 238);padding:10px">
+             
                 <h6 class="mb-1">Apply Coupon : <strong class="text-primary"> {{$data->courseCoupon->code}}</strong></h6>
+               <div class="coupon-message"></div>
                 <form action="{{ route('ins_coupon.apply_coupon') }}" class="applyCouponForm" data-course-id="{{ $data->courseCoupon->course_id }}" method="POST" >
                     @csrf
                     <input type="hidden" name="course_id" value="{{ $data->courseCoupon->course_id }}">
                     <input class="form-control mb-2 couponInput" name="coupon_code" type="text" placeholder="Apply Coupon" style="font-size: 14px">
                     <button type="submit" class="btn btn-sm w-100 btn-outline-primary">Apply</button>
                 </form>
+               
               </div>
             </div>
           @else
             <h6 class="text-info mb-3">No Coupon Data Available </h6>
           @endif
-
-          <div id="finalPriceSection-{{ $data->id }}">
-            {{-- Ajax response এখানে আপডেট হবে --}}
-          </div>
-
           {{-- coupon section  --}}
 
           
@@ -95,8 +71,8 @@
             <a class="btn btn-sm btn-outline-primary w-100" href="{{route('ins_coupon.add',[$data->id, $data->slug])}}"> Create Coupon </a>
         @else 
           <div class="d-flex justify-content-around ">
-          <a class="btn btn-sm btn-outline-primary w-50 mx-1" href="{{route('ins_coupon.edit',[$data->coursePrice->id, $data->coursePrice->slug])}}"> Edit Coupon </a>
-          <a class="btn btn-sm btn-outline-info w-50  mx-1" href="{{route('ins_coupon.view',[$data->coursePrice->id, $data->coursePrice->slug])}}"> View Coupon </a>
+          <a class="btn btn-sm btn-outline-primary w-50 mx-1" href="{{route('ins_coupon.edit',[$data->courseCoupon->id, $data->courseCoupon->slug])}}"> Edit Coupon </a>
+          <a class="btn btn-sm btn-outline-info w-50  mx-1" href="{{route('ins_coupon.view',[$data->courseCoupon->id, $data->courseCoupon->slug])}}"> View Coupon </a>
           </div>
         @endif 
         </div>
@@ -112,7 +88,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-  $(document).ready(function () {
+$(document).ready(function () {
   $(document).on('submit', '.applyCouponForm', function (e) {
     e.preventDefault();
 
@@ -136,11 +112,22 @@
       success: function (response) {
         form.find('button').prop('disabled', false).text('Apply');
 
+        // form এর ঠিক উপরের message div select করো
+        var messageDiv = form.prev('.coupon-message');
+        messageDiv.removeClass('alert-success alert-danger').empty();
+
         if (response.status) {
           $('#finalPriceSection-' + courseId).html(response.html);
+          form.find('.couponInput').val('');
+          messageDiv.addClass('alert alert-success').text('Coupon applied successfully!');
         } else {
-          alert(response.message);
+          messageDiv.addClass('alert alert-danger').text(response.message);
         }
+
+        // message auto-hide করো ৫ সেকেন্ড পরে
+        setTimeout(function () {
+          messageDiv.removeClass('alert alert-success alert-danger').empty();
+        }, 5000);
       },
       error: function () {
         form.find('button').prop('disabled', false).text('Apply');

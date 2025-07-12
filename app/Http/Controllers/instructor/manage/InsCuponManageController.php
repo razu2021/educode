@@ -32,7 +32,6 @@ class InsCuponManageController extends Controller
 
 
     public function all_data(){
-       
         $user_id = Auth::user()->id;
         $all = Course::with(['coursePrice','courseCoupon'])->where('user_id',$user_id)->where('status',1)->get();
          foreach($all as $course ){
@@ -47,6 +46,7 @@ class InsCuponManageController extends Controller
         $course_id = $request->course_id;
         $coupon_code = $request->coupon_code;
 
+        
         // Find Course
         $course = Course::with(['coursePrice', 'courseCoupon'])->findOrFail($course_id);
 
@@ -81,15 +81,14 @@ class InsCuponManageController extends Controller
 
         return response()->json([
             'status' => true,
-            'html' => view('instructor.manage.coupon.all_data', [
-                'priceInfo' => $calculatedPrice
-            ])->render()
+             'html' => view('instructor.manage.coupon.coupon_price_section', [
+            'priceInfo' => $calculatedPrice  // ✅ এখানে fixed
+        ])->render()
         ]);
 }
 
+
 private function calculateCoursePrice($course = null , $coupon = null){
-
-
     $price = $course->coursePrice->original_price ?? 0 ;
     $discount = $course->coursePrice->discounted_price ?? null ;
     $startDate = $course->coursePrice->start_date ?? null ;
@@ -117,14 +116,16 @@ private function calculateCoursePrice($course = null , $coupon = null){
     $couponDiscountAmount = 0;
     $finalPrice = $basePrice;
 
-    if ($coupon && $coupon->discount_amount > 0) {
+    if ($coupon && $coupon->discount_amount > 0 && $basePrice > 0) {
         if ($coupon->discount_type === 'percentage') {
             $couponDiscountAmount = ($basePrice * $coupon->discount_amount) / 100;
         } elseif ($coupon->discount_type === 'fixed') {
             $couponDiscountAmount = $coupon->discount_amount;
         }
 
-        // Now subtract coupon from base price
+        // Ensure discount doesn't exceed basePrice
+        $couponDiscountAmount = min($couponDiscountAmount, $basePrice);
+
         $finalPrice = max($basePrice - $couponDiscountAmount, 0);
     }
 
@@ -137,7 +138,6 @@ private function calculateCoursePrice($course = null , $coupon = null){
         'final_price' => $finalPrice, // after course + coupon
         'coupon_code' => $coupon?->code,
         'currency' => $currency,
-
     ];
 
 }
@@ -190,25 +190,32 @@ private function calculateCoursePrice($course = null , $coupon = null){
     public function insert(Request $request){
         /**--- validation code -- */
         $request->validate([
+                'discount_type'  => 'required',
                 'discount_amount'  => 'required',
                 'max_usage'  => 'required',
+                'start_date'  => 'required',
+                'end_date'  => 'required',
             ],[
-                'original_price.required'=> 'Original Price is Required !',
+                'discount_type.required'=> 'Discount Type is Required !',
+                'discount_amount.required'=> 'Discount Price is Required !',
+                'max_usage.required'=> 'Maximum uses is Required !',
+                'start_date.required'=> 'Discount Start Date is Required !',
+                'end_date.required'=> 'Discount End Date is Required !',
             ]
         );
         // ------  create a slug & get creator id -------
         $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();
         $code = strtoupper(Str::random(6)) . mt_rand(1000, 9999);
         $type = 'course';
-        $discount_type = 'fixed';
         $user_id = Auth::user()->id;
         //-------  insert category record --------
         $insert = DiscountCoupon::create([
+            'discount_type'=>$request->discount_type,
             'discount_amount'=>$request->discount_amount,
             'max_usage'=>$request->max_usage,
             'code'=>$code,
             'type'=>$type,
-            'discount_type'=>$discount_type,
+            'discount_type'=>$request->discount_type,
             'start_date'=>$request->start_date,
             'end_date'=>$request->end_date,
             'course_id'=>$request->course_id,

@@ -34,15 +34,25 @@
                                     <label class="text-danger fw-medium">@error('course_name') {{$message}} @enderror</label>
                                 </div>
                                 {{-- end --}}
+                                <div class="col-12 mb-1">
+                                    <label class="form-label" for="discount_type">Coupon Type: <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
+                                    <select name="discount_type" id="discount_type" class="form-control">
+                                        <option value="">Select Discount Type </option>
+                                        <option value="percentage"  {{ old('discount_type') == 'percentage' ? 'selected' : '' }}>Percentage</option>
+                                        <option value="fixed" {{ old('discount_type') == 'fixed' ? 'selected' : '' }}>Fixed</option>
+                                    </select>
+                                    <label class="text-danger fw-medium">@error('discount_type') {{$message}} @enderror</label>
+                                </div>
+                                {{-- end --}}
                                 <div class="col-6 mb-1">
                                     <label class="form-label" for="discount_amount">Coupon Discount Amount: <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
-                                    <input class="form-control" name="discount_amount" id="discount_amount" type="text" value="{{old('discount_amount')}}">
+                                    <input class="form-control" name="discount_amount" id="discount_amount" type="number" value="{{old('discount_amount')}}">
                                     <label class="text-danger fw-medium">@error('discount_amount') {{$message}} @enderror</label>
                                 </div>
                                 {{-- end --}}
                                 <div class="col-6 mb-1">
                                     <label class="form-label" for="max_usage">Maximum Use : <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
-                                    <input class="form-control" name="max_usage" id="max_usage" type="text" value="{{old('max_usage')}}">
+                                    <input class="form-control" name="max_usage" id="max_usage" type="number" value="{{old('max_usage')}}">
                                     <label class="text-danger fw-medium">@error('max_usage') {{$message}} @enderror</label>
                                 </div>
                                
@@ -59,14 +69,6 @@
                                     <label class="text-danger fw-medium">@error('end_date') {{$message}} @enderror</label>
                                 </div>
                                 {{-- end --}}
-                                
-                            
-                             
-                             
-                               
-                              {{-- end --}}
-                               
-
                             </div>
                         </div>
                       </div>
