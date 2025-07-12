@@ -44,47 +44,47 @@ class InsCuponManageController extends Controller
 
 
     public function apply_coupon(Request $request){
-    $course_id = $request->course_id;
-    $coupon_code = $request->coupon_code;
+        $course_id = $request->course_id;
+        $coupon_code = $request->coupon_code;
 
-    // Find Course
-    $course = Course::with(['coursePrice', 'courseCoupon'])->findOrFail($course_id);
+        // Find Course
+        $course = Course::with(['coursePrice', 'courseCoupon'])->findOrFail($course_id);
 
-    // Find Coupon for the Course
-    $coupon = DiscountCoupon::where('code', strtoupper($coupon_code))
-                ->where('course_id', $course_id)
-                ->first();
+        // Find Coupon for the Course
+        $coupon = DiscountCoupon::where('code', strtoupper($coupon_code))
+                    ->where('course_id', $course_id)
+                    ->first();
 
 
-    // Check if coupon exists 
-    if (!$coupon) {
+        // Check if coupon exists 
+        if (!$coupon) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid coupon code for this course.',
+            ]);
+        }
+
+        $today = Carbon::now();
+        $startDate = Carbon::parse($coupon->start_date);
+        $endDate = Carbon::parse($coupon->end_date);
+
+        // ✅ Check if Coupon is Valid (within date range)
+        if (!($today->between($startDate, $endDate))) {
+            return response()->json([
+                'status' => false,
+                'message' => 'This coupon is not valid at this time.',
+            ]);
+        }
+
+        // ⬇️ Continue price calculation here if valid
+    $calculatedPrice = $this->calculateCoursePrice($course, $coupon);
+
         return response()->json([
-            'status' => false,
-            'message' => 'Invalid coupon code for this course.',
+            'status' => true,
+            'html' => view('instructor.manage.coupon.all_data', [
+                'priceInfo' => $calculatedPrice
+            ])->render()
         ]);
-    }
-
-    $today = Carbon::now();
-    $startDate = Carbon::parse($coupon->start_date);
-    $endDate = Carbon::parse($coupon->end_date);
-
-    // ✅ Check if Coupon is Valid (within date range)
-    if (!($today->between($startDate, $endDate))) {
-        return response()->json([
-            'status' => false,
-            'message' => 'This coupon is not valid at this time.',
-        ]);
-    }
-
-    // ⬇️ Continue price calculation here if valid
-   $calculatedPrice = $this->calculateCoursePrice($course, $coupon);
-
-    return response()->json([
-        'status' => true,
-        'html' => view('instructor.manage.coupon.all_data', [
-            'priceInfo' => $calculatedPrice
-        ])->render()
-    ]);
 }
 
 private function calculateCoursePrice($course = null , $coupon = null){
