@@ -36,8 +36,49 @@ class InsCoursePriceController extends Controller
     public function all_course(){
         $user_id = Auth::user()->id;
         $all = Course::with('coursePrice')->where('user_id',$user_id)->where('status',1)->get();
+        foreach($all as $course ){
+           $course->calculateCoursePrice =$this->calculateCoursePrice($course);
+        }
           return view('instructor.manage.courseprice.all_course',compact('all'));
     }
+
+    private function calculateCoursePrice($price){
+            $price = $price->coursePrice->original_price ?? 0 ;
+            $discount = $price->coursePrice->discounted_price ?? null ;
+            $startDate = $price->coursePrice->start_date ?? null ;
+            $endDate = $price->coursePrice->end_date ?? null ;
+            $currency = $price->coursePrice->currency ?? 'BDT' ;
+            $today = \Carbon\Carbon::now();
+
+            $isDiscountActive  = false;
+
+            if(!empty($discount) && $discount > 0){
+              if(empty($startDate) && empty($endDate)){
+                $isDiscountActive = true ;
+              }elseif (!empty($startDate) && empty($endDate)) {
+                 $isDiscountActive = $today->gte($startDate) ;
+              }elseif (empty($startDate) && !empty($endDate)) {
+                $isDiscountActive = $today->lte($endDate) ;
+              }elseif (!empty($startDate) && !empty($endDate)) {
+                 $isDiscountActive = $today->between($startDate,$endDate) ;
+              }
+            }
+             $basePrice = $isDiscountActive ? ($price - $discount) : $price;
+
+            return [
+                'original_price' => $price,
+                'discounted_price' => $discount,
+                'is_discount_active' => $isDiscountActive,
+                'final_price' => $basePrice,
+                'currency' => $currency,
+            ];
+
+    }
+
+
+
+
+    
 
 
    /**

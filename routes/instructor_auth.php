@@ -152,6 +152,8 @@ Route::controller(InsCuponManageController::class)->prefix('instructor/dashboard
     Route::get('recycle','recycle')->name('recycle');
     Route::get('public/{id}/{slug}','public_status')->name('public');
     Route::get('private/{id}/{slug}','private_status')->name('private'); 
+
+    Route::post('apply/coupon','apply_coupon')->name('apply_coupon');
 });
 
 

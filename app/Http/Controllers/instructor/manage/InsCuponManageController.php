@@ -35,9 +35,118 @@ class InsCuponManageController extends Controller
        
         $user_id = Auth::user()->id;
         $all = Course::with(['coursePrice','courseCoupon'])->where('user_id',$user_id)->where('status',1)->get();
-        //dd($all);
+         foreach($all as $course ){
+           $course->calculatedPrice =$this->calculateCoursePrice($course);
+        }
           return view('instructor.manage.coupon.all_data',compact('all'));
     }
+
+
+
+    public function apply_coupon(Request $request){
+    $course_id = $request->course_id;
+    $coupon_code = $request->coupon_code;
+
+    // Find Course
+    $course = Course::with(['coursePrice', 'courseCoupon'])->findOrFail($course_id);
+
+    // Find Coupon for the Course
+    $coupon = DiscountCoupon::where('code', strtoupper($coupon_code))
+                ->where('course_id', $course_id)
+                ->first();
+
+
+    // Check if coupon exists 
+    if (!$coupon) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Invalid coupon code for this course.',
+        ]);
+    }
+
+    $today = Carbon::now();
+    $startDate = Carbon::parse($coupon->start_date);
+    $endDate = Carbon::parse($coupon->end_date);
+
+    // ✅ Check if Coupon is Valid (within date range)
+    if (!($today->between($startDate, $endDate))) {
+        return response()->json([
+            'status' => false,
+            'message' => 'This coupon is not valid at this time.',
+        ]);
+    }
+
+    // ⬇️ Continue price calculation here if valid
+   $calculatedPrice = $this->calculateCoursePrice($course, $coupon);
+
+    return response()->json([
+        'status' => true,
+        'html' => view('instructor.manage.coupon.all_data', [
+            'priceInfo' => $calculatedPrice
+        ])->render()
+    ]);
+}
+
+private function calculateCoursePrice($course = null , $coupon = null){
+
+
+    $price = $course->coursePrice->original_price ?? 0 ;
+    $discount = $course->coursePrice->discounted_price ?? null ;
+    $startDate = $course->coursePrice->start_date ?? null ;
+    $endDate = $course->coursePrice->end_date ?? null ;
+    $currency = $course->coursePrice->currency ?? 'BDT' ;
+    $today = \Carbon\Carbon::now();
+
+    $isDiscountActive  = false;
+
+    if(!empty($discount) && $discount > 0){
+        if(empty($startDate) && empty($endDate)){
+        $isDiscountActive = true ;
+        }elseif (!empty($startDate) && empty($endDate)) {
+            $isDiscountActive = $today->gte($startDate) ;
+        }elseif (empty($startDate) && !empty($endDate)) {
+        $isDiscountActive = $today->lte($endDate) ;
+        }elseif (!empty($startDate) && !empty($endDate)) {
+            $isDiscountActive = $today->between($startDate,$endDate) ;
+        }
+    }
+      // Base price (after course discount if applicable)
+    $basePrice = $isDiscountActive ? ($price - $discount) : $price;
+
+    // Coupon Discount Logic
+    $couponDiscountAmount = 0;
+    $finalPrice = $basePrice;
+
+    if ($coupon && $coupon->discount_amount > 0) {
+        if ($coupon->discount_type === 'percentage') {
+            $couponDiscountAmount = ($basePrice * $coupon->discount_amount) / 100;
+        } elseif ($coupon->discount_type === 'fixed') {
+            $couponDiscountAmount = $coupon->discount_amount;
+        }
+
+        // Now subtract coupon from base price
+        $finalPrice = max($basePrice - $couponDiscountAmount, 0);
+    }
+
+   return [
+        'original_price' => $price,
+        'discounted_price' => $discount,
+        'is_discount_active' => $isDiscountActive,
+        'base_price' => $basePrice, // after course discount
+        'coupon_discount' => $couponDiscountAmount,
+        'final_price' => $finalPrice, // after course + coupon
+        'coupon_code' => $coupon?->code,
+        'currency' => $currency,
+
+    ];
+
+}
+
+
+
+
+
+
 
 
    /**
