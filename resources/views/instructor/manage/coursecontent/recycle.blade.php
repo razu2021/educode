@@ -11,14 +11,15 @@
 @endif
 @push('scripts')
 <script>
-  const bulkActionUrl = "{{ route('ins_course_module.bulkAction') }}";
+  const bulkActionUrl = "{{ route('ins_course_content.bulkAction') }}";
   const csrfToken = "{{ csrf_token() }}";
 </script>
 @endpush
+
 <div class="card z-1 mb-3" id="recentPurchaseTable" data-list="{&quot;valueNames&quot;:[&quot;name&quot;,&quot;email&quot;,&quot;product&quot;,&quot;payment&quot;,&quot;amount&quot;],&quot;page&quot;:8,&quot;pagination&quot;:true}">
     <div class="card-header">
       <div class="text-center pt-2 pb-2 ">
-        <h4 class="fs-6">Course Module Management  </h4>  
+        <h4 class="fs-6">Price Management  </h4>  
       </div>
         {{-- search option  --}}
         <div class="searchess mb-4 ">
@@ -28,7 +29,7 @@
                   <div class="input-group">
                     <input type="text" name="search" class="form-control" placeholder="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                    <a href="{{route('ins_course_module.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
+                    <a href="{{route('ins_course_content.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
                   </div>
                 </form>
             </div>
@@ -37,35 +38,27 @@
           <!-- ক্যাটেগরি ডেটা টেবিল -->
         </div>
         {{-- search end  --}}
+
       <div class="row flex-between-center">
         <div class="col-6 col-sm-auto d-flex align-items-center pe-0">
-          <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Module Infomations </h5>
+          <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Price Infomations </h5>
         </div>
         <div class="col-6 col-sm-auto ms-auto text-end ps-0">
           <div class="d-none" id="table-purchases-actions">
             <div class="d-flex">
               <select class="form-select form-select-sm" id="bulk-action-select">
                 <option selected disabled>Bulk actions</option>
-                <option value="active">Active</option>
-                <option value="deactive">Deactive</option>
-                <option value="delete">Delete</option>
+                <option value="restore">Restore Data</option>
+                <option value="heard_delete">Delete Data</option>
               </select>
               <button class="btn btn-falcon-default btn-sm ms-2" id="bulk-apply-btn" type="button">Apply</button>
             </div>
           </div>
           <div id="table-purchases-replace-element" class="d-flex align-items-center">
-              <!-- New Button -->
-            <a href="{{route('ins_course_module.all_data')}}">
-              <button class="btn btn-falcon-default btn-sm" type="button">
-                <i class="bi bi-eye-fill"></i>
-                {{-- <span class="d-none d-sm-inline-block ms-1">all</span> --}}
-              </button>
-            </a>
-              <!-- Filter Button -->
-            <a href="{{route('ins_course_module.recycle')}}">
+            <a href="{{route('ins_course_content.all')}}">
               <button class="btn btn-falcon-default btn-sm mx-2" type="button">
-                <i class="fas fa-recycle"></i>
-                {{-- <span class="d-none d-sm-inline-block ms-1">Recycle</span> --}}
+                <i class="bi bi-info-circle-fill"></i>
+                <span class="d-none d-sm-inline-block ms-1">All Infomations</span>
               </button>
             </a>
           </div>
@@ -82,11 +75,11 @@
                   <input class="form-check-input" id="checkbox-bulk-purchases-select" type="checkbox" data-bulk-select="{&quot;body&quot;:&quot;table-purchase-body&quot;,&quot;actions&quot;:&quot;table-purchases-actions&quot;,&quot;replacedElement&quot;:&quot;table-purchases-replace-element&quot;}">
                 </div>
               </th>
-              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="name">Course Name</th>
-              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="name">Module Title</th>
-              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="title">Module Description</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="name">Price</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="title">Discount</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="des">Pricing Type</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="des">Currency</th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap " data-sort="time">Created At </th>
-              <th class="text-900 sort pe-1 align-middle white-space-nowrap text-center" data-sort="status">Public Status</th>
               <th class="no-sort pe-1 align-middle data-table-row-action text-center">Manage</th>
             </tr>
           </thead>
@@ -98,18 +91,13 @@
                   <input class="form-check-input" type="checkbox" data-bulk-select-row value="{{ $data->id }}">
                 </div>
               </td>
-              <td class="align-middle white-space-nowrap email">{{$data->course->course_name ?? 'No Data' }}</td>
-              <td class="align-middle white-space-nowrap email">{{$data->title ?? 'No Data' }}</td>
-              <td class="align-middle white-space-nowrap product">{!! Str::words($data->description,5, '...') !!}</td>
+              <td class="align-middle white-space-nowrap email">{{$data->original_price}}</td>
+              <td class="align-middle white-space-nowrap product">{{$data->discounted_price ?? 'No Data'}}</td>
+              <td class="align-middle white-space-nowrap product">{{$data->pricing_type}}</td>
+              <td class="align-middle white-space-nowrap product">{{$data->currency}}</td>
               <td class="align-middle white-space-nowrap product">{{ $data->created_at->format('d M, Y - h:i A') }}</td>
-              <td class="align-middle text-center fs-9 white-space-nowrap payment">
-                @if ($data->public_status === 1)
-                  <small class="badge rounded badge-subtle-success false">Public</small>
-                @else
-                  <small class="badge rounded badge-subtle-danger false">Private</small>
-                @endif
-               
-              </td>
+            
+              
               <td class="align-middle white-space-nowrap text-end">
                 <div class="dropstart font-sans-serif position-static d-inline-block">
                   <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal float-end"
@@ -117,28 +105,38 @@
                     <i class="fas fa-ellipsis-h fs-10"></i>
                   </button>
                   <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-recent-purchase-table-0">
-                    <a class="dropdown-item" href="{{route('ins_course_module.view',[$data->id, $data->slug])}}">View</a>
-                    <a class="dropdown-item" href="{{route('ins_course_module.edit',[$data->id, $data->slug])}}">Edit</a>
                     <!-- Hidden form to submit DELETE request -->
-                    <form id="deleteForm{{ $data->id }}" action="{{ route('ins_course_module.softdelete', $data->id) }}" method="POST" style="display: none;">
+                    <form id="deleteForm{{ $data->id }}" action="{{ route('ins_course_content.delete', $data->id) }}" method="POST" style="display: none;">
                       @csrf
                       @method('DELETE')
                     </form>
                     <!-- Link to trigger the delete action -->
+
+                    <!-- Restore Button with JS Confirm -->
+                      
+
+                        <!-- Hidden Form -->
+                        <form id="restoreForm{{ $data->id }}" action="{{ route('ins_course_content.restore', $data->id) }}" method="POST" style="display: none;">
+                        @csrf
+                     
+                        </form>
+
+                        
+
+                    <!-- Restore button -->
+                       
+                    <a href="javascript:void(0);" class="dropdown-item restore-button" id="restoreForm{{ $data->id }}" data-id="{{ $data->id }}">Restor</a>
                     <a href="javascript:void(0);" class="dropdown-item text-danger" id="deleteButton{{ $data->id }}" data-id="{{ $data->id }}">Delete</a>
 
-                    <div class="dropdown-divider"></div>
-                    @if($data->public_status === 0)
-                      <a class="dropdown-item text-success" href="{{route('ins_course_module.public',[$data->id, $data->slug])}}">Publish</a>
-                    @else 
-                     <a class="dropdown-item text-warning" href="{{route('ins_course_module.private',[$data->id, $data->slug])}}">Draft</a>
-                    @endif 
+                   
                   </div>
                 </div>
               </td>
             </tr>
             @endforeach
+
             {{-- tr end here  --}}
+
         </tbody>
         </table>
       </div>

@@ -11,7 +11,7 @@
       <div class="col-6 col-sm-auto ms-auto text-end ps-0">
       <div id="table-purchases-replace-element" class="d-flex align-items-center">
           <!-- New Button -->
-          <a href="{{route('ins_course_module.all')}}">
+          <a href="{{route('ins_course_content.all')}}">
           <button class="btn btn-falcon-default btn-sm" type="button">
               <i class="bi bi-sliders"></i>
               <span class="d-none d-sm-inline-block ms-1">Manage All Prices</span>
@@ -50,11 +50,11 @@
 
           
         @if($data->CourseModule == '')
-            <a class="btn btn-sm btn-outline-primary w-100" href="{{route('ins_course_module.add',[$data->id, $data->slug])}}"> Create Module </a>
+            <a class="btn btn-sm btn-outline-primary w-100" href="{{route('ins_course_content.add',[$data->id, $data->slug])}}"> Create Module </a>
         @else 
           <div class="d-flex justify-content-around ">
-          <a class="btn btn-sm btn-outline-primary w-50 mx-1" href="{{route('ins_course_module.edit',[$data->CourseModule->id, $data->CourseModule->slug])}}"> Edit  </a>
-          <a class="btn btn-sm btn-outline-info w-50  mx-1" href="{{route('ins_course_module.view',[$data->CourseModule->id, $data->CourseModule->slug])}}"> View  </a>
+          <a class="btn btn-sm btn-outline-primary w-50 mx-1" href="{{route('ins_course_content.edit',[$data->CourseModule->id, $data->CourseModule->slug])}}"> Edit  </a>
+          <a class="btn btn-sm btn-outline-info w-50  mx-1" href="{{route('ins_course_content.view',[$data->CourseModule->id, $data->CourseModule->slug])}}"> View  </a>
           </div>
         @endif 
         </div>

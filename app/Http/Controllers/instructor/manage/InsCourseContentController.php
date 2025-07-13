@@ -9,10 +9,9 @@ use Carbon\Carbon; //----------  defualt -------
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Course;
-use App\Models\CourseModule;
+use App\Models\Course_topic;
 
-
-class InsCourseModuleController extends Controller
+class InsCourseContentController extends Controller
 {
       /**
      * =============================================================
@@ -23,20 +22,20 @@ class InsCourseModuleController extends Controller
         $user_id = Auth::user()->id;
         $search = $request['search'] ?? "";
         if($search !=""){
-            $all = CourseModule::where('user_id',$user_id)->where('status',1)->where('original_price','LIKE',"%$search%")
+            $all = Course_topic::where('user_id',$user_id)->where('status',1)->where('original_price','LIKE',"%$search%")
             ->orWhere('discounted_price','LIKE',"%$search%")->orWhere('currency','LIKE',"%$search%")->orWhere('pricing_type','LIKE','%search%')->get();
         }else{
-            $all = CourseModule::where('user_id',$user_id)->where('status',1)->get();
+            $all = Course_topic::where('user_id',$user_id)->where('status',1)->get();
         }
-        return view('instructor.manage.coursemodule.index',compact('all'));
+        return view('instructor.manage.coursecontent.index',compact('all'));
     }
 
 
     public function all_data(){
         $user_id = Auth::user()->id;
-        $all = Course::with(['CourseModule'=>function($query){$query->where('public_status',1);}])->where('user_id',$user_id)->where('status',1)->get();
+        $all = Course::with(['courseContent'])->where('user_id',$user_id)->where('status',1)->get();
         
-          return view('instructor.manage.coursemodule.all_data',compact('all'));
+          return view('instructor.manage.coursecontent.all_data',compact('all'));
     }
 
 
@@ -48,7 +47,7 @@ class InsCourseModuleController extends Controller
         $user_id = Auth::user()->id;
         $data = Course::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
        
-        return view('instructor.manage.coursemodule.add',compact('data'));
+        return view('instructor.manage.coursecontent.add',compact('data'));
     }
 
    /**
@@ -56,8 +55,8 @@ class InsCourseModuleController extends Controller
     **/
     public function view($id,$slug){
         $user_id = Auth::user()->id;
-        $data=CourseModule::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        return view('instructor.manage.coursemodule.view',compact('data'));
+        $data=Course_topic::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        return view('instructor.manage.coursecontent.view',compact('data'));
     }
 
 
@@ -65,11 +64,11 @@ class InsCourseModuleController extends Controller
     * ---------  edit page functionality --------
     **/
     public function edit($id,$slug){
-        $totalpost  = CourseModule::get()->count();
-        $latestPost = CourseModule::latest()->first();
+        $totalpost  = Course_topic::get()->count();
+        $latestPost = Course_topic::latest()->first();
         $user_id = Auth::user()->id;
-        $data=CourseModule::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        return view('instructor.manage.coursemodule.edit',compact('totalpost','latestPost','data'));
+        $data=Course_topic::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        return view('instructor.manage.coursecontent.edit',compact('totalpost','latestPost','data'));
     }
 
 
@@ -89,7 +88,7 @@ class InsCourseModuleController extends Controller
             ]
         );
         // Check if the course already has a module
-        $existingModule = CourseModule::where('course_id', $request->course_id)->first();
+        $existingModule = Course_topic::where('course_id', $request->course_id)->first();
         if ($existingModule) {
             flash()->error('This course already has a module!');
             return redirect()->back()->withInput();
@@ -98,7 +97,7 @@ class InsCourseModuleController extends Controller
         $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();
         $user_id = Auth::user()->id;
         //-------  insert category record --------
-        $insert = CourseModule::create([
+        $insert = Course_topic::create([
             'title'=>$request->title,
             'description'=>$request->description,
             'course_id'=>$request->course_id,
@@ -110,7 +109,7 @@ class InsCourseModuleController extends Controller
         // insert Successfully 
         if($insert){
             flash()->success('Information Added Successfuly');
-            return redirect()->route('ins_course_module.all_data');
+            return redirect()->route('ins_course_content.all_data');
         }else{
             flash()->error('Informatin Added Faild !');
         }
@@ -139,7 +138,7 @@ class InsCourseModuleController extends Controller
         $user_id = Auth::user()->id;
 
         //---------category update -------//
-        $update = CourseModule::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->update([
+        $update = Course_topic::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->update([
                 'title'=>$request->title,
                 'description'=>$request->description,
                 'updated_at' => Carbon::now()->toDateTimeString(),
@@ -150,7 +149,7 @@ class InsCourseModuleController extends Controller
         }else{
             flash()->error('Informatin Update Faild !');
         }
-        return redirect()->route('ins_course_module.view',[$id,$slug]);
+        return redirect()->route('ins_course_content.view',[$id,$slug]);
 
     } // update end 
 
@@ -162,7 +161,7 @@ class InsCourseModuleController extends Controller
      */
     public function softdelete($id){
         $user_id = Auth::user()->id;
-        $data= CourseModule::where('user_id',$user_id)->where('id',$id)->first();
+        $data= Course_topic::where('user_id',$user_id)->where('id',$id)->first();
         $data->delete();
         // ----Delete Successfully ----//
         if($data){
@@ -178,7 +177,7 @@ class InsCourseModuleController extends Controller
     **/
     public function restore($id){
         $user_id = Auth::user()->id;
-        $data = CourseModule::withTrashed()->where('user_id',$user_id)->where('id', $id)->first();
+        $data = Course_topic::withTrashed()->where('user_id',$user_id)->where('id', $id)->first();
         $data->restore();
         // Delete Successfully 
         if($data){
@@ -193,7 +192,7 @@ class InsCourseModuleController extends Controller
     **/
     public function delete($id){
         $user_id = Auth::user()->id;
-        $data = CourseModule::onlyTrashed()->where('user_id',$user_id)->where('id', $id)->first();
+        $data = Course_topic::onlyTrashed()->where('user_id',$user_id)->where('id', $id)->first();
         if($data) {
             $data->forceDelete();
             flash()->success('Record Deleted Successfully');
@@ -210,7 +209,7 @@ class InsCourseModuleController extends Controller
     **/
     public function public_status($id,$slug){
         $user_id = Auth::user()->id;
-        $published = CourseModule::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
+        $published = Course_topic::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
             'public_status'=>1,
         ]);
         // Delete Successfully 
@@ -227,7 +226,7 @@ class InsCourseModuleController extends Controller
     **/
     public function private_status($id,$slug){
         $user_id = Auth::user()->id;
-        $private = CourseModule::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
+        $private = Course_topic::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
             'public_status'=>0,
         ]);
         // Delete Successfully 
@@ -245,8 +244,8 @@ class InsCourseModuleController extends Controller
     **/
     public function recycle(){
         $user_id = Auth::user()->id;
-        $all = CourseModule::onlyTrashed()->where('user_id',$user_id)->get();
-        return view('instructor.manage.coursemodule.recycle',compact('all'));
+        $all = Course_topic::onlyTrashed()->where('user_id',$user_id)->get();
+        return view('instructor.manage.coursecontent.recycle',compact('all'));
     }
    /**
      * =====================================================
@@ -267,12 +266,12 @@ class InsCourseModuleController extends Controller
     
         //----- for multiple items soft delete ----//
         if ($action === 'delete') {
-            CourseModule::whereIn('id', $ids)->where('user_id',$user_id)->delete();
+            Course_topic::whereIn('id', $ids)->where('user_id',$user_id)->delete();
             return response()->json(['success' => true, 'message' => 'Selected Items deleted.']);
         }
         //--- for multiple items heard delete -------//
         if ($action === 'heard_delete') {
-            $categories = CourseModule::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = Course_topic::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
         
             foreach ($categories as $category) {
                 // 4. Category force delete
@@ -285,7 +284,7 @@ class InsCourseModuleController extends Controller
     
         //---- for multiple items resotre --------//
         if ($action === 'restore') {
-            $categories = CourseModule::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = Course_topic::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
             if($categories){
                 foreach($categories as $data){
                     $data->restore();
@@ -295,11 +294,11 @@ class InsCourseModuleController extends Controller
         }
         //----- for multiple items active ----//
         if ($action === 'active') {
-            $categories = CourseModule::whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = Course_topic::whereIn('id', $ids)->where('user_id',$user_id)->get();
 
             if($categories){
                 foreach($categories as $data){
-                    CourseModule::whereIn('id',$ids)->where('public_status',0)->where('user_id',$user_id)->update([
+                    Course_topic::whereIn('id',$ids)->where('public_status',0)->where('user_id',$user_id)->update([
                         'public_status'=>1,
                     ]);
                 }
@@ -309,10 +308,10 @@ class InsCourseModuleController extends Controller
 
         //--  for multiple items deactive ----- //
         if ($action === 'deactive') {
-            $categories = CourseModule::whereIn('id', $ids)->get();
+            $categories = Course_topic::whereIn('id', $ids)->get();
             if($categories){
                 foreach($categories as $data){
-                    CourseModule::whereIn('id',$ids)->where('user_id',$user_id)->where('public_status',1)->update([
+                    Course_topic::whereIn('id',$ids)->where('user_id',$user_id)->where('public_status',1)->update([
                         'public_status'=>0,
                     ]);
                 }

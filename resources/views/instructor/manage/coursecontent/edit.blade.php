@@ -10,12 +10,12 @@
                     </div>
                     <div class="col-auto">
                         <button class="btn btn-link text-secondary p-0 me-3 fw-medium" role="button"><a href="#" onclick="window.history.back()">Discard</a></button>
-                        <button class="btn btn-primary" role="button"> <a class="text-white" href="{{route('ins_course_module.all_data')}}">All Items </a> </button>
+                        <button class="btn btn-primary" role="button"> <a class="text-white" href="{{route('ins_course_content.all_data')}}">All Items </a> </button>
                     </div>
                   </div>
                 </div>
               </div>
-          <form action="{{route('ins_course_module.update')}}" method="post" enctype="multipart/form-data">
+          <form action="{{route('ins_course_content.update')}}" method="post" enctype="multipart/form-data">
           @csrf
             <div class="row">
                 <div class="col-lg-8 mx-auto">

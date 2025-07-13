@@ -29,6 +29,11 @@ class Course extends Model
     {
         return $this->hasOne(CourseModule::class, 'course_id', 'id');
     }
+    /** ---- course module ---- */
+    public function courseContent()
+    {
+        return $this->hasOne(CourseModule::class, 'course_id', 'id');
+    }
 
 
 
