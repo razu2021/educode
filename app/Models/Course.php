@@ -19,10 +19,15 @@ class Course extends Model
     {
         return $this->hasOne(Course_price::class, 'course_id', 'id');
     }
-    /** ---- course price ---- */
+    /** ---- course coupon ---- */
     public function courseCoupon()
     {
         return $this->hasOne(DiscountCoupon::class, 'course_id', 'id');
+    }
+    /** ---- course module ---- */
+    public function courseModule()
+    {
+        return $this->hasOne(CourseModule::class, 'course_id', 'id');
     }
 
 

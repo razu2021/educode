@@ -11,7 +11,7 @@
 @endif
 @push('scripts')
 <script>
-  const bulkActionUrl = "{{ route('ins_coupon.bulkAction') }}";
+  const bulkActionUrl = "{{ route('ins_course_module.bulkAction') }}";
   const csrfToken = "{{ csrf_token() }}";
 </script>
 @endpush
@@ -28,7 +28,7 @@
                   <div class="input-group">
                     <input type="text" name="search" class="form-control" placeholder="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                    <a href="{{route('ins_coupon.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
+                    <a href="{{route('ins_course_module.all')}}"><button class="btn btn-outline-primary" type="button">Reset</button></a>
                   </div>
                 </form>
             </div>
@@ -55,14 +55,14 @@
           </div>
           <div id="table-purchases-replace-element" class="d-flex align-items-center">
               <!-- New Button -->
-            <a href="{{route('ins_coupon.all_data')}}">
+            <a href="{{route('ins_course_module.all_data')}}">
               <button class="btn btn-falcon-default btn-sm" type="button">
                 <i class="bi bi-eye-fill"></i>
                 {{-- <span class="d-none d-sm-inline-block ms-1">all</span> --}}
               </button>
             </a>
               <!-- Filter Button -->
-            <a href="{{route('ins_coupon.recycle')}}">
+            <a href="{{route('ins_course_module.recycle')}}">
               <button class="btn btn-falcon-default btn-sm mx-2" type="button">
                 <i class="fas fa-recycle"></i>
                 {{-- <span class="d-none d-sm-inline-block ms-1">Recycle</span> --}}
@@ -121,10 +121,10 @@
                     <i class="fas fa-ellipsis-h fs-10"></i>
                   </button>
                   <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-recent-purchase-table-0">
-                    <a class="dropdown-item" href="{{route('ins_coupon.view',[$data->id, $data->slug])}}">View</a>
-                    <a class="dropdown-item" href="{{route('ins_coupon.edit',[$data->id, $data->slug])}}">Edit</a>
+                    <a class="dropdown-item" href="{{route('ins_course_module.view',[$data->id, $data->slug])}}">View</a>
+                    <a class="dropdown-item" href="{{route('ins_course_module.edit',[$data->id, $data->slug])}}">Edit</a>
                     <!-- Hidden form to submit DELETE request -->
-                    <form id="deleteForm{{ $data->id }}" action="{{ route('ins_coupon.softdelete', $data->id) }}" method="POST" style="display: none;">
+                    <form id="deleteForm{{ $data->id }}" action="{{ route('ins_course_module.softdelete', $data->id) }}" method="POST" style="display: none;">
                       @csrf
                       @method('DELETE')
                     </form>
@@ -133,9 +133,9 @@
 
                     <div class="dropdown-divider"></div>
                     @if($data->public_status === 0)
-                      <a class="dropdown-item text-success" href="{{route('ins_coupon.public',[$data->id, $data->slug])}}">Publish</a>
+                      <a class="dropdown-item text-success" href="{{route('ins_course_module.public',[$data->id, $data->slug])}}">Publish</a>
                     @else 
-                     <a class="dropdown-item text-warning" href="{{route('ins_coupon.private',[$data->id, $data->slug])}}">Draft</a>
+                     <a class="dropdown-item text-warning" href="{{route('ins_course_module.private',[$data->id, $data->slug])}}">Draft</a>
                     @endif 
                   </div>
                 </div>

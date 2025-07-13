@@ -9,11 +9,12 @@ use Carbon\Carbon; //----------  defualt -------
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Course;
-use App\Models\Course_price;
-use App\Models\DiscountCoupon;
-class InsCuponManageController extends Controller
+use App\Models\CourseModule;
+
+
+class InsCourseModuleController extends Controller
 {
-     /**
+      /**
      * =============================================================
      * ==============================================================================================  SHOW FUNCTION START HERE ========================================================
      * =============================================================
@@ -22,125 +23,21 @@ class InsCuponManageController extends Controller
         $user_id = Auth::user()->id;
         $search = $request['search'] ?? "";
         if($search !=""){
-            $all = DiscountCoupon::where('user_id',$user_id)->where('status',1)->where('original_price','LIKE',"%$search%")
+            $all = CourseModule::where('user_id',$user_id)->where('status',1)->where('original_price','LIKE',"%$search%")
             ->orWhere('discounted_price','LIKE',"%$search%")->orWhere('currency','LIKE',"%$search%")->orWhere('pricing_type','LIKE','%search%')->get();
         }else{
-            $all = DiscountCoupon::where('user_id',$user_id)->where('status',1)->get();
+            $all = CourseModule::where('user_id',$user_id)->where('status',1)->get();
         }
-        return view('instructor.manage.coupon.index',compact('all'));
+        return view('instructor.manage.coursemodule.index',compact('all'));
     }
 
 
     public function all_data(){
         $user_id = Auth::user()->id;
-        $all = Course::with(['coursePrice','courseCoupon'=>function($query){$query->where('public_status',1);}])->where('user_id',$user_id)->where('status',1)->get();
-         foreach($all as $course ){
-           $course->calculatedPrice =$this->calculateCoursePrice($course);
-        }
-          return view('instructor.manage.coupon.all_data',compact('all'));
+        $all = Course::with(['CourseModule'=>function($query){$query->where('public_status',1);}])->where('user_id',$user_id)->where('status',1)->get();
+        
+          return view('instructor.manage.coursemodule.all_data',compact('all'));
     }
-
-
-
-    public function apply_coupon(Request $request){
-        $course_id = $request->course_id;
-        $coupon_code = $request->coupon_code;
-        // Find Course
-        $course = Course::with(['coursePrice', 'courseCoupon'])->findOrFail($course_id);
-
-        // Find Coupon for the Course
-        $coupon = DiscountCoupon::where('code', strtoupper($coupon_code))
-                    ->where('course_id', $course_id)
-                    ->first();
-        // Check if coupon exists 
-        if (!$coupon) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Invalid coupon code for this course.',
-            ]);
-        }
-
-        $today = Carbon::now();
-        $startDate = Carbon::parse($coupon->start_date);
-        $endDate = Carbon::parse($coupon->end_date);
-
-        // ✅ Check if Coupon is Valid (within date range)
-        if (!($today->between($startDate, $endDate))) {
-            return response()->json([
-                'status' => false,
-                'message' => 'This coupon is not valid at this time.',
-            ]);
-        }
-
-        // ⬇️ Continue price calculation here if valid
-    $calculatedPrice = $this->calculateCoursePrice($course, $coupon);
-
-        return response()->json([
-            'status' => true,
-             'html' => view('instructor.manage.coupon.coupon_price_section', [
-            'priceInfo' => $calculatedPrice  // ✅ এখানে fixed
-        ])->render()
-        ]);
-}
-
-
-private function calculateCoursePrice($course = null , $coupon = null){
-    $price = $course->coursePrice->original_price ?? 0 ;
-    $discount = $course->coursePrice->discounted_price ?? null ;
-    $startDate = $course->coursePrice->start_date ?? null ;
-    $endDate = $course->coursePrice->end_date ?? null ;
-    $currency = $course->coursePrice->currency ?? 'BDT' ;
-    $today = \Carbon\Carbon::now();
-
-    $isDiscountActive  = false;
-
-    if(!empty($discount) && $discount > 0){
-        if(empty($startDate) && empty($endDate)){
-        $isDiscountActive = true ;
-        }elseif (!empty($startDate) && empty($endDate)) {
-            $isDiscountActive = $today->gte($startDate) ;
-        }elseif (empty($startDate) && !empty($endDate)) {
-        $isDiscountActive = $today->lte($endDate) ;
-        }elseif (!empty($startDate) && !empty($endDate)) {
-            $isDiscountActive = $today->between($startDate,$endDate) ;
-        }
-    }
-      // Base price (after course discount if applicable)
-    $basePrice = $isDiscountActive ? ($price - $discount) : $price;
-
-    // Coupon Discount Logic
-    $couponDiscountAmount = 0;
-    $finalPrice = $basePrice;
-
-    if ($coupon && $coupon->discount_amount > 0 && $basePrice > 0) {
-        if ($coupon->discount_type === 'percentage') {
-            $couponDiscountAmount = ($basePrice * $coupon->discount_amount) / 100;
-        } elseif ($coupon->discount_type === 'fixed') {
-            $couponDiscountAmount = $coupon->discount_amount;
-        }
-        // Ensure discount doesn't exceed basePrice
-        $couponDiscountAmount = min($couponDiscountAmount, $basePrice);
-        $finalPrice = max($basePrice - $couponDiscountAmount, 0);
-    }
-
-   return [
-        'original_price' => $price,
-        'discounted_price' => $discount,
-        'is_discount_active' => $isDiscountActive,
-        'base_price' => $basePrice, // after course discount
-        'coupon_discount' => $couponDiscountAmount,
-        'final_price' => $finalPrice, // after course + coupon
-        'coupon_code' => $coupon?->code,
-        'currency' => $currency,
-    ];
-
-}
-
-
-
-
-
-
 
 
    /**
@@ -151,7 +48,7 @@ private function calculateCoursePrice($course = null , $coupon = null){
         $user_id = Auth::user()->id;
         $data = Course::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
        
-        return view('instructor.manage.coupon.add',compact('data'));
+        return view('instructor.manage.coursemodule.add',compact('data'));
     }
 
    /**
@@ -159,8 +56,8 @@ private function calculateCoursePrice($course = null , $coupon = null){
     **/
     public function view($id,$slug){
         $user_id = Auth::user()->id;
-        $data=DiscountCoupon::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        return view('instructor.manage.coupon.view',compact('data'));
+        $data=CourseModule::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        return view('instructor.manage.coursemodule.view',compact('data'));
     }
 
 
@@ -168,11 +65,11 @@ private function calculateCoursePrice($course = null , $coupon = null){
     * ---------  edit page functionality --------
     **/
     public function edit($id,$slug){
-        $totalpost  = DiscountCoupon::get()->count();
-        $latestPost = DiscountCoupon::latest()->first();
+        $totalpost  = CourseModule::get()->count();
+        $latestPost = CourseModule::latest()->first();
         $user_id = Auth::user()->id;
-        $data=DiscountCoupon::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        return view('instructor.manage.coupon.edit',compact('totalpost','latestPost','data'));
+        $data=CourseModule::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        return view('instructor.manage.coursemodule.edit',compact('totalpost','latestPost','data'));
     }
 
 
@@ -203,7 +100,7 @@ private function calculateCoursePrice($course = null , $coupon = null){
         $type = 'course';
         $user_id = Auth::user()->id;
         //-------  insert category record --------
-        $insert = DiscountCoupon::create([
+        $insert = CourseModule::create([
             'discount_type'=>$request->discount_type,
             'discount_amount'=>$request->discount_amount,
             'max_usage'=>$request->max_usage,
@@ -221,7 +118,7 @@ private function calculateCoursePrice($course = null , $coupon = null){
         // insert Successfully 
         if($insert){
             flash()->success('Information Added Successfuly');
-            return redirect()->route('ins_coupon.all_data');
+            return redirect()->route('ins_coursemodule.all_data');
         }else{
             flash()->error('Informatin Added Faild !');
         }
@@ -256,7 +153,7 @@ private function calculateCoursePrice($course = null , $coupon = null){
         $user_id = Auth::user()->id;
 
         //---------category update -------//
-        $update = DiscountCoupon::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->update([
+        $update = CourseModule::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->update([
                 'discount_type'=>$request->discount_type,
                 'discount_amount'=>$request->discount_amount,
                 'max_usage'=>$request->max_usage,
@@ -271,7 +168,7 @@ private function calculateCoursePrice($course = null , $coupon = null){
         }else{
             flash()->error('Informatin Update Faild !');
         }
-        return redirect()->route('ins_coupon.view',[$id,$slug]);
+        return redirect()->route('ins_coursemodule.view',[$id,$slug]);
 
     } // update end 
 
@@ -283,7 +180,7 @@ private function calculateCoursePrice($course = null , $coupon = null){
      */
     public function softdelete($id){
         $user_id = Auth::user()->id;
-        $data= DiscountCoupon::where('user_id',$user_id)->where('id',$id)->first();
+        $data= CourseModule::where('user_id',$user_id)->where('id',$id)->first();
         $data->delete();
         // ----Delete Successfully ----//
         if($data){
@@ -299,7 +196,7 @@ private function calculateCoursePrice($course = null , $coupon = null){
     **/
     public function restore($id){
         $user_id = Auth::user()->id;
-        $data = DiscountCoupon::withTrashed()->where('user_id',$user_id)->where('id', $id)->first();
+        $data = CourseModule::withTrashed()->where('user_id',$user_id)->where('id', $id)->first();
         $data->restore();
         // Delete Successfully 
         if($data){
@@ -309,14 +206,12 @@ private function calculateCoursePrice($course = null , $coupon = null){
         }
         return redirect()->back();
     }
-
-
    /**
     * ---------  Heard Delete  functionality --------
     **/
     public function delete($id){
         $user_id = Auth::user()->id;
-        $data = DiscountCoupon::onlyTrashed()->where('user_id',$user_id)->where('id', $id)->first();
+        $data = CourseModule::onlyTrashed()->where('user_id',$user_id)->where('id', $id)->first();
         if($data) {
             $data->forceDelete();
             flash()->success('Record Deleted Successfully');
@@ -333,7 +228,7 @@ private function calculateCoursePrice($course = null , $coupon = null){
     **/
     public function public_status($id,$slug){
         $user_id = Auth::user()->id;
-        $published = DiscountCoupon::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
+        $published = CourseModule::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
             'public_status'=>1,
         ]);
         // Delete Successfully 
@@ -350,7 +245,7 @@ private function calculateCoursePrice($course = null , $coupon = null){
     **/
     public function private_status($id,$slug){
         $user_id = Auth::user()->id;
-        $private = DiscountCoupon::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
+        $private = CourseModule::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
             'public_status'=>0,
         ]);
         // Delete Successfully 
@@ -368,8 +263,8 @@ private function calculateCoursePrice($course = null , $coupon = null){
     **/
     public function recycle(){
         $user_id = Auth::user()->id;
-        $all = DiscountCoupon::onlyTrashed()->where('user_id',$user_id)->get();
-        return view('instructor.manage.coupon.recycle',compact('all'));
+        $all = CourseModule::onlyTrashed()->where('user_id',$user_id)->get();
+        return view('instructor.manage.coursemodule.recycle',compact('all'));
     }
    /**
      * =====================================================
@@ -390,12 +285,12 @@ private function calculateCoursePrice($course = null , $coupon = null){
     
         //----- for multiple items soft delete ----//
         if ($action === 'delete') {
-            DiscountCoupon::whereIn('id', $ids)->where('user_id',$user_id)->delete();
+            CourseModule::whereIn('id', $ids)->where('user_id',$user_id)->delete();
             return response()->json(['success' => true, 'message' => 'Selected Items deleted.']);
         }
         //--- for multiple items heard delete -------//
         if ($action === 'heard_delete') {
-            $categories = DiscountCoupon::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = CourseModule::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
         
             foreach ($categories as $category) {
                 // 4. Category force delete
@@ -408,7 +303,7 @@ private function calculateCoursePrice($course = null , $coupon = null){
     
         //---- for multiple items resotre --------//
         if ($action === 'restore') {
-            $categories = DiscountCoupon::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = CourseModule::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
             if($categories){
                 foreach($categories as $data){
                     $data->restore();
@@ -418,11 +313,11 @@ private function calculateCoursePrice($course = null , $coupon = null){
         }
         //----- for multiple items active ----//
         if ($action === 'active') {
-            $categories = DiscountCoupon::whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = CourseModule::whereIn('id', $ids)->where('user_id',$user_id)->get();
 
             if($categories){
                 foreach($categories as $data){
-                    DiscountCoupon::whereIn('id',$ids)->where('public_status',0)->where('user_id',$user_id)->update([
+                    CourseModule::whereIn('id',$ids)->where('public_status',0)->where('user_id',$user_id)->update([
                         'public_status'=>1,
                     ]);
                 }
@@ -432,10 +327,10 @@ private function calculateCoursePrice($course = null , $coupon = null){
 
         //--  for multiple items deactive ----- //
         if ($action === 'deactive') {
-            $categories = DiscountCoupon::whereIn('id', $ids)->get();
+            $categories = CourseModule::whereIn('id', $ids)->get();
             if($categories){
                 foreach($categories as $data){
-                    DiscountCoupon::whereIn('id',$ids)->where('user_id',$user_id)->where('public_status',1)->update([
+                    CourseModule::whereIn('id',$ids)->where('user_id',$user_id)->where('public_status',1)->update([
                         'public_status'=>0,
                     ]);
                 }
@@ -444,5 +339,4 @@ private function calculateCoursePrice($course = null , $coupon = null){
         }
         return response()->json(['success' => false, 'message' => 'Invalid action.']);
     } // bulk action end here 
-    
 }

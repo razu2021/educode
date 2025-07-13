@@ -6,6 +6,7 @@ use App\Http\Controllers\instructor\BillingCheckoutController;
 use App\Http\Controllers\instructor\InstructorController;
 use App\Http\Controllers\instructor\InstructorRequestController;
 use App\Http\Controllers\instructor\manage\InsCourseController;
+use App\Http\Controllers\instructor\manage\InsCourseModuleController;
 use App\Http\Controllers\instructor\manage\InsCoursePriceController;
 use App\Http\Controllers\instructor\manage\InsCuponManageController;
 use Illuminate\Support\Facades\Route;
@@ -154,6 +155,23 @@ Route::controller(InsCuponManageController::class)->prefix('instructor/dashboard
     Route::get('private/{id}/{slug}','private_status')->name('private'); 
 
     Route::post('apply/coupon','apply_coupon')->name('apply_coupon');
+});
+/**==============  cuppon route end here ========================================================================= */
+Route::controller(InsCourseModuleController::class)->prefix('instructor/dashboard/course/module')->name('ins_course_module.')->group(function(){
+    Route::get('all','index')->name('all');
+    Route::get('all/data','all_data')->name('all_data');
+    Route::get('add/{id}/{slug}','add')->name('add');
+    Route::get('view/{id}/{slug}','view')->name('view');
+    Route::get('edit/{id}/{slug}','edit')->name('edit');
+    Route::post('submit','insert')->name('submit');
+    Route::post('update','update')->name('update');
+    Route::delete('softdelete/{id}','softdelete')->name('softdelete');
+    Route::post('restore/{id}','restore')->name('restore');
+    Route::delete('delete/{id}','delete')->name('delete');
+    Route::post('bulk-action','bulkAction')->name('bulkAction');
+    Route::get('recycle','recycle')->name('recycle');
+    Route::get('public/{id}/{slug}','public_status')->name('public');
+    Route::get('private/{id}/{slug}','private_status')->name('private'); 
 });
 
 

@@ -18,4 +18,9 @@ class DiscountCoupon extends Model
     public function editor() {
         return $this->belongsTo(Admin::class, 'editor_id', 'id');
     }
+
+
+    public function course(){
+        return $this->belongsTo(Course::class ,'course_id','id');
+    }
 }
