@@ -22,4 +22,9 @@ class Course_topic extends Model
     public function course(){
         return $this->belongsTo(Course::class ,'course_id','id');
     }
+
+    public function videos()
+    {
+        return $this->hasMany(Course_topic_video::class, 'topic_id', 'id');
+    }
 }

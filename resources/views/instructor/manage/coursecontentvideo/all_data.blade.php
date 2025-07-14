@@ -11,7 +11,7 @@
       <div class="col-6 col-sm-auto ms-auto text-end ps-0">
       <div id="table-purchases-replace-element" class="d-flex align-items-center">
           <!-- New Button -->
-          <a href="{{route('ins_course_content.all')}}">
+          <a href="{{route('ins_course_content_video.all')}}">
           <button class="btn btn-falcon-default btn-sm" type="button">
               <i class="bi bi-sliders"></i>
               <span class="d-none d-sm-inline-block ms-1">Manage All Prices</span>
@@ -32,17 +32,18 @@
                             <i class="bi bi-folder2-open display-4 text-primary"></i>
                         </div>
                         <h5 class="card-title mb-2">{{ $data->courseTopic->count() }}</h5>
+                   
                         <p class="text-muted small mb-3">
                           {{$data->course_name}}
                         </p>
                         <span class="badge bg-primary mb-2">
-                            {{ $data->courseTopic->count() }} {{ Str::plural('Topics', $data->courseTopic->count()) }}
+                           {{ $data->total_videos ?? 'N/A' }}  {{ Str::plural('Videos', $data->courseTopic->count()) }}
                         </span>
-                        <a href="{{route('ins_course_content.add',[$data->id,$data->slug])}}" class="btn btn-sm btn-outline-primary w-100 mt-2">
-                            Create New Topics
+                        <a href="{{route('ins_course_content_video.add',[$data->id,$data->slug])}}" class="btn btn-sm btn-outline-primary w-100 mt-2">
+                            Upload New Video
                         </a>
-                        <a href="{{route('ins_course_content.all_topics',[$data->id,$data->slug])}}" class="btn btn-sm btn-outline-primary w-100 mt-2">
-                            View all Topics
+                        <a href="{{route('ins_course_content_video.all_topics',[$data->id,$data->slug])}}" class="btn btn-sm btn-outline-primary w-100 mt-2">
+                            View all Videos
                         </a>
                     </div>
                 </div>

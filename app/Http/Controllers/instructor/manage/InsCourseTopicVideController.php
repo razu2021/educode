@@ -8,11 +8,11 @@ use Carbon\Carbon; //----------  defualt -------
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Course;
-use App\Models\Course_topic;
+use App\Models\Course_topic_video;
 
-class InsCourseContentController extends Controller
+class InsCourseTopicVideController extends Controller
 {
-      /**
+          /**
      * =============================================================
      * ==============================================================================================  SHOW FUNCTION START HERE ========================================================
      * =============================================================
@@ -21,25 +21,26 @@ class InsCourseContentController extends Controller
         $user_id = Auth::user()->id;
         $search = $request['search'] ?? "";
         if($search !=""){
-            $all = Course_topic::where('user_id',$user_id)->where('status',1)->where('original_price','LIKE',"%$search%")
+            $all = Course_topic_video::where('user_id',$user_id)->where('status',1)->where('original_price','LIKE',"%$search%")
             ->orWhere('discounted_price','LIKE',"%$search%")->orWhere('currency','LIKE',"%$search%")->orWhere('pricing_type','LIKE','%search%')->get();
         }else{
-            $all = Course_topic::where('user_id',$user_id)->where('status',1)->get();
+            $all = Course_topic_video::where('user_id',$user_id)->where('status',1)->get();
         }
-        return view('instructor.manage.coursecontent.index',compact('all'));
+        return view('instructor.manage.coursecontentvideo.index',compact('all'));
     }
 
 
     public function all_data(){
         $user_id = Auth::user()->id;
-        $all = Course::with(['courseTopic'])->withCount('courseTopic')->where('user_id',$user_id)->where('status',1)->get();
-       
-        return view('instructor.manage.coursecontent.all_data',compact('all'));
+        $all = Course::with(['courseTopic','courseTopic.videos'])->withCount('courseTopic')->where('user_id',$user_id)->where('status',1)->get();
+    
+        return view('instructor.manage.coursecontentvideo.all_data',compact('all'));
     }
     public function all_topics($id,$slug){
         $user_id = Auth::user()->id;
-        $all =Course::with(['courseTopic'])->where('user_id',$user_id)->where('slug',$slug)->where('status',1)->get();
-        return view('instructor.manage.coursecontent.all_topics',compact('all'));
+        $all =Course::with(['courseTopic','courseTopic.videos'])->where('user_id',$user_id)->where('slug',$slug)->where('status',1)->get();
+    
+        return view('instructor.manage.coursecontentvideo.all_topics',compact('all'));
     }
 
 
@@ -49,9 +50,10 @@ class InsCourseContentController extends Controller
 
     public function add($id,$slug){
         $user_id = Auth::user()->id;
-        $data = Course::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        $data = Course::with(['courseTopic'])->where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
        
-        return view('instructor.manage.coursecontent.add',compact('data'));
+        
+        return view('instructor.manage.coursecontentvideo.add',compact('data'));
     }
 
    /**
@@ -59,8 +61,8 @@ class InsCourseContentController extends Controller
     **/
     public function view($id,$slug){
         $user_id = Auth::user()->id;
-        $data=Course_topic::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        return view('instructor.manage.coursecontent.view',compact('data'));
+        $data=Course_topic_video::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        return view('instructor.manage.coursecontentvideo.view',compact('data'));
     }
 
 
@@ -68,11 +70,10 @@ class InsCourseContentController extends Controller
     * ---------  edit page functionality --------
     **/
     public function edit($id,$slug){
-        $totalpost  = Course_topic::get()->count();
-        $latestPost = Course_topic::latest()->first();
         $user_id = Auth::user()->id;
-        $data=Course_topic::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        return view('instructor.manage.coursecontent.edit',compact('totalpost','latestPost','data'));
+
+        $data=Course_topic_video::with(['topic.course'])->where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        return view('instructor.manage.coursecontentvideo.edit',compact('data'));
     }
 
 
@@ -84,11 +85,19 @@ class InsCourseContentController extends Controller
     public function insert(Request $request){
         /**--- validation code -- */
         $request->validate([
+                'topic_id'  => 'required',
                 'title'  => 'required',
                 'description'  => 'required',
+                'video_url'  => 'required',
+                'video_type'  => 'required',
+                'is_preview'  => 'required',
             ],[
-                'title.required'=> 'Module Title is Required !',
-                'description.required'=> 'Module Description is Required !',
+                'topic.required'=> 'Topic is Reequired !',
+                'title.required'=> 'Video Title is Required !',
+                'video_url.required'=> 'Video URL is Required !',
+                'video_type.required'=> 'Video Type is Required !',
+                'is_preview.required'=> 'Video Visibility is Required !',
+                'description.required'=> 'video Description is Required !',
             ]
         );
       
@@ -96,10 +105,15 @@ class InsCourseContentController extends Controller
         $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();
         $user_id = Auth::user()->id;
         //-------  insert category record --------
-        $insert = Course_topic::create([
+        $insert = Course_topic_video::create([
+            'topic_id'=>$request->topic_id,
             'title'=>$request->title,
+            'video_url'=>$request->video_url,
+            'video_type'=>$request->video_type,
+            'duration'=>$request->duration,
+            'is_preview'=>$request->is_preview,
+            'position'=>$request->position,
             'description'=>$request->description,
-            'course_id'=>$request->course_id,
             'public_status'=>1,
             'slug'=>$slug,
             'user_id' => $user_id,
@@ -108,7 +122,7 @@ class InsCourseContentController extends Controller
         // insert Successfully 
         if($insert){
             flash()->success('Information Added Successfuly');
-            return redirect()->route('ins_course_content.all_data');
+            return redirect()->route('ins_course_content_video.all_data');
         }else{
             flash()->error('Informatin Added Faild !');
         }
@@ -137,7 +151,7 @@ class InsCourseContentController extends Controller
         $user_id = Auth::user()->id;
 
         //---------category update -------//
-        $update = Course_topic::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->update([
+        $update = Course_topic_video::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->update([
                 'title'=>$request->title,
                 'description'=>$request->description,
                 'updated_at' => Carbon::now()->toDateTimeString(),
@@ -148,7 +162,7 @@ class InsCourseContentController extends Controller
         }else{
             flash()->error('Informatin Update Faild !');
         }
-        return redirect()->route('ins_course_content.view',[$id,$slug]);
+        return redirect()->route('ins_course_content_video.view',[$id,$slug]);
 
     } // update end 
 
@@ -160,7 +174,7 @@ class InsCourseContentController extends Controller
      */
     public function softdelete($id){
         $user_id = Auth::user()->id;
-        $data= Course_topic::where('user_id',$user_id)->where('id',$id)->first();
+        $data= Course_topic_video::where('user_id',$user_id)->where('id',$id)->first();
         $data->delete();
         // ----Delete Successfully ----//
         if($data){
@@ -176,7 +190,7 @@ class InsCourseContentController extends Controller
     **/
     public function restore($id){
         $user_id = Auth::user()->id;
-        $data = Course_topic::withTrashed()->where('user_id',$user_id)->where('id', $id)->first();
+        $data = Course_topic_video::withTrashed()->where('user_id',$user_id)->where('id', $id)->first();
         $data->restore();
         // Delete Successfully 
         if($data){
@@ -191,7 +205,7 @@ class InsCourseContentController extends Controller
     **/
     public function delete($id){
         $user_id = Auth::user()->id;
-        $data = Course_topic::onlyTrashed()->where('user_id',$user_id)->where('id', $id)->first();
+        $data = Course_topic_video::onlyTrashed()->where('user_id',$user_id)->where('id', $id)->first();
         if($data) {
             $data->forceDelete();
             flash()->success('Record Deleted Successfully');
@@ -208,7 +222,7 @@ class InsCourseContentController extends Controller
     **/
     public function public_status($id,$slug){
         $user_id = Auth::user()->id;
-        $published = Course_topic::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
+        $published = Course_topic_video::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
             'public_status'=>1,
         ]);
         // Delete Successfully 
@@ -225,7 +239,7 @@ class InsCourseContentController extends Controller
     **/
     public function private_status($id,$slug){
         $user_id = Auth::user()->id;
-        $private = Course_topic::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
+        $private = Course_topic_video::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
             'public_status'=>0,
         ]);
         // Delete Successfully 
@@ -243,8 +257,8 @@ class InsCourseContentController extends Controller
     **/
     public function recycle(){
         $user_id = Auth::user()->id;
-        $all = Course_topic::onlyTrashed()->where('user_id',$user_id)->get();
-        return view('instructor.manage.coursecontent.recycle',compact('all'));
+        $all = Course_topic_video::onlyTrashed()->where('user_id',$user_id)->get();
+        return view('instructor.manage.coursecontentvideo.recycle',compact('all'));
     }
    /**
      * =====================================================
@@ -265,12 +279,12 @@ class InsCourseContentController extends Controller
     
         //----- for multiple items soft delete ----//
         if ($action === 'delete') {
-            Course_topic::whereIn('id', $ids)->where('user_id',$user_id)->delete();
+            Course_topic_video::whereIn('id', $ids)->where('user_id',$user_id)->delete();
             return response()->json(['success' => true, 'message' => 'Selected Items deleted.']);
         }
         //--- for multiple items heard delete -------//
         if ($action === 'heard_delete') {
-            $categories = Course_topic::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = Course_topic_video::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
         
             foreach ($categories as $category) {
                 // 4. Category force delete
@@ -283,7 +297,7 @@ class InsCourseContentController extends Controller
     
         //---- for multiple items resotre --------//
         if ($action === 'restore') {
-            $categories = Course_topic::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = Course_topic_video::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
             if($categories){
                 foreach($categories as $data){
                     $data->restore();
@@ -293,11 +307,11 @@ class InsCourseContentController extends Controller
         }
         //----- for multiple items active ----//
         if ($action === 'active') {
-            $categories = Course_topic::whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = Course_topic_video::whereIn('id', $ids)->where('user_id',$user_id)->get();
 
             if($categories){
                 foreach($categories as $data){
-                    Course_topic::whereIn('id',$ids)->where('public_status',0)->where('user_id',$user_id)->update([
+                    Course_topic_video::whereIn('id',$ids)->where('public_status',0)->where('user_id',$user_id)->update([
                         'public_status'=>1,
                     ]);
                 }
@@ -307,10 +321,10 @@ class InsCourseContentController extends Controller
 
         //--  for multiple items deactive ----- //
         if ($action === 'deactive') {
-            $categories = Course_topic::whereIn('id', $ids)->get();
+            $categories = Course_topic_video::whereIn('id', $ids)->get();
             if($categories){
                 foreach($categories as $data){
-                    Course_topic::whereIn('id',$ids)->where('user_id',$user_id)->where('public_status',1)->update([
+                    Course_topic_video::whereIn('id',$ids)->where('user_id',$user_id)->where('public_status',1)->update([
                         'public_status'=>0,
                     ]);
                 }
@@ -323,9 +337,4 @@ class InsCourseContentController extends Controller
 
 
 
-
-
-
-
-    
 }

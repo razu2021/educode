@@ -30,11 +30,18 @@ class Course extends Model
         return $this->hasOne(CourseModule::class, 'course_id', 'id');
     }
     /** ---- course module ---- */
-    public function courseContent()
+    public function courseTopic()
     {
-        return $this->hasOne(CourseModule::class, 'course_id', 'id');
+        return $this->hasMany(Course_topic::class, 'course_id', 'id');
     }
 
+    //  total video count 
+    public function getTotalVideosAttribute()
+    {
+        return $this->courseTopic->sum(function ($topic) {
+            return $topic->videos->count();
+        });
+    }
 
 
 

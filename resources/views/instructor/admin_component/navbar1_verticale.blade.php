@@ -210,13 +210,9 @@
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Content</span></div>
                             </a>
                         </li>
+                       
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Create New Content</span></div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                            <a class="nav-link" href="{{route('ins_course_content_video.all_data')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Upload Video Content</span></div>
                             </a>
                         </li>
