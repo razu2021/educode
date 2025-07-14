@@ -34,7 +34,6 @@ class Course extends Model
     {
         return $this->hasMany(Course_topic::class, 'course_id', 'id');
     }
-
     //  total video count 
     public function getTotalVideosAttribute()
     {

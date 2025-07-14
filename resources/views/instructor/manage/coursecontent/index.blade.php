@@ -18,7 +18,7 @@
 <div class="card z-1 mb-3" id="recentPurchaseTable" data-list="{&quot;valueNames&quot;:[&quot;name&quot;,&quot;email&quot;,&quot;product&quot;,&quot;payment&quot;,&quot;amount&quot;],&quot;page&quot;:8,&quot;pagination&quot;:true}">
     <div class="card-header">
       <div class="text-center pt-2 pb-2 ">
-        <h4 class="fs-6">Course Module Management  </h4>  
+        <h4 class="fs-6">Course contnet Management  </h4>  
       </div>
         {{-- search option  --}}
         <div class="searchess mb-4 ">
@@ -39,7 +39,7 @@
         {{-- search end  --}}
       <div class="row flex-between-center">
         <div class="col-6 col-sm-auto d-flex align-items-center pe-0">
-          <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Module Infomations </h5>
+          <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Content Infomations </h5>
         </div>
         <div class="col-6 col-sm-auto ms-auto text-end ps-0">
           <div class="d-none" id="table-purchases-actions">

@@ -8,6 +8,7 @@ use Carbon\Carbon; //----------  defualt -------
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\Course_topic;
 use App\Models\Course_topic_video;
 
 class InsCourseTopicVideController extends Controller
@@ -21,10 +22,24 @@ class InsCourseTopicVideController extends Controller
         $user_id = Auth::user()->id;
         $search = $request['search'] ?? "";
         if($search !=""){
-            $all = Course_topic_video::where('user_id',$user_id)->where('status',1)->where('original_price','LIKE',"%$search%")
-            ->orWhere('discounted_price','LIKE',"%$search%")->orWhere('currency','LIKE',"%$search%")->orWhere('pricing_type','LIKE','%search%')->get();
+            $all = Course_topic_video::with('topic.course')->where('user_id',$user_id)->where('status',1)->where(function ($query) use ($search) {
+                $query->where('title', 'LIKE', "%$search%")
+                    ->orWhere('description', 'LIKE', "%$search%")
+                    ->orWhere('video_type', 'LIKE', "%$search%")
+                    
+                    // Search in course_topic table (e.g. course_name)
+                    ->orWhereHas('topic', function ($q) use ($search) {
+                        $q->where('title', 'LIKE', "%$search%");
+                    })
+
+                    //  Search in course table (e.g. title)
+                    ->orWhereHas('topic.course', function ($q) use ($search) {
+                        $q->where('course_name', 'LIKE', "%$search%");
+                    });
+            })
+            ->get();
         }else{
-            $all = Course_topic_video::where('user_id',$user_id)->where('status',1)->get();
+            $all = Course_topic_video::with(['topic.course'])->where('user_id',$user_id)->where('status',1)->get();
         }
         return view('instructor.manage.coursecontentvideo.index',compact('all'));
     }
@@ -71,9 +86,12 @@ class InsCourseTopicVideController extends Controller
     **/
     public function edit($id,$slug){
         $user_id = Auth::user()->id;
-
         $data=Course_topic_video::with(['topic.course'])->where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        return view('instructor.manage.coursecontentvideo.edit',compact('data'));
+        $course_id = $data->topic->course_id;
+        
+        $course_topic = Course_topic::where('course_id',$course_id)->get();
+    
+        return view('instructor.manage.coursecontentvideo.edit',compact('data','course_topic'));
     }
 
 
@@ -138,11 +156,19 @@ class InsCourseTopicVideController extends Controller
     public function update(Request $request){
         /**--- validation code -- */
         $request->validate([
+                'topic_id'  => 'required',
                 'title'  => 'required',
                 'description'  => 'required',
+                'video_url'  => 'required',
+                'video_type'  => 'required',
+                'is_preview'  => 'required',
             ],[
-                'title.required'=> 'Module Title is Required !',
-                'description.required'=> 'Module Description is Required !',
+                'topic.required'=> 'Topic is Reequired !',
+                'title.required'=> 'Video Title is Required !',
+                'video_url.required'=> 'Video URL is Required !',
+                'video_type.required'=> 'Video Type is Required !',
+                'is_preview.required'=> 'Video Visibility is Required !',
+                'description.required'=> 'video Description is Required !',
             ]
         );
         //--- get specific Credential for update record & editor id --------
@@ -152,9 +178,15 @@ class InsCourseTopicVideController extends Controller
 
         //---------category update -------//
         $update = Course_topic_video::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->update([
-                'title'=>$request->title,
-                'description'=>$request->description,
-                'updated_at' => Carbon::now()->toDateTimeString(),
+            'topic_id'=>$request->topic_id,
+            'title'=>$request->title,
+            'video_url'=>$request->video_url,
+            'video_type'=>$request->video_type,
+            'duration'=>$request->duration,
+            'is_preview'=>$request->is_preview,
+            'position'=>$request->position,
+            'description'=>$request->description,
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         // ------insert Successfully--------// 
         if($update){

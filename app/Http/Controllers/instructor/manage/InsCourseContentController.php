@@ -72,6 +72,7 @@ class InsCourseContentController extends Controller
         $latestPost = Course_topic::latest()->first();
         $user_id = Auth::user()->id;
         $data=Course_topic::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        
         return view('instructor.manage.coursecontent.edit',compact('totalpost','latestPost','data'));
     }
 

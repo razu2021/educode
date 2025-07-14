@@ -33,19 +33,19 @@
                                   
                                 </div>
                                  {{-- category end --}}
-                                {{-- <div class="col-12 mb-1">
+                                <div class="col-12 mb-1">
                                     <label class="form-label" for="course_name">Course Name: <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
-                                    <input class="form-control" name="course_name" id="course_name" type="text" value="{{$data->course->course_name}}" disabled>
+                                    <input class="form-control" name="course_name" id="course_name" type="text" value="{{$data->topic->course->course_name}}" disabled>
                                     <input class="form-control" name="course_id" id="course_id" type="hidden" value="{{$data->id}}" > 
                                     <label class="text-danger fw-medium">@error('course_name') {{$message}} @enderror</label>
-                                </div> --}}
+                                </div>
                                 {{-- end --}}
                                 {{-- category end --}}
                                   <div class="col-12 mb-1">
                                     <label class="form-label" for="course_name">Select Course Topic: <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
                                     <select name="topic_id" id="topic_id" class="form-control">
-                                        <option value="">Select Course Topic </option>
-                                        @foreach ($data->courseTopic as $topic)
+                                        <option value="{{$data->topic->id}}">{{$data->topic->title ?? 'Someting is wrong !'}} </option>
+                                        @foreach ($course_topic as $topic)
                                             <option value="{{$topic->id}}">{{$topic->title ?? 'No Topics Founded !'}}</option>
                                         @endforeach
                                     </select>
@@ -55,26 +55,26 @@
                            
                                 <div class="col-6 mb-1">
                                     <label class="form-label" for="title">Content/Topic Title : <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
-                                    <input class="form-control" name="title" id="title" type="text" value="{{old('title')}}">
+                                    <input class="form-control" name="title" id="title" type="text" value="{{$data->title}}">
                                     <label class="text-danger fw-medium">@error('title') {{$message}} @enderror</label>
                                 </div>
                                 {{-- end  --}}
                                 <div class="col-6 mb-1">
                                     <label class="form-label" for="video_url">Video URL : <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
-                                    <input class="form-control" name="video_url" id="video_url" type="text" value="{{old('video_url')}}">
+                                    <input class="form-control" name="video_url" id="video_url" type="text" value="{{$data->video_url}}">
                                     <label class="text-danger fw-medium">@error('video_url') {{$message}} @enderror</label>
                                 </div>
                                 {{-- end --}}
                                 <div class="col-6 mb-1">
                                     <label class="form-label" for="duration">video Duration : <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
-                                    <input class="form-control" name="duration" id="duration" type="number" value="{{old('duration')}}">
-                                    <label class="text-danger fw-medium">@error('title') {{$message}} @enderror</label>
+                                    <input class="form-control" name="duration" id="duration" type="number" value="{{$data->duration}}">
+                                    <label class="text-danger fw-medium">@error('duration') {{$message}} @enderror</label>
                                 </div>
                                 {{-- end --}}
                                 <div class="col-6 mb-1">
                                     <label class="form-label" for="video_type">Platfrom Name : <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
                                     <select name="video_type" id="video_type" class="form-control">
-                                        <option value="">Select Platfrom Type</option>
+                                        <option value="{{$data->video_type}}">{{$data->video_type}}</option>
                                         <option value="youtube">Youtube</option>
                                         <option value="vimeo">Vimeo</option>
                                     </select>
@@ -84,7 +84,7 @@
                                 <div class="col-6 mb-1">
                                     <label class="form-label" for="is_preview"> Visibility : <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
                                     <select name="is_preview" id="is_preview" class="form-control">
-                                        <option value="">Select Visibility </option>
+                                        <option value="{{$data->is_priview}}">{{$data->is_priview ?? 'Not Found'}} </option>
                                         <option value="1">Video for Free</option>
                                         <option value="0">Video for Paid </option>
                                     </select>
@@ -93,13 +93,13 @@
                                 {{-- end --}}
                                 <div class="col-6 mb-1">
                                     <label class="form-label" for="position">video Order : <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
-                                    <input class="form-control" name="position" id="position" type="number" value="{{old('position')}}">
+                                    <input class="form-control" name="position" id="position" type="number" value="{{$data->position ?? '0'}}">
                                     <label class="text-danger fw-medium">@error('position') {{$message}} @enderror</label>
                                 </div>
                                 {{-- end --}}
                                 <div class="col-12 mb-1">
                                     <label class="form-label" for="description"> Description <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
-                                    <textarea class="form-control" name="description" id="description">{{old('description')}}</textarea>
+                                    <textarea class="form-control" name="description" id="description">{{$data->description ?? 'No Data Available '}}</textarea>
                                     <label class="text-danger fw-medium">@error('description') {{$message}} @enderror</label>
                                 </div>
                                 {{-- end --}}
