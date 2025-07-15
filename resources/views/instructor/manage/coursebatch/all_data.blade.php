@@ -6,12 +6,12 @@
   {{-- search end  --}}
   <div class="row flex-between-center mb-4">
       <div class="col-6 col-sm-auto d-flex align-items-center pe-0">
-      <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0"> Course Batch Infomations </h5>
+      <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Course Batch Infomations </h5>
       </div>
       <div class="col-6 col-sm-auto ms-auto text-end ps-0">
       <div id="table-purchases-replace-element" class="d-flex align-items-center">
           <!-- New Button -->
-          <a href="{{route('ins_course_attachment.all')}}">
+          <a href="{{route('ins_course_batch.all')}}">
           <button class="btn btn-falcon-default btn-sm" type="button">
               <i class="bi bi-sliders"></i>
               <span class="d-none d-sm-inline-block ms-1">Manage All Batch</span>
@@ -31,18 +31,18 @@
                         <div class="mb-3">
                             <i class="bi bi-folder2-open display-4 text-primary"></i>
                         </div>
-                        <h5 class="card-title mb-2">{{ $data->courseAttachment->count() }}</h5>
+                        <h5 class="card-title mb-2">{{ $data->courseBatch->count() }}</h5>
                         <p class="text-muted small mb-3">
                           {{$data->course_name}}
                         </p>
                         <span class="badge bg-primary mb-2">
-                          {{ $data->courseAttachment->count() }} {{ Str::plural('Attachment', $data->courseAttachment->count()) }}
+                          {{ $data->courseBatch->count() }} {{ Str::plural('Batch', $data->courseBatch->count()) }}
                         </span>
-                        <a href="{{route('ins_course_attachment.add',[$data->id,$data->slug])}}" class="btn btn-sm btn-outline-primary w-100 mt-2">
-                            Upload New Attachment
+                        <a href="{{route('ins_course_batch.add',[$data->id,$data->slug])}}" class="btn btn-sm btn-outline-primary w-100 mt-2">
+                            Create a New Batch
                         </a>
-                        <a href="{{route('ins_course_attachment.all_topics',[$data->id,$data->slug])}}" class="btn btn-sm btn-outline-primary w-100 mt-2">
-                            View All Attachments
+                        <a href="{{route('ins_course_batch.all_topics',[$data->id,$data->slug])}}" class="btn btn-sm btn-outline-primary w-100 mt-2">
+                            View All Batch
                         </a>
                     </div>
                 </div>

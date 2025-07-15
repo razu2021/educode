@@ -27,7 +27,7 @@ class InsCourseTopicVideController extends Controller
                     ->orWhere('description', 'LIKE', "%$search%")
                     ->orWhere('video_type', 'LIKE', "%$search%")
                     
-                    // Search in course_topic table (e.g. course_name)
+                    // Search in course_topic table (e.g. mdrazuhossainraj01817078309course_name)
                     ->orWhereHas('topic', function ($q) use ($search) {
                         $q->where('title', 'LIKE', "%$search%");
                     })

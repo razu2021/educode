@@ -48,11 +48,19 @@ class Course extends Model
         return $this->hasMany(CourseAttchment::class, 'course_id', 'id');
     }
     public function getTotalAttachmentsAttribute()
-{
-    return $this->courseAttachment->count();
-}
+    {
+        return $this->courseAttachment->count();
+    }
  
-
+    //----------  course batch 
+    public function courseBatch()
+    {
+        return $this->hasMany(Course_batch::class, 'course_id', 'id');
+    }
+    public function getTotalBatchsAttribute()
+    {
+        return $this->courseBatch->count();
+    }
 
 
 
