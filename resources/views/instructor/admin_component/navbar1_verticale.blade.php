@@ -223,7 +223,7 @@
                     </a>
                     <ul class="nav collapse" id="course_attachment">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                            <a class="nav-link" href="{{route('ins_course_attachment.all_data')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Attachment</span></div>
                             </a>
                         </li>

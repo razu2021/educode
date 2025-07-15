@@ -5,6 +5,7 @@ use App\Http\Controllers\backend\subscription\SubscriptionController;
 use App\Http\Controllers\instructor\BillingCheckoutController;
 use App\Http\Controllers\instructor\InstructorController;
 use App\Http\Controllers\instructor\InstructorRequestController;
+use App\Http\Controllers\instructor\manage\InsCourseAttachmentController;
 use App\Http\Controllers\instructor\manage\InsCourseContentController;
 use App\Http\Controllers\instructor\manage\InsCourseController;
 use App\Http\Controllers\instructor\manage\InsCourseModuleController;
@@ -195,6 +196,24 @@ Route::controller(InsCourseContentController::class)->prefix('instructor/dashboa
 });
 /**==============  cuppon route end here ========================================================================= */
 Route::controller(InsCourseTopicVideController::class)->prefix('instructor/dashboard/course/contents/video')->name('ins_course_content_video.')->group(function(){
+    Route::get('all','index')->name('all');
+    Route::get('all/data','all_data')->name('all_data');
+    Route::get('add/{id}/{slug}','add')->name('add');
+    Route::get('view/{id}/{slug}','view')->name('view');
+    Route::get('edit/{id}/{slug}','edit')->name('edit');
+    Route::post('submit','insert')->name('submit');
+    Route::post('update','update')->name('update');
+    Route::delete('softdelete/{id}','softdelete')->name('softdelete');
+    Route::post('restore/{id}','restore')->name('restore');
+    Route::delete('delete/{id}','delete')->name('delete');
+    Route::post('bulk-action','bulkAction')->name('bulkAction');
+    Route::get('recycle','recycle')->name('recycle');
+    Route::get('public/{id}/{slug}','public_status')->name('public');
+    Route::get('private/{id}/{slug}','private_status')->name('private'); 
+    Route::get('all/course/topics/{id}/{slug}','all_topics')->name('all_topics'); 
+});
+/**==============  course attachments here ========================================================================= */
+Route::controller(InsCourseAttachmentController::class)->prefix('instructor/dashboard/course/attachment')->name('ins_course_attachment.')->group(function(){
     Route::get('all','index')->name('all');
     Route::get('all/data','all_data')->name('all_data');
     Route::get('add/{id}/{slug}','add')->name('add');

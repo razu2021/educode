@@ -42,6 +42,17 @@ class Course extends Model
         });
     }
 
+    // course attachment 
+    public function courseAttachment()
+    {
+        return $this->hasMany(CourseAttchment::class, 'course_id', 'id');
+    }
+    public function getTotalAttachmentsAttribute()
+{
+    return $this->courseAttachment->count();
+}
+ 
+
 
 
 

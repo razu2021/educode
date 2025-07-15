@@ -32,7 +32,8 @@
                                          <div class="mx-4 my-3 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center" style=" box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; padding:10px 10px">
                                           <div class="title"><span><i class="bi bi-play"></i> </span> {{$video->title}}</div>
                                           <div class="preview">
-                                            <a class="btn btn-sm mx-2 btn-outline-primary " href=""><span> Preview </span></a>
+                                            <a class="btn btn-sm mx-2 btn-outline-primary previewBtn" href="javascript::voied(0)"   data-video-type="{{ $video->video_type }}"
+                                               data-video-src="{{ $video->video_url ?? asset('uploads/videos/'.$video->video_file) }}" ><span> Preview </span></a>
                                             <a class="btn btn-sm mx-2 btn-outline-warning " href="{{route('ins_course_content_video.edit',[$video->id,$video->slug])}}"><span> <i class="bi bi-pencil-square"></i> </span></a>
                                             <a class="btn btn-sm mx-2 btn-outline-info " href="{{route('ins_course_content_video.view',[$video->id,$video->slug])}}"><span> <i class="bi bi-eye-fill"></i></span></a>
                                             
@@ -57,46 +58,64 @@
 </div>
 
 
-@foreach ($all as $data)
-                            
-@foreach ($data->courseTopic as $topic)
-<div class="modal fade" id="modal{{$topic->id}}" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
-    <div class="modal-content position-relative">
-      <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
-        <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+
+
+
+
+<!-- Video Preview Modal -->
+<div class="modal fade" id="videoPreviewModal" tabindex="-1" aria-labelledby="videoPreviewLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="videoPreviewLabel">Video Preview</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body p-0">
-        <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
-          <h4 class="mb-1" id="modalExampleDemoLabel">Add a new illustration </h4>
-        </div>
-        <div class="p-4 pb-0">
-          <form>
-            <div class="mb-3">
-              <label class="col-form-label" for="recipient-name">Recipient:</label>
-              <input class="form-control" id="recipient-name" type="text" value="{{$topic->course_id}}"/>
-            </div>
-            <div class="mb-3">
-              <label class="col-form-label" for="recipient-name">Recipient:</label>
-              <input class="form-control" id="recipient-name" type="text" value="{{$topic->id}}"/>
-            </div>
-            <div class="mb-3">
-              <label class="col-form-label" for="message-text">Message:</label>
-              <textarea class="form-control" id="message-text"></textarea>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-        <button class="btn btn-primary" type="button">Understood </button>
+      <div class="modal-body" id="videoPreviewBody">
+        {{-- Dynamic Video Will Be Injected Here --}}
       </div>
     </div>
   </div>
 </div>
-@endforeach
-@endforeach
 
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const previewBtns = document.querySelectorAll('.previewBtn');
+    const modalBody = document.getElementById('videoPreviewBody');
+
+    previewBtns.forEach(button => {
+        button.addEventListener('click', () => {
+            const type = button.getAttribute('data-video-type');
+            const src = button.getAttribute('data-video-src');
+            let html = '';
+
+            if (type === 'youtube') {
+                html = `<iframe width="100%" height="400" src="https://www.youtube.com/embed/${src}" frameborder="0" allowfullscreen></iframe>`;
+            } else if (type === 'vimeo') {
+                html = `<iframe src="https://player.vimeo.com/video/${src}" width="100%" height="400" frameborder="0" allowfullscreen></iframe>`;
+            } else if (type === 'upload' || type === 'external') {
+                html = `
+                    <video width="100%" height="400" controls preload="metadata" playsinline>
+                        <source src="${src}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                `;
+            } else {
+                html = `<div class="alert alert-warning">Invalid video source</div>`;
+            }
+
+            modalBody.innerHTML = html;
+            new bootstrap.Modal(document.getElementById('videoPreviewModal')).show();
+        });
+    });
+
+    // Clear modal on close
+    document.getElementById('videoPreviewModal').addEventListener('hidden.bs.modal', function () {
+        modalBody.innerHTML = '';
+    });
+});
+
+</script>
 
 @endsection 

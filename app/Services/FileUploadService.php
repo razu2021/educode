@@ -45,12 +45,7 @@ class FileUploadService{
     return $this;
     }
 
-    public function deleteOldFile() {
-        if ($this->oldfile && File::exists(public_path($this->oldfile))) {
-            File::delete(public_path($this->oldfile));
-        }
-    }
-
+  
    
 
   public function upload(): ?string {
@@ -71,6 +66,12 @@ class FileUploadService{
 
     return $this->path . $this->filename;
 }
+
+  public function deleteOldFile() {
+        if ($this->oldfile && File::exists(public_path($this->oldfile))) {
+            File::delete(public_path($this->oldfile));
+        }
+    }
 
 
 

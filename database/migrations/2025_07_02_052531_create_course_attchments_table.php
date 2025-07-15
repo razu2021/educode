@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('course_id')->constrained()->onDelete('cascade'); // কোন কোর্সের টপিক
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade'); 
-            $table->string('title');
-            $table->string('file');
+            $table->string('title')->nullable();
+            $table->string('file')->nullable();
             $table->integer('sort_order')->default(0);
             $table->boolean('is_downloadable')->default(true);
            
