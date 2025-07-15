@@ -28,7 +28,7 @@
                                     <h2 class="accordion-header" id="heading1"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$topic->id}}" aria-expanded="true" aria-controls="collapse1">{{$topic->title ?? 'No Title Found !'}}</button></h2>
                                     <div class="accordion-collapse collapse " id="collapse{{$topic->id}}" aria-labelledby="heading1" data-bs-parent="#accordionExample">
                                       <div class="mx-4 my-3 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center" style=" box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; padding:10px 10px">
-                                          <div class="title"><span><i class="bi bi-file-earmark-pdf"></i> </span> {{$topic->file ?? 'File Not Found'}}</div>
+                                          <div class="title w-75 border-left-1"><span><i class="bi bi-file-earmark-pdf"></i> </span> {!! Str::words($topic->description,20) !!}</div>
                                           <div class="preview">
                                             <a class="btn btn-sm mx-2 btn-outline-primary previewBtn" target="_blank" href="{{asset($topic->file ?? '')}}"   ><span> Preview </span></a>
                                             <a class="btn btn-sm mx-2 btn-outline-warning " href="{{route('ins_course_batch.edit',[$topic->id,$topic->slug])}}"><span> <i class="bi bi-pencil-square"></i> </span></a>
