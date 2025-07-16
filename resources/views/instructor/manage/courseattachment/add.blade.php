@@ -44,7 +44,7 @@
                                  <div class="col-6 mb-1">
                                     <label class="form-label" for="position"> Is Downloadable : </label>
                                     <select name="is_downloadable" id="is_downloadable" class="form-control">
-                                        <option value="1">Paid Document</option>
+                                        <option value="1" >Paid Document</option>
                                         <option value="0">free Document</option>
                                     </select>
                                     <label class="text-danger fw-medium">@error('position') {{$message}} @enderror</label>

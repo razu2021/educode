@@ -16,16 +16,15 @@ return new class extends Migration
             $table->foreignId('course_id')->constrained()->onDelete('cascade'); // কোন কোর্সের টপিক
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');   
             // Schedule details
-            $table->string('title'); // e.g., "July Morning Batch"
+            $table->string('batchid')->nullable(); // e.g., "July Morning Batch"
+            $table->string('title')->nullable(); // e.g., "July Morning Batch"
             $table->text('description')->nullable();
 
-            $table->date('start_date');
+            $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
 
             $table->integer('assign_instructor')->nullable(); // Max students
             $table->integer('capacity')->nullable(); // Max students
-           
-
             // defualt feild
             $table->string('slug',255)->nullable();
             $table->integer('creator_id')->nullable();
