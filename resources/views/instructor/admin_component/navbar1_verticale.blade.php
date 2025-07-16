@@ -227,12 +227,6 @@
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Attachment</span></div>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Create New Attchament</span></div>
-                            </a>
-                        </li>
-                        
                     </ul>
                     {{-- end  --}}
                     <a class="nav-link dropdown-indicator" href="#course_batch" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
@@ -240,7 +234,7 @@
                     </a>
                     <ul class="nav collapse" id="course_batch">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                            <a class="nav-link" href="{{route('ins_course_batch.all_data')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Batch</span></div>
                             </a>
                         </li>
