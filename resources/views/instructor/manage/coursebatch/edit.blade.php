@@ -42,34 +42,27 @@
                                 {{-- end --}}
                                 {{-- category end --}}
                                 <div class="col-12 mb-1">
-                                    <label class="form-label" for="title">Attachment Title : <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
+                                    <label class="form-label" for="title">Batch Title : <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
                                     <input class="form-control" name="title" id="title" type="text" value="{{$data->title}}">
                                     <label class="text-danger fw-medium">@error('title') {{$message}} @enderror</label>
                                 </div>
                                 {{-- end --}}
-                                <div class="col-6 mb-1">
-                                    <label class="form-label" for="position"> Is Downloadable : </label>
-                                    <select name="is_downloadable" id="is_downloadable" class="form-control">
-                                        <option value="1">Paid Document</option>
-                                        <option value="0">free Document</option>
-                                    </select>
-                                    <label class="text-danger fw-medium">@error('position') {{$message}} @enderror</label>
+                                    <div class="col-6 mb-1">
+                                    <label class="form-label" for="start_date"> Batch Start Date : </label>
+                                   <input type="date" name="start_date" id="start_date" class="form-control" value="{{$data->start_date}}">
+                                    <label class="text-danger fw-medium">@error('start_date') {{$message}} @enderror</label>
                                 </div>
                                 {{-- end --}}
                                  <div class="col-6 mb-1">
-                                    <label class="form-label" for="position"> Order by : </label>
-                                    <input type="number" name="position" id="position"  class="form-control" value="{{$data->sort_order}}">
-                                    <label class="text-danger fw-medium">@error('position') {{$message}} @enderror</label>
+                                    <label class="form-label" for="end_date"> Batch End Date : </label>
+                                    <input type="date" name="end_date" id="end_date"  class="form-control" value="{{$data->end_date}}">
+                                    <label class="text-danger fw-medium">@error('end_date') {{$message}} @enderror</label>
                                 </div>
                                 {{-- end --}}
-                                 
-                            
                                 <div class="col-12 mb-1">
-                                    <label class="form-label" for="file"> Upload Attachment <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
-                                    <input type="file" name="file" id="file" accept="pdf" class="form-control">
-                                    <label class="text-danger fw-medium">@error('file') {{$message}} @enderror</label>
-                                    <label>{{$data->file ?? 'Not Found !'}}</label>
-                        
+                                    <label class="form-label" for="description">Batch Description : <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
+                                    <textarea class="fomr-control" name="description" id="description" cols="30" rows="10" value="{!! $data->description !!}">{!! $data->description !!}</textarea>
+                                    <label class="text-danger fw-medium">@error('description') {{$message}} @enderror</label>
                                 </div>
                                 {{-- end --}}
                                

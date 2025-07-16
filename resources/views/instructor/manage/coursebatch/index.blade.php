@@ -18,7 +18,7 @@
 <div class="card z-1 mb-3" id="recentPurchaseTable" data-list="{&quot;valueNames&quot;:[&quot;name&quot;,&quot;email&quot;,&quot;product&quot;,&quot;payment&quot;,&quot;amount&quot;],&quot;page&quot;:8,&quot;pagination&quot;:true}">
     <div class="card-header">
       <div class="text-center pt-2 pb-2 ">
-        <h4 class="fs-6">Course contnet Management  </h4>  
+        <h4 class="fs-6">Course Batch Management  </h4>  
       </div>
         {{-- search option  --}}
         <div class="searchess mb-4 ">
@@ -39,7 +39,7 @@
         {{-- search end  --}}
       <div class="row flex-between-center">
         <div class="col-6 col-sm-auto d-flex align-items-center pe-0">
-          <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Content Infomations </h5>
+          <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Batch Infomations </h5>
         </div>
         <div class="col-6 col-sm-auto ms-auto text-end ps-0">
           <div class="d-none" id="table-purchases-actions">
@@ -83,8 +83,9 @@
                 </div>
               </th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="name">Course Name</th>
-              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="name">Module Title</th>
-              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="title">Module Description</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="name">Batch Name</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="title">Start At</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="title">End At</th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap " data-sort="time">Created At </th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap text-center" data-sort="status">Public Status</th>
               <th class="no-sort pe-1 align-middle data-table-row-action text-center">Manage</th>
@@ -100,7 +101,8 @@
               </td>
               <td class="align-middle white-space-nowrap email">{{$data->course->course_name ?? 'No Data' }}</td>
               <td class="align-middle white-space-nowrap email">{{$data->title ?? 'No Data' }}</td>
-              <td class="align-middle white-space-nowrap product">{!! Str::words($data->description,5, '...') !!}</td>
+              <td class="align-middle white-space-nowrap product">{{ \Carbon\Carbon::parse($data->start_date)->format('d M, Y') }}</td>
+              <td class="align-middle white-space-nowrap product">{{ \Carbon\Carbon::parse($data->end_date)->format('d M, Y') }}</td>
               <td class="align-middle white-space-nowrap product">{{ $data->created_at->format('d M, Y - h:i A') }}</td>
               <td class="align-middle text-center fs-9 white-space-nowrap payment">
                 @if ($data->public_status === 1)

@@ -22,8 +22,11 @@ class InsCourseBatchController extends Controller
         $user_id = Auth::user()->id;
         $search = $request['search'] ?? "";
         if($search !=""){
-            $all = Course_batch::where('user_id',$user_id)->where('status',1)->where('original_price','LIKE',"%$search%")
-            ->orWhere('discounted_price','LIKE',"%$search%")->orWhere('currency','LIKE',"%$search%")->orWhere('pricing_type','LIKE','%search%')->get();
+            $all = Course_batch::with(['course'])->where('user_id',$user_id)->where('status',1)->where('title','LIKE',"%$search%")
+            ->orWhereHas('course', function ($q) use ($search) {
+                $q->where('course_name', 'LIKE', "%$search%");
+            })
+            ->get();
         }else{
             $all = Course_batch::where('user_id',$user_id)->where('status',1)->get();
         }
@@ -100,7 +103,16 @@ class InsCourseBatchController extends Controller
         // ------  create a slug & get creator id -------
         $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();
         $user_id = Auth::user()->id;
+
+        // ---- create batch id 
+        $batchprefix = 'PRIYO';
+        $batchyear = now()->year;
+        $batch_course_id = $request->course_id;
+        $batch_number = str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
+        $batchid = $batchprefix.'-'.$batch_course_id.$batchyear.$user_id.'-'.$batch_number;
+   
         //-------  insert category record --------
+
         $insert = Course_batch::create([
             'title'=>$request->title,
             'description'=>$request->description,
@@ -108,6 +120,8 @@ class InsCourseBatchController extends Controller
             'end_date'=>$request->end_date,
             'assign_instructor'=>$request->assign_instructor,
             'capacity'=>$request->capacity,
+            'batchid'=>$batchid,
+            'assign_instructor'=>$user_id,
             'course_id'=>$request->course_id,
             'user_id' => $user_id,
             'slug'=>$slug,

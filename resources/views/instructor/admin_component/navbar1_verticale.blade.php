@@ -287,7 +287,7 @@
                     <ul class="nav collapse" id="course_assignment">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                            <a class="nav-link" href="{{route('ins_course_assignment.all_data')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Assignment</span></div>
                             </a>
                         </li>

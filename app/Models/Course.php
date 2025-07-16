@@ -51,16 +51,19 @@ class Course extends Model
     {
         return $this->courseAttachment->count();
     }
+
+
+    // course assignment ---------
+    public function courseAssignment()
+    {
+        return $this->hasMany(ClassAssignment::class, 'course_id', 'id');
+    }
+    public function getTotalAssignmentsAttribute()
+    {
+        return $this->courseAssignment->count();
+    }
  
-    //----------  course batch 
-    public function courseBatch()
-    {
-        return $this->hasMany(Course_batch::class, 'course_id', 'id');
-    }
-    public function getTotalBatchsAttribute()
-    {
-        return $this->courseBatch->count();
-    }
+
 
 
 

@@ -30,7 +30,6 @@
                                       <div class="mx-4 my-3 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center" style=" box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; padding:10px 10px">
                                           <div class="title w-75 border-left-1"><span><i class="bi bi-file-earmark-pdf"></i> </span> {!! Str::words($topic->description,20) !!}</div>
                                           <div class="preview">
-                                            <a class="btn btn-sm mx-2 btn-outline-primary previewBtn" target="_blank" href="{{asset($topic->file ?? '')}}"   ><span> Preview </span></a>
                                             <a class="btn btn-sm mx-2 btn-outline-warning " href="{{route('ins_course_batch.edit',[$topic->id,$topic->slug])}}"><span> <i class="bi bi-pencil-square"></i> </span></a>
                                             <a class="btn btn-sm mx-2 btn-outline-info " href="{{route('ins_course_batch.view',[$topic->id,$topic->slug])}}"><span> <i class="bi bi-eye-fill"></i></span></a>
                                           </div>
