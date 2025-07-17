@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('assignment_id')->nullable();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');  
-
             $table->string('submit_link')->nullable(); // e.g., "July Morning Batch"
             $table->string('file')->nullable();
             $table->date('submission_date')->nullable();
-
+            $table->integer('mark')->nullable();
+            $table->text('feadback')->nullable();
             $table->string('slug',255)->nullable();
             $table->integer('creator_id')->nullable();
             $table->integer('editor_id')->nullable();

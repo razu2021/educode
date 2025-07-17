@@ -303,15 +303,16 @@
                     <ul class="nav collapse" id="course_quizzes">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
+                            <a class="nav-link" href="{{route('ins_course_quize.all_data')}}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Quizzes</span></div>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('ins_course.all_course')}}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Add New Quizzes</span></div>
+                            <a class="nav-link" href="{{route('ins_course_quize_qustion.all_data')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Qustion Management</span></div>
                             </a>
                         </li>
+                        
                     </ul> 
                      <!--====================   Student Management  ======================= -->
                     <div class="row navbar-vertical-label-wrapper mt-3 mb-2">

@@ -9,12 +9,12 @@ use Carbon\Carbon; //----------  defualt -------
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Course;
-use App\Models\ClassAssignment;
+use App\Models\courseQuize;
 use App\Services\FileUploadService;
 
-class InsAssignmentController extends Controller
+class InsCourseQuizeController extends Controller
 {
-     /**
+   /**
      * =============================================================
      * ==============================================================================================  SHOW FUNCTION START HERE ========================================================
      * =============================================================
@@ -23,27 +23,27 @@ class InsAssignmentController extends Controller
         $user_id = Auth::user()->id;
         $search = $request['search'] ?? "";
         if($search !=""){
-            $all = ClassAssignment::where('user_id',$user_id)->where('status',1)->where('title','LIKE',"%$search%")
+            $all = courseQuize::where('user_id',$user_id)->where('status',1)->where('title','LIKE',"%$search%")->orWhere('description','LIKe',"%$search%")
              ->orWhereHas('course', function ($q) use ($search) {
                 $q->where('course_name', 'LIKE', "%$search%");
             })
             ->get();
         }else{
-            $all = ClassAssignment::where('user_id',$user_id)->where('status',1)->get();
+            $all = courseQuize::where('user_id',$user_id)->where('status',1)->get();
         }
-        return view('instructor.manage.courseassignment.index',compact('all'));
+        return view('instructor.manage.coursequize.index',compact('all'));
     }
 
     public function all_data(){
         $user_id = Auth::user()->id;
-        $all = Course::with(['courseAssignment'])->withCount('courseAssignment')->where('user_id',$user_id)->where('status',1)->get();
+        $all = Course::with(['courseQuizzes'])->withCount('courseQuizzes')->where('user_id',$user_id)->where('status',1)->get();
        
-        return view('instructor.manage.courseassignment.all_data',compact('all'));
+        return view('instructor.manage.coursequize.all_data',compact('all'));
     }
     public function all_topics($id,$slug){
         $user_id = Auth::user()->id;
-        $all =Course::with(['courseAssignment'])->where('user_id',$user_id)->where('slug',$slug)->where('status',1)->get();
-        return view('instructor.manage.courseassignment.all_topics',compact('all'));
+        $all =Course::with(['courseQuizzes'])->where('user_id',$user_id)->where('slug',$slug)->where('status',1)->get();
+        return view('instructor.manage.coursequize.all_topics',compact('all'));
     }
 
 
@@ -55,7 +55,7 @@ class InsAssignmentController extends Controller
         $user_id = Auth::user()->id;
         $data = Course::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
        
-        return view('instructor.manage.courseassignment.add',compact('data'));
+        return view('instructor.manage.coursequize.add',compact('data'));
     }
 
    /**
@@ -63,8 +63,8 @@ class InsAssignmentController extends Controller
     **/
     public function view($id,$slug){
         $user_id = Auth::user()->id;
-        $data=ClassAssignment::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        return view('instructor.manage.courseassignment.view',compact('data'));
+        $data=courseQuize::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        return view('instructor.manage.coursequize.view',compact('data'));
     }
 
 
@@ -72,12 +72,12 @@ class InsAssignmentController extends Controller
     * ---------  edit page functionality --------
     **/
     public function edit($id,$slug){
-        $totalpost  = ClassAssignment::get()->count();
-        $latestPost = ClassAssignment::latest()->first();
+        $totalpost  = courseQuize::get()->count();
+        $latestPost = courseQuize::latest()->first();
         $user_id = Auth::user()->id;
-        $data=ClassAssignment::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        $data=courseQuize::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
         
-        return view('instructor.manage.courseassignment.edit',compact('totalpost','latestPost','data'));
+        return view('instructor.manage.coursequize.edit',compact('totalpost','latestPost','data'));
     }
 
 
@@ -88,13 +88,18 @@ class InsAssignmentController extends Controller
      */
     public function insert(Request $request){
         /**--- validation code -- */
-       
         $request->validate([
                 'title'  => 'required',
-                'file'  => 'required',
+                'description'  => 'required',
+                'quize_time'  => 'required',
+                'pass_mark'  => 'required',
+                'is_downloadable'  => 'required',
             ],[
-                'title.required'=> 'Module Title is Required !',
-                'file.required'=> 'Document is Required !',
+                'title.required'=> 'Quiz Title is Required !',
+                'quize_time.required'=> 'Quiz Time is Required !',
+                'pass_mark.required'=> 'Quiz Pass Mark is Required !',
+                'is_downloadable.required'=> 'Quize Type is Required !',
+                
             ]
         );
       
@@ -102,11 +107,13 @@ class InsAssignmentController extends Controller
         $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();
         $user_id = Auth::user()->id;
         //-------  insert category record --------
-        $insert = ClassAssignment::create([
+        $insert = courseQuize::create([
             'title'=>$request->title,
             'description'=>$request->description,
-            'assignment'=>$request->assignment,
-            'submission_date'=>$request->submission_date,
+            'quize_time'=>$request->quize_time,
+            'pass_mark'=>$request->pass_mark,
+            'start_at'=>$request->start_at,
+            'end_at'=>$request->end_at,
             'is_downloadable'=>$request->is_downloadable,
             'course_id'=>$request->course_id,
             'public_status'=>1,
@@ -122,7 +129,7 @@ class InsAssignmentController extends Controller
             ->setPath('uploads/instructor/')
             ->setOldFile($oldfile ?? '')->upload();
             // --- save image in database 
-            $insert = ClassAssignment::where('id', $insert->id)
+            $insert = courseQuize::where('id', $insert->id)
             ->update([
                 'file' => $upload,
         ]);
@@ -148,11 +155,16 @@ class InsAssignmentController extends Controller
         /**--- validation code -- */
         $request->validate([
                 'title'  => 'required',
-                'file'  => 'required',
-
+                'description'  => 'required',
+                'quize_time'  => 'required',
+                'pass_mark'  => 'required',
+                'is_downloadable'  => 'required',
             ],[
-                'title.required'=> 'Module Title is Required !',
-                'file.required'=> 'Document is Required !',
+                'title.required'=> 'Quiz Title is Required !',
+                'quize_time.required'=> 'Quiz Time is Required !',
+                'pass_mark.required'=> 'Quiz Pass Mark is Required !',
+                'is_downloadable.required'=> 'Quize Type is Required !',
+                
             ]
         );
         //--- get specific Credential for update record & editor id --------
@@ -160,36 +172,20 @@ class InsAssignmentController extends Controller
         $slug = $request->slug;
         $user_id = Auth::user()->id;
         //---------category update -------//
-        $update = ClassAssignment::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->update([
+        $update = courseQuize::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->update([
             'title'=>$request->title,
             'description'=>$request->description,
-            'assignment'=>$request->assignment,
-            'submission_date'=>$request->submission_date,
+            'quize_time'=>$request->quize_time,
+            'pass_mark'=>$request->pass_mark,
+            'start_at'=>$request->start_at,
+            'end_at'=>$request->end_at,
             'is_downloadable'=>$request->is_downloadable,
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
 
-        // ------insert Successfully--------// 
-        if ($request->hasFile('file')) {
-            $existing = ClassAssignment::where('id', $id)->where('slug', $slug)->first();
-             $oldfile = $existing->file ?? null; // আগের ফাইল যদি থাকে
-
-            // upload file in local folder path via tha service class
-            $upload = (new FileUploadService($request->file('file')))
-            ->setPath('uploads/instructor/')
-            ->setOldFile($oldfile)->upload();
-
-
-            // --- save image in database 
-            $update = ClassAssignment::where('id', $id)->where('slug',$slug)
-            ->update([
-                'file' => $upload,
-        ]);
-        }
-
         if($update){
             flash()->success('Information Update Successfuly');
-             return redirect()->route('ins_course_assignment.view',[$id,$slug]);
+             return redirect()->route('ins_course_quize.view',[$id,$slug]);
         }else{
             flash()->error('Informatin Update Faild !');
         }
@@ -205,7 +201,7 @@ class InsAssignmentController extends Controller
      */
     public function softdelete($id){
         $user_id = Auth::user()->id;
-        $data= ClassAssignment::where('user_id',$user_id)->where('id',$id)->first();
+        $data= courseQuize::where('user_id',$user_id)->where('id',$id)->first();
         $data->delete();
         // ----Delete Successfully ----//
         if($data){
@@ -221,7 +217,7 @@ class InsAssignmentController extends Controller
     **/
     public function restore($id){
         $user_id = Auth::user()->id;
-        $data = ClassAssignment::withTrashed()->where('user_id',$user_id)->where('id', $id)->first();
+        $data = courseQuize::withTrashed()->where('user_id',$user_id)->where('id', $id)->first();
         $data->restore();
         // Delete Successfully 
         if($data){
@@ -236,7 +232,7 @@ class InsAssignmentController extends Controller
     **/
     public function delete($id){
         $user_id = Auth::user()->id;
-        $data = ClassAssignment::onlyTrashed()->where('user_id',$user_id)->where('id', $id)->first();
+        $data = courseQuize::onlyTrashed()->where('user_id',$user_id)->where('id', $id)->first();
         
         if($data) {
              /** --- Delete old image from directories ------  */
@@ -262,7 +258,7 @@ class InsAssignmentController extends Controller
     **/
     public function public_status($id,$slug){
         $user_id = Auth::user()->id;
-        $published = ClassAssignment::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
+        $published = courseQuize::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
             'public_status'=>1,
         ]);
         // Delete Successfully 
@@ -279,7 +275,7 @@ class InsAssignmentController extends Controller
     **/
     public function private_status($id,$slug){
         $user_id = Auth::user()->id;
-        $private = ClassAssignment::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
+        $private = courseQuize::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
             'public_status'=>0,
         ]);
         // Delete Successfully 
@@ -299,15 +295,15 @@ class InsAssignmentController extends Controller
         $user_id = Auth::user()->id;
         $search = $request['search'] ?? "";
         if($search !=""){
-            $all = ClassAssignment::onlyTrashed()->where('user_id',$user_id)->where('title','LIKE',"%$search%")
+            $all = courseQuize::onlyTrashed()->where('user_id',$user_id)->where('title','LIKE',"%$search%")
              ->orWhereHas('course', function ($q) use ($search) {
                 $q->where('course_name', 'LIKE', "%$search%");
             })
             ->get();
         }else{
-            $all = ClassAssignment::onlyTrashed()->where('user_id',$user_id)->get();
+            $all = courseQuize::onlyTrashed()->where('user_id',$user_id)->get();
         }
-        return view('instructor.manage.courseassignment.recycle',compact('all'));
+        return view('instructor.manage.coursequize.recycle',compact('all'));
     }
    /**
      * =====================================================
@@ -328,12 +324,12 @@ class InsAssignmentController extends Controller
     
         //----- for multiple items soft delete ----//
         if ($action === 'delete') {
-            ClassAssignment::whereIn('id', $ids)->where('user_id',$user_id)->delete();
+            courseQuize::whereIn('id', $ids)->where('user_id',$user_id)->delete();
             return response()->json(['success' => true, 'message' => 'Selected Items deleted.']);
         }
         //--- for multiple items heard delete -------//
         if ($action === 'heard_delete') {
-            $categories = ClassAssignment::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = courseQuize::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
         
             foreach ($categories as $category) {
              /** --- Delete old image from directories ------  */
@@ -352,7 +348,7 @@ class InsAssignmentController extends Controller
     
         //---- for multiple items resotre --------//
         if ($action === 'restore') {
-            $categories = ClassAssignment::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = courseQuize::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
             if($categories){
                 foreach($categories as $data){
                     $data->restore();
@@ -362,11 +358,11 @@ class InsAssignmentController extends Controller
         }
         //----- for multiple items active ----//
         if ($action === 'active') {
-            $categories = ClassAssignment::whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = courseQuize::whereIn('id', $ids)->where('user_id',$user_id)->get();
 
             if($categories){
                 foreach($categories as $data){
-                    ClassAssignment::whereIn('id',$ids)->where('public_status',0)->where('user_id',$user_id)->update([
+                    courseQuize::whereIn('id',$ids)->where('public_status',0)->where('user_id',$user_id)->update([
                         'public_status'=>1,
                     ]);
                 }
@@ -376,10 +372,10 @@ class InsAssignmentController extends Controller
 
         //--  for multiple items deactive ----- //
         if ($action === 'deactive') {
-            $categories = ClassAssignment::whereIn('id', $ids)->get();
+            $categories = courseQuize::whereIn('id', $ids)->get();
             if($categories){
                 foreach($categories as $data){
-                    ClassAssignment::whereIn('id',$ids)->where('user_id',$user_id)->where('public_status',1)->update([
+                    courseQuize::whereIn('id',$ids)->where('user_id',$user_id)->where('public_status',1)->update([
                         'public_status'=>0,
                     ]);
                 }
@@ -388,5 +384,4 @@ class InsAssignmentController extends Controller
         }
         return response()->json(['success' => false, 'message' => 'Invalid action.']);
     } // bulk action end here 
-
 }

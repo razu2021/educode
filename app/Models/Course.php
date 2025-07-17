@@ -64,6 +64,28 @@ class Course extends Model
     }
  
 
+    // course Quize  ---------
+        // ✅ Relationship method
+        public function courseQuizzes()
+        {
+            return $this->hasMany(courseQuize::class, 'course_id', 'id');
+        }
+
+        // ✅ Accessor for total quizzes
+        public function getTotalQuizzesAttribute()
+        {
+            return $this->courseQuizzes->count();
+        }
+
+        // ✅ Accessor for total questions in all quizzes
+        public function getTotalQuizQuestionsAttribute()
+        {
+            return $this->courseQuizzes->sum(function ($quiz) {
+                return $quiz->quizeQustions->count(); // spelling must be correct
+            });
+        }
+
+
 
 
 

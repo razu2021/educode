@@ -12,8 +12,10 @@ use App\Http\Controllers\instructor\manage\InsCourseContentController;
 use App\Http\Controllers\instructor\manage\InsCourseController;
 use App\Http\Controllers\instructor\manage\InsCourseModuleController;
 use App\Http\Controllers\instructor\manage\InsCoursePriceController;
+use App\Http\Controllers\instructor\manage\InsCourseQuizeController;
 use App\Http\Controllers\instructor\manage\InsCourseTopicVideController;
 use App\Http\Controllers\instructor\manage\InsCuponManageController;
+use App\Http\Controllers\instructor\manage\InsQuizeQustionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 
@@ -255,6 +257,43 @@ Route::controller(InsCourseBatchController::class)->prefix('instructor/dashboard
 
 /**==============  course Batch route is start here ========================================================================= */
 Route::controller(InsAssignmentController::class)->prefix('instructor/dashboard/course/assignment')->name('ins_course_assignment.')->group(function(){
+    Route::get('all','index')->name('all');
+    Route::get('all/data','all_data')->name('all_data');
+    Route::get('add/{id}/{slug}','add')->name('add');
+    Route::get('view/{id}/{slug}','view')->name('view');
+    Route::get('edit/{id}/{slug}','edit')->name('edit');
+    Route::post('submit','insert')->name('submit');
+    Route::post('update','update')->name('update');
+    Route::delete('softdelete/{id}','softdelete')->name('softdelete');
+    Route::post('restore/{id}','restore')->name('restore');
+    Route::delete('delete/{id}','delete')->name('delete');
+    Route::post('bulk-action','bulkAction')->name('bulkAction');
+    Route::get('recycle','recycle')->name('recycle');
+    Route::get('public/{id}/{slug}','public_status')->name('public');
+    Route::get('private/{id}/{slug}','private_status')->name('private'); 
+    Route::get('all/course/topics/{id}/{slug}','all_topics')->name('all_topics'); 
+});
+
+/**==============  course Batch route is start here ========================================================================= */
+Route::controller(InsCourseQuizeController::class)->prefix('instructor/dashboard/course/quize')->name('ins_course_quize.')->group(function(){
+    Route::get('all','index')->name('all');
+    Route::get('all/data','all_data')->name('all_data');
+    Route::get('add/{id}/{slug}','add')->name('add');
+    Route::get('view/{id}/{slug}','view')->name('view');
+    Route::get('edit/{id}/{slug}','edit')->name('edit');
+    Route::post('submit','insert')->name('submit');
+    Route::post('update','update')->name('update');
+    Route::delete('softdelete/{id}','softdelete')->name('softdelete');
+    Route::post('restore/{id}','restore')->name('restore');
+    Route::delete('delete/{id}','delete')->name('delete');
+    Route::post('bulk-action','bulkAction')->name('bulkAction');
+    Route::get('recycle','recycle')->name('recycle');
+    Route::get('public/{id}/{slug}','public_status')->name('public');
+    Route::get('private/{id}/{slug}','private_status')->name('private'); 
+    Route::get('all/course/topics/{id}/{slug}','all_topics')->name('all_topics'); 
+});
+/**==============  course Quize Qustions route is start here ========================================================================= */
+Route::controller(InsQuizeQustionController::class)->prefix('instructor/dashboard/course/quize/question')->name('ins_course_quize_qustion.')->group(function(){
     Route::get('all','index')->name('all');
     Route::get('all/data','all_data')->name('all_data');
     Route::get('add/{id}/{slug}','add')->name('add');

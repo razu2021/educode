@@ -20,8 +20,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('quize_time')->nullable();
             $table->integer('pass_mark')->nullable();
-            $table->date('start_at')->nullable();
-            $table->date('end_at')->nullable();
+            $table->dateTime('start_at')->nullable();
+            $table->dateTime('end_at')->nullable();
             $table->integer('is_downloadable')->nullable(); 
             $table->integer('user_count')->nullable();
             // defualt feild
@@ -31,6 +31,7 @@ return new class extends Migration
             $table->integer('status')->default(1);
             $table->integer('public_status')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
