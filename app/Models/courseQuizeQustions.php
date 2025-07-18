@@ -13,13 +13,11 @@ class courseQuizeQustions extends Model
     public function creator() {
     return $this->belongsTo(Admin::class, 'creator_id', 'id');
     }
-    
+
     public function editor() {
         return $this->belongsTo(Admin::class, 'editor_id', 'id');
     }
 
-
-   
     public function quize(){
         return $this->belongsTo(courseQuize::class ,'quize_id','id');
     }

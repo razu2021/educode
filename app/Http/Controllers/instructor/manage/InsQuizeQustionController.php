@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Course_topic;
+use App\Models\courseQuize;
 use App\Models\courseQuizeQustions;
 
 class InsQuizeQustionController extends Controller
@@ -85,10 +86,11 @@ class InsQuizeQustionController extends Controller
     **/
     public function edit($id,$slug){
         $user_id = Auth::user()->id;
-        $data=courseQuizeQustions::with(['topic.course'])->where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        $course_id = $data->topic->course_id;
+        $data=courseQuizeQustions::with(['quize.course'])->where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        $course_id = $data->quize->course_id;
+       // dd($course_id);
         
-        $course_topic = Course_topic::where('course_id',$course_id)->get();
+        $course_topic = courseQuize::where('course_id',$course_id)->get();
     
         return view('instructor.manage.quizequstion.edit',compact('data','course_topic'));
     }
