@@ -94,6 +94,7 @@ class Course extends Model
 
 
 
+
     public function creator() {
         return $this->belongsTo(Admin::class, 'creator_id', 'id');
     }

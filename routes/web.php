@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\backend\subscription\PaymentController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\frontend\FrontendController;
 
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,11 @@ Route::controller(FrontendController::class)->prefix('product/purchese')->group(
 });
 
 
+
+
+Route::get('/chat', [ChatController::class, 'chatUsers'])->name('chat.index');
+Route::get('/chat/{user}', [ChatController::class, 'index'])->name('chat.index');
+Route::middleware('auth')->post('/send-message', [ChatController::class, 'send'])->name('chat.send');
 
 
 

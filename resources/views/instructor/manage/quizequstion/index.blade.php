@@ -18,7 +18,7 @@
 <div class="card z-1 mb-3" id="recentPurchaseTable" data-list="{&quot;valueNames&quot;:[&quot;name&quot;,&quot;email&quot;,&quot;product&quot;,&quot;payment&quot;,&quot;amount&quot;],&quot;page&quot;:8,&quot;pagination&quot;:true}">
     <div class="card-header">
       <div class="text-center pt-2 pb-2 ">
-        <h4 class="fs-6">Course Video Management  </h4>  
+        <h4 class="fs-6">Quiz Questions Management  </h4>  
       </div>
         {{-- search option  --}}
         <div class="searchess mb-4 ">
@@ -39,7 +39,7 @@
         {{-- search end  --}}
       <div class="row flex-between-center">
         <div class="col-6 col-sm-auto d-flex align-items-center pe-0">
-          <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Video Infomations </h5>
+          <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Questions Infomations </h5>
         </div>
         <div class="col-6 col-sm-auto ms-auto text-end ps-0">
           <div class="d-none" id="table-purchases-actions">
@@ -83,9 +83,9 @@
                 </div>
               </th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="name">Course Name</th>
-              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="name">Topic Name </th>
-              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="title">Video Title </th>
-              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="title">Platform Type </th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="name">Quiz Name </th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="title">Questions </th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="title">Answer </th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap " data-sort="time">Created At </th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap text-center" data-sort="status">Public Status</th>
               <th class="no-sort pe-1 align-middle data-table-row-action text-center">Manage</th>
@@ -99,10 +99,10 @@
                   <input class="form-check-input" type="checkbox" data-bulk-select-row value="{{ $data->id }}">
                 </div>
               </td>
-              <td class="align-middle white-space-nowrap email">{{$data->topic->course->course_name ?? 'No Data' }}</td>
-              <td class="align-middle white-space-nowrap email">{{$data->topic->title ?? 'No Data' }}</td>
-              <td class="align-middle white-space-nowrap product">{{$data->title}}</td>
-              <td class="align-middle white-space-nowrap product">{{$data->video_type}}</td>
+              <td class="align-middle white-space-nowrap email">{{$data->quize->course->course_name ?? 'No Data' }}</td>
+              <td class="align-middle white-space-nowrap email">{{$data->quize->title ?? 'No Data' }}</td>
+              <td class="align-middle white-space-nowrap product">{{$data->question}}</td>
+              <td class="align-middle white-space-nowrap product">{{$data->answer}}</td>
               <td class="align-middle white-space-nowrap product">{{ $data->created_at->format('d M, Y - h:i A') }}</td>
               <td class="align-middle text-center fs-9 white-space-nowrap payment">
                 @if ($data->public_status === 1)

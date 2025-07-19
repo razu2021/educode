@@ -23,24 +23,24 @@ class InsQuizeQustionController extends Controller
         $user_id = Auth::user()->id;
         $search = $request['search'] ?? "";
         if($search !=""){
-            $all = courseQuizeQustions::with('topic.course')->where('user_id',$user_id)->where('status',1)->where(function ($query) use ($search) {
-                $query->where('title', 'LIKE', "%$search%")
-                    ->orWhere('description', 'LIKE', "%$search%")
-                    ->orWhere('video_type', 'LIKE', "%$search%")
+            $all = courseQuizeQustions::with('quize.course')->where('user_id',$user_id)->where('status',1)->where(function ($query) use ($search) {
+                $query->where('question', 'LIKE', "%$search%")
+                    ->orWhere('answer', 'LIKE', "%$search%")
+                  
                     
                     // Search in course_topic table (e.g. mdrazuhossainraj01817078309course_name)
-                    ->orWhereHas('topic', function ($q) use ($search) {
+                    ->orWhereHas('quize', function ($q) use ($search) {
                         $q->where('title', 'LIKE', "%$search%");
                     })
 
                     //  Search in course table (e.g. title)
-                    ->orWhereHas('topic.course', function ($q) use ($search) {
+                    ->orWhereHas('quize.course', function ($q) use ($search) {
                         $q->where('course_name', 'LIKE', "%$search%");
                     });
             })
             ->get();
         }else{
-            $all = courseQuizeQustions::with(['topic.course'])->where('user_id',$user_id)->where('status',1)->get();
+            $all = courseQuizeQustions::with(['quize.course'])->where('user_id',$user_id)->where('status',1)->get();
         }
         return view('instructor.manage.quizequstion.index',compact('all'));
     }
