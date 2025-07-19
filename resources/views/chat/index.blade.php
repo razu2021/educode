@@ -25,10 +25,15 @@
                         </div>
                         <div class="flex-1 chat-contact-body ms-2 d-md-none d-lg-block">
                           <div class="d-flex justify-content-between">
+
+                            @if ($receiver)
                             <h6 class="mb-0 chat-contact-title">{{$user->name}}</h6><span class="message-time fs-11">Tue</span>
+                            @else
+                              <h5>একজন ইউজার সিলেক্ট করুন চ্যাট শুরু করতে</h5>
+                            @endif
                           </div>
                           <div class="min-w-0">
-                            <div class="chat-contact-content pe-3">{{$user->name}} one messages</div>
+                            <div class="chat-contact-content pe-3">{{$user->name ?? 'No messages'}} one messages</div>
                             <div class="position-absolute bottom-0 end-0 hover-hide"></div>
                           </div>
                         </div>
@@ -81,7 +86,7 @@
                           <svg class="svg-inline--fa fa-chevron-left fa-w-10" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"></path></svg><!-- <div class="fas fa-chevron-left"></div> Font Awesome fontawesome.com -->
                         </a>
                         <div class="min-w-0">
-                          <h5 class="mb-0 text-truncate fs-9">{{$receiver->name}}</h5>
+                          <h5 class="mb-0 text-truncate fs-9">{{$receiver->name ?? 'No Name Found'}}</h5>
                           <div class="fs-11 text-400">Active On Chat</div>
                         </div>
                       </div>
@@ -96,7 +101,7 @@
                             <img class="rounded-circle" src="../assets/img/team/2.jpg" alt="">
                           </div>
                           <div class="flex-1 ms-2 d-flex flex-between-center">
-                            <h6 class="mb-0"><a class="text-decoration-none stretched-link text-700" href="../pages/user/profile.html">{{$receiver->name}}</a></h6>
+                            <h6 class="mb-0"><a class="text-decoration-none stretched-link text-700" href="../pages/user/profile.html">{{$receiver->name ?? 'No Name Found'}}</a></h6>
                             <div class="dropdown z-1"><button class="btn btn-link btn-sm text-400 dropdown-toggle dropdown-caret-none me-n3" type="button" id="profile-dropdown-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-cog fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="cog" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M487.4 315.7l-42.6-24.6c4.3-23.2 4.3-47 0-70.2l42.6-24.6c4.9-2.8 7.1-8.6 5.5-14-11.1-35.6-30-67.8-54.7-94.6-3.8-4.1-10-5.1-14.8-2.3L380.8 110c-17.9-15.4-38.5-27.3-60.8-35.1V25.8c0-5.6-3.9-10.5-9.4-11.7-36.7-8.2-74.3-7.8-109.2 0-5.5 1.2-9.4 6.1-9.4 11.7V75c-22.2 7.9-42.8 19.8-60.8 35.1L88.7 85.5c-4.9-2.8-11-1.9-14.8 2.3-24.7 26.7-43.6 58.9-54.7 94.6-1.7 5.4.6 11.2 5.5 14L67.3 221c-4.3 23.2-4.3 47 0 70.2l-42.6 24.6c-4.9 2.8-7.1 8.6-5.5 14 11.1 35.6 30 67.8 54.7 94.6 3.8 4.1 10 5.1 14.8 2.3l42.6-24.6c17.9 15.4 38.5 27.3 60.8 35.1v49.2c0 5.6 3.9 10.5 9.4 11.7 36.7 8.2 74.3 7.8 109.2 0 5.5-1.2 9.4-6.1 9.4-11.7v-49.2c22.2-7.9 42.8-19.8 60.8-35.1l42.6 24.6c4.9 2.8 11 1.9 14.8-2.3 24.7-26.7 43.6-58.9 54.7-94.6 1.5-5.5-.7-11.3-5.6-14.1zM256 336c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z"></path></svg><!-- <span class="fas fa-cog"></span> Font Awesome fontawesome.com --></button>
                               <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="profile-dropdown-0"><a class="dropdown-item" href="#!">Mute</a>
                                 <div class="dropdown-divider"></div><a class="dropdown-item" href="#!">Archive</a><a class="dropdown-item text-danger" href="#!">Delete</a>
@@ -129,8 +134,8 @@
                           <img class="rounded-circle" src="{{asset('uploads/logo.jpg')}}" alt="">
                         </div>
                         <div class="flex-1">
-                          <h6 class="mb-0"><a class="text-decoration-none stretched-link text-700" href="../pages/user/profile.html">{{$receiver->name}}s</a></h6>
-                          <p class="mb-0">You friends with {{$receiver->name}}. Say hi to start the conversation</p>
+                          <h6 class="mb-0"><a class="text-decoration-none stretched-link text-700" href="../pages/user/profile.html">{{$receiver->name ?? 'No Name Found'}}</a></h6>
+                          <p class="mb-0">You friends with {{$receiver->name ?? 'No Name Found'}}. Say hi to start the conversation</p>
                         </div>
                       </div>
                       <div class="text-center fs-11 text-500"><span>May 5, 2019, 11:54 am</span></div>
@@ -193,7 +198,7 @@
                  
                <form class="chat-editor-area" id="chatForm">
                 @csrf
-                <input type="hidden" name="receiver_id" id="receiver_id" value="{{ $receiver->id }}">
+                <input type="text" name="receiver_id" id="receiver_id" value="{{ $receiver->id ?? 'Null'}}">
                 
                 <div class="emojiarea-editor outline-none scrollbar" id="messageInput" contenteditable="true" placeholder="Type your message"></div>
                 
@@ -274,22 +279,38 @@
     });
 
     // Echo listener
-    Echo.private(`chat.{{ auth()->id() }}`)
-        .listen('MessageSent', (e) => {
-            let msg = `
-                <div class="d-flex p-3">
-                    <div class="avatar avatar-l me-2">
-                        <img class="rounded-circle" src="{{ asset('path/to/avatar.jpg') }}" alt="">
-                    </div>
-                    <div class="chat-message bg-200 p-2 rounded-2">
-                        ${e.message.text}
-                    </div>
+ Echo.private(`chat.{{ auth()->id() }}`)
+    .listen('NewMessage', (e) => {
+         console.log("New message received: ", e);
+
+        let msg = `
+            <div class="d-flex p-3">
+                <div class="avatar avatar-l me-2">
+                    <img class="rounded-circle" src="${e.sender.avatar ?? '/default-avatar.png'}" alt="">
                 </div>
-            `;
-            document.querySelector('.chat-content-scroll-area').innerHTML += msg;
-        });
+                <div class="chat-message bg-200 p-2 rounded-2">
+                    ${e.message.text}
+                </div>
+            </div>
+        `;
+        document.querySelector('.chat-content-scroll-area').innerHTML += msg;
+    });
+
 </script>
 
+<script src="https://unpkg.com/laravel-echo/dist/echo.iife.js"></script>
+<script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+<script>
+    window.Echo = new Echo({
+        broadcaster: 'reverb',
+        key: '{{ env("REVERB_APP_KEY") }}',
+        wsHost: window.location.hostname,
+        wsPort: 8080,
+        wssPort: 8080,
+        forceTLS: false,
+        disableStats: true,
+    });
+</script>
 
 
 

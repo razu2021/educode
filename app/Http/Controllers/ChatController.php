@@ -13,7 +13,10 @@ class ChatController extends Controller
 
 public function send(Request $request)
 {
-    dd($request);
+  
+
+
+
     $id= Auth::user()->id;
     $message = Message::create([
         'sender_id' => $id,
@@ -34,7 +37,6 @@ public function send(Request $request)
 
 public function index($userId)
 {
-
     $authUser = Auth::user();
 
     $user = User::findOrFail($userId); // যাকে মেসেজ দিতে চায়
@@ -99,8 +101,11 @@ public function chatUsers()
     }
 
 
-
-    return view('chat.index', compact('users'));
+     return view('chat.index', [
+        'users' => $users,
+        'receiver' => $users, // ✅ ডিফল্ট মান পাঠালাম
+        'messages' => collect(), // ✅ খালি collection পাঠালাম যেন error না দেয়
+    ]);
 }
 
 

@@ -148,7 +148,13 @@
       <li><a class="dropdown-item" href="#">👤 Profile</a></li>
       <li><a class="dropdown-item" href="#">⚙️ Settings</a></li>
       <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item text-danger" href="#">🚪 Logout</a></li>
+      <li>
+         <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault();this.closest('form').submit();">Logout</a>
+                    </form>
+
+      </li>
     </ul>
   </div>
  

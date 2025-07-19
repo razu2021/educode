@@ -313,7 +313,12 @@
                     <a class="dropdown-item" href="#!">Feedback</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="settings.html">Settings</a>
-                    <a class="dropdown-item" href="card_logout.html">Logout</a>
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault();this.closest('form').submit();">Logout</a>
+                    </form>
+                    
+
                 </div>
             </div>
         </li>

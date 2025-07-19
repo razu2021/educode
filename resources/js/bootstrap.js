@@ -1,5 +1,7 @@
 import axios from 'axios';
 window.axios = axios;
+import '@laravel/reverb';
+import Echo from 'laravel-echo';
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -12,15 +14,17 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 import './echo';
 
 
-
-import Echo from 'laravel-echo';
-
 window.Echo = new Echo({
     broadcaster: 'reverb',
-    key: 'local',
-    wsHost: window.location.hostname, // ensures localhost
+    key: 'local', // or your actual key
+    wsHost: window.location.hostname,
     wsPort: 8080,
     wssPort: 8080,
     forceTLS: false,
     enabledTransports: ['ws'],
+});
+
+// Use it after defining
+Echo.private(`chat.${user_id}`).listen('NewMessage', (e) => {
+    console.log("New message received:", e);
 });
