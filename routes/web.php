@@ -52,7 +52,7 @@ Route::controller(FrontendController::class)->prefix('product/purchese')->group(
 
 
 Route::middleware(['auth'])->group(function(){
-Route::get('/chat', [ChatController::class, 'chatUsers'])->name('chat.index');
+Route::get('/chat', [ChatController::class, 'chatUsers'])->name('chat.indexx');
 Route::get('/chat/{user}', [ChatController::class, 'index'])->name('chat.index');
 Route::middleware('auth')->post('/send-message', [ChatController::class, 'send'])->name('chat.send');
 

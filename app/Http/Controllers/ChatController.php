@@ -13,20 +13,26 @@ class ChatController extends Controller
 
 public function send(Request $request)
 {
-  
+  $request->validate([
+    'receiver_id' => 'required|exists:users,id',
+    'text' => 'required|string|max:1000',
+]);
 
 
 
-    $id= Auth::user()->id;
+    $sender = Auth::user();
     $message = Message::create([
-        'sender_id' => $id,
+        'sender_id' =>  $sender->id,
         'receiver_id' => $request->receiver_id,
         'text' => $request->text,
     ]);
 
-    broadcast(new NewMessage($message, $id))->toOthers();
+   broadcast(new NewMessage($message, $sender))->toOthers();
 
-    return response()->json(['status' => true]);
+   return response()->json([
+    'status' => true,
+    'message' => $message
+]);
 }
 
 

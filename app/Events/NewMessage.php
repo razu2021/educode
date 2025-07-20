@@ -7,7 +7,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\InteractsWithSockets;
-
+use Illuminate\Support\Facades\Log;
 class NewMessage  implements ShouldBroadcast
 {
 use Dispatchable, InteractsWithSockets, SerializesModels ;
@@ -21,13 +21,14 @@ use Dispatchable, InteractsWithSockets, SerializesModels ;
         $this->sender = $sender;
     }
 
-    public function broadcastOn()
+    public function broadcastOn() :PrivateChannel
     {
-        return new PrivateChannel('chat.' . $this->message->receiver_id);
+        return new PrivateChannel('chat.'.$this->message->receiver_id);
     }
 
     public function broadcastWith(): array
     {
+        
         return [
             'message' => [
                 'text' => $this->message->text,

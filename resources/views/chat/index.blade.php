@@ -2,7 +2,6 @@
 @section('chat_content')
 
 
-
 <div class="container mt-5">
     <div class="card card-chat overflow-hidden">
             <div class="card-body d-flex p-0 h-100">
@@ -237,16 +236,21 @@
 
 
 
+<script>
+    Echo.private('chat.1').listen('NewMessage', console.log);
+</script>
+
+
 
 <script>
+
     document.getElementById('chatForm').addEventListener('submit', function (e) {
         e.preventDefault();
 
         let receiverId = document.getElementById('receiver_id').value;
 
-        // Ensure clean message even if it's contenteditable
         let raw = document.getElementById('messageInput').innerHTML.trim();
-        let text = raw.replace(/<[^>]+>/g, '').trim(); // remove tags
+        let text = raw.replace(/<[^>]+>/g, '').trim();
 
         if (!text || text.length === 0) {
             alert("Please type a message.");
@@ -269,47 +273,38 @@
             let msg = `
                 <div class="d-flex p-3 justify-content-end">
                     <div class="bg-primary text-white p-2 rounded-2 chat-message" data-bs-theme="light">
-                        ${data.text}
+                        ${data.message.text}
                     </div>
                 </div>
             `;
-            document.querySelector('.chat-content-scroll-area').innerHTML += msg;
+            document.querySelector('.chat-content-scroll-area').insertAdjacentHTML('beforeend', msg);
             document.getElementById('messageInput').innerText = '';
         });
     });
 
-    // Echo listener
- Echo.private(`chat.{{ auth()->id() }}`)
-    .listen('NewMessage', (e) => {
-         console.log("New message received: ", e);
-
-        let msg = `
-            <div class="d-flex p-3">
-                <div class="avatar avatar-l me-2">
-                    <img class="rounded-circle" src="${e.sender.avatar ?? '/default-avatar.png'}" alt="">
-                </div>
-                <div class="chat-message bg-200 p-2 rounded-2">
-                    ${e.message.text}
-                </div>
-            </div>
-        `;
-        document.querySelector('.chat-content-scroll-area').innerHTML += msg;
-    });
 
 </script>
 
-<script src="https://unpkg.com/laravel-echo/dist/echo.iife.js"></script>
-<script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+
 <script>
-    window.Echo = new Echo({
-        broadcaster: 'reverb',
-        key: '{{ env("REVERB_APP_KEY") }}',
-        wsHost: window.location.hostname,
-        wsPort: 8080,
-        wssPort: 8080,
-        forceTLS: false,
-        disableStats: true,
-    });
+    Echo.private('chat.{{ auth()->id() }}')
+        .listen('NewMessage', function (e) {
+            console.log('New message received Razu : ', e);
+
+            let msg = `
+                <div class="d-flex p-3">
+                    <div class="avatar avatar-l me-2">
+                        <img class="rounded-circle" src="${e.sender.avatar ?? '/default-avatar.png'}" alt="">
+                    </div>
+                    <div class="chat-message bg-200 p-2 rounded-2">
+                        ${e.message.text}
+                    </div>
+                </div>
+            `;
+            document.querySelector('.chat-content-scroll-area').insertAdjacentHTML('beforeend', msg);
+        });
+
+        
 </script>
 
 

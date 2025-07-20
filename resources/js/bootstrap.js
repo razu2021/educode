@@ -1,7 +1,6 @@
 import axios from 'axios';
 window.axios = axios;
-import '@laravel/reverb';
-import Echo from 'laravel-echo';
+
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -10,21 +9,19 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allow your team to quickly build robust real-time web applications.
  */
-
 import './echo';
 
+import Echo from 'laravel-echo';
 
 window.Echo = new Echo({
     broadcaster: 'reverb',
-    key: 'local', // or your actual key
-    wsHost: window.location.hostname,
-    wsPort: 8080,
-    wssPort: 8080,
+    key: import.meta.env.VITE_REVERB_APP_KEY,
+    host: `${import.meta.env.VITE_REVERB_HOST}:${import.meta.env.VITE_REVERB_PORT}`,
+    wsHost: import.meta.env.VITE_REVERB_HOST,
+    wsPort: import.meta.env.VITE_REVERB_PORT,
+    wssPort: import.meta.env.VITE_REVERB_PORT,
     forceTLS: false,
-    enabledTransports: ['ws'],
+    disableStats: true,
 });
 
-// Use it after defining
-Echo.private(`chat.${user_id}`).listen('NewMessage', (e) => {
-    console.log("New message received:", e);
-});
+

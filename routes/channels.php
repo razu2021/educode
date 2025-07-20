@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\Log;
 
-Broadcast::channel('chat.{receiver_id}', function ($user, $receiver_id) {
-    return (int) $user->id === (int) $receiver_id;
+Broadcast::channel('chat.{receiverId}', function ($user, $receiverId) {
+   
+    return true;
 });
