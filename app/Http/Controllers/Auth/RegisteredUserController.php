@@ -60,7 +60,7 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         if ($user->role === 0) {
-            return redirect()->route('student.dashboard');
+            return redirect()->route('index');
         } elseif ($user->role === 1) {
             return redirect()->route('instructor.dashboard'); // pending instructor page
         } elseif ($user->role === 2) {

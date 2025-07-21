@@ -1687,3 +1687,115 @@ $border-radius: 1.2rem;
     padding: 2rem;
   }
 }
+
+
+//********************
+.profile_sidebar {
+  width: 280px;
+  padding: 0.5rem 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  background-color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+
+  li {
+    padding: 0;
+
+    a.dropdown-item {
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #2d2f31;
+      transition: all 0.2s ease;
+      display: block;
+
+      &:hover {
+        background-color: #f7f9fa;
+        color: #000;
+      }
+
+      .profile_names {
+        display: flex;
+        align-items: center;
+
+        img {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin-right: 10px;
+        }
+
+        .profile_infos {
+          h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 0;
+            color: #1c1d1f;
+          }
+
+          span {
+            font-size: 13px;
+            color: #6a6f73;
+          }
+        }
+      }
+    }
+
+    hr.dropdown-divider {
+      margin: 0.5rem 0;
+      border-color: #e6e8eb;
+    }
+  }
+}
+
+
+
+//*********
+// General button style
+.btn {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  white-space: nowrap;
+
+  i {
+    margin-right: 6px;
+  }
+}
+
+// Cart button
+
+
+// Login button
+.btn-login {
+  background-color: transparent;
+  color: #2d2f31;
+  border: 1px solid #ced4da;
+
+  &:hover {
+    background-color: #f5f5f5;
+    border-color: #b0bec5;
+    color: #000;
+  }
+}
+
+// Signup button - Primary style
+.btn-signup {
+  background-color: #5624d0;
+  color: #fff;
+  border: 1px solid #5624d0;
+
+  &:hover {
+    background-color: #401b9c;
+    border-color: #401b9c;
+    color: #fff;
+  }
+}

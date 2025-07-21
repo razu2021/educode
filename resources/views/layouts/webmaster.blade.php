@@ -47,7 +47,7 @@
     <div id="desktop-header">
     <div class="container-fluid d-flex align-items-center justify-content-between">
       <div class="d-flex align-items-center gap-3"> 
-      <a href="{{route('index')}}"> <img src="{{asset('contents/frontend/assets/assetss')}}/images/logo/logo.svg" alt="Educode" height="50px"></a>
+      <a href="{{route('index')}}"> <img src="{{asset('contents/frontend/assets/assetss')}}/images/logo/logo.svg" alt="Educode" height="38px"></a>
 
         <div class="mega_menu_wrapper">
           <a href="{{route('allcoursecategory')}}" class="nav-link mega_menu">Explore Course</a>
@@ -95,27 +95,59 @@
         <i class="bi bi-search"></i>
         <input type="text" placeholder="Search for anything" />
       </div>
+      @if (!Auth::user())
+        
       <div class="d-flex align-items-center gap-3 mega_menu_wrapper">
-        <a href="#" class="nav-link d-none d-lg-block">Educode Business</a>
-        <a href="#" class="nav-link d-none d-lg-block">Teach on Edu</a>
-        <a href="#" class="nav-link"><i class="bi bi-cart3 fs-5"></i></a>
+        <a href="#" class="nav-link d-none d-lg-block">PriyoMaster Business</a>
+        <a href="#" class="nav-link d-none d-lg-block">Teach on PriyoMaster </a>
         <a href="{{route('login')}}" class="btn btn-sm btn-login">Log in</a>
         <a href="{{route('register')}}" class="btn btn-sm btn-signup">Sign up</a>
         <!-- Inside your header just replace the user icon part with this -->
-        <div class="dropdown">
-            <a href="#" class="btn btn-sm btn-language dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-person-circle"></i>
+      </div>
+      @else
+      <div class="d-flex align-items-center gap-3 mega_menu_wrapper mx-4">
+        <a href="#" class="nav-link d-none d-lg-block">PriyoMaster Business</a>
+        <a href="#" class="nav-link d-none d-lg-block">Teach on PriyoMaster </a>
+     
+        <!-- Inside your header just replace the user icon part with this -->
+      </div>
+         <div class="dropdown ">
+            <a href="#" class="" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="{{asset('contents/frontend/assets/assetss')}}/images/course/i1.jpg" alt="" style="height: 3rem;width:3rem;border-radius:50%;margin-right:1rem;border:1px solid gray">
             </a>
-            <ul class="dropdown-menu dropdown-menu-end mt-3" aria-labelledby="userDropdown">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="#">Dashboard</a></li>
-            <li><a class="dropdown-item" href="#">My Courses</a></li>
+            
+            <ul class="dropdown-menu dropdown-menu-end mt-3 profile_sidebar" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" href="#">
+              <div class="profile_names d-flex justify-content-start">
+                  <img src="{{asset('contents/frontend/assets/assetss')}}/images/course/i1.jpg" alt="">
+                  <div class="profile_infos">
+                    <h4>{{Auth::user()->name}} </h4>
+                    <span>{{Auth::user()->email}}</span>
+                  </div>
+            </div></a></li>
+             <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#mylearning">My Learning</a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#mycart">My Cart</a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#mywishlist">Wishlist</a></li>
+            <li><a class="dropdown-item" href="#">User Dashboard</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#allnotification">Notification</a></li>
+            <li><a class="dropdown-item" href="#">Messages</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Account Setting</a></li>
+            <li><a class="dropdown-item" href="#">Help & Support</a></li>
+            <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <form action="{{route('logout')}}" method="post">
+                @csrf
+                <a class="dropdown-item"  onclick="event.preventDefault(); this.closest('form').submit();" href="{{route('logout')}}">Logout</a>
+              </form>
+            </li>
             </ul>
         </div>
-  
-      </div>
+      @endif
+
     </div>
 </div>  
 <!-- desktop header end here  -->
@@ -152,12 +184,13 @@
         </div>
       </div>
   
+
+
+
+
       <!-- Mobile Sidebar Menu -->
       <div class="mobile_sidebar_menu" id="mobileSidebarMenu">
-        
       @if ($globalcoursecategory)
-      
- 
         <!-- Category Menu -->
         <div class="menu-panel category-panel active">
           <div class="menu-header d-flex justify-content-between align-items-center">
@@ -305,7 +338,7 @@
 
 
 
-
+@includeIf('frontend/my_component/canvas/allcanvas')
 
 <!-- Page Content Goes Here -->
 <!-- jQuery (Required for some plugins) -->
