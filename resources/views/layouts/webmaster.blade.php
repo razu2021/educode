@@ -129,7 +129,7 @@
             <li><a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#mylearning">My Learning</a></li>
             <li><a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#mycart">My Cart</a></li>
             <li><a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#mywishlist">Wishlist</a></li>
-            <li><a class="dropdown-item" href="#">User Dashboard</a></li>
+            <li><a class="dropdown-item" href="{{route('student.dashboard')}}">User Dashboard</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#allnotification">Notification</a></li>
             <li><a class="dropdown-item" href="#">Messages</a></li>
