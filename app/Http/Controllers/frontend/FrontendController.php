@@ -12,7 +12,7 @@ class FrontendController extends Controller
 {
     /**----------  index page function ----- */
     public function index(){
-        $all = Course::where()->get();
+       // $all = Course::where()->get();
         return view('frontend.index');
     }
     /**----------  about page function ----- */
@@ -90,20 +90,30 @@ class FrontendController extends Controller
 
     public function all_course_Category(Request $request){
         $allcategorycourse= CourseCategory::get();
+        $query =  Course::with(['coursePrice'])->where('public_status', 1);
 
-        if($request->ajax()){
-        $all = Course::with(['coursePrice'])
-                    ->where('public_status', 1)
-                    ->when($request->search, function($query) use ($request) {
-                        $query->where('course_name', 'like', '%' . $request->search . '%');
-                    })
-                    ->paginate(2);
+        // if($request->ajax()){
+        // $all = Course::with(['coursePrice'])
+        //             ->where('public_status', 1)
+        //             ->when($request->search, function($query) use ($request) {
+        //                 $query->where('course_name', 'like', '%' . $request->search . '%');
+        //             })
+        //             ->paginate(2);
 
-        return view('frontend.pages.course.components.course_card3', compact('all'))->render(); // only card HTML
-        }else{
-            $all = Course::with(['coursePrice'])->where('public_status',1)->paginate(30);
-        }        
+        // return view('frontend.pages.course.components.course_card3', compact('all'))->render(); // only card HTML
+        // }else{
+        //     $all = Course::with(['coursePrice'])->where('public_status',1)->paginate(30);
+        // }        
 
+           if ($request->price) {
+                $query->where('course_type', $request->price); // assuming you have a 'level' column
+            }
+
+        $all = $query->paginate(30);
+
+        if ($request->ajax()){
+          return view('frontend.pages.course.components.course_card3', compact('all'))->render();
+        }
 
 
         
