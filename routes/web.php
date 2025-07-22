@@ -16,6 +16,7 @@ Route::get('/',[FrontendController::class, 'index'])->name('index');
 
 Route::controller(FrontendController::class)->group(function(){
 Route::get('/courses/all-category','all_course_Category')->name('allcoursecategory');
+
 // Product Category Routes
 Route::get('/product/{url}/{slug}','product_category')->name('product_category');
 Route::get('/product/{categoryUrl}/{subcategoryUrl}/{category_slug}/{subcategory_slug}','sub_category_product')->name('sub_category_product');

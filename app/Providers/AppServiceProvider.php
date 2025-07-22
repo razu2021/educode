@@ -15,6 +15,7 @@ use App\Listeners\user\UserRegisterListener;
 // logviwer
 use Opcodes\LogViewer\Facades\LogViewer;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -59,5 +60,12 @@ class AppServiceProvider extends ServiceProvider
         LogViewer::auth(function ($request) {
             return Auth::guard('admin')->check();
         });
+
+
+
+
+        /**==== paginator ========== */
+        Paginator::useBootstrapFive();
+        Paginator::useBootstrapFour();
     }
 }

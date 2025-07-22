@@ -12,13 +12,17 @@ class FrontendController extends Controller
 {
     /**----------  index page function ----- */
     public function index(){
-
+        $all = Course::where()->get();
         return view('frontend.index');
     }
     /**----------  about page function ----- */
     public function about(){
         return view('frontend.pages.about');
     }
+
+
+
+
 
     /** category product  */
     public function product_category($url,$slug){
@@ -84,9 +88,27 @@ class FrontendController extends Controller
 
     /** ===============  course category function =========== */
 
-    public function all_course_Category(){
+    public function all_course_Category(Request $request){
         $allcategorycourse= CourseCategory::get();
-        return view('frontend.pages.course.Allcategory_course',compact('allcategorycourse'));
+
+        if($request->ajax()){
+        $all = Course::with(['coursePrice'])
+                    ->where('public_status', 1)
+                    ->when($request->search, function($query) use ($request) {
+                        $query->where('course_name', 'like', '%' . $request->search . '%');
+                    })
+                    ->paginate(2);
+
+        return view('frontend.pages.course.components.course_card3', compact('all'))->render(); // only card HTML
+        }else{
+            $all = Course::with(['coursePrice'])->where('public_status',1)->paginate(30);
+        }        
+
+
+
+        
+        //dd($all);
+        return view('frontend.pages.course.Allcategory_course',compact('allcategorycourse','all'));
     }
 
     public function course_Category($category_url){
@@ -103,6 +125,8 @@ class FrontendController extends Controller
         $allcategory = CourseCategory::where('url',$category_url)->get();
         return view('frontend.pages.course.course_subcategory',compact('allcategory'));
     }
+
+
     public function course_childubCategory($category_url,$course_subcategory,$course_childCategory){
         $allcategory = CourseCategory::where('url',$category_url)->get();
         return view('frontend.pages.course.course_childcategory',compact('allcategory'));
