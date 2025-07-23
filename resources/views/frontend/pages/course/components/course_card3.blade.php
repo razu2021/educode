@@ -29,13 +29,11 @@
             </div>
           @endif
 
-           @if(!empty($data->url) && !empty($data->slug))
+           
                 <a href="{{ route('course_details', [$data->url, $data->slug]) }}" class="btn btn-primary view-more-btn">
                     View More
                 </a>
-            @else
-                <span class="text-danger">Course link unavailable</span>
-            @endif
+            
         </div>
       </div>
     </div>

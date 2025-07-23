@@ -137,6 +137,7 @@
 
 
                     
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   // Globally define the function so it's accessible anywhere
@@ -208,4 +209,3 @@
     filter_data(1);
   });
 </script>
-

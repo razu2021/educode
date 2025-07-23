@@ -1,6 +1,5 @@
 @extends('layouts.webmaster')
 @section('website_contents')
-@push('scriptssearch')
 
 
 {{-- breadcrumb --}}
@@ -14,7 +13,8 @@
 
 
 {{-- course and filters --}}
-<div class="section-padding">
+@if (!empty($all))
+    <div class="section-padding">
     <div class="container">
           @includeIf('frontend.pages.course.components.count_filter_com',compact('totalcourse')) 
         <div class="row">
@@ -30,6 +30,7 @@
         </div>
     </div>
 </div>
+@endif
 {{-- course and  design by md razu hossain raj filter end  --}}
 
 

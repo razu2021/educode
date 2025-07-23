@@ -22,7 +22,7 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
-    public function create_instractor(): View
+    public function create_instractor():View
     {
         return view('auth.instractor_register');
     }

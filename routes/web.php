@@ -28,7 +28,7 @@ Route::get('/courses/{category_url}','course_Category')->name('coursecategory');
 Route::get('/courses/{category_url}/{course_subcategory}','course_SububCategory')->name('coursesubcategory');
 Route::get('/courses/{category_url}/{course_subcategory}/{course_childCategory}','course_childubCategory')->name('coursechildcategory');
 
-Route::get('/{url}/{slug}','course_details')->name('course_details');
+Route::get('/courses/{url}/{slug}','course_details')->name('course_details');
 Route::get('instructor/details','instructor_details')->name('instructor_details');
 
 });
@@ -67,5 +67,7 @@ require __DIR__.'/admin_auth.php';
 require __DIR__.'/student_auth.php';
 require __DIR__.'/instructor_auth.php';
 require __DIR__.'/backend.php';
-require __DIR__.'/site_setting.php';
 require __DIR__.'/instructor_authback.php';
+
+// ✅ wildcard route thaka site_setting.php sobcheye niche
+require __DIR__.'/site_setting.php';
