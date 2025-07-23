@@ -77,18 +77,23 @@ $(document).ready(function(){
     smartSpeed: 600,
     dots:false,
     nav:false,
+    autoWidth:true,
     responsive: {
       0: {
-        items: 3
+        items: 3,
+        autoWidth:true,
       },
       768: {
-        items: 4
+        items: 4,
+        autoWidth:true,
       },
       992: {
-        items: 3
+        items: 3,
+        autoWidth:true,
       },
       1200: {
-        items: 10
+        items: 6,
+        autoWidth:true,
       }
     }
   });

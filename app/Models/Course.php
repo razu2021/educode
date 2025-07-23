@@ -111,4 +111,11 @@ class Course extends Model
     public function metaData(){
         return $this->morphOne(Seo::class, 'seoable', 'model_type', 'unique_id');
     }
+
+
+    /**  category model  join for filter  */
+    public function category()
+    {
+        return $this->belongsTo(CourseCategory::class, 'course_category_id','id');
+    }
 }

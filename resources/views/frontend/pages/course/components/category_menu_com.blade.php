@@ -6,15 +6,12 @@
         <div class="owl-carousel owl-theme category_menu_sliders">
           
           <!-- Category Item -->
-         @for ($i=0; $i<10 ; $i++)
-              
+          @foreach ($allcategorycourse as $data)
+                   
           <div class="category_menu_slider text-center">
-            <a href="#" class="category-link">Web Development</a>
+            <a href="{{$data->url}}" class="category-link">{{$data->course_category_name ?? 'No Item Found'}}</a>
           </div>
-
-         @endfor
-          
-
+          @endforeach
         </div>
       </div>
     </div>

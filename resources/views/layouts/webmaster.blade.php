@@ -40,7 +40,7 @@
   <link rel="stylesheet" href="{{asset('contents/frontend/assets')}}/assetss/css/scss/main.css">
 
   <link rel="stylesheet" href="{{asset('contents/frontend/assets/css')}}/style.css">
-
+  @stack('scriptssearch')
 </head>
 <body>
   <header class="desktop-header" >

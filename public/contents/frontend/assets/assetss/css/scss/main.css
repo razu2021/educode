@@ -1602,7 +1602,7 @@ button {
   transition: all 0.3s ease;
 }
 .category-slider-section .category_menu_sliders .category_menu_slider .category-link:hover {
-  background-color: #6c5ce7;
+  background-color: #6D28D1;
   color: #fff;
   transform: translateY(-0.2rem);
 }
@@ -1835,7 +1835,7 @@ button {
 }
 .course-filters .form-select {
   font-size: 1.4rem;
-  padding: 0.8rem 1.2rem;
+  padding: 0.8rem 0rem;
 }
 .course-filters .accordion-button {
   font-size: 1.4rem;
@@ -1843,4 +1843,9 @@ button {
 }
 .course-filters .accordion-body {
   padding: 1rem;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
 }/*# sourceMappingURL=main.css.map */

@@ -1,49 +1,43 @@
 @extends('layouts.webmaster')
 @section('website_contents')
+@push('scriptssearch')
+
 
 {{-- breadcrumb --}}
 @includeIf('frontend.pages.course.components.course_banner')
-@includeIf('frontend.pages.course.components.category_menu_com')
+{{-- @includeIf('frontend.pages.course.components.category_menu_com',compact('allcategorycourse')) --}}
 
-@includeIf('frontend.pages.course.components.category_course_com')
 
 
 @includeIf('frontend.pages.course.components.populer_topics_com')
 @includeIf('frontend.pages.course.components.populer_teacher_com')
 
-@includeIf('frontend.pages.course.components.all_course_com')
 
+{{-- course and filters --}}
+<div class="section-padding">
+    <div class="container">
+          @includeIf('frontend.pages.course.components.count_filter_com',compact('totalcourse')) 
+        <div class="row">
+            <div class="col-lg-3">
+                @includeIf('frontend.pages.course.components.course_filter_com',compact('allcategorycourse'))
+            </div>
+            <div class="col-lg-9">
+                <div id="courseCardData">
+                    @includeIf('frontend.pages.course.components.course_card3',compact('all'))
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- course and  design by md razu hossain raj filter end  --}}
 
 
 
 
 {{-- breadcrumb end --}}
 
-<section>
-    <div class="container">
-        <div class="row">
-            @foreach ($allcategory as $allCate)
-            <ul>
-                <li>{{$allCate->course_category_name}}</li>
-            </ul>
-                @foreach ($allCate->CourseCategorys as $allCourse)
-                <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <h5 class="card-title">{{$allCourse->course_name}}</h5>
-                    <p class="card-text">{{$allCourse->course_des}}</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-                @endforeach
-               
 
-            @endforeach
-           
-
-        </div>
-    </div>
-</section>
 
 
 
