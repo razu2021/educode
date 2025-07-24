@@ -14,6 +14,8 @@
                     <div class="accordion" id="filterAccordion">
                         <!-- Category Filter -->
                         <!-- Category Filter -->
+                      @if(Route::is('allcoursecategory'))
+
                         <div class="accordion-item">
                         <h2 class="accordion-header" id="headingPrice">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCategory" aria-expanded="false">
@@ -31,6 +33,50 @@
                             </div>
                         </div>
                         </div>
+                      
+
+
+                        <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingPrice">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsesubCategory" aria-expanded="false">
+                              Sub Category
+                            </button>
+                        </h2>
+                        <div id="collapsesubCategory" class="accordion-collapse collapse " data-bs-parent="#filterAccordion">
+                            <div class="accordion-body">
+                              @foreach($CourseSubCategory as $subcategory)
+                              <div class="form-check mb-2">
+                                  <input class="form-check-input filter-radio" type="radio" name="subcategory" value="{{$subcategory->id}}" id="categorys">
+                                  <label class="form-check-label" for="categorys">{{$subcategory->course_sub_category_name ?? 'Not Found'}}</label>
+                              </div>
+                              @endforeach  
+                            </div>
+                        </div>
+                        </div>
+                        @elseif (Route::is('coursecategory'))
+                          <div class="accordion-item">
+                          <h2 class="accordion-header" id="headingPrice">
+                              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsesubCategory" aria-expanded="false">
+                                Sub Category
+                              </button>
+                          </h2>
+                          <div id="collapsesubCategory" class="accordion-collapse collapse " data-bs-parent="#filterAccordion">
+                              <div class="accordion-body">
+                                @foreach($CourseSubCategory as $subcategory)
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input filter-radio" type="radio" name="subcategory" value="{{$subcategory->id}}" id="categorys">
+                                    <label class="form-check-label" for="categorys">{{$subcategory->course_sub_category_name ?? 'Not Found'}}</label>
+                                </div>
+                                @endforeach  
+                              </div>
+                          </div>
+                          </div>
+                        @endif
+
+
+
+
+
 
 
                         <!-- Price Filter -->
@@ -138,74 +184,75 @@
 
                     
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  // Globally define the function so it's accessible anywhere
-  function filter_data(page) {
-    let formData = {
-      page: page,
-      search: $('#search').val(),
-      category: $('input[name="category"]:checked').val(),
-      price: $('input[name="price"]:checked').val(),
-      level: $('input[name="level"]:checked').val(),
-      language: $('input[name="language"]:checked').val(),
-      duration: $('input[name="duration"]:checked').val(),
-    };
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script>
+                      // Globally define the function so it's accessible anywhere
+                      function filter_data(page) {
+                        let formData = {
+                          page: page,
+                          search: $('#search').val(),
+                          category: $('input[name="category"]:checked').val(),
+                          subcategory: $('input[name="subcategory"]:checked').val(),
+                          price: $('input[name="price"]:checked').val(),
+                          level: $('input[name="level"]:checked').val(),
+                          language: $('input[name="language"]:checked').val(),
+                          duration: $('input[name="duration"]:checked').val(),
+                        };
 
-    $.ajax({
-      url: courseFilterURL,
-      type: "GET",
-      data: formData,
-       headers: {
-            'X-CSRF-TOKEN': csrfToken,
-        },
-      beforeSend: function () {
-        $('#courseCardData').html(`
-          <div class="d-flex justify-content-center align-items-center" style="min-height: 300px;">
-            <div class="text-center">
-              <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-              <p class="mt-2">Loading courses...</p>
-            </div>
-          </div>
-        `);
-      },
-      success: function (response) {
-        if (response.empty) {
-          $('#courseCardData').html(`
-            <div class="text-center py-5">
-              <h2 class="text-muted text-danger pt-5">No Data found!</h2>
-            </div>
-          `);
-        } else {
-          $('#courseCardData').html(response.html);
-        }
-      }
-    });
-  }
-  $(document).ready(function () {
-    $('#search').on('keyup', function () {
-      filter_data(1);
-    });
-    $(document).on('change', '.filter-checkbox, .filter-radio, .filter-select', function () {
-      filter_data(1);
-    });
+                        $.ajax({
+                          url: courseFilterURL,
+                          type: "GET",
+                          data: formData,
+                          headers: {
+                                'X-CSRF-TOKEN': csrfToken,
+                            },
+                          beforeSend: function () {
+                            $('#courseCardData').html(`
+                              <div class="d-flex justify-content-center align-items-center" style="min-height: 300px;">
+                                <div class="text-center">
+                                  <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                  </div>
+                                  <p class="mt-2">Loading courses...</p>
+                                </div>
+                              </div>
+                            `);
+                          },
+                          success: function (response) {
+                            if (response.empty) {
+                              $('#courseCardData').html(`
+                                <div class="text-center py-5">
+                                  <h2 class="text-muted text-danger pt-5">No Data found!</h2>
+                                </div>
+                              `);
+                            } else {
+                              $('#courseCardData').html(response.html);
+                            }
+                          }
+                        });
+                      }
+                      $(document).ready(function () {
+                        $('#search').on('keyup', function () {
+                          filter_data(1);
+                        });
+                        $(document).on('change', '.filter-checkbox, .filter-radio, .filter-select', function () {
+                          filter_data(1);
+                        });
 
-    $(document).on('click', '.pagination a', function (e) {
-      e.preventDefault();
-      let page = $(this).attr('href').split('page=')[1];
-      filter_data(page);
-    });
+                        $(document).on('click', '.pagination a', function (e) {
+                          e.preventDefault();
+                          let page = $(this).attr('href').split('page=')[1];
+                          filter_data(page);
+                        });
 
-    $('.reset-filters').click(function () {
-      $('.filter-checkbox').prop('checked', false);
-      $('.filter-radio').prop('checked', false);
-      $('.filter-select').val('');
-      $('#search').val('');
-      filter_data(1); // direct call here works now
-    });
-    // Initial load
-    filter_data(1);
-  });
-</script>
+                        $('.reset-filters').click(function () {
+                          $('.filter-checkbox').prop('checked', false);
+                          $('.filter-radio').prop('checked', false);
+                          $('.filter-select').val('');
+                          $('#search').val('');
+                          filter_data(1); // direct call here works now
+                        });
+                        // Initial load
+                        filter_data(1);
+                      });
+                    </script>

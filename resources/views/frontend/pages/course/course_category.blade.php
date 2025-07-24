@@ -1,10 +1,18 @@
 @extends('layouts.webmaster')
 @section('website_contents')
-
+{{-- search route --}}
+@push('scriptssearch')
+<script>
+  const courseFilterURL = @json(route('coursecategory', ['category_url' => $category->url]));
+  const csrfToken = @json(csrf_token());
+</script>
+@endpush
+{{-- search url end  --}}
 
 {{-- breadcrumb --}}
-@includeIf('frontend.pages.course.components.course_banner')
-{{-- @includeIf('frontend.pages.course.components.category_menu_com',compact('allcategorycourse')) --}}
+@includeIf('frontend.pages.course.components.category_menu_com',compact('allcategorycourse'))
+@includeIf('frontend.pages.course.components.course_banner',compact('category'))
+
 
 
 
@@ -19,7 +27,7 @@
           @includeIf('frontend.pages.course.components.count_filter_com',compact('totalcourse')) 
         <div class="row">
             <div class="col-lg-3">
-                @includeIf('frontend.pages.course.components.course_filter_com',compact('allcategorycourse'))
+                @includeIf('frontend.pages.course.components.course_filter_com',compact('allcategorycourse','CourseSubCategory'))
             </div>
             <div class="col-lg-9">
                 <div id="courseCardData">

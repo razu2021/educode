@@ -118,4 +118,14 @@ class Course extends Model
     {
         return $this->belongsTo(CourseCategory::class, 'course_category_id','id');
     }
+    /**  category model  join for filter  */
+    public function subcategory()
+    {
+        return $this->belongsTo(CourseSubCategory::class, 'course_subcategory_id','id');
+    }
+
+
+
+
+
 }

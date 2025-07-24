@@ -1,6 +1,7 @@
 @extends('layouts.webmaster')
 @section('website_contents')
 <main>
+
 {{-- breadcrumb start here  --}}
 <section class="course-hero text-white">
   <div class="container py-5">

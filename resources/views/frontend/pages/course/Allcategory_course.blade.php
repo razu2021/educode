@@ -17,7 +17,7 @@
           @includeIf('frontend.pages.course.components.count_filter_com',compact('totalcourse')) 
         <div class="row">
             <div class="col-lg-3">
-                @includeIf('frontend.pages.course.components.course_filter_com',compact('allcategorycourse'))
+                @includeIf('frontend.pages.course.components.course_filter_com',compact('allcategorycourse','CourseSubCategory'))
             </div>
             <div class="col-lg-9">
                 <div id="courseCardData">

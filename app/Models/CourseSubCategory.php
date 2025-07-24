@@ -30,6 +30,12 @@ class CourseSubCategory extends Model
         return $this->belongsTo(CourseCategory::class,'course_category_id','id');
     }
 
+
+    
+    public function course(){
+        return $this->hasMany(Course::class,'course_subcategory_id','id');
+    }
+
    
 
     // category model 

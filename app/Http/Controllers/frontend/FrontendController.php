@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\CourseCategory;
 use App\Models\Course;
+use App\Models\CourseSubCategory;
 use Illuminate\Http\Request;
+use App\Traits\CourseFilterTrait;
 
 use Illuminate\Support\Facades\Log;
 
 class FrontendController extends Controller
 {
+    use CourseFilterTrait;
     /**----------  index page function ----- */
     public function index(){
        // $all = Course::where()->get();
@@ -23,58 +26,18 @@ class FrontendController extends Controller
     }
 
 
+        // course detais 
+    public function courseDetails($courseurl,$courseslug){
 
-
-
-    /** category product  */
-    public function product_category($url,$slug){
-
-        $data = Category::with(['subcategorys'])
-        ->where('public_status',1)->where('url',$url)->where('slug',$slug)->firstOrFail();
-        //dd($data);
-        return view('frontend.pages.category_product',compact('data'));
-    }
-
-    /** category product  */
-    public function sub_category_product($categoryUrl,$subcategoryUrl,$category_slug,$subcategory_slug){
-        $data = Category::where('public_status',1)->where('url',$categoryUrl)->where('slug',$category_slug)
-        ->with(['subcategorys'=>function($query) use($subcategoryUrl,$subcategory_slug){
-            $query->where('sub_category_url',$subcategoryUrl)->where('slug',$subcategory_slug)
-            ->with('childcategories');
-        }])
-        ->firstOrFail();
-        //dd($data);
-        return view('frontend.pages.sub_category_product',compact('data'));
-    }
-
-
-
-
-
- /** category product  */
-
-    public function child_category_product($categoryUrl,$subcategoryUrl,$childCategoryUrl,$categorySlug,$subcategorySlug,$childCategorySlug){
+        $allcategorycourse  = CourseCategory::where('public_status',1)->get();
       
-        $data = Category::where('public_status',1)
-            ->where('url',$categoryUrl)
-            ->where('slug',$categorySlug)
-            ->with(['subcategorys' => function($query) use ($subcategoryUrl, $subcategorySlug,$childCategoryUrl, $childCategorySlug) {  // make sure `use` contains all variables
-                $query->where('sub_category_url',$subcategoryUrl)
-                    ->where('slug',$subcategorySlug)
-                    ->with(['childcategories' => function($childQuery) use ($childCategoryUrl, $childCategorySlug){ // pass variables here as well
-                        $childQuery->where('child_category_url',$childCategoryUrl)
-                            ->where('slug',$childCategorySlug);
-                    }]);
-            }])
-            ->firstOrFail();
-      
-    
-        return view('frontend.pages.sub_sub_category_product',compact('data'));
+        $data = Course::where('url',$courseurl)->where('slug',$courseslug)->firstOrFail();
+
+        // Increase view count
+        $data->increment('view_count');
+
+        return view('frontend.pages.course.course_details',compact('data','allcategorycourse'));
     }
-    
-
-   
-
 
 
     /** Purchese product  */
@@ -85,52 +48,18 @@ class FrontendController extends Controller
 
 
 
-
-
-
     /** ===============  course category function =========== */
 
     public function all_course_Category(Request $request){
        
         $allcategorycourse= CourseCategory::get(); // find the course catergory 
+        $CourseSubCategory= CourseSubCategory::where('public_status',1)->get();
         $totalcourse = Course::count();
-        $query =  Course::with(['coursePrice'])->where('public_status', 1);
-      
-        if ($request->filled('search')) {
-            $query->where('course_name', "LIKE", '%'.$request->search . '%')->orWhere('course_title', "LIKE", '%'.$request->search . '%')
-            ->orWhere('course_des', "LIKE", '%'.$request->search . '%')
-            ->orWhere('course_language', "LIKE", '%'.$request->search . '%')
-            ->orWhere('course_type', "LIKE", '%'.$request->search . '%')
-            ->orWhere('course_lable', "LIKE", '%'.$request->search . '%')
-            ->orWhere('course_time', "LIKE", '%'.$request->search . '%')
-            ->orWhere('label', "LIKE", '%'.$request->search . '%')
-            ->orWhere('sell', "LIKE", '%'.$request->search . '%');
-        }
+       
+        $query = $this->filterCourses($request);  
 
-        if ($request->filled('category')) {
-            $query->where('course_category_id', $request->category); // assuming you have a 'level' column
-        }
-
-        if ($request->level) {
-            $query->where('course_lable', $request->level); // assuming you have a 'level' column
-            
-        }
-        if ($request->language) {
-            $query->where('course_language', $request->language); // assuming you have a 'level' column
-            
-        }
-        if ($request->duration) {
-            $query->where('course_time', $request->duration); // assuming you have a 'level' column
-            
-        }
-
-        if ($request->price) {
-            $query->where('course_type', $request->price); // assuming you have a 'level' column
-        }
-
-        $all = $query->paginate(30);
-
-            if ($request->ajax()) {
+        $all = $query->paginate(30); 
+        if ($request->ajax()) {
             if ($all->count() > 0) {
                 $html = view('frontend.pages.course.components.course_card3', compact('all'))->render();
                 return response()->json(['html' => $html, 'empty' => false]);
@@ -139,7 +68,7 @@ class FrontendController extends Controller
             }
         }
 
-        return view('frontend.pages.course.Allcategory_course',compact('allcategorycourse','all','totalcourse'));
+        return view('frontend.pages.course.Allcategory_course',compact('allcategorycourse','all','totalcourse','CourseSubCategory'));
     }
 
 
@@ -147,16 +76,34 @@ class FrontendController extends Controller
     /**
      * ==========  course category function ===================
      */
-    public function course_Category($category_url){
-        $allcategorycourse = CourseCategory::where('public_status',1)->get();
+        public function course_Category(Request $request , $category_url){
+            $allcategorycourse  = CourseCategory::where('public_status',1)->get();
+            $category = CourseCategory::where('url',$category_url)->firstOrFail();
+            $CourseSubCategory = CourseSubCategory::where('public_status',1)->where('course_category_id',$category->id)->get();
 
-        $category = CourseCategory::where('url',$category_url)->firstOrFail();
-        $all =  $category->CourseCategorys()->where('status', 1)->latest()->paginate(12);;
-        $totalcourse =  $all->count();
+           
 
-       
-        return view('frontend.pages.course.course_category',compact('all','totalcourse','allcategorycourse'));
-    }
+            // ✅ Use fixed relation
+            $baseQuery = $category->CourseCategorys()->where('status', 1);
+
+            $query = $this->filterCourses($request, $baseQuery);
+
+            $all = $query->where('course_category_id',$category->id)->paginate(30);
+
+            $totalcourse =  $all->count();
+
+            if ($request->ajax()) {
+                if ($all->count() > 0) {
+                    $html = view('frontend.pages.course.components.course_card3', compact('all'))->render();
+                    return response()->json(['html' => $html, 'empty' => false]);
+                } else {
+                    return response()->json(['html' => '', 'empty' => true]);
+                }
+            }
+
+            return view('frontend.pages.course.course_category', compact('all','totalcourse','allcategorycourse','category','CourseSubCategory'));
+        }
+
 
 
 
@@ -173,16 +120,6 @@ class FrontendController extends Controller
 
 
 
-    // course detais 
-    public function course_details($url,$slug){
-
-        $data = Course::where('url',$url)->where('slug',$slug)->firstOrFail();
-
-        // Increase view count
-        $data->increment('view_count');
-
-        return view('frontend.pages.course.course_details',compact('data'));
-    }
 
 
     // instructor  detais 
