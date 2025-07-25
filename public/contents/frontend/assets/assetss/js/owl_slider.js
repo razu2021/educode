@@ -98,3 +98,40 @@ $(document).ready(function(){
     }
   });
 });
+// topics slider items 
+$(document).ready(function(){
+  $('.topics_slider_1').owlCarousel({
+    loop: false,
+    margin: 20,
+    autoplay: true,
+    autoplayTimeout: 4000,
+    autoplayHoverPause: true,
+    smartSpeed: 600,
+    dots:true,
+    nav:false,
+    autoWidth:true,
+
+    responsive: {
+      0: {
+        items: 3,
+        autoWidth:true,
+       
+      },
+      768: {
+        items: 4,
+        autoWidth:true,
+       
+      },
+      992: {
+        items: 3,
+        autoWidth:true,
+      
+      },
+      1200: {
+        items: 6,
+        autoWidth:true,
+     
+      }
+    }
+  });
+});

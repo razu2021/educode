@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\CourseCategory;
 use App\Models\Course;
+use App\Models\User;
 use App\Models\CourseSubCategory;
 use Illuminate\Http\Request;
 use App\Traits\CourseFilterTrait;
@@ -80,6 +81,12 @@ class FrontendController extends Controller
             $allcategorycourse  = CourseCategory::where('public_status',1)->get();
             $category = CourseCategory::where('url',$category_url)->firstOrFail();
             $CourseSubCategory = CourseSubCategory::where('public_status',1)->where('course_category_id',$category->id)->get();
+            $populerTopics = CourseSubCategory::where('public_status',1)->where('course_category_id',$category->id)->get();
+            
+            //--- find instructor 
+            $instructorId= Course::where('course_category_id',$category->id)->pluck('user_id')->unique()->toArray();
+
+            $instructorDetails = User::whereIn('id',$instructorId)->where('role',1)->get();
 
            
 
@@ -101,7 +108,7 @@ class FrontendController extends Controller
                 }
             }
 
-            return view('frontend.pages.course.course_category', compact('all','totalcourse','allcategorycourse','category','CourseSubCategory'));
+            return view('frontend.pages.course.course_category', compact('all','totalcourse','allcategorycourse','category','CourseSubCategory','populerTopics','instructorDetails'));
         }
 
 

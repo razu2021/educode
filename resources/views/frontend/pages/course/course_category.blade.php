@@ -16,10 +16,13 @@
 
 
 
-@includeIf('frontend.pages.course.components.populer_topics_com')
-@includeIf('frontend.pages.course.components.populer_teacher_com')
+  @includeIf('frontend.pages.course.components.populer_topics_com',compact('populerTopics'))
 
 
+
+<section>
+
+</section>
 {{-- course and filters --}}
 @if (!empty($all))
     <div class="section-padding">
@@ -41,7 +44,7 @@
 @endif
 {{-- course and  design by md razu hossain raj filter end  --}}
 
-
+@includeIf('frontend.pages.course.components.populer_teacher_com',compact('instructorDetails'))
 
 
 {{-- breadcrumb end --}}

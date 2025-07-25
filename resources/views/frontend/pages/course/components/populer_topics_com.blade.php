@@ -1,38 +1,32 @@
-<section class="popular-topics py-40 bg-light section-padding">
+@if (!empty($populerTopics) && $populerTopics->count() > 0)
+<section class="popular-topics py-5 bg-light">
   <div class="container">
-    <h2 class="section-title mb-30">Popular Topics</h2>
-    <div class="row g-20">
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="topic-card text-center p-20">
-          <div class="icon mb-10 text-primary"><i class="bi bi-code-slash fs-30"></i></div>
-          <h5 class="title mb-5">Web Development</h5>
-          <p class="desc">120+ Courses</p>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="topic-card text-center p-20">
-          <div class="icon mb-10 text-success"><i class="bi bi-phone fs-30"></i></div>
-          <h5 class="title mb-5">App Development</h5>
-          <p class="desc">85+ Courses</p>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="topic-card text-center p-20">
-          <div class="icon mb-10 text-danger"><i class="bi bi-brush fs-30"></i></div>
-          <h5 class="title mb-5">UI/UX Design</h5>
-          <p class="desc">70+ Courses</p>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="topic-card text-center p-20">
-          <div class="icon mb-10 text-warning"><i class="bi bi-bar-chart-line fs-30"></i></div>
-          <h5 class="title mb-5">Data Science</h5>
-          <p class="desc">60+ Courses</p>
-        </div>
+    <div class="section_heading mb-2 ">
+      <h2 class="section-title mb-2 ">Popular Topics</h2>
+        <p class="text-muted  mb-4">Browse trending subcategories to boost your knowledge and career.</p>
+      <hr>
+    </div>
+    <div class="row g-4">
+      <div class="owl-carousel owl-theme topics_slider_1">
+          @foreach ($populerTopics as $data)
+          <a href="">
+            <div class="topics_slider_items">
+              <div class="card topic-card h-100 shadow-sm border-0 p-3 text-center bg-white rounded-4 hover-shadow">
+                <div class="card-body">
+                  <div class="icon-box mb-3 mx-auto">
+                    <i class="bi bi-book text-primary fs-1"></i> <!-- You can use dynamic icons too -->
+                  </div>
+                  <h4 class="card-title text-dark fw-semibold text-muted">{{ $data->course_sub_category_name ?? 'Not Found !' }}</h4>
+                  <p class="card-text text-muted ">{{ $data->course_sub_category_des ? Str::words($data->course_sub_category_des , 4) : 'Not Found' }}</p>
+                </div>
+              </div>
+            </div>
+          </a>
+          @endforeach
       </div>
     </div>
   </div>
 </section>
+@endif
+
+

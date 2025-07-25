@@ -24,9 +24,10 @@ Route::middleware('guest')->group(function () {
         ->name('instractor.register.submit');
 
 
+
+        
+
     Route::post('register', [RegisteredUserController::class, 'store']);
-
-
 
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
