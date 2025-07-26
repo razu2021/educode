@@ -109,28 +109,19 @@ $(document).ready(function(){
     smartSpeed: 600,
     dots:true,
     nav:false,
-    autoWidth:true,
-
     responsive: {
       0: {
-        items: 3,
-        autoWidth:true,
-       
+        items: 2,
       },
       768: {
-        items: 4,
-        autoWidth:true,
-       
+        items: 3,
       },
       992: {
         items: 3,
-        autoWidth:true,
-      
       },
       1200: {
-        items: 6,
-        autoWidth:true,
-     
+        items: 4,
+
       }
     }
   });

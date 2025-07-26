@@ -33,9 +33,7 @@
                             </div>
                         </div>
                         </div>
-                      
-
-
+                        {{-- category end --}}
                         <div class="accordion-item">
                         <h2 class="accordion-header" id="headingPrice">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsesubCategory" aria-expanded="false">
@@ -53,6 +51,25 @@
                             </div>
                         </div>
                         </div>
+                        {{-- subcategory end  --}}
+                         <div class="accordion-item">
+                          <h2 class="accordion-header" id="headingPrice">
+                              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsesubchildCategory" aria-expanded="false">
+                                Child Category
+                              </button>
+                          </h2>
+                          <div id="collapsesubchildCategory" class="accordion-collapse collapse " data-bs-parent="#filterAccordion">
+                              <div class="accordion-body">
+                                @foreach($allchildCategory as $childcategory)
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input filter-radio" type="radio" name="childcategory" value="{{$childcategory->id}}" id="childcategorys">
+                                    <label class="form-check-label" for="childcategorys">{{$childcategory->course_child_category_name ?? 'Not Found'}}</label>
+                                </div>
+                                @endforeach  
+                              </div>
+                          </div>
+                          </div>
+                          {{-- child category end  --}}
                         @elseif (Route::is('coursecategory'))
                           <div class="accordion-item">
                           <h2 class="accordion-header" id="headingPrice">
@@ -64,14 +81,34 @@
                               <div class="accordion-body">
                                 @foreach($CourseSubCategory as $subcategory)
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input filter-radio" type="radio" name="subcategory" value="{{$subcategory->id}}" id="categorys">
-                                    <label class="form-check-label" for="categorys">{{$subcategory->course_sub_category_name ?? 'Not Found'}}</label>
+                                    <input class="form-check-input filter-radio" type="radio" name="subcategory" value="{{$subcategory->id}}" id="subcategorys">
+                                    <label class="form-check-label" for="subcategorys">{{$subcategory->course_sub_category_name ?? 'Not Found'}}</label>
+                                </div>
+                                @endforeach  
+                              </div>
+                          </div>
+                          </div>
+
+                        @elseif (Route::is('coursesubcategory'))
+                         <div class="accordion-item">
+                          <h2 class="accordion-header" id="headingPrice">
+                              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsesubCategory" aria-expanded="false">
+                                Child Category
+                              </button>
+                          </h2>
+                          <div id="collapsesubCategory" class="accordion-collapse collapse " data-bs-parent="#filterAccordion">
+                              <div class="accordion-body">
+                                @foreach($allchildCategory as $childcategory)
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input filter-radio" type="radio" name="childcategory" value="{{$childcategory->id}}" id="childcategorys">
+                                    <label class="form-check-label" for="childcategorys">{{$childcategory->course_child_category_name ?? 'Not Found'}}</label>
                                 </div>
                                 @endforeach  
                               </div>
                           </div>
                           </div>
                         @endif
+                        {{-- child category end  --}}
 
 
 
@@ -193,6 +230,7 @@
                           search: $('#search').val(),
                           category: $('input[name="category"]:checked').val(),
                           subcategory: $('input[name="subcategory"]:checked').val(),
+                          childcategory: $('input[name="childcategory"]:checked').val(),
                           price: $('input[name="price"]:checked').val(),
                           level: $('input[name="level"]:checked').val(),
                           language: $('input[name="language"]:checked').val(),

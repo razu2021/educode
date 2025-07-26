@@ -11,12 +11,12 @@
 
 {{-- breadcrumb --}}
 @includeIf('frontend.pages.course.components.category_menu_com',compact('allcategorycourse'))
-@includeIf('frontend.pages.course.components.course_banner',compact('category'))
+@includeIf('frontend.pages.course.components.course_banner',compact('bannerdata'))
 
 
 
 
-  @includeIf('frontend.pages.course.components.populer_topics_com',compact('populerTopics'))
+@includeIf('frontend.pages.course.components.populer_topics_com',compact('populerTopics','category'))
 
 
 

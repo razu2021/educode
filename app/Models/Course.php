@@ -123,6 +123,11 @@ class Course extends Model
     {
         return $this->belongsTo(CourseSubCategory::class, 'course_subcategory_id','id');
     }
+    // -- child category 
+    public function childcategory()
+    {
+        return $this->belongsTo(CourseChildCategory::class, 'course_childcategory_id','id');
+    }
 
 
 

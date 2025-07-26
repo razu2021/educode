@@ -10,7 +10,7 @@ trait CourseFilterTrait
     {
         $query = $baseQuery ?? Course::query();
 
-        $query = Course::with(['coursePrice','category','subcategory'])->where('public_status', 1);
+        $query = Course::with(['coursePrice','category','subcategory','childcategory'])->where('public_status', 1);
 
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
@@ -31,6 +31,9 @@ trait CourseFilterTrait
         }
         if ($request->filled('subcategory')) {
             $query->where('course_subcategory_id', $request->subcategory);
+        }
+        if ($request->filled('childcategory')) {
+            $query->where('course_childcategory_id', $request->childcategory);
         }
 
         if ($request->filled('level')) {
