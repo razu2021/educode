@@ -1936,3 +1936,59 @@ $border-radius: 1.2rem;
   width: 3rem;
   height: 3rem;
 }
+
+
+
+/*=========  footer scss ========*/
+.footer {
+  background-color: #0F0F0F; // dark background
+  color: #eee;
+  font-size: 1.4rem;
+
+  .footer-title {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .footer-body {
+    .footer-menu-title {
+      font-size: 1.6rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    ul {
+      padding-left: 0;
+
+      li {
+        margin-bottom: 0.6rem;
+
+        a {
+          color: #ccc;
+          text-decoration: none;
+          font-size: 1.4rem;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+
+}
+.copyright_rec p{
+  color:rgba(173, 173, 173,0.57);
+}
+
+.hr {
+  width: 100%;
+  height: 0.1rem;
+  background-color: rgba(255, 255, 255, 0.55); // dark line on light background
+  margin: 2rem 0;
+  border: none;
+}
