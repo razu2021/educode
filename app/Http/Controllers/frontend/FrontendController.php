@@ -12,6 +12,7 @@ use App\Models\DiscountCoupon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Traits\CourseFilterTrait;
+use Illuminate\Support\Facades\Session;
 
 use Illuminate\Support\Facades\Log;
 
@@ -47,13 +48,23 @@ class FrontendController extends Controller
       
         $priceData = $this->calculatePrices($data);
 
+
+        Session::put('checkout_course_' . $data->id . '_' . $data->slug, [
+            'course_id' => $data->id,
+            'course_slug' => $data->slug,
+            'instructor_name' => $data->userName->name,
+            'checkout_price' => $priceData['final_price'],
+            'discount_amount' => $priceData['discounted_price'],
+            'coupon_code' => $priceData['applied_coupon'] ?? null
+        ]);
+
+
         return view('frontend.pages.course.course_details',compact('data','allcategorycourse','priceData'));
     }
 
     // 2. Apply Coupon via AJAX
     public function applyCoupon(Request $request)
     {
-      
         $request->validate([
             'course_id' => 'required|exists:courses,id',
             'coupon_code' => 'required|string',
@@ -163,7 +174,9 @@ class FrontendController extends Controller
 
 
     /** Purchese product  */
-    public function purchese_product(){
+    public function purchese_product($course_id, $course_slug){
+
+        dd(Session::get('checkout_course_' . $course_id->id . '_' . $course_id->slug));
         return view('frontend.pages.purchase');
     }
 
