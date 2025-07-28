@@ -14,8 +14,7 @@
         <p class="course-subtitle">{{ $data->course_des ? Str::limit(strip_tags($data->course_des), 100) : 'Not Found !' }}</p>
 
         <div class="course-meta d-flex flex-wrap gap-3 mt-3">
-          <div><span class="text-warning fw-bold">★ 4.3</span> (1,917 ratings) · 126,889 students</div>
-         
+          <div><span class="text-warning fw-bold">★ 4.3</span> (1,917 ratings) · 126,889 students </div>
         </div>
 
         <div class="course-meta d-flex flex-wrap gap-3 mt-3">
@@ -34,7 +33,6 @@
           </button>
         </div>
       </div>
-
     </div>
   </div>
 </section>

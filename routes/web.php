@@ -34,6 +34,9 @@ Route::controller(PaymentController::class)->middleware(['auth'])->group(functio
 });
 
 
+Route::post('/apply-coupon', [FrontendController::class, 'applyCoupon'])->name('apply.coupon');
+
+
 
 
 

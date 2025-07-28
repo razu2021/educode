@@ -8,6 +8,7 @@ use App\Models\CourseCategory;
 use App\Models\Course;
 use App\Models\CourseChildCategory;
 use App\Models\CourseSubCategory;
+use App\Models\DiscountCoupon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Traits\CourseFilterTrait;
@@ -28,18 +29,137 @@ class FrontendController extends Controller
     }
 
 
-        // course detais 
-    public function courseDetails($courseurl,$courseslug){
+    /**
+     * 
+     * ===============  course details functionality ===========
+     */
+    public function courseDetails($courseurl,$courseslug ){
 
         $allcategorycourse  = CourseCategory::where('public_status',1)->get();
       
-        $data = Course::where('url',$courseurl)->where('slug',$courseslug)->firstOrFail();
+        $data = Course::with(['coursePrice'])->where('url',$courseurl)->where('slug',$courseslug)->firstOrFail();
 
         // Increase view count
         $data->increment('view_count');
 
-        return view('frontend.pages.course.course_details',compact('data','allcategorycourse'));
+
+        // Get coupon from query (or session/form later)
+      
+        $priceData = $this->calculatePrices($data);
+
+        return view('frontend.pages.course.course_details',compact('data','allcategorycourse','priceData'));
     }
+
+    // 2. Apply Coupon via AJAX
+    public function applyCoupon(Request $request)
+    {
+      
+        $request->validate([
+            'course_id' => 'required|exists:courses,id',
+            'coupon_code' => 'required|string',
+        ]);
+
+        $course = Course::with('coursePrice')->findOrFail($request->course_id);
+
+        // Pass coupon code for calculation
+        $priceData = $this->calculatePrices($course, $request->coupon_code);
+
+        if (!$priceData['coupon_applied']) {
+            return response()->json([
+                'status' => 'invalid',
+                'message' => 'Invalid or expired coupon code.',
+            ], 422);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Coupon applied successfully!',
+                'priceData' => [
+                    'currency' => $priceData['currency'],
+                    'final_price' => $priceData['final_price'],
+                    'coupon_discount' => $priceData['coupon_discount'],
+                    // অন্য দরকারি ফিল্ডও নিতে পারো
+                ],
+
+        ]);
+    }
+
+
+
+    private function calculatePrices($course , $couponCode = null){
+        $original = $course->coursePrice->original_price ?? 0;
+        $discount = $course->coursePrice->discounted_price ?? null;
+        $startDate = $course->coursePrice->start_date ?? null;
+        $endDate = $course->coursePrice->end_date ?? null;
+        $currency = $course->coursePrice->currency ?? 'BDT';
+
+        $today = \Carbon\Carbon::now();
+        $isDiscountActive = false;
+
+        if (!empty($discount) && $discount > 0) {
+            if (empty($startDate) && empty($endDate)) {
+                $isDiscountActive = true;
+            } elseif (!empty($startDate) && empty($endDate)) {
+                $isDiscountActive = $today->gte($startDate);
+            } elseif (empty($startDate) && !empty($endDate)) {
+                $isDiscountActive = $today->lte($endDate);
+            } elseif (!empty($startDate) && !empty($endDate)) {
+                $isDiscountActive = $today->between($startDate, $endDate);
+            }
+        }
+
+        // get the final price after discounted amount 
+        $finalPrice = $isDiscountActive ? ($original - $discount) : $original;
+        Log::info('final price after discount price : ' . $finalPrice);
+
+        $appliedCoupon = null;
+        $couponDiscountAmount = 0;
+
+        if($couponCode){
+             $coupon = DiscountCoupon::where('code', $couponCode)->where('public_status',1)->first();
+
+           
+            
+           
+            if ($coupon) {
+                 Log::info('coupon info : ' . $coupon->code );
+                 Log::info('coupon info : ' . $coupon-> discount_amount);
+                $appliedCoupon = $coupon->code;
+
+            if ($coupon->discount_type === 'fixed') {
+                $couponDiscountAmount = $coupon->discount_amount;
+            } elseif ($coupon->discount_type === 'percentage') {
+                $couponDiscountAmount = ($finalPrice * $coupon->discount_amount) / 100;
+                Log::info('coupon info percentage: ' . $couponDiscountAmount);
+            }
+
+            $finalPrice = $finalPrice - $couponDiscountAmount;
+
+          Log::info('coupon final price  : ' . $finalPrice);
+
+        }
+
+        }
+
+
+    // Never go below zero
+    $finalPrice = max(0, $finalPrice);
+
+        return [
+        'original_price' => $original,
+        'discounted_price' => $discount,
+        'is_discount_active' => $isDiscountActive,
+        'coupon_applied' => $appliedCoupon,
+        'coupon_discount' => $couponDiscountAmount,
+        'final_price' => $finalPrice,
+        'currency' => $currency,
+        'valid_until' => $isDiscountActive ? ($endDate ?? null) : null, // 👈 Added
+        'days_left' => $isDiscountActive && $endDate ? \Carbon\Carbon::now()->diffInDays($endDate, false) : null,
+        ];
+    }
+
+
+
 
 
     /** Purchese product  */
