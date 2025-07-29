@@ -33,9 +33,9 @@ class SSLCommerzPaymentService implements  PaymentInterface
         $post_data['cus_name'] = $data['customer_name'];
         $post_data['cus_email'] = $data['email'];
         $post_data['cus_phone'] = $data['phone'];
-        $post_data['cus_add1'] = $data['address'] ?? 'Dhaka'; // ✅ add this line (required)
-        $post_data['cus_city'] = 'Dhaka';
-        $post_data['cus_country'] = 'Bangladesh';
+        $post_data['cus_add1'] = $data['division'] ?? 'Dhaka'; // ✅ add this line (required)
+        $post_data['cus_city'] = $data['city'] ?? 'Dhaka';
+        $post_data['cus_country'] = $data['country'] ?? 'Bangladesh';
 
         
         // Shipping info (SSLCommerz requires this)

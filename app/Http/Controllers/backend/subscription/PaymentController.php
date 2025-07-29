@@ -186,6 +186,10 @@ class PaymentController extends Controller
             $decryptedCourseId = Crypt::decryptString($request->input('course_id'));
             $decryptedCourseSlug = Crypt::decryptString($request->input('course_slug'));
             $decryptedPrice = Crypt::decryptString($request->input('actual_price'));
+            $phone = $request->phone;
+            $division = $request->division;
+            $city = $request->city;
+            $country = $request->country;
         } catch (\Exception $e) {
             return back()->withErrors('Invalid or tampered data received.');
         }
@@ -193,7 +197,7 @@ class PaymentController extends Controller
         // Step 2: Retrieve session data securely 
         $sessionKey = 'checkout_course_' . $decryptedCourseId . '_' . $decryptedCourseSlug;
         $checkoutData = Session::get($sessionKey);
-
+        $course_data= Course::where('id',$decryptedCourseId )->where('slug',$decryptedCourseSlug)->first();
         if (!$checkoutData) {
             return back()->withErrors('Checkout session expired or invalid.');
         }
@@ -204,7 +208,7 @@ class PaymentController extends Controller
         }
 
         // Step 4: Generate secure transaction ID
-        $trans_id = 'Tan_' . time() . rand(10000, 99999999);
+        $trans_id = 'Trans' . time() . rand(10000, 99999999);
 
 
         // Step 5 : store Payment information in Payment table 
@@ -233,6 +237,12 @@ class PaymentController extends Controller
             'email' => $request->email ?? Auth::user()->email ?? 'guest@example.com',
             'phone' => $request->phone ?? '01817078309',
             'tran_id' => $trans_id,
+            'phone'=>$phone,
+            'division'=>$division,
+            'city'=>$city,
+            'country'=>$country,
+            'product_name'=>$course_data->course_name,
+
         ];
 
         // Step 6: Create gateway and redirect to payment
