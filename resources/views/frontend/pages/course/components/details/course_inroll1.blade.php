@@ -21,7 +21,7 @@
           <div class="button-group mb-3">
             
              <a href="" class="btn btn-sm btn-warning mb-2 w-100">Add to Cart</a>
-             <a href="{{route('ssl_payment_initiate')}}" class="btn btn-sm btn-outline-success w-100">Course Enrolment </a>
+             <a href="{{route('ssl_payment_initiate',[$data->id,$data->slug])}}" class="btn btn-sm btn-outline-success w-100">Course Enrolment </a>
           </div>
           @elseif ($data->course_type === 'Free')
               <a href="" class="btn btn-sm btn-warning w-100 mb-2">Add to Cart</a>

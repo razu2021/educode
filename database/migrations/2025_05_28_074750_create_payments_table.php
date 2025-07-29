@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
         $table->bigIncrements('id');
-        $table->unsignedBigInteger('plan_id')->nullable(); // ✅ match with bigIncrements
+        $table->unsignedBigInteger('course_id')->nullable(); // ✅ match with bigIncrements
         $table->unsignedBigInteger('user_id')->nullable(); // ✅ for users table
         $table->string('payment_gateway')->nullable(); // stripe
         $table->string('payment_id')->nullable();
@@ -28,7 +28,7 @@ return new class extends Migration
         $table->text('payload')->nullable();
         $table->timestamps();
         $table->softDeletes();
-        $table->foreign('plan_id')->references('id')->on('subscription_plans')->onDelete('cascade');
+        $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

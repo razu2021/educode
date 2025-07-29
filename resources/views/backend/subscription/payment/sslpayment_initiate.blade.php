@@ -21,17 +21,14 @@
               <h5 class="fw-bold mb-2">Customer Details</h5>
               <p class="mb-1"><strong>Name:</strong> {{ auth()->user()->name }}</p>
               <p class="mb-1"><strong>Email:</strong> {{ auth()->user()->email }}</p>
-              <p class="mb-1"><strong>Phone:</strong> 01812345678</p>
-              <p class="mb-1"><strong>Address:</strong> Dhaka, Bangladesh</p>
             </div>
 
 
             <div class="col-md-6 border-end">
               <h5 class="fw-bold mb-2">Course Details</h5>
-              <p class="mb-1"><strong>Course:</strong> Laravel Masterclass</p>
-              <p class="mb-1"><strong>Instructor:</strong> Henry Habib</p>
-              <p class="mb-1"><strong>Price:</strong> ৳500</p>
-              <p class="mb-1"><strong>Transaction ID:</strong> TXN_123456</p>
+              <p class="mb-1"><strong>Course:</strong> {{$course_data->course_title ?? 'Not Found !'}}</p>
+              <p class="mb-1"><strong>Instructor:</strong> {{$course_data->userName->name ?? 'Not Found !'}}</p>
+              <p class="mb-1"><strong>Price:</strong> {{$checkoutData['checkout_price']}}</p>
             </div>
           </div>
 
@@ -42,12 +39,13 @@
             @csrf
             <input type="hidden" name="name" value="{{ auth()->user()->name }}">
             <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-            <input type="hidden" name="phone" value="01812345678">
-            <input type="hidden" name="address" value="Dhaka, Bangladesh">
+            <input type="hidden" name="course_id" value="{{$course_id}}">
+            <input type="hidden" name="course_slug" value="{{$course_slug}}">
+            <input type="hidden" name="actual_price" value="{{$lastprice}}">
 
             <div class="text-center">
               <button type="submit" class="btn btn-primary px-5 py-2 fw-semibold fs-5">
-                Proceed to Pay ৳500
+                Proceed to Pay :  {{$checkoutData['checkout_price']}}
               </button>
             </div>
           </form>

@@ -55,12 +55,13 @@ class SSLCommerzPaymentService implements  PaymentInterface
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
         $content = curl_exec($handle);
         $response = json_decode($content, true);
-
-//         $response = json_decode($content, true);
-// dd($response); // এটাতে সম্পূর্ণ SSLCommerz API response দেখতে পারবেন
+ 
+    //$response = json_decode($content, true);
+    // dd($response); // এটাতে সম্পূর্ণ SSLCommerz API response দেখতে পারবেন
 
         if (isset($response['GatewayPageURL']) && $response['GatewayPageURL'] != "") {
             return redirect($response['GatewayPageURL']);
+            log::info('gateway  url is ;' . $response);
         } else {
             return response()->json(['error' => 'Payment gateway error.']);
         }

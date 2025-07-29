@@ -49,14 +49,15 @@ class FrontendController extends Controller
         $priceData = $this->calculatePrices($data);
 
 
-        Session::put('checkout_course_' . $data->id . '_' . $data->slug, [
+        
+      Session::put('checkout_course_' . $data->id . '_' . $data->slug, [
             'course_id' => $data->id,
             'course_slug' => $data->slug,
-            'instructor_name' => $data->userName->name,
-            'checkout_price' => $priceData['final_price'],
-            'discount_amount' => $priceData['discounted_price'],
-            'coupon_code' => $priceData['applied_coupon'] ?? null
+            'checkout_price' => $priceData['final_price'] ?? 0,
+            'discount_amount' => $priceData['coupon_discount'] ?? 0,
+            'coupon_code' => $priceData['coupon_applied'] ?? null
         ]);
+
 
 
         return view('frontend.pages.course.course_details',compact('data','allcategorycourse','priceData'));
@@ -64,36 +65,44 @@ class FrontendController extends Controller
 
     // 2. Apply Coupon via AJAX
     public function applyCoupon(Request $request)
-    {
-        $request->validate([
-            'course_id' => 'required|exists:courses,id',
-            'coupon_code' => 'required|string',
-        ]);
+{
+    $request->validate([
+        'course_id' => 'required|exists:courses,id',
+        'coupon_code' => 'required|string',
+    ]);
 
-        $course = Course::with('coursePrice')->findOrFail($request->course_id);
+    $course = Course::with('coursePrice')->findOrFail($request->course_id);
 
-        // Pass coupon code for calculation
-        $priceData = $this->calculatePrices($course, $request->coupon_code);
+    // Pass coupon code for calculation
+    $priceData = $this->calculatePrices($course, $request->coupon_code);
 
-        if (!$priceData['coupon_applied']) {
-            return response()->json([
-                'status' => 'invalid',
-                'message' => 'Invalid or expired coupon code.',
-            ], 422);
-        }
-
+    if (!$priceData['coupon_applied']) {
         return response()->json([
-            'status' => 'success',
-            'message' => 'Coupon applied successfully!',
-                'priceData' => [
-                    'currency' => $priceData['currency'],
-                    'final_price' => $priceData['final_price'],
-                    'coupon_discount' => $priceData['coupon_discount'],
-                    // অন্য দরকারি ফিল্ডও নিতে পারো
-                ],
-
-        ]);
+            'status' => 'invalid',
+            'message' => 'Invalid or expired coupon code.',
+        ], 422);
     }
+
+    // ✅ Update session with coupon data
+    Session::put('checkout_course_' . $course->id . '_' . $course->slug, [
+        'course_id' => $course->id,
+        'course_slug' => $course->slug,
+        'checkout_price' => $priceData['final_price'] ?? 0,
+        'discount_amount' => $priceData['coupon_discount'] ?? 0,
+        'coupon_code' => $priceData['coupon_applied'] ?? null
+    ]);
+
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Coupon applied successfully!',
+        'priceData' => [
+            'currency' => $priceData['currency'],
+            'final_price' => $priceData['final_price'],
+            'coupon_discount' => $priceData['coupon_discount'],
+            'coupon_code' => $priceData['coupon_applied'],
+        ],
+    ]);
+}
 
 
 
@@ -121,7 +130,7 @@ class FrontendController extends Controller
 
         // get the final price after discounted amount 
         $finalPrice = $isDiscountActive ? ($original - $discount) : $original;
-        Log::info('final price after discount price : ' . $finalPrice);
+       
 
         $appliedCoupon = null;
         $couponDiscountAmount = 0;
@@ -141,12 +150,12 @@ class FrontendController extends Controller
                 $couponDiscountAmount = $coupon->discount_amount;
             } elseif ($coupon->discount_type === 'percentage') {
                 $couponDiscountAmount = ($finalPrice * $coupon->discount_amount) / 100;
-                Log::info('coupon info percentage: ' . $couponDiscountAmount);
+                
             }
 
             $finalPrice = $finalPrice - $couponDiscountAmount;
 
-          Log::info('coupon final price  : ' . $finalPrice);
+       
 
         }
 
@@ -174,9 +183,13 @@ class FrontendController extends Controller
 
 
     /** Purchese product  */
-    public function purchese_product($course_id, $course_slug){
+    public function purchese_product($id, $slug){
+    $sessionKey = 'checkout_course_' . $id . '_' . $slug;
 
-        dd(Session::get('checkout_course_' . $course_id->id . '_' . $course_id->slug));
+    $checkout = Session::get($sessionKey);
+
+    // Debugging
+    dd($checkout);
         return view('frontend.pages.purchase');
     }
 

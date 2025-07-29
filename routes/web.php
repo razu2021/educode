@@ -29,21 +29,13 @@ Route::controller(FrontendController::class)->group(function(){
 * -------------  SSLCommerze Payment Route Start here -----------
 */
 Route::controller(PaymentController::class)->middleware(['auth'])->group(function(){
-    Route::get('payment/initiate','sslpayment_initiate')->name('ssl_payment_initiate');
+    Route::get('/payment/ssl/initiate/{id}/{slug}','sslpayment_initiate')->name('ssl_payment_initiate');
     Route::post('/payment/create/url',  'ssl_paymentCreate')->name('ssl_payment.create');
 });
 
 
 Route::post('/apply-coupon', [FrontendController::class, 'applyCoupon'])->name('apply.coupon');
 
-
-
-
-
-
-Route::controller(FrontendController::class)->prefix('product/purchese')->group(function(){
-    Route::get('/fashion-and-clothing/man-fashion/t-shirt/xyz','purchese_product')->name('purchese_product'); // sub category product
-});
 
 
 

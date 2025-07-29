@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend\subscription;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use App\Models\Payment;
 use App\Models\Subscription;
 use App\Models\SubscriptionPlan;
@@ -10,6 +11,10 @@ use Illuminate\Http\Request;
 use App\Services\Payment\PaymentGatewayFactory;
 use App\Services\Payment\StripePaymentService;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Auth;
+
 
 class PaymentController extends Controller
 {
@@ -139,39 +144,106 @@ class PaymentController extends Controller
      * SSLCommerze Payment function start here 
      * 
      * ---------------------- */
-    public function sslpayment_initiate(){
 
-        return view('backend.subscription.payment.sslpayment_initiate');
+
+    public function sslpayment_initiate($id, $slug)
+    {
+        $user = Auth::user();  // লগড ইন ইউজারের ডেটা
+
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Please login to continue');
+        }
+
+        $sessionKey = 'checkout_course_' . $id . '_' . $slug;
+        $checkoutData = Session::get($sessionKey);
+
+        if (!$checkoutData || !isset($checkoutData['checkout_price'])) {
+            return redirect()->route('course_details', [$id, $slug])
+                            ->with('error', 'Your checkout session has expired or is invalid. Please try again.');
+        }
+
+        $course_data = Course::where('id', $checkoutData['course_id'])
+                            ->where('slug', $checkoutData['course_slug'])
+                            ->firstOrFail();
+
+        $lastprice = Crypt::encryptString($checkoutData['checkout_price']);
+        $course_id = Crypt::encryptString($checkoutData['course_id']);
+        $course_slug = Crypt::encryptString($checkoutData['course_slug']);
+        $encryptedCoupon = $checkoutData['coupon_code'] ?? null;
+
+
+        return view('backend.subscription.payment.sslpayment_initiate', compact('lastprice','course_id','course_slug','checkoutData', 'encryptedCoupon', 'course_data', 'user'));
     }
 
 
-    public function ssl_paymentCreate(Request $request){
 
-        $trans_id=  'Tax_'.time().rand(10000,10000000);
 
-        $paymentcreate = Payment::create([
-            'amount' => 1000,
-            'store_amount' => 1000,
-            'tran_id' => $trans_id ,
+
+    public function ssl_paymentCreate(Request $request)
+    {
+        try {
+            // Step 1: Decrypt incoming encrypted values from form 
+            $decryptedCourseId = Crypt::decryptString($request->input('course_id'));
+            $decryptedCourseSlug = Crypt::decryptString($request->input('course_slug'));
+            $decryptedPrice = Crypt::decryptString($request->input('actual_price'));
+        } catch (\Exception $e) {
+            return back()->withErrors('Invalid or tampered data received.');
+        }
+
+        // Step 2: Retrieve session data securely 
+        $sessionKey = 'checkout_course_' . $decryptedCourseId . '_' . $decryptedCourseSlug;
+        $checkoutData = Session::get($sessionKey);
+
+        if (!$checkoutData) {
+            return back()->withErrors('Checkout session expired or invalid.');
+        }
+
+        // Step 3: Match decrypted price with session-stored price 
+        if ($decryptedPrice != $checkoutData['checkout_price']) {
+            return back()->withErrors('Price mismatch detected. Possible tampering!');
+        }
+
+        // Step 4: Generate secure transaction ID
+        $trans_id = 'Tan_' . time() . rand(10000, 99999999);
+
+
+        // Step 5 : store Payment information in Payment table 
+
+        $payment = Payment::create([
+           // 'course_id'=>$decryptedCourseId,
+            'user_id'=>Auth::user()->id,
+            'tran_id'=>$trans_id,
+            'currency'=>'BDT',
+            'amount'=>$checkoutData['checkout_price'],
+            'store_amount'=>$checkoutData['checkout_price'],
+            'payment_status'=>'PENDING',
+            'public_status'=>1,
+            'status'=>1,
         ]);
 
 
+
+        // Step 5: Prepare data for gateway
         $data = [
-        'amount' => 1000,
-        'success_url' => route('ssl_payment.success'),
-        'fail_url' => route('ssl_payment.fail'),
-        'cancel_url' => route('ssl_payment.cancel'),
-        'customer_name' => $request->name,
-        'email' => $request->email,
-        'phone' => $request->phone,
-        'tran_id' => $trans_id,
+            'amount' => $checkoutData['checkout_price'],
+            'success_url' => route('ssl_payment.success'),
+            'fail_url' => route('ssl_payment.fail'),
+            'cancel_url' => route('ssl_payment.cancel'),
+            'customer_name' => $request->name ?? Auth::user()->name ??  'Guest',
+            'email' => $request->email ?? Auth::user()->email ?? 'guest@example.com',
+            'phone' => $request->phone ?? '01817078309',
+            'tran_id' => $trans_id,
         ];
 
+        // Step 6: Create gateway and redirect to payment
         $gateway = PaymentGatewayFactory::make('sslcommerz');
-        
         return $gateway->makePayment($data);
-        
     }
+
+
+
+
+
 
 
     public function handleIpn(Request $request)
