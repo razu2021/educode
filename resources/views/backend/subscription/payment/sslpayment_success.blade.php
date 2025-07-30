@@ -1,12 +1,19 @@
-@extends('layouts.webmaster')
-@section('website_contents')
-    <style>
-        :root {
-            font-size: 10px;
-        }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Successful</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
         body {
-            background-color: #f4f6f9;
+            background-color: #f8f9fa;
             font-family: 'Segoe UI', sans-serif;
         }
 
@@ -19,71 +26,64 @@
         }
 
         .success-card {
-            background: #fff;
-            border-radius: 1.6rem;
-            box-shadow: 0 0.8rem 3rem rgba(0, 0, 0, 0.08);
-            padding: 4rem 3rem;
-            max-width: 600px;
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1);
+            max-width: 550px;
             width: 100%;
-            text-align: center;
         }
 
         .success-icon {
-            font-size: 6rem;
+            font-size: 5rem;
             color: #28a745;
-            margin-bottom: 2rem;
         }
 
-        .success-title {
-            font-size: 2.4rem;
-            font-weight: 700;
-            color: #2f3542;
-            margin-bottom: 1rem;
+        .transaction-info p {
+            margin-bottom: 0.4rem;
         }
 
-        .success-description {
-            font-size: 1.7rem;
-            color: #57606f;
-            margin-bottom: 3rem;
-        }
+        @media (max-width: 576px) {
+            .success-icon {
+                font-size: 3.5rem;
+            }
 
-        .success-buttons .btn {
-            font-size: 1.4rem;
-            padding: 1rem 2rem;
-            border-radius: 0.6rem;
-            margin: 0.5rem;
+            .btn-lg {
+                font-size: 1rem;
+                padding: 0.75rem 1.25rem;
+            }
         }
     </style>
-<div class="success-wrapper py-5">
-    <div class="container d-flex justify-content-center">
-        <div class="success-card shadow-lg p-5 rounded-4 bg-white text-center" style="max-width: 600px;">
-            <div class="text-success display-3 mb-3">
-                <i class="bi bi-check-circle-fill"></i>
-            </div>
-            <h2 class="fw-bold mb-2">Congratulations!</h2>
-            <p class="text-muted mb-4 fs-5">
-                Your payment was successful. Thank you for your purchase. You can now download your invoice or return to your dashboard.
-            </p>
-            <div class="border-top border-bottom py-4 mb-4">
-                <h5 class="mb-2">Paid to <span class="text-primary fw-semibold">Educode</span></h5>
-                <p class="mb-1"><strong>Transaction ID:</strong> 254565855855</p>
-                <p class="mb-1"><strong>Amount:</strong> 3500 BDT</p>
-                <p class="mb-0"><em>Date & Time:</em> 6/28/2025 12:45 AM</p>
-            </div>
-            <div class="d-grid gap-3">
-                <a href="#" class="btn btn-primary btn-lg shadow-sm">
-                    <i class="bi bi-download me-1"></i> Download Invoice
-                </a>
-                <a href="#" class="btn btn-success btn-lg shadow-sm">
-                    <i class="bi bi-speedometer2 me-1"></i> Go to Dashboard
-                </a>
-                <a href="#" class="btn btn-outline-secondary btn-lg">
-                    <i class="bi bi-house-door me-1"></i> Go to Home
-                </a>
-            </div>
+</head>
+<body>
+
+<div class="success-wrapper">
+    <div class="success-card p-4 text-center">
+        <div class="success-icon mb-3">
+            <i class="bi bi-check-circle-fill"></i>
+        </div>
+        <h2 class="fw-bold mb-2">Payment Successful!</h2>
+        <p class="text-muted mb-4">Thank you for your purchase. Your payment has been received successfully.</p>
+
+        <div class="transaction-info border-top border-bottom py-3 text-start">
+            <p><strong>Paid to:</strong> <span class="text-primary">Priyo Master</span></p>
+            <p><strong>Transaction ID:</strong> {{ $payment->tran_id }}</p>
+            <p><strong>Amount:</strong> {{ $payment->amount }} {{ $payment->currency }}</p>
+            <p><strong>Date:</strong> {{ now()->format('F j, Y, g:i A') }}</p>
+        </div>
+
+        <div class="mt-4 d-grid gap-2">
+            <a href="{{route('invoice.download',$payment->tran_id)}}" class="btn btn-warning btn-md">
+                <i class="bi bi-download me-1"></i> Download Invoice
+            </a>
+           
+            <a href="{{ url('/') }}" class="btn btn-outline-primary btn-md">
+                <i class="bi bi-house-door me-1"></i> Go to Home
+            </a>
         </div>
     </div>
 </div>
 
-
-@endsection 
+<!-- Bootstrap JS (Optional for features) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

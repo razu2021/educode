@@ -10,7 +10,7 @@ use App\Exports\ExportData\CategoryExport;
 use ZipArchive;
 use Illuminate\Support\Facades\Response; 
 use Carbon\Carbon; //----------  defualt -------
-use Str;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Seo;

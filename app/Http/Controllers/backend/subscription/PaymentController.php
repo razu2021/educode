@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backend\subscription;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\CourseEnroment;
 use App\Models\Payment;
 use App\Models\Subscription;
 use App\Models\SubscriptionPlan;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 
 class PaymentController extends Controller
@@ -141,7 +143,7 @@ class PaymentController extends Controller
 
     /**--------------------------  
      * 
-     * SSLCommerze Payment function start here 
+     * ================================================SSLCommerze Payment function start here ==========================================
      * 
      * ---------------------- */
 
@@ -179,6 +181,7 @@ class PaymentController extends Controller
 
 
 
+    /**==============  payment create functionality start here ================= */
     public function ssl_paymentCreate(Request $request)
     {
         try {
@@ -209,12 +212,12 @@ class PaymentController extends Controller
 
         // Step 4: Generate secure transaction ID
         $trans_id = 'Trans' . time() . rand(10000, 99999999);
-
+        $slug = uniqid('4').Str::random(4) . '_'.mt_rand(10000, 100000).'-'.time();;
 
         // Step 5 : store Payment information in Payment table 
 
         $payment = Payment::create([
-           // 'course_id'=>$decryptedCourseId,
+           'course_id'=>$decryptedCourseId,
             'user_id'=>Auth::user()->id,
             'tran_id'=>$trans_id,
             'currency'=>'BDT',
@@ -223,6 +226,8 @@ class PaymentController extends Controller
             'payment_status'=>'PENDING',
             'public_status'=>1,
             'status'=>1,
+            'invoice_id'=>$slug,
+
         ]);
 
 
@@ -242,7 +247,6 @@ class PaymentController extends Controller
             'city'=>$city,
             'country'=>$country,
             'product_name'=>$course_data->course_name,
-
         ];
 
         // Step 6: Create gateway and redirect to payment
@@ -258,18 +262,13 @@ class PaymentController extends Controller
 
     public function handleIpn(Request $request)
     {
-        Log::info('✅ handleIpn METHOD HIT');
+       
 
         try {
             $gateway = PaymentGatewayFactory::make('sslcommerz');
-            Log::info('✅ Gateway created:', [$gateway]);
-
             $result = $gateway->handleWebhook($request);
-            Log::info('✅ Webhook handled:', [$result]);
-
             return response()->json(['message' => 'IPN Processed'], 200);
         } catch (\Throwable $e) {
-            Log::error('❌ IPN Error: ' . $e->getMessage());
             return response()->json(['error' => 'Server Error'], 500);
         }
     }
@@ -277,8 +276,31 @@ class PaymentController extends Controller
 
 
     public function ssl_paymentSuccess(Request $request){
-        return view('backend.subscription.payment.sslpayment_success');
+
+        
+        // Request থেকে দরকারি ডেটা বের করো.
+     
+        $tranId = $request->input('tran_id');
+        $amount = $request->input('amount');
+        $cardType = $request->input('card_type');
+        $status = $request->input('status');
+
+        $payment= Payment::where('tran_id',$tranId)->first();
+
+
+        if (!$payment) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Payment not found',
+            ], 404);
+        }
+
+        
+
+        return view('backend.subscription.payment.sslpayment_success',compact('payment'));
     }
+
+
     public function ssl_paymentFail(Request $request){
         return "payment Faild ";
     }
@@ -289,6 +311,23 @@ class PaymentController extends Controller
 
 
 
+    public function downloadInvoice($tran_id){
+
+        $payment_data= Payment::where('tran_id',$tran_id)->first();
+
+        $enrol_data = CourseEnroment::where('payment_id',$payment_data->id)->first();
+
+        $course_data =  $enrol_data->course;
+
+        $original_price   = $course_data->coursePrice->original_price ?? 0;
+        $discounted_price = $course_data->coursePrice->discounted_price ?? 0;
+        $coupon_price     = $course_data->courseCoupon->discount_amount ?? 0;
+        $coupon_type      = $course_data->courseCoupon->discount_type ?? 'Fixed';
+
+
+     
+       return view('backend.subscription.payment.payment_invoice',compact('payment_data','course_data','original_price','discounted_price','coupon_price','coupon_type'));
+    }
 
 
 

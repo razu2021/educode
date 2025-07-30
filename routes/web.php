@@ -31,6 +31,7 @@ Route::controller(FrontendController::class)->group(function(){
 Route::controller(PaymentController::class)->middleware(['auth'])->group(function(){
     Route::get('/payment/ssl/initiate/{id}/{slug}','sslpayment_initiate')->name('ssl_payment_initiate');
     Route::post('/payment/create/url',  'ssl_paymentCreate')->name('ssl_payment.create');
+    Route::get('/invoice/download/{tran_id}','downloadInvoice')->name('invoice.download');
 });
 
 

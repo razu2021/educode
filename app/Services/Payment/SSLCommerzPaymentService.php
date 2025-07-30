@@ -5,6 +5,10 @@ use App\Services\Payment\PaymentInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Payment;
+use App\Models\CourseEnroment;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon; //----------  defualt -------
+use Illuminate\Support\Str;
 
 
 class SSLCommerzPaymentService implements  PaymentInterface 
@@ -61,7 +65,6 @@ class SSLCommerzPaymentService implements  PaymentInterface
 
         if (isset($response['GatewayPageURL']) && $response['GatewayPageURL'] != "") {
             return redirect($response['GatewayPageURL']);
-            log::info('gateway  url is ;' . $response);
         } else {
             return response()->json(['error' => 'Payment gateway error.']);
         }
@@ -73,68 +76,108 @@ class SSLCommerzPaymentService implements  PaymentInterface
 
 public function handleWebhook(Request $request)
 {
-    Log::info('SSLCommerz IPN Data:', $request->all());
-
     $tran_id = $request->input('tran_id');
     $status  = strtoupper($request->input('status'));
 
     if (!$tran_id) {
-        Log::warning('No tran_id in IPN');
         return false;
     }
 
     $payment = Payment::where('tran_id', $tran_id)->first();
 
     if (!$payment) {
-        Log::warning("Payment not found for tran_id: $tran_id");
         return false;
     }
 
     if (in_array($payment->payment_status, ['success', 'failed', 'cancelled'])) {
-        Log::info('Already processed payment for tran_id: ' . $tran_id);
         return true;
     }
 
     if ($status === 'VALID' || $status === 'SUCCESS') {
+
+         $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();
+
+
+        try{
+        DB::beginTransaction();
+
         $payment->update([
             'val_id'        => $request->input('val_id'),
             'store_amount'  => $request->input('store_amount'),
             'currency'      => $request->input('currency'),
             'payment_status'=> 'VALID',
-            'status'        => 1,
+            'payment_gateway'  => 'SSLCommerz',
+
+            // These should be actual values if available
+            'payment_id'             => null,
+            'payment_date'           => Carbon::now()->toDateTimeString(),
+            'invoice_id'             => null,
+            'payment_mode'           => 'Online',
+
+            // Card / bank info
+            'card_type'              => $request->input('card_type') ?? null,
+            'card_brand'             => $request->input('card_brand') ?? null,
+            'card_issuer'            => $request->input('card_issuer') ?? null,
+            'card_no'                => $request->input('card_number') ?? null,
+            'bank_tran_id'           => $request->input('bank_tran_id') ?? null,
+            'verify_sign'            => $request->input('verify_sign') ?? null,
+            'verify_sign_sha2'       => $request->input('verify_sign_sha2') ?? null,
+            'verify_key'             => $request->input('verify_key') ?? null,
+            'risk_title'             => $request->input('risk_title') ?? null,
+            'risk_level'             => $request->input('risk_level') ?? null,
+
+            // Refund Info: set later if refunded, not immediately
+            'is_refunded'            => false,
+            'refunded_amount'        => null,
+            'refund_date'            => null, // OR $response['tran_date'],
+
+            // Metadata
+            'ip_address'             => request()->ip(),
+            'user_agent'             =>  request()->userAgent(),
             'payload'       => json_encode($request->all()),
         ]);
+        //  ---- payment data end 
+
+        CourseEnroment::create([
+             'user_id'  =>$payment->user_id,
+             'course_id'  =>$payment->course_id,
+             'enrolled_at'  =>Carbon::now()->toDateTimeString(),
+             'enrollment_type'  =>'paid',
+             'payment_id'  =>$payment->id,
+             'slug'  =>$slug,
+        ]);
+
+
+          DB::commit();
+
+        }catch(\Exception $e){
+            DB::rollBack();
+
+            return response()->json(['error' => 'Payment failed, please contact support.'], 500);
+
+        }
+
+
+
     } elseif ($status === 'FAILED') {
         $payment->update([
             'payment_status' => 'FAILED',
-            'status'         => 0,
             'payload'        => json_encode($request->all()),
         ]);
     } elseif ($status === 'CANCELLED') {
         $payment->update([
             'payment_status' => 'CANCELLED',
-            'status'         => 0,
             'payload'        => json_encode($request->all()),
         ]);
     } else {
         $payment->update([
             'payment_status' => 'PENDING',
-            'status'         => 0,
             'payload'        => json_encode($request->all()),
         ]);
     }
 
     return true;
 }
-
-
-
-
-
-
-
-
-
 
 
 
