@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf; //-------------Export --------
 
 
 class PaymentController extends Controller
@@ -212,10 +213,26 @@ class PaymentController extends Controller
 
         // Step 4: Generate secure transaction ID
         $trans_id = 'Trans' . time() . rand(10000, 99999999);
-        $slug = uniqid('4').Str::random(4) . '_'.mt_rand(10000, 100000).'-'.time();;
+        $invoice_id = strtoupper(Str::random(4)) . mt_rand(10000, 100000);
+
+        //---------------------------------------------------------------------------
+         $existing_enrollment = CourseEnroment::where('user_id',Auth::user()->id)
+         ->where('course_id',$decryptedCourseId)
+         ->whereHas('payment',function($q){
+            $q->where('payment_status', 'VALID');
+         })->first();
+
+         if($existing_enrollment){
+           return redirect()->route('exist.course',$existing_enrollment->course_id);
+         }
+        // --------------------------------------------------------------------------------
+
+
+
+
+
 
         // Step 5 : store Payment information in Payment table 
-
         $payment = Payment::create([
            'course_id'=>$decryptedCourseId,
             'user_id'=>Auth::user()->id,
@@ -223,12 +240,15 @@ class PaymentController extends Controller
             'currency'=>'BDT',
             'amount'=>$checkoutData['checkout_price'],
             'store_amount'=>$checkoutData['checkout_price'],
+            'invoice_id'=> $invoice_id,
             'payment_status'=>'PENDING',
             'public_status'=>1,
             'status'=>1,
-            'invoice_id'=>$slug,
+        
 
         ]);
+
+       
 
 
 
@@ -287,25 +307,23 @@ class PaymentController extends Controller
 
         $payment= Payment::where('tran_id',$tranId)->first();
 
-
-        if (!$payment) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Payment not found',
-            ], 404);
+        if(!$payment || $payment->payment_status !== 'VALID'){
+            return redirect()->route('ssl_payment.fail');
         }
-
-        
 
         return view('backend.subscription.payment.sslpayment_success',compact('payment'));
     }
 
 
     public function ssl_paymentFail(Request $request){
-        return "payment Faild ";
+
+
+
+
+        return view('backend.subscription.payment.sslpayment_faild');
     }
     public function ssl_paymentCancel(Request $request){
-        return "payment Cancel ";
+       return view('backend.subscription.payment.sslpayment_cencil');
     }
 
 
@@ -313,23 +331,45 @@ class PaymentController extends Controller
 
     public function downloadInvoice($tran_id){
 
-        $payment_data= Payment::where('tran_id',$tran_id)->first();
+        try{
+            $payment_data= Payment::where('tran_id',$tran_id)->first();
 
-        $enrol_data = CourseEnroment::where('payment_id',$payment_data->id)->first();
+            $enrol_data = CourseEnroment::where('payment_id',$payment_data->id)->first();
 
-        $course_data =  $enrol_data->course;
+            $course_data =  $enrol_data->course;
 
-        $original_price   = $course_data->coursePrice->original_price ?? 0;
-        $discounted_price = $course_data->coursePrice->discounted_price ?? 0;
-        $coupon_price     = $course_data->courseCoupon->discount_amount ?? 0;
-        $coupon_type      = $course_data->courseCoupon->discount_type ?? 'Fixed';
+            $original_price   = $course_data->coursePrice->original_price ?? 0;
+            $discounted_price = $course_data->coursePrice->discounted_price ?? 0;
+            $coupon_price     = $course_data->courseCoupon->discount_amount ?? 0;
+            $coupon_type      = $course_data->courseCoupon->discount_type ?? 'Fixed';
+           
+
+       $pdf = PDF::loadView('backend.subscription.payment.payment_invoice', compact(
+            'payment_data','course_data','original_price','discounted_price','coupon_price','coupon_type'
+        ));
+
+        // Option 1: Direct Download
+        return $pdf->download('invoice_'.$tran_id.'.pdf');
 
 
-     
-       return view('backend.subscription.payment.payment_invoice',compact('payment_data','course_data','original_price','discounted_price','coupon_price','coupon_type'));
+
+
+
+        }catch(\Exception $e){
+            return "Opps! Something went wrong ";
+        }
+       
     }
 
 
+
+
+
+    public function exist_course($id){
+
+
+        return view('backend.subscription.payment.exist_course');
+    }
 
 
 

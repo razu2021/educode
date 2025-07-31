@@ -55,6 +55,7 @@
             </td>
             <td style="text-align:right;">
                 <strong>Invoice No:</strong> {{ $payment_data->tran_id }}<br>
+                <strong>Invoice No:</strong> {{ $payment_data->invoice_id }}<br>
                 <strong>Date:</strong> {{ \Carbon\Carbon::parse($payment_data->created_at)->format('d F Y') }}
             </td>
         </tr>

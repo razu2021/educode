@@ -29,5 +29,11 @@ class CourseEnroment extends Model
         return $this->belongsTo(Course::class , 'course_id' ,'id');
     }
 
+    public function payment() {
+        return $this->belongsTo(Payment::class);
+    }
 
+
+
+    
 }

@@ -99,6 +99,12 @@ public function handleWebhook(Request $request)
 
 
         try{
+        // Signature Validation
+            if (!$this->isValidSignature($request)) {
+                Log::warning("Invalid Signature from SSLCommerz", $request->all());
+                return response()->json(['error' => 'Invalid signature.'], 403);
+            }
+
         DB::beginTransaction();
 
         $payment->update([
@@ -179,6 +185,49 @@ public function handleWebhook(Request $request)
     return true;
 }
 
+
+
+// --- signature verification -------
+
+    private function isValidSignature(Request $request)
+    {
+        //------ get the webhook request from sslcomerze 
+        $input = $request->all();
+
+        //---- get the store password and make hash 
+        $store_password_plain = config('payment.gateways.sslcommerz.store_password');
+        $store_password_hashed = md5($store_password_plain);
+
+        // Remove unnecessary keys from input
+        unset($input['verify_sign'], $input['verify_sign_sha2']);
+
+        // Sort the parameters
+        ksort($input);
+
+        // -- 
+        $query = "";
+
+        // --- get the actual value 
+        foreach ($input as $key => $value) {
+            if ($key != "verify_sign" && $key != "verify_sign_sha2") {
+                $query .= "$key=$value&";
+            }
+        }
+
+        // ---- append hash password with final verify key 
+        $query .= "store_passwd=$store_password_hashed";
+
+        // Hash the final string
+        $generated_verify_sign = md5($query);
+        $generated_sha2 = hash('sha256', $query);
+
+        if ($generated_verify_sign === $request->input('verify_sign') || $generated_sha2 === $request->input('verify_sign_sha2')) {
+            return true;
+            Log::info('payment varification successfuly');
+        } else {
+            return "Verification Failed";  
+        }
+    }
 
 
 

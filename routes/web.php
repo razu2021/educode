@@ -32,6 +32,10 @@ Route::controller(PaymentController::class)->middleware(['auth'])->group(functio
     Route::get('/payment/ssl/initiate/{id}/{slug}','sslpayment_initiate')->name('ssl_payment_initiate');
     Route::post('/payment/create/url',  'ssl_paymentCreate')->name('ssl_payment.create');
     Route::get('/invoice/download/{tran_id}','downloadInvoice')->name('invoice.download');
+
+    //-------------------
+    Route::get('/course/{id}/already-enrolled/download','exist_course')->name('exist.course');
+
 });
 
 
