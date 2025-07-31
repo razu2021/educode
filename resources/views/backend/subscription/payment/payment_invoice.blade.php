@@ -5,6 +5,10 @@
     <title>Invoice</title>
     <style>
         body { font-family: DejaVu Sans, sans-serif; color: #333; }
+        p,span,strong,h2,h3,h1{
+            margin: 0;
+            padding: 0;
+        }
         .invoice-box {
             max-width: 800px;
             margin: auto;
@@ -32,7 +36,7 @@
         .footer { margin-top: 30px; font-size: 12px; text-align: center; color: #777; }
         .signature_area{
             text-align: right; 
-            line-height: 3px;
+            
         }
         .signature_area i{
             display: inline;
@@ -41,20 +45,38 @@
         .hr{
              border-bottom: 1px solid #eee;
         }
+        .heading1{
+            text-align: center;
+            display: inline-block;
+            border-bottom: 5px solid #7B3DD6;
+        }
+        .boxbgimage{
+            background-image: url("{{asset('contents/frontend/assets/assetss/images/logo/logo.svg')}}");
+            background-repeat: no-repeat;
+            background-position-x: center;
+            background-position-y: center;
+            z-index: -1;
+            background-size: contain;
 
-    </style>
+            
+            
+        }
+     </style>
 </head>
 <body>
-<div class="invoice-box">
+<div class="invoice-box ">
+    <div class="pdf_headre " style="text-align: center">
+        <h1 class="heading heading1">INVOICE</h1>
+    </div>
     <table>
         <tr>
-            <td colspan="2" >
-                <img src="http://localhost:8000/contents/frontend/assets/assetss/images/logo/logo.svg" class="logo" >
-                <h2 class="heading heading1">INVOICE</h2>
-                <p><strong>PRIYO MASTER</strong><br>PRIYOMASTER.COM</p>
+            <td>
+                
+                <p><strong style="color: #0FAE0F">PRIYO <span style="color: #7B3DD6"> MASTER </span></strong></p>
+                <p>PRIYOMASTER.COM</p>
             </td>
             <td style="text-align:right;">
-                <strong>Invoice No:</strong> {{ $payment_data->tran_id }}<br>
+                <strong>Transection ID:</strong> {{ $payment_data->tran_id }}<br>
                 <strong>Invoice No:</strong> {{ $payment_data->invoice_id }}<br>
                 <strong>Date:</strong> {{ \Carbon\Carbon::parse($payment_data->created_at)->format('d F Y') }}
             </td>
@@ -63,10 +85,10 @@
 
     <br>
     <strong>Invoice to:</strong><br>
-    {{ $course_data->username->name ?? 'Customer Name' }}<br>
-    {{ $course_data->username->email ?? 'example@example.com' }}<br>
-    {{ $course_data->username->phone ?? 'Phone Number' }}<br>
-    {{ $course_data->username->address ?? 'Address' }}
+    {{ Auth::user()->name ?? 'Customer Name' }}<br>
+    {{ Auth::user()->email ?? 'example@example.com' }}<br>
+    {{ $payment_data->phone ?? '+88017.......11' }}<br>
+    {{ $payment_data->division ?? 'Dhaka' }}, {{ $payment_data->city ?? 'Dhaka' }}, {{ $payment_data->country ?? 'Bangladesh' }}
 
     <br><br>
 
@@ -130,34 +152,23 @@
         </tr>
         
     </table>
-     <p style="text-align: center">Thank you for your business with us!</p>
+     <p style="text-align: center ;color: #7B3DD6" >Knowledge is the best investment – Thank you for choosing us!</p>
     <div class="hr"></div>
     <br>
-
-   
-
-
-    <div class=" signature_area">
+    <div class=" signature_area boxbgimage">
         <i>Authorized by </i>
-        
         <h3>Priyo Master</h3>
-        <p>the best learning platfrom </p>
         <p>Administrator </p>
     </div>
       
+    <div class="hr"></div>
 
-
-
-
-
-<div class="hr"></div>
-
-    <div class="footer">
-        <p><strong>Note: </strong> Please send payment within 30 days of receiving this invoice. There will be 10% interest charge per month on late invoice.</p>
-        <p>
-            123-456-7890 | hello@reallygreatsite.com | 123 Anywhere St., Any City
-        </p>
-    </div>
+        <div class="footer">
+            <p><strong>Note: </strong>  All payments are final and non-refundable. Please read the course details carefully before making a purchase.</p>
+            <p>
+                {{$sitephone ?? '+8801........17'}} | {{$sitemail ?? 'priyo.............@gmail.com'}}| {{$siteaddress ?? 'Physical Location is not Found !'}}
+            </p>
+        </div>
 </div>
 </body>
 </html>

@@ -58,6 +58,12 @@ return new class extends Migration
         $table->integer('status')->default(1);
         $table->integer('public_status')->default(0);
 
+        //---  address and number -----
+        $table->string('phone')->nullable(); 
+        $table->string('division')->nullable(); 
+        $table->string('city')->nullable(); 
+        $table->string('country')->nullable(); 
+
         $table->timestamps();
         $table->softDeletes();
 

@@ -117,7 +117,6 @@ public function handleWebhook(Request $request)
             // These should be actual values if available
             'payment_id'             => null,
             'payment_date'           => Carbon::now()->toDateTimeString(),
-            'invoice_id'             => null,
             'payment_mode'           => 'Online',
 
             // Card / bank info

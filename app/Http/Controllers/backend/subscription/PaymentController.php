@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\CourseEnroment;
 use App\Models\Payment;
+use App\Models\SiteAddress;
+use App\Models\SiteEmail;
+use App\Models\SitePhone;
 use App\Models\Subscription;
 use App\Models\SubscriptionPlan;
 use Illuminate\Http\Request;
@@ -227,11 +230,6 @@ class PaymentController extends Controller
          }
         // --------------------------------------------------------------------------------
 
-
-
-
-
-
         // Step 5 : store Payment information in Payment table 
         $payment = Payment::create([
            'course_id'=>$decryptedCourseId,
@@ -241,6 +239,10 @@ class PaymentController extends Controller
             'amount'=>$checkoutData['checkout_price'],
             'store_amount'=>$checkoutData['checkout_price'],
             'invoice_id'=> $invoice_id,
+            'phone'=> $phone,
+            'division'=> $division,
+            'city'=> $city,
+            'country'=> $country,
             'payment_status'=>'PENDING',
             'public_status'=>1,
             'status'=>1,
@@ -248,9 +250,7 @@ class PaymentController extends Controller
 
         ]);
 
-       
-
-
+    
 
         // Step 5: Prepare data for gateway
         $data = [
@@ -342,17 +342,22 @@ class PaymentController extends Controller
             $discounted_price = $course_data->coursePrice->discounted_price ?? 0;
             $coupon_price     = $course_data->courseCoupon->discount_amount ?? 0;
             $coupon_type      = $course_data->courseCoupon->discount_type ?? 'Fixed';
+            $sitemail = SiteEmail::where('public_status',1)->pluck('email')->first();
+            $sitephone = SitePhone::where('public_status',1)->pluck('phone')->first();
+            $siteaddress = SiteAddress::where('public_status',1)->pluck('address')->first();
            
+             $pdf = PDF::loadView('backend.subscription.payment.payment_invoice',compact(
+                 'payment_data','course_data','original_price','discounted_price',
+                 'coupon_price','coupon_type','sitemail','sitephone','siteaddress'));
 
-       $pdf = PDF::loadView('backend.subscription.payment.payment_invoice', compact(
-            'payment_data','course_data','original_price','discounted_price','coupon_price','coupon_type'
-        ));
+        //    $pdf = PDF::loadView('backend.subscription.payment.payment_invoice', compact(
+        //         'payment_data','course_data','original_price','discounted_price','coupon_price','coupon_type','siteemail','sitephone','siteaddress'
+        //     ));
 
-        // Option 1: Direct Download
-        return $pdf->download('invoice_'.$tran_id.'.pdf');
+        //     // Option 1: Direct Download
+            return $pdf->download('invoice_'.$tran_id.'.pdf');
 
-
-
+        
 
 
         }catch(\Exception $e){
