@@ -1,7 +1,10 @@
           <section class="section-padding ">
             <div class="container">
               <div class="row">
-                @for ($i =0 ; $i < 3 ; $i++)
+
+               @foreach ($instructor_course as $data)
+                 
+              
                 <div class="col-12 col-lg-4 mt-4">
                   <div class="card_2">
                     <div class="card-image">
@@ -9,8 +12,8 @@
                       <span class="badge">Bestseller</span>
                     </div>
                     <div class="card-content">
-                      <h3 class="course-title">Mastering Laravel for Beginners</h3>
-                      <p class="instructor">by Md Razu Hossain Raj</p>
+                      <h3 class="course-title">{{$data->course_title ? Str::limit($data->course_title , 40) : 'Title Not Found'}}</h3>
+                      <p class="instructor">by {{$data->username->name ?? 'No name Found !'}}</p>
 
                       <div class="rating">
                         <span class="stars">
@@ -31,7 +34,8 @@
                     </div>
                   </div>
                 </div>
-                @endfor
+                 @endforeach
+
                 <div class="button1">
                   <a href=""><button class="btn btn-outline-primary mt-4 custom_button w-100 fs-4">More Courses </button></a>
                 </div>

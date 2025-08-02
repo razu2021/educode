@@ -133,4 +133,29 @@ class Course extends Model
 
 
 
+
+    // --------  scope method ... get all  table data with this function .. 
+    public function scopeWithDetails($query)
+    {
+        return $query->with([
+            'coursePrice',
+            'courseCoupon',
+            'courseModule',
+            'courseTopic.videos',
+            'courseAttachment',
+            'courseAssignment',
+            'courseQuizzes.quizeQustions',
+            'creator',
+            'editor',
+            'username',
+            'metaData',
+            'category',
+            'subcategory',
+            'childcategory',
+        ]);
+    }
+
+
+
+
 }

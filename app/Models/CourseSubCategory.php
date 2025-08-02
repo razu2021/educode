@@ -31,7 +31,7 @@ class CourseSubCategory extends Model
     }
 
 
-    
+    // get all Subcategory course 
     public function course(){
         return $this->hasMany(Course::class,'course_subcategory_id','id');
     }

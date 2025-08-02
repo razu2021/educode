@@ -1893,4 +1893,48 @@ button {
   background-color: rgba(255, 255, 255, 0.55);
   margin: 2rem 0;
   border: none;
+}
+
+/*---- course attachment for course details page --*/
+.attachment-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.attachment-list .attachment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 1.6rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.8rem;
+  margin-bottom: 1rem;
+  background-color: #fff;
+  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease-in-out;
+}
+.attachment-list .attachment-item:hover {
+  transform: translateY(-0.2rem);
+  box-shadow: 0 0.6rem 1rem rgba(0, 0, 0, 0.08);
+}
+.attachment-list .attachment-item .attachment-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.attachment-list .attachment-item .attachment-info .icon {
+  font-size: 1.6rem;
+}
+.attachment-list .attachment-item .attachment-info .title {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #333;
+}
+.attachment-list .attachment-item .attachment-actions .btn {
+  font-size: 1.2rem;
+  padding: 0.6rem 1rem;
+}
+.attachment-list .attachment-item .attachment-actions .disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }/*# sourceMappingURL=main.css.map */

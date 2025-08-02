@@ -101,7 +101,12 @@ class InsCourseController extends Controller
         },
         'metaData.images' // ✅ nested eager load (Seo -> Seo_image
         ])->where('status',1)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        return view('instructor.manage.course.edit',compact('totalpost','latestPost','data'));
+
+        $totalpost  = Course::get()->count();
+        $latestPost = Course::latest()->first();
+        $courseCategory = CourseCategory::where('public_status',1)->with(['CourseSubcategory','CourseSubcategory.CourschildCategory'])->get(); 
+
+        return view('instructor.manage.course.edit',compact('totalpost','latestPost','data','courseCategory'));
     }
 
 
@@ -117,6 +122,7 @@ class InsCourseController extends Controller
                 'category_id'  => 'required',
                 'course_name'  => 'required',
                 'course_title'=> 'required',
+                'course_about'=> 'required',
                 'course_des'=> 'required',
                 'course_long_des'=> 'required',
                 'course_language'=> 'required',
@@ -129,6 +135,7 @@ class InsCourseController extends Controller
                 'course_name.required'=> 'Course Name is Required !',
                 'course_name.unique' => 'This Course Category Name already exists!',
                 'course_title.required'=> 'Course Title is Required !',
+                'course_about.required'=> 'Course About is Required !',
                 'course_des.required'=> 'Course Description is Required !',
                 'course_long_des.required'=> 'Course Long Description is Required !',
                 'course_type.required'=> 'Course Type is Required !',
@@ -158,6 +165,7 @@ class InsCourseController extends Controller
             'course_childcategory_id'=>$request->child_category_id,
             'course_name'=>$request->course_name,
             'course_title'=>$request->course_title,
+            'course_about'=>$request->course_about,
             'course_des'=>$request->course_des,
             'course_long_des'=>$request->course_long_des,
             'course_language'=>$request->course_language,
@@ -183,8 +191,6 @@ class InsCourseController extends Controller
         }
 
 
-
-      
        
         $insert->metaData()->create([
             'unique_id'=>$insert->id,
@@ -210,22 +216,35 @@ class InsCourseController extends Controller
      */
     public function update(Request $request){
            /**--- validation code -- */
-           $request->validate([
-            'course_name'  => ['required','unique:' . Course::class],
-              'course_title'=> 'required',
-              'course_desc'=> 'required',
-          ],[
-              'course_name.required'=> 'Course Category Name is Required !',
-              'course_name.unique' => 'This Course Category Name already exists!',
-              'course_title.required'=> 'Course Category Title is Required !',
+        $request->validate([
+                'category_id'  => 'required',
+                'course_name'  => 'required',
+                'course_title'=> 'required',
+                'course_about'=> 'required',
+                'course_des'=> 'required',
+                'course_long_des'=> 'required',
+                'course_language'=> 'required',
+                'course_type'=> 'required',
+                'course_lable'=> 'required',
+                'course_time'=> 'required',
+            ],[
+                'category_id.required'=> 'Select Category Name !',
+                'course_name.required'=> 'Course Name is Required !',
+                'course_name.unique' => 'This Course Category Name already exists!',
+                'course_title.required'=> 'Course Title is Required !',
+                'course_about.required'=> 'Course About is Required !',
+                'course_des.required'=> 'Course Description is Required !',
+                'course_long_des.required'=> 'Course Long Description is Required !',
+                'course_type.required'=> 'Course Type is Required !',
+                'course_lable.required'=> 'Course preferred label is Required !',
+                'course_time.required'=> 'Course duration is Required !',
               
-              'course_desc.required'=> 'Course Category Description is Required !',
-          ]
-      );
+            ]
+        );
     //--- get specific Credential for update record & editor id --------
     $id = $request->id;
     $slug = $request->slug;
-    $editor = Auth::guard('admin')->user()->id;
+    $user_id = Auth::user()->id;
 
 
     // -------  update custom url --------//
@@ -239,14 +258,32 @@ class InsCourseController extends Controller
 
     //---------category update -------//
     $update = Course::where('id',$id)->where('slug',$slug)->update([
-        'course_name'=>$request->course_name,
-        'course_title'=>$request->course_title,
-        'course_des'=>$request->course_desc,
-        'slug'=>$slug,
-        'url'=>$url,
-        'editor_id' => $editor,
-        'updated_at' => Carbon::now()->toDateTimeString(),
+            'course_category_id'=>$request->category_id,
+            'course_subcategory_id'=>$request->subcategory_id,
+            'course_childcategory_id'=>$request->child_category_id,
+            'course_name'=>$request->course_name,
+            'course_title'=>$request->course_title,
+            'course_about'=>$request->course_about,
+            'course_des'=>$request->course_des,
+            'course_long_des'=>$request->course_long_des,
+            'course_language'=>$request->course_language,
+            'course_type'=>$request->course_type,
+            'course_lable'=>$request->course_lable,
+            'course_time'=>$request->course_time,
+            'url'=>$url,
+            'created_at' => Carbon::now()->toDateTimeString(),
     ]);
+
+    // upload thumbnail image 
+    if ($request->hasFile('images')) {
+        // Upload image using helper
+        $imageName = ImageUploadHelper::uploadImage($request->file('images'));
+                    
+        // Save image name to DB or return response
+        Course::where('id', $id)->update([
+            'course_image' => $imageName,
+        ]);
+    }
     
 
     // ------insert Successfully--------// 

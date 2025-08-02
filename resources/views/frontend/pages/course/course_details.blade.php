@@ -12,14 +12,19 @@
       <div class="row g-5">
         <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 col-xxl-7 mt-4">
 
-          @includeIf('frontend.pages.course.components.details.course_about')
+          @includeIf('frontend.pages.course.components.details.course_about',compact('data'))
           {{-- course about end --}}
 
-          @includeIf('frontend.pages.course.components.details.course_content')
+
+          @includeIf('frontend.pages.course.components.details.course_content',compact('data'))
           {{-- course content end here  --}}
 
-          @includeIf('frontend.pages.course.components.details.course_description')
+          @includeIf('frontend.pages.course.components.details.course_description',compact('data'))
           {{-- course content end here  --}}
+
+          
+          @includeIf('frontend.pages.course.components.details.course_module',compact('data'))
+          {{-- course about end --}}
           
           @includeIf('frontend.pages.course.components.details.instructor_pro')
           {{-- course content end here  --}}
@@ -27,7 +32,7 @@
           @includeIf('frontend.pages.course.components.details.course_review')
           {{-- course content end here  --}}
 
-          @includeIf('frontend.pages.course.components.details.instructor_courses')
+          @includeIf('frontend.pages.course.components.details.instructor_courses',compact('instructor_course'))
           {{-- course content end here  --}}
 
         {{-- =======================  col end ============== --}}

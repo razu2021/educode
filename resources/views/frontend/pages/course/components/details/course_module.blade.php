@@ -1,12 +1,12 @@
-@if(!empty($data->course_long_des))
-<section class="course-about-section course-description-section my-4">
+@if(!empty($data->courseModule))
+<section class=" course-about-section course-description-section">
   <div class="container">
-    <h2 class="section-title">Course Description</h2>
+    <h2 class="section-title">Course Module </h2>
     <div class="description-content position-relative">
-      <div id="descriptionText" class="collapsed-description">
-        {!! $data->course_long_des !!} 
+      <div id="moduleText" class="collapsed-description">
+        {!! $data->courseModule->description !!} 
       </div>
-       <button id="toggleButton" class="btn btn-link p-0 mt-2">See More</button>
+       <button id="toggleButton2" class="btn btn-link p-0 mt-2">See More</button>
      
     </div>
   </div>
@@ -39,8 +39,8 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const description = document.getElementById('descriptionText');
-    const toggleBtn = document.getElementById('toggleButton');
+    const description = document.getElementById('moduleText');
+    const toggleBtn = document.getElementById('toggleButton2');
 
     toggleBtn.addEventListener('click', function () {
       description.classList.toggle('expanded');

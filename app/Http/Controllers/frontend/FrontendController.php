@@ -38,19 +38,22 @@ class FrontendController extends Controller
 
         $allcategorycourse  = CourseCategory::where('public_status',1)->get();
       
-        $data = Course::with(['coursePrice'])->where('url',$courseurl)->where('slug',$courseslug)->firstOrFail();
+        $data = Course::withDetails()->where('url',$courseurl)->where('slug',$courseslug)->firstOrFail();
+       
+         
+        // -- find the all course  belongse to instructor
+        $instructor = User::where('id',$data->user_id)->first();
+        $instructor_course = Course::where('user_id',$instructor->id)->limit(3)->get();
 
         // Increase view count
         $data->increment('view_count');
 
-
-        // Get coupon from query (or session/form later)
-      
+       /**--------------------------    Price data calculaton for all -------- */
         $priceData = $this->calculatePrices($data);
-
+        /**--------------------------    Price data calculaton for all -------- */
 
         
-      Session::put('checkout_course_' . $data->id . '_' . $data->slug, [
+        Session::put('checkout_course_' . $data->id . '_' . $data->slug, [
             'course_id' => $data->id,
             'course_slug' => $data->slug,
             'checkout_price' => $priceData['final_price'] ?? 0,
@@ -60,8 +63,13 @@ class FrontendController extends Controller
 
 
 
-        return view('frontend.pages.course.course_details',compact('data','allcategorycourse','priceData'));
+        return view('frontend.pages.course.course_details',compact('data','allcategorycourse','priceData','instructor_course'));
     }
+
+
+
+
+
 
     // 2. Apply Coupon via AJAX
     public function applyCoupon(Request $request)

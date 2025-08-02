@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('course_childcategory_id')->nullable(); // ✅ match with bigIncrements
             $table->string('course_name')->nullable();
             $table->string('course_title')->nullable();
+            $table->longText('course_about')->nullable();
             $table->text('course_des')->nullable();
             $table->longText('course_long_des')->nullable();
             $table->string('url',255)->nullable();
