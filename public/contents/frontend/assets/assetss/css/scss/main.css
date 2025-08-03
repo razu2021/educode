@@ -1937,4 +1937,67 @@ button {
 .attachment-list .attachment-item .attachment-actions .disabled {
   cursor: not-allowed;
   opacity: 0.6;
+}
+
+.quiz_box {
+  background-color: #000;
+  padding: 2rem;
+}
+
+.quiz_header {
+  text-align: center;
+  padding: 2rem 0rem;
+}
+.quiz_header h2 {
+  color: #fff;
+}
+.quiz_header h4 {
+  color: #fff;
+}
+.quiz_header p {
+  color: #fff;
+}
+
+.quiz-question {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1.2rem rgba(0, 0, 0, 0.05);
+}
+.quiz-question .question-text {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #343a40;
+}
+.quiz-question .form-check-wrapper .form-check {
+  background-color: #f9f9f9;
+  border: 1px solid #dee2e6;
+  border-radius: 0.75rem;
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+.quiz-question .form-check-wrapper .form-check:hover {
+  background-color: #f1f1f1;
+  border-color: #007bff;
+}
+.quiz-question .form-check-wrapper .form-check input.custom_radio {
+  width: 2.4rem;
+  height: 2.4rem;
+  margin: 0rem 1.2rem;
+  accent-color: #007bff;
+}
+.quiz-question .form-check-wrapper .form-check .custom_label {
+  font-size: 1.6rem;
+  margin: 0;
+  color: #333;
+  font-weight: 500;
+  cursor: pointer;
+}
+.quiz-question .next-btn {
+  font-size: 1.6rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
 }/*# sourceMappingURL=main.css.map */

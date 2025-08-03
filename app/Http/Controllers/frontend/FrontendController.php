@@ -443,15 +443,36 @@ class FrontendController extends Controller
     public function saveQuizeAnswer(Request $request)
     {
 
-        Log::info('request data is : ', $request->all());
 
         $request->validate([
             'question_id' => 'required',
             'selected_option' => 'required|string',
             'quiz_id' => 'required',
+            'quiz_slug' => 'required',
         ]);
 
+        $quizid = $request->quiz_id;
+        $quizeslug = $request->quiz_slug;
+
+
+                $exist = quizeAnswer::where('question_id', $request->question_id)
+                ->where('user_id', Auth::user()->id)
+                ->exists();
+
+            if ($exist) {
+                return response()->json([
+                    'status' => 'exist',
+                    'existurl' =>route('quize.result',[$quizid,$quizeslug]),
+                ]);
+            }
+
+
+
         $question = CourseQuizQuestion::find($request->question_id);
+
+
+    
+
 
         // --- save answer 
 
@@ -484,7 +505,7 @@ class FrontendController extends Controller
         } else {
             return response()->json([
                 'status' => 'completed',
-                'redirectUrl' =>route('quize.result',1),
+                'redirectUrl' =>route('quize.result',[$quizid,$quizeslug]),
             ]);
         }
     }
@@ -493,15 +514,15 @@ class FrontendController extends Controller
 
     public function quize_result($id,$slug){
 
-        $data = courseQuize::with(['quizeQustions','quizeQustions.'])->where('id',$id)->where('slug',$slug)->firstOrFail();
+        $data = courseQuize::with(['quizeQustions'])->where('id',$id)->where('slug',$slug)->firstOrFail();
 
         
-        return view('frontend.pages.course.all_quize');
+        return view('frontend.pages.course.components.quiz_result');
     }
 
 
 
 
-/** function body end  */
+/** function body end dfdf */
 }
 /** function body end  */

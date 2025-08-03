@@ -77,7 +77,14 @@
                                 {{-- end --}}
                                 <div class="col-12 mb-1">
                                     <label class="form-label" for="answer">Write your Correct Answer ! <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
-                                    <input class="form-control"  name="answer" id="answer" type="text" value="{{old('answer')}}" required>
+                                    
+                                    <select class="form-control" name="answer" id="answer" required>
+                                      <option value="">Select the Correct Answer </option>
+                                      <option value="A">A</option>
+                                      <option value="B">B</option>
+                                      <option value="C">C</option>
+                                      <option value="D">D</option>
+                                    </select>
                                     <label class="text-danger fw-medium">@error('answer') {{$message}} @enderror</label>
                                 </div>
                                 {{-- end --}}
