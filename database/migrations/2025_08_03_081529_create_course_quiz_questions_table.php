@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-            Schema::create('course_quize_qustions', function (Blueprint $table) {
+        Schema::create('course_quiz_questions', function (Blueprint $table) {
             $table->id();
           
             $table->foreignId('quize_id')->constrained('course_quizes')->onDelete('cascade');
@@ -34,7 +34,6 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-
     }
 
     /**
@@ -42,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('course_quize_qustions');
+        Schema::dropIfExists('course_quiz_questions');
     }
 };

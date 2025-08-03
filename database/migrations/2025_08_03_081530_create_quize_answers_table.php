@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('quize_answers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('answer_id')->constrained('course_quize_qustions')->onDelete('cascade');
+            $table->unsignedBigInteger('question_id');
+            
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');   
             // assignment details
             $table->text('qustion')->nullable(); // e.g., "July Morning Batch"
@@ -30,6 +31,8 @@ return new class extends Migration
             $table->integer('public_status')->default(0);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('question_id')->references('id')->on('course_quiz_questions')->onDelete('cascade');
             
         });
     }

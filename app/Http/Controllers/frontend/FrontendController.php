@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\CourseCategory;
 use App\Models\Course;
 use App\Models\CourseChildCategory;
+use App\Models\courseQuize;
+use App\Models\CourseQuizQuestion;
 use App\Models\CourseSubCategory;
 use App\Models\DiscountCoupon;
 use App\Models\User;
+use App\Models\quizeAnswer;
 use Illuminate\Http\Request;
 use App\Traits\CourseFilterTrait;
 use Illuminate\Support\Facades\Session;
@@ -425,12 +429,75 @@ class FrontendController extends Controller
         return view('frontend.pages.course.instructor_profile');
     }
 
+    // instructor  detais 
+    public function live_quize($id,$slug){
+
+        $data = courseQuize::with('quizeQustions')->where('id',$id)->where('slug',$slug)->firstOrFail();
+
+        return view('frontend.pages.course.all_quize',compact('data'));
+    }
 
 
-    
+
+
+    public function saveQuizeAnswer(Request $request)
+    {
+
+        Log::info('request data is : ', $request->all());
+
+        $request->validate([
+            'question_id' => 'required',
+            'selected_option' => 'required|string',
+            'quiz_id' => 'required',
+        ]);
+
+        $question = CourseQuizQuestion::find($request->question_id);
+
+        // --- save answer 
+
+        quizeAnswer::create([
+            'question_id'=>$request->question_id,
+            'user_id'=>Auth::user()->id,
+            'qustion'=>$question->question,
+            'student_answer'=>$request->selected_option,
+            'instructor_answer'=>$question->answer,
+            'mark'=>$request->selected_option === $question->answer ? 1 : 0,
+            'is_downloadable'=>0,
+
+        ]);
 
 
 
+        // You can store to DB here if needed (e.g. QuizAnswer model)
+
+        $nextQuestion = CourseQuizQuestion::where('quize_id', $request->quiz_id)
+            ->where('id', '>', $question->id)
+            ->orderBy('id')
+            ->first();
+
+        if ($nextQuestion) {
+            $view = view('frontend.pages.course.components.details.live_quize', ['first' => $nextQuestion])->render();
+            return response()->json([
+                'status' => 'next',
+                'view' => $view
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'completed',
+                'redirectUrl' =>route('quize.result',1),
+            ]);
+        }
+    }
+
+
+
+    public function quize_result($id,$slug){
+
+        $data = courseQuize::with(['quizeQustions','quizeQustions.'])->where('id',$id)->where('slug',$slug)->firstOrFail();
+
+        
+        return view('frontend.pages.course.all_quize');
+    }
 
 
 

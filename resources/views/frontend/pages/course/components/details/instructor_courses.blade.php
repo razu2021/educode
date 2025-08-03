@@ -3,8 +3,6 @@
               <div class="row">
 
                @foreach ($instructor_course as $data)
-                 
-              
                 <div class="col-12 col-lg-4 mt-4">
                   <div class="card_2">
                     <div class="card-image">

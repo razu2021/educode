@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-class courseQuizeQustions extends Model
+class CourseQuizQuestion extends Model
 {
-    use SoftDeletes;
+       use SoftDeletes;
     protected $primaryKey = "id";
     protected $guarded=[];
 
@@ -22,8 +22,10 @@ class courseQuizeQustions extends Model
         return $this->belongsTo(courseQuize::class ,'quize_id','id');
     }
 
+   public function quizAnswers()
+    {
+        return $this->hasMany(QuizeAnswer::class, 'question_id','id');
+    }
     // -------  quiz qustions  relationship 
-
-   
 
 }

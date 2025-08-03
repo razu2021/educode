@@ -162,7 +162,7 @@
                 <span class="text-success"><i class="bi bi-people"></i> {{$quizTest->download_count ?? '0' }}</span>
               </div>
               <div class="attachment-actions">
-                <a href="{{asset($quizTest->file)}}" target="_blank" class="btn btn-sm btn-outline-primary">
+                <a href="{{route('live.quiz',[$quizTest->id,$quizTest->slug])}}" target="_blank" class="btn btn-sm btn-outline-primary">
                   <i class="bi bi-eye-fill"></i> Test
                 </a>
               </div>

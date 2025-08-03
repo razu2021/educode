@@ -22,20 +22,25 @@ Route::controller(FrontendController::class)->group(function(){
     Route::get('/courses/{category_url}/{course_subcategory}','course_SububCategory')->name('coursesubcategory');
     Route::get('/courses/{category_url}/{course_subcategory}/{course_childCategory}','course_childubCategory')->name('coursechildcategory');
     Route::get('instructor/details','instructor_details')->name('instructor_details');
+    // ---
+    Route::get('live/quiz/test/{id}/{slug}','live_quize')->name('live.quiz');
+    Route::get('/quiz-question/{quiz_id}/{index}', 'loadSingleQuestion')->name('loadSingleQuestion');
+    // Save answer
+    Route::post('/quiz-answer-save', 'saveQuizeAnswer')->name('save_quiz_answer');
+    Route::get('/quiz/result/{id}/{slug}', 'quize_result')->name('quize.result');
+
 });
 
 
 /**
-* -------------  SSLCommerze Payment Route Start here -----------
+* **-------------  SSLCommerze Payment Route Start here -----------
 */
 Route::controller(PaymentController::class)->middleware(['auth'])->group(function(){
     Route::get('/payment/ssl/initiate/{id}/{slug}','sslpayment_initiate')->name('ssl_payment_initiate');
     Route::post('/payment/create/url',  'ssl_paymentCreate')->name('ssl_payment.create');
     Route::get('/invoice/download/{tran_id}','downloadInvoice')->name('invoice.download');
-
     //-------------------
     Route::get('/course/{id}/already-enrolled/download','exist_course')->name('exist.course');
-
 });
 
 

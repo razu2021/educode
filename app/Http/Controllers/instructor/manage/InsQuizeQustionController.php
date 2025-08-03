@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Course_topic;
 use App\Models\courseQuize;
-use App\Models\courseQuizeQustions;
+use App\Models\CourseQuizQuestion;
 
 class InsQuizeQustionController extends Controller
 {
@@ -23,7 +23,7 @@ class InsQuizeQustionController extends Controller
         $user_id = Auth::user()->id;
         $search = $request['search'] ?? "";
         if($search !=""){
-            $all = courseQuizeQustions::with('quize.course')->where('user_id',$user_id)->where('status',1)->where(function ($query) use ($search) {
+            $all = CourseQuizQuestion::with('quize.course')->where('user_id',$user_id)->where('status',1)->where(function ($query) use ($search) {
                 $query->where('question', 'LIKE', "%$search%")
                     ->orWhere('answer', 'LIKE', "%$search%")
                   
@@ -40,7 +40,7 @@ class InsQuizeQustionController extends Controller
             })
             ->get();
         }else{
-            $all = courseQuizeQustions::with(['quize.course'])->where('user_id',$user_id)->where('status',1)->get();
+            $all = CourseQuizQuestion::with(['quize.course'])->where('user_id',$user_id)->where('status',1)->get();
         }
         return view('instructor.manage.quizequstion.index',compact('all'));
     }
@@ -76,7 +76,7 @@ class InsQuizeQustionController extends Controller
     **/
     public function view($id,$slug){
         $user_id = Auth::user()->id;
-        $data=courseQuizeQustions::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        $data=CourseQuizQuestion::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
         return view('instructor.manage.quizequstion.view',compact('data'));
     }
 
@@ -86,7 +86,7 @@ class InsQuizeQustionController extends Controller
     **/
     public function edit($id,$slug){
         $user_id = Auth::user()->id;
-        $data=courseQuizeQustions::with(['quize.course'])->where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
+        $data=CourseQuizQuestion::with(['quize.course'])->where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->firstOrFail();
         $course_id = $data->quize->course_id;
        // dd($course_id);
         
@@ -127,7 +127,7 @@ class InsQuizeQustionController extends Controller
         $slug = uniqid('20').Str::random(20) . '_'.mt_rand(10000, 100000).'-'.time();
         $user_id = Auth::user()->id;
         //-------  insert category record --------
-        $insert = courseQuizeQustions::create([
+        $insert = CourseQuizQuestion::create([
             'quize_id'=>$request->quize_id,
             'question'=>$request->question,
             'option1'=>$request->option1,
@@ -183,7 +183,7 @@ class InsQuizeQustionController extends Controller
         $user_id = Auth::user()->id;
 
         //---------category update -------//
-        $update = courseQuizeQustions::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->update([
+        $update = CourseQuizQuestion::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->update([
              'quize_id'=>$request->quize_id,
             'question'=>$request->question,
             'option1'=>$request->option1,
@@ -211,7 +211,7 @@ class InsQuizeQustionController extends Controller
      */
     public function softdelete($id){
         $user_id = Auth::user()->id;
-        $data= courseQuizeQustions::where('user_id',$user_id)->where('id',$id)->first();
+        $data= CourseQuizQuestion::where('user_id',$user_id)->where('id',$id)->first();
         $data->delete();
         // ----Delete Successfully ----//
         if($data){
@@ -227,7 +227,7 @@ class InsQuizeQustionController extends Controller
     **/
     public function restore($id){
         $user_id = Auth::user()->id;
-        $data = courseQuizeQustions::withTrashed()->where('user_id',$user_id)->where('id', $id)->first();
+        $data = CourseQuizQuestion::withTrashed()->where('user_id',$user_id)->where('id', $id)->first();
         $data->restore();
         // Delete Successfully 
         if($data){
@@ -242,7 +242,7 @@ class InsQuizeQustionController extends Controller
     **/
     public function delete($id){
         $user_id = Auth::user()->id;
-        $data = courseQuizeQustions::onlyTrashed()->where('user_id',$user_id)->where('id', $id)->first();
+        $data = CourseQuizQuestion::onlyTrashed()->where('user_id',$user_id)->where('id', $id)->first();
         if($data) {
             $data->forceDelete();
             flash()->success('Record Deleted Successfully');
@@ -259,7 +259,7 @@ class InsQuizeQustionController extends Controller
     **/
     public function public_status($id,$slug){
         $user_id = Auth::user()->id;
-        $published = courseQuizeQustions::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
+        $published = CourseQuizQuestion::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',0)->update([
             'public_status'=>1,
         ]);
         // Delete Successfully 
@@ -276,7 +276,7 @@ class InsQuizeQustionController extends Controller
     **/
     public function private_status($id,$slug){
         $user_id = Auth::user()->id;
-        $private = courseQuizeQustions::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
+        $private = CourseQuizQuestion::where('user_id',$user_id)->where('id',$id)->where('slug',$slug)->where('public_status',1)->update([
             'public_status'=>0,
         ]);
         // Delete Successfully 
@@ -294,7 +294,7 @@ class InsQuizeQustionController extends Controller
     **/
     public function recycle(){
         $user_id = Auth::user()->id;
-        $all = courseQuizeQustions::onlyTrashed()->where('user_id',$user_id)->get();
+        $all = CourseQuizQuestion::onlyTrashed()->where('user_id',$user_id)->get();
         return view('instructor.manage.quizequstion.recycle',compact('all'));
     }
    /**
@@ -316,12 +316,12 @@ class InsQuizeQustionController extends Controller
     
         //----- for multiple items soft delete ----//
         if ($action === 'delete') {
-            courseQuizeQustions::whereIn('id', $ids)->where('user_id',$user_id)->delete();
+            CourseQuizQuestion::whereIn('id', $ids)->where('user_id',$user_id)->delete();
             return response()->json(['success' => true, 'message' => 'Selected Items deleted.']);
         }
         //--- for multiple items heard delete -------//
         if ($action === 'heard_delete') {
-            $categories = courseQuizeQustions::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = CourseQuizQuestion::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
         
             foreach ($categories as $category) {
                 // 4. Category force delete
@@ -334,7 +334,7 @@ class InsQuizeQustionController extends Controller
     
         //---- for multiple items resotre --------//
         if ($action === 'restore') {
-            $categories = courseQuizeQustions::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = CourseQuizQuestion::onlyTrashed()->whereIn('id', $ids)->where('user_id',$user_id)->get();
             if($categories){
                 foreach($categories as $data){
                     $data->restore();
@@ -344,11 +344,11 @@ class InsQuizeQustionController extends Controller
         }
         //----- for multiple items active ----//
         if ($action === 'active') {
-            $categories = courseQuizeQustions::whereIn('id', $ids)->where('user_id',$user_id)->get();
+            $categories = CourseQuizQuestion::whereIn('id', $ids)->where('user_id',$user_id)->get();
 
             if($categories){
                 foreach($categories as $data){
-                    courseQuizeQustions::whereIn('id',$ids)->where('public_status',0)->where('user_id',$user_id)->update([
+                    CourseQuizQuestion::whereIn('id',$ids)->where('public_status',0)->where('user_id',$user_id)->update([
                         'public_status'=>1,
                     ]);
                 }
@@ -358,10 +358,10 @@ class InsQuizeQustionController extends Controller
 
         //--  for multiple items deactive ----- //
         if ($action === 'deactive') {
-            $categories = courseQuizeQustions::whereIn('id', $ids)->get();
+            $categories = CourseQuizQuestion::whereIn('id', $ids)->get();
             if($categories){
                 foreach($categories as $data){
-                    courseQuizeQustions::whereIn('id',$ids)->where('user_id',$user_id)->where('public_status',1)->update([
+                    CourseQuizQuestion::whereIn('id',$ids)->where('user_id',$user_id)->where('public_status',1)->update([
                         'public_status'=>0,
                     ]);
                 }

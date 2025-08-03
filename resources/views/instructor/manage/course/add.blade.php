@@ -64,6 +64,12 @@
                                 </div>
                                 {{-- end --}}
                                 <div class="col-12 mb-1">
+                                    <label class="form-label" for="course_about">Course About: <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
+                                    <textarea name="course_about" id="description" class="form-control" value="{{old('course_about')}}">{{old('course_about')}}</textarea>
+                                    <label class="text-danger fw-medium" >@error('course_about') {{$message}} @enderror</label>
+                                </div>
+                              {{-- end  --}}
+                                <div class="col-12 mb-1">
                                     <label class="form-label" for="course_des">Short Descriptions: <span class="text-danger"><i class="bi bi-star-fill"></i></span></label>
                                     <input class="form-control" name="course_des" id="course_des" type="text" value="{{old('course_des')}}">
                                     <label class="text-danger fw-medium" >@error('course_des') {{$message}} @enderror</label>

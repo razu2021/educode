@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class courseQuize extends Model
 {
-      use SoftDeletes;
+    use SoftDeletes;
     protected $primaryKey = "id";
     protected $guarded=[];
 
@@ -24,6 +24,6 @@ class courseQuize extends Model
     }
 
      public function quizeQustions(){
-        return $this->hasMany(courseQuizeQustions::class ,'quize_id','id');
+        return $this->hasMany(CourseQuizQuestion::class ,'quize_id','id');
     }
 }
