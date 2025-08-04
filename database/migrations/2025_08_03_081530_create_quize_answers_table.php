@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('quize_answers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('question_id');
+            $table->unsignedBigInteger('quiz_id');
+            
             
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');   
             // assignment details
@@ -32,6 +34,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreign('quiz_id')->references('id')->on('course_quizes')->onDelete('cascade');
             $table->foreign('question_id')->references('id')->on('course_quiz_questions')->onDelete('cascade');
             
         });

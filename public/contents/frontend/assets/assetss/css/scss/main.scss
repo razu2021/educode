@@ -2121,3 +2121,37 @@ $border-radius: 1.2rem;
     border-radius: 0.5rem;
   }
 }
+
+//--result box 
+.result-box {
+    border-radius: 1.6rem;
+    background: #ffffff;
+    box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+
+    h2 {
+        font-size: 2rem; // 20px
+    }
+
+    p.lead {
+        font-size: 1.6rem; // 16px
+    }
+
+    .result-summary {
+        .col-6 {
+            h4 {
+                font-size: 1.4rem;
+            }
+
+            p {
+                font-size: 2.4rem;
+            }
+        }
+    }
+
+    a.btn {
+        font-size: 1.4rem;
+        padding: 0.8rem 2rem;
+    }
+}
+

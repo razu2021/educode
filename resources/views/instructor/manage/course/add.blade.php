@@ -146,24 +146,37 @@
                     <div class="sidebar_card">
                         <div class="card mb-4">
                           <div class="sidebar_header bg-body-tertiary">
-                            <h4 class="p-2"> Total Categorie's</h4>
+                            <h4 class="p-2"> Course Prices</h4>
                         </div>
                         <div class="card-body">
-                          <div class="row  justify-content-center g-0">                       
-                            <div class="col-auto position-relative">
-                              <div class="echart-product-share" _echarts_instance_="ec_1743616191403" style="user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;"><div style="position: relative; width: 106px; height: 106px; padding: 0px; margin: 0px; border-width: 0px; cursor: pointer;"><canvas data-zr-dom-id="zr_0" width="106" height="106" style="position: absolute; left: 0px; top: 0px; width: 106px; height: 106px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div class="" style="position: absolute; display: block; border-style: solid; white-space: nowrap; z-index: 9999999; box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 10px; background-color: rgb(249, 250, 253); border-width: 1px; border-radius: 4px; color: rgb(11, 23, 39); font: 14px / 21px &quot;Microsoft YaHei&quot;; padding: 7px 10px; top: 0px; left: 0px; transform: translate3d(-68px, 11px, 0px); border-color: rgb(216, 226, 239); pointer-events: none; visibility: hidden; opacity: 0;"><strong>Sparrow:</strong> 20.65%</div></div>
-                              <div class="position-absolute top-50 start-50 translate-middle text-1100 fs-7">{{ $totalpost}} N</div> 
-                            </div>
+                          <div class="col-12">
+                              <label class="form-label" for="orginal_price">Reguler Price:</label>
+                              <input class="form-control" name="orginal_price" id="orginal_price" type="text" placeholder="5000" value="{{old('custom_url')}}">
                           </div>
+                          {{-- end --}}
+                          <div class="col-12">
+                              <label class="form-label" for="orginal_price">Discount Price:</label>
+                              <input class="form-control" name="orginal_price" id="orginal_price" type="text" placeholder="5000" value="{{old('custom_url')}}">
+                          </div>
+                          {{-- end --}}
+                          <div class="col-12">
+                              <label class="form-label" for="orginal_price">Coupon Discount Price:</label>
+                              <input class="form-control" name="orginal_price" id="orginal_price" type="text" placeholder="5000" value="{{old('custom_url')}}">
+                          </div>
+                          {{-- end --}}
+                          <div class="col-12">
+                              <label class="form-label" for="orginal_price">Coupon Discount Type:</label>
+                              <select name="" id="" class="form-control">
+                                <option value="">Select Discount Type </option>
+                                <option value="">Fixed</option>
+                                <option value="">Percentage</option>
+                              </select>
+                          </div>
+                          {{-- end --}}
                         </div>
-                        <div class=" bg-body-tertiary text-center">
-                          @if(!empty($latestPost->created_at))
-                            <h6 class="p-2">Last Created At : {{ $latestPost->created_at->format('d M, Y - h:i A') }}</h6>
-                          @else
-                          <h6 class="p-2">Post is not Available </h6>
-                          @endif
-                        </div>
+                        
                       </div>
+                      {{-- cerd end --}}
                       <div class="card">
                           <div class="card-body">
                             <div class="col-12">

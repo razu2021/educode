@@ -14,9 +14,13 @@ use App\Models\CourseSubCategory;
 use App\Models\DiscountCoupon;
 use App\Models\User;
 use App\Models\quizeAnswer;
+use App\Models\SiteAddress;
+use App\Models\SiteEmail;
+use App\Models\Siteinformation;
 use Illuminate\Http\Request;
 use App\Traits\CourseFilterTrait;
 use Illuminate\Support\Facades\Session;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use Illuminate\Support\Facades\Log;
 
@@ -434,6 +438,9 @@ class FrontendController extends Controller
 
         $data = courseQuize::with('quizeQustions')->where('id',$id)->where('slug',$slug)->firstOrFail();
 
+
+         $data->increment('user_count');
+
         return view('frontend.pages.course.all_quize',compact('data'));
     }
 
@@ -442,7 +449,7 @@ class FrontendController extends Controller
 
     public function saveQuizeAnswer(Request $request)
     {
-
+        
 
         $request->validate([
             'question_id' => 'required',
@@ -455,28 +462,20 @@ class FrontendController extends Controller
         $quizeslug = $request->quiz_slug;
 
 
-                $exist = quizeAnswer::where('question_id', $request->question_id)
-                ->where('user_id', Auth::user()->id)
-                ->exists();
+            $exist = quizeAnswer::where('question_id', $request->question_id)
+            ->where('user_id', Auth::user()->id)
+            ->exists();
 
-            if ($exist) {
-                return response()->json([
-                    'status' => 'exist',
-                    'existurl' =>route('quize.result',[$quizid,$quizeslug]),
-                ]);
-            }
-
-
-
+        if ($exist) {
+            return response()->json([
+                'status' => 'exist',
+                'existurl' =>route('quize.result',[$quizid,$quizeslug]),
+            ]);
+        }
         $question = CourseQuizQuestion::find($request->question_id);
-
-
-    
-
-
-        // --- save answer 
-
+        // --- saveanswer 
         quizeAnswer::create([
+            'quiz_id'=>$quizid,
             'question_id'=>$request->question_id,
             'user_id'=>Auth::user()->id,
             'qustion'=>$question->question,
@@ -486,8 +485,6 @@ class FrontendController extends Controller
             'is_downloadable'=>0,
 
         ]);
-
-
 
         // You can store to DB here if needed (e.g. QuizAnswer model)
 
@@ -512,12 +509,74 @@ class FrontendController extends Controller
 
 
 
+    //===============  Result functionality is here ===============
+
     public function quize_result($id,$slug){
+
+        $user_id = Auth::user()->id;
 
         $data = courseQuize::with(['quizeQustions'])->where('id',$id)->where('slug',$slug)->firstOrFail();
 
-        
-        return view('frontend.pages.course.components.quiz_result');
+        // ✅ Get all question IDs for this quiz
+        $totalquestion = $data->quizeQustions->count();
+        $questionIds = $data->quizeQustions->pluck('id')->toArray();
+
+        ///-----  get the answer 
+        $answer = quizeAnswer::where('quiz_id',$data->id)->where('user_id',$user_id)->whereIn('question_id',$questionIds)->get();
+        $correct = $answer->where('mark',1)->count();
+        $wrong = $answer->where('mark',0)->count();
+
+
+        //--- passmark calculation 
+        $pass_mark_percent = 60;
+
+        $isResult =  ($pass_mark_percent / 100) * $totalquestion; // 24
+
+       
+        return view('frontend.pages.course.components.quiz_result',compact('data','correct','wrong','answer','isResult'));
+    }
+
+    /** ---- test again functionality  ------- */
+
+    public function quize_test_again($id,$slug){
+
+        $user_id = Auth::user()->id;
+        $data = courseQuize::with(['quizeQustions'])->where('id',$id)->where('slug',$slug)->firstOrFail();
+        $questionIds = $data->quizeQustions->pluck('id')->toArray();
+        $answer = quizeAnswer::where('quiz_id',$data->id)->where('user_id',$user_id)->whereIn('question_id',$questionIds)->forceDelete();
+
+        return  redirect()->route('live.quiz',[$data->id,$data->slug]);
+    }
+
+
+    /**-----  quize Result download resutl  ---------*/
+    public function quize_result_download($id,$slug){
+        $siteinfo = Siteinformation::where('public_status',1)->first();
+        $sitemail = SiteEmail::where('public_status',1)->first();
+        $siteaddress = SiteAddress::where('public_status',1)->first();
+
+        $user = Auth::user();
+
+        $user_id = Auth::user()->id;
+
+        $data = courseQuize::with(['quizeQustions','quizeQustions.quizAnswers'])->where('id',$id)->where('slug',$slug)->firstOrFail();
+
+        // ✅ Get all question IDs for this quiz
+        $totalquestion = $data->quizeQustions->count();
+        $allqsn = $data->quizeQustions;
+        $questionIds = $data->quizeQustions->pluck('id')->toArray();
+
+
+        $answer = quizeAnswer::where('quiz_id',$data->id)->where('user_id',$user_id)->whereIn('question_id',$questionIds)->get();
+        $correct = $answer->where('mark',1)->count();
+        $wrong = $answer->where('mark',0)->count();
+
+        $pass_mark_percent = 60;
+        $isResult =  ($pass_mark_percent / 100) * $totalquestion; // 24
+
+
+         $pdf=  PDF::loadView('frontend.pages.course.quiz_result_download',compact('data','totalquestion','answer','correct','wrong','isResult','allqsn','siteinfo','sitemail','siteaddress'));
+         return $pdf->download('quiz-result_'.$data->slug.'.pdf');
     }
 
 

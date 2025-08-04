@@ -40,34 +40,54 @@
         </li>
         <li class="nav-item">
           <a class="nav-link text-dark" href="{{asset('contents/backend/student')}}/pages/tables.html">
-            <i class="material-symbols-rounded opacity-5">table_view</i>
-            <span class="nav-link-text ms-1">Tables</span>
+            <i class="material-symbols-rounded opacity-5"></i>
+            <span class="nav-link-text ms-1">My Course</span>
           </a>
         </li>
+        {{-- end --}}
         <li class="nav-item">
-          <a class="nav-link text-dark" href="{{asset('contents/backend/student')}}/pages/billing.html">
-            <i class="material-symbols-rounded opacity-5">receipt_long</i>
-            <span class="nav-link-text ms-1">Billing</span>
+          <a class="nav-link text-dark" href="{{asset('contents/backend/student')}}/pages/tables.html">
+            <i class="material-symbols-rounded opacity-5"></i>
+            <span class="nav-link-text ms-1">Course Progress</span>
           </a>
         </li>
+        {{-- end --}}
         <li class="nav-item">
-          <a class="nav-link text-dark" href="{{asset('contents/backend/student')}}/pages/virtual-reality.html">
-            <i class="material-symbols-rounded opacity-5">view_in_ar</i>
-            <span class="nav-link-text ms-1">Virtual Reality</span>
+          <a class="nav-link text-dark" href="{{asset('contents/backend/student')}}/pages/tables.html">
+            <i class="material-symbols-rounded opacity-5"></i>
+            <span class="nav-link-text ms-1">Upcoming Lession</span>
           </a>
         </li>
+        {{-- end --}}
         <li class="nav-item">
-          <a class="nav-link text-dark" href="{{asset('contents/backend/student')}}/pages/rtl.html">
-            <i class="material-symbols-rounded opacity-5">format_textdirection_r_to_l</i>
-            <span class="nav-link-text ms-1">RTL</span>
+          <a class="nav-link text-dark" href="{{asset('contents/backend/student')}}/pages/tables.html">
+            <i class="material-symbols-rounded opacity-5"></i>
+            <span class="nav-link-text ms-1">Assignments</span>
           </a>
         </li>
+        {{-- end --}}
         <li class="nav-item">
-          <a class="nav-link text-dark" href="{{asset('contents/backend/student')}}/pages/notifications.html">
-            <i class="material-symbols-rounded opacity-5">notifications</i>
-            <span class="nav-link-text ms-1">Notifications</span>
+          <a class="nav-link text-dark" href="{{asset('contents/backend/student')}}/pages/tables.html">
+            <i class="material-symbols-rounded opacity-5"></i>
+            <span class="nav-link-text ms-1">Quizzes / Exams</span>
           </a>
         </li>
+        {{-- end --}}
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="{{asset('contents/backend/student')}}/pages/tables.html">
+            <i class="material-symbols-rounded opacity-5"></i>
+            <span class="nav-link-text ms-1">Messages / Chat</span>
+          </a>
+        </li>
+        {{-- end --}}
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="{{asset('contents/backend/student')}}/pages/tables.html">
+            <i class="material-symbols-rounded opacity-5"></i>
+            <span class="nav-link-text ms-1">Payment History</span>
+          </a>
+        </li>
+        {{-- end --}}
+        
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Account pages</h6>
         </li>

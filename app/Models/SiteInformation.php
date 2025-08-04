@@ -18,4 +18,19 @@ class Siteinformation extends Model
     public function editor() {
         return $this->belongsTo(Admin::class, 'editor_id', 'id');
     }
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
 }

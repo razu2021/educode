@@ -159,7 +159,7 @@
               <div class="attachment-info">
                 <i class="bi bi-file-earmark-text icon text-primary"></i>
                 <span class="title">{{$quizTest->title ?? 'Not File Available !'}}</span> 
-                <span class="text-success"><i class="bi bi-people"></i> {{$quizTest->download_count ?? '0' }}</span>
+                <span class="text-success"><i class="bi bi-people"></i> {{$quizTest->user_count ?? '0' }}</span>
               </div>
               <div class="attachment-actions">
                 <a href="{{route('live.quiz',[$quizTest->id,$quizTest->slug])}}" target="_blank" class="btn btn-sm btn-outline-primary">

@@ -28,6 +28,11 @@ Route::controller(FrontendController::class)->group(function(){
     // Save answer
     Route::post('/quiz-answer-save', 'saveQuizeAnswer')->name('save_quiz_answer');
     Route::get('/quiz/result/{id}/{slug}', 'quize_result')->name('quize.result');
+    Route::get('/quiz/test/again/{id}/{slug}', 'quize_test_again')->name('quize.test_again');
+
+    Route::get('/quiz/test/result/download/{id}/{slug}', 'quize_result_download')->name('quize.result_download');
+
+
 
 });
 

@@ -23,4 +23,8 @@ class quizeAnswer extends Model
         return $this->belongsTo(Course::class ,'course_id','id');
     }
 
+    public function questions(){
+        return $this->belongsTo(CourseQuizQuestion::class ,'question_id','id');
+    }
+
 }
