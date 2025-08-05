@@ -11,21 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('course_reviews', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('course_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade'); // কে রিভিউ দিল
-
-            $table->decimal('rating',2,1)->nullable();
-            $table->text('review')->nullable();
+        Schema::create('faqs', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');  
+            $table->string('title')->nullable();
+            $table->text('question')->nullable();
+            $table->text('answer')->nullable();
             $table->string('slug',255)->nullable();
             $table->integer('creator_id')->nullable();
             $table->integer('editor_id')->nullable();
             $table->integer('status')->default(1);
             $table->integer('public_status')->default(0);
-
             $table->timestamps();
-            $table->softDeletes();
+            $table->softDeletes(); 
         });
     }
 
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('course_reviews');
+        Schema::dropIfExists('faqs');
     }
 };

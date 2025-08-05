@@ -23,7 +23,7 @@ return new class extends Migration
             $table->dateTime('start_at')->nullable();
             $table->dateTime('end_at')->nullable();
             $table->integer('is_downloadable')->nullable(); 
-            $table->integer('user_count')->nullable();
+            $table->integer('user_count')->default(0);
             // defualt feild
             $table->string('slug',255)->nullable();
             $table->integer('creator_id')->nullable();

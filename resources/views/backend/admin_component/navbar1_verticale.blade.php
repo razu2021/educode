@@ -392,189 +392,16 @@
                         </div>
                     </div>
                     <!-- parent pages-->
-                    <a class="nav-link" href="starter.html" role="button">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-flag"></span></span><span class="nav-link-text ps-1">Starter</span></div>
-                    </a>
-                    <!-- parent pages-->
-                    <a class="nav-link" href="landing.html" role="button">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-globe"></span></span><span class="nav-link-text ps-1">Landing</span></div>
-                    </a>
-                    <!-- parent pages-->
-                    <a class="nav-link dropdown-indicator" href="#authentication" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="authentication">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-lock"></span></span><span class="nav-link-text ps-1">Authentication</span></div>
-                    </a>
-                    <ul class="nav collapse" id="authentication">
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-indicator" href="#simple" data-bs-toggle="collapse" aria-expanded="false" aria-controls="authentication">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Simple</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                            <ul class="nav collapse" id="simple">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="login.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Login</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="logout.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Logout</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="register.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Register</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="forgot-password.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Forgot password</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="confirm-mail.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Confirm mail</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="reset-password.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Reset password</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="lock-screen.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Lock screen</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-indicator" href="#card" data-bs-toggle="collapse" aria-expanded="false" aria-controls="authentication">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Card</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                            <ul class="nav collapse" id="card">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="card_login.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Login</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="card_logout.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Logout</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="card_register.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Register</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="card_forgot-password.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Forgot password</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="card_confirm-mail.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Confirm mail</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="card_reset-password.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Reset password</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="card_lock-screen.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Lock screen</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-indicator" href="#split" data-bs-toggle="collapse" aria-expanded="false" aria-controls="authentication">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Split</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                            <ul class="nav collapse" id="split">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="split_login.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Login</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="split_logout.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Logout</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="split_register.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Register</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="split_forgot-password.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Forgot password</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="split_confirm-mail.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Confirm mail</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="split_reset-password.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Reset password</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="split_lock-screen.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Lock screen</span></div>
-                                    </a>
-                                    <!-- more inner pages-->
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages/authentication/wizard.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Wizard</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#authentication-modal" data-bs-toggle="modal">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Modal</span></div>
-                            </a>
-                            <!-- more inner pages-->
-                        </li>
-                    </ul>
+                  
+                  
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#user" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="user">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-user"></span></span><span class="nav-link-text ps-1">User</span></div>
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-user"></span></span><span class="nav-link-text ps-1">Home</span></div>
                     </a>
                     <ul class="nav collapse" id="user">
                         <li class="nav-item">
-                            <a class="nav-link" href="profile.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Profile</span></div>
+                            <a class="nav-link" href="{{route('home_banner.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Banner</span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
@@ -593,8 +420,8 @@
                     </a>
                     <ul class="nav collapse" id="faq">
                         <li class="nav-item">
-                            <a class="nav-link" href="pages/faq/faq-basic.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Faq basic</span></div>
+                            <a class="nav-link" href="{{route('faq.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Faq's</span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
@@ -613,12 +440,12 @@
                     </ul>
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#errors" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="errors">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-exclamation-triangle"></span></span><span class="nav-link-text ps-1">Errors</span></div>
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-exclamation-triangle"></span></span><span class="nav-link-text ps-1">Course Review</span></div>
                     </a>
                     <ul class="nav collapse" id="errors">
                         <li class="nav-item">
-                            <a class="nav-link" href="pages/errors/404.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">404</span></div>
+                            <a class="nav-link" href="{{route('course_review.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Review</span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>
@@ -655,12 +482,12 @@
                     </ul>
                     <!-- parent pages-->
                     <a class="nav-link dropdown-indicator" href="#Layouts" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="Layouts">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="far fa-window-restore"></span></span><span class="nav-link-text ps-1">Layouts</span></div>
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="far fa-window-restore"></span></span><span class="nav-link-text ps-1">Post Manage</span></div>
                     </a>
                     <ul class="nav collapse" id="Layouts">
                         <li class="nav-item">
-                            <a class="nav-link" href="navbar-vertical.html" target="_blank">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Navbar vertical</span></div>
+                            <a class="nav-link" href="{{route('post.all')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">All Post</span></div>
                             </a>
                             <!-- more inner pages-->
                         </li>

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-class Course_review extends Model
+class homebanner extends Model
 {
     use SoftDeletes;
     protected $primaryKey = "id";
@@ -17,10 +17,5 @@ class Course_review extends Model
     
     public function editor() {
         return $this->belongsTo(Admin::class, 'editor_id', 'id');
-    }
-
-    // find the user 
-    public function username (){
-        return $this->belongsTo(User::class,'user_id','id');
     }
 }
