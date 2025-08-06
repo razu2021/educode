@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2025 at 01:44 PM
+-- Generation Time: Aug 06, 2025 at 01:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,7 +44,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `admin_role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Md Razu Hosssain Raj', 'admin@gmail.com', 0, NULL, '$2y$12$GQJL5ghFQwO.bOtb1tLdQu38QRVRN/9DgEKKqRzNM85OgqDad0bkW', NULL, '2025-08-01 23:18:22', '2025-08-01 23:18:22');
+(1, 'Md Razu Hosssain Raj', 'admin@gmail.com', 0, NULL, '$2y$12$KgvLUjROdoinQ036/xsO.ODTtzF2rmxlvaKxkD8kLCkhU5hYwyRf2', NULL, '2025-08-05 22:41:00', '2025-08-05 22:41:00');
 
 -- --------------------------------------------------------
 
@@ -132,6 +132,14 @@ CREATE TABLE `cache` (
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `cache`
+--
+
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('user1@gmail.com|127.0.0.1', 'i:1;', 1754479356),
+('user1@gmail.com|127.0.0.1:timer', 'i:1754479356;', 1754479356);
+
 -- --------------------------------------------------------
 
 --
@@ -217,16 +225,6 @@ CREATE TABLE `class_assignments` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `class_assignments`
---
-
-INSERT INTO `class_assignments` (`id`, `course_id`, `user_id`, `title`, `description`, `assignment`, `submission_date`, `is_downloadable`, `download_count`, `file`, `slug`, `creator_id`, `editor_id`, `status`, `public_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 'Introduction to Chemistry & Its Branches', 'Introduction to Chemistry & Its Branches', NULL, NULL, 0, 125, 'uploads/instructor/1754115341-43642.pdf', '20688dad0d474eet010Y1PxvXMswSegl73m_66589-1754115341', NULL, NULL, 1, 1, '2025-08-02 00:15:41', '2025-08-02 00:15:41', NULL),
-(2, 1, 1, 'Atomic Structure & Discovery of Subatomic Particles', 'Atomic Structure & Discovery of Subatomic Particles', NULL, NULL, 1, 248, 'uploads/instructor/1754115359-57426.pdf', '20688dad1f956bbcSHJB4SjMFC1RZlQYL56_92953-1754115359', NULL, NULL, 1, 1, '2025-08-02 00:15:59', '2025-08-02 00:15:59', NULL),
-(3, 1, 1, 'Mole Concept and Stoichiometry', 'Mole Concept and Stoichiometry', NULL, NULL, 1, 458, 'uploads/instructor/1754115371-42060.pdf', '20688dad2bb9b35KQCHKn4tn551mDGshPrU_78566-1754115371', NULL, NULL, 1, 1, '2025-08-02 00:16:11', '2025-08-02 00:16:11', NULL),
-(4, 1, 1, 'Chemical Calculations: Moles, Mass, Volume', 'Chemical Calculations: Moles, Mass, Volume', NULL, NULL, 0, NULL, 'uploads/instructor/1754115391-41200.pdf', '20688dad3fadc11dsnR0vlbIvNfd6E7fGOh_91169-1754115391', NULL, NULL, 1, 1, '2025-08-02 00:16:31', '2025-08-02 00:16:31', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -292,14 +290,8 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `user_id`, `course_category_id`, `course_subcategory_id`, `course_childcategory_id`, `course_name`, `course_title`, `course_about`, `course_des`, `course_long_des`, `url`, `course_language`, `course_type`, `course_lable`, `course_time`, `course_image`, `label`, `sell`, `view_count`, `slug`, `creator_id`, `editor_id`, `status`, `public_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 1, 1, 'Chemistry 2026', 'Chemistry', '<p data-start=\"291\" data-end=\"768\">Chemistry 2026 is a foundational course designed to introduce students to the core principles of chemical science. It builds a strong conceptual understanding of atomic structure, periodic behavior, chemical reactions, bonding, and the physical and chemical properties of matter. The course also touches on key areas like thermochemistry, acids and bases, and basic organic chemistry, making it an essential stepping stone for any science-related academic or professional path.</p>\r\n<p data-start=\"770\" data-end=\"995\">Whether you\'re preparing for advanced studies in chemistry, engineering, health sciences, or simply aiming to understand the chemical world around you, Chemistry 2026 provides the tools and thinking skills needed for success.</p>', 'Chemistry', '<p data-start=\"1033\" data-end=\"1361\">This course explores the fundamental concepts of chemistry, beginning with the structure of atoms and progressing through chemical bonding, reactions, stoichiometry, thermodynamics, and solutions. Students will learn to apply quantitative and qualitative reasoning to solve problems and understand real-world chemical phenomena.</p>\r\n<p data-start=\"1363\" data-end=\"1597\">The course is structured to build a solid theoretical foundation with practical examples and applications. Emphasis is placed on developing scientific thinking, precision in measurement, and problem-solving skills. Key topics include:</p>\r\n<ul data-start=\"1599\" data-end=\"1907\">\r\n<li data-start=\"1599\" data-end=\"1636\">\r\n<p data-start=\"1601\" data-end=\"1636\">Atomic theory and periodic trends</p>\r\n</li>\r\n<li data-start=\"1637\" data-end=\"1681\">\r\n<p data-start=\"1639\" data-end=\"1681\">Chemical bonding and molecular structure</p>\r\n</li>\r\n<li data-start=\"1682\" data-end=\"1733\">\r\n<p data-start=\"1684\" data-end=\"1733\">Types of chemical reactions and their balancing</p>\r\n</li>\r\n<li data-start=\"1734\" data-end=\"1787\">\r\n<p data-start=\"1736\" data-end=\"1787\">Gas laws, solution chemistry, and thermochemistry</p>\r\n</li>\r\n<li data-start=\"1788\" data-end=\"1821\">\r\n<p data-start=\"1790\" data-end=\"1821\">Acids, bases, and pH concepts</p>\r\n</li>\r\n<li data-start=\"1822\" data-end=\"1856\">\r\n<p data-start=\"1824\" data-end=\"1856\">Introductory organic chemistry</p>\r\n</li>\r\n<li data-start=\"1857\" data-end=\"1907\">\r\n<p data-start=\"1859\" data-end=\"1907\">Basics of electrochemistry and chemical kinetics</p>\r\n</li>\r\n</ul>\r\n<p data-start=\"1909\" data-end=\"2088\">By the end of the course, students will be equipped with essential chemical knowledge and problem-solving abilities to support further studies in chemistry or related disciplines.</p>', 'chemistry-2026', 'Bangle', 'Paid', 'Anyone', '6 Months', 'Qi8PlebBYS_1754122536.webp', 'new', 0, 96, '20688da42fb497dpN9fXeI8dwiCbiKtjQ3R_60744-1754113071', NULL, NULL, 1, 1, '2025-08-02 02:29:40', '2025-08-02 05:36:42', NULL),
-(2, 1, 1, 1, 1, 'Physic', 'Physic', NULL, 'Physic', '<p>Physic</p>', 'physic', 'Bangle', 'Paid', 'Anyone', '6 Months', 'i3GRAVpHaK_1754113120.webp', 'new', 0, 11, '20688da46057d55TzJVyyCIc03BPx6j9OPj_54687-1754113120', NULL, NULL, 1, 1, '2025-08-01 23:38:40', '2025-08-02 05:00:02', NULL),
-(3, 1, 1, 1, 1, 'Biology', 'Biology', NULL, 'Biology', '<p>Biology&nbsp;</p>', 'biology', 'Bangle', 'Paid', 'Anyone', '6 Months', 'prjmtle8NC_1754113167.webp', 'new', 0, 1, '20688da48fa7230SKeK0suqrNZaBgGX3LGs_33725-1754113167', NULL, NULL, 1, 1, '2025-08-01 23:39:27', '2025-08-02 05:00:19', NULL),
-(4, 1, 1, 1, 1, 'Higher Math', 'Higher Math', NULL, 'Higher Math', '<p>Higher Math&nbsp;</p>', 'higher-math', 'Bangle', 'Paid', 'Anyone', '1 Year', 'hvfKYcHMpa_1754113205.webp', 'new', 0, 0, '20688da4b5cf3b8uJVYrOlHTyqYefbjQFJr_10227-1754113205', NULL, NULL, 1, 1, '2025-08-01 23:40:05', '2025-08-01 23:46:46', NULL),
-(5, 1, 1, 2, NULL, 'All Subject', 'All Subject', NULL, 'All Subject', '<p>All Subject&nbsp;</p>', 'all-subject', 'Bangle', 'Paid', 'Anyone', '1 Year', 'sKIqUAKXpl_1754113252.webp', 'new', 0, 0, '20688da4e45514bXTXpdRJj4YyeS45zWHKT_87832-1754113252', NULL, NULL, 1, 1, '2025-08-01 23:40:52', '2025-08-01 23:46:46', NULL),
-(6, 1, 2, 5, NULL, 'Learn Machen Learning', 'Learn Machen Learning', NULL, 'Learn Machen Learning', '<p>Learn Machen Learning&nbsp;</p>', 'learn-machen-learning', 'Bangle', 'Paid', 'Anyone', '1 Month', 'sDf7kcabMM_1754113310.webp', 'new', 0, 0, '20688da51e0a246U1R2FZVYB9vkmORmAJeX_12463-1754113310', NULL, NULL, 1, 1, '2025-08-01 23:41:50', '2025-08-01 23:46:46', NULL),
-(7, 1, 3, 10, NULL, 'C#', 'Best C# Sharp Course in 2026', NULL, 'Best C# Sharp Course in 2026', '<p>Best C# Sharp Course in 2026</p>', 'c', 'Bangle', 'Paid', 'Anyone', '1 Month', 'PnwkghR3WT_1754113383.webp', 'new', 0, 0, '20688da567d734cRs3eq6z9JizP6OLszdQY_34385-1754113383', NULL, NULL, 1, 1, '2025-08-01 23:43:03', '2025-08-01 23:46:46', NULL),
-(8, 1, 4, 13, NULL, 'Graphics Design', 'Graphics Design', NULL, 'Graphics Design', '<p>Graphics Design&nbsp;</p>', 'graphics-design', 'Bangle', 'Paid', 'Anyone', '6 Months', '6PV2Tubez5_1754113589.webp', 'new', 0, 0, '20688da635d7ee6rfTwCN7jt2GhHLtz2230_44923-1754113589', NULL, NULL, 1, 1, '2025-08-01 23:46:29', '2025-08-01 23:46:46', NULL);
+(1, 1, 1, NULL, NULL, 'Web Design & Development', 'Web Design & Development', '<p>Web Design &amp; Development&nbsp;</p>', 'Web Design & Development', '<p>Web Design &amp; Development&nbsp;</p>', 'web-design-development', 'Bangle', 'Free', 'Beginners', '1 Month', 'YvZyS5jN93_1754479073.webp', 'new', 0, 7, '20689339e11891a5TOsI4R6C1Wo6JzX9yPD_91046-1754479073', NULL, NULL, 1, 1, '2025-08-06 05:30:17', '2025-08-06 05:42:17', NULL),
+(2, 1, 1, NULL, NULL, 'Web Design', 'Web Design', '<p>dfdf</p>', 'fdfd', '<p>fdfdfdf</p>', 'web-design', 'English', 'Free', 'Anyone', '3 Months', 'xVdmJsw4C2_1754479172.webp', 'new', 0, 4, '2068933a4481571crDRRvIsJ6Equ1SKWK6W_63988-1754479172', NULL, NULL, 1, 1, '2025-08-06 05:30:43', '2025-08-06 05:31:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -324,16 +316,6 @@ CREATE TABLE `course_attchments` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `course_attchments`
---
-
-INSERT INTO `course_attchments` (`id`, `course_id`, `user_id`, `title`, `file`, `sort_order`, `is_downloadable`, `slug`, `creator_id`, `editor_id`, `status`, `public_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 'Attachment 1: Fundamentals of Chemistry', 'uploads/instructor/1754115224-34287.pdf', 1, 1, '20688dac989420a3rMLmq9nlc37cEBknzW0_48695-1754115224', NULL, NULL, 1, 1, '2025-08-02 00:13:44', '2025-08-02 00:13:44', NULL),
-(2, 1, 1, 'Attachment 2: Structure of Atom and Periodic Table', 'uploads/instructor/1754115258-16507.pdf', 2, 1, '20688dacba5660fd40iiE2vFUlRt6hLyd45_46531-1754115258', NULL, NULL, 1, 1, '2025-08-02 00:14:18', '2025-08-02 00:14:18', NULL),
-(3, 1, 1, 'Attachment 3: Organic & Inorganic Chemistry Basics', 'uploads/instructor/1754128418-52541.pdf', 3, 1, '20688de022ca969bGw2AzmFQ2IbUAfoQFuh_57672-1754128418', NULL, NULL, 1, 1, '2025-08-02 03:53:38', '2025-08-02 03:53:39', NULL),
-(4, 1, 1, 'Attachment 4: Structure of Atom and Periodic Table', 'uploads/instructor/1754129179-14262.pdf', 4, 0, '20688de31bd1f11Sxig7VVhwf2cRWVRORlO_68493-1754129179', NULL, NULL, 1, 1, '2025-08-02 04:06:19', '2025-08-02 04:06:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -389,13 +371,7 @@ CREATE TABLE `course_categories` (
 --
 
 INSERT INTO `course_categories` (`id`, `course_category_name`, `course_category_title`, `course_category_des`, `url`, `slug`, `creator_id`, `editor_id`, `status`, `public_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Academic Course', 'Academic', 'Academic', 'academic-course', '20688d9fbf2326etMEgrPUOzyiDMRPq15VA_29118-1754111935', 1, NULL, 1, 1, '2025-08-01 23:18:56', '2025-08-01 23:21:07', NULL),
-(2, 'Development', 'Development', 'Development', 'development', '20688d9fcb547e0yewg4LCMpLNyskLtdDFh_42550-1754111947', 1, NULL, 1, 1, '2025-08-01 23:19:07', '2025-08-01 23:21:07', NULL),
-(3, 'Programing', 'Programing', 'Programing', 'programing', '20688d9fd82f635XU7dvXcacyFWK9BYCi9S_60588-1754111960', 1, NULL, 1, 1, '2025-08-01 23:19:20', '2025-08-01 23:21:07', NULL),
-(4, 'Design', 'Design', 'Design', 'design', '20688d9fe98c5b0VtMjYQ3rWiNeN9LE3ZzL_63018-1754111977', 1, NULL, 1, 1, '2025-08-01 23:19:37', '2025-08-01 23:21:07', NULL),
-(5, 'Personal Development', 'Personal Development', 'Personal Development', 'personal-development', '20688d9ffb48c50OjaHl0VOQH5rxvTFW5CZ_85085-1754111995', 1, NULL, 1, 1, '2025-08-01 23:19:55', '2025-08-01 23:21:07', NULL),
-(6, 'Life Style', 'Life Style', 'Life Style', 'life-style', '20688da01b7e7ebz8BbjaJhsfHHfCpREzvn_28128-1754112027', 1, NULL, 1, 1, '2025-08-01 23:20:27', '2025-08-01 23:21:07', NULL),
-(7, 'E-book', 'E-book', 'Ebook', 'ebook', '20688da0364bee5yybKLJbQKT2SKY5AGa4v_90528-1754112054', 1, NULL, 1, 1, '2025-08-01 23:20:54', '2025-08-01 23:21:07', NULL);
+(1, 'Development', 'Development', 'Development', 'development', '20689339ac9c8f6qNCLYOwRM8y0OP42QNXk_72099-1754479020', 1, NULL, 1, 1, '2025-08-06 05:17:00', '2025-08-06 05:17:09', NULL);
 
 -- --------------------------------------------------------
 
@@ -421,15 +397,6 @@ CREATE TABLE `course_child_categories` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `course_child_categories`
---
-
-INSERT INTO `course_child_categories` (`id`, `course_category_id`, `course_sub_category_id`, `course_child_category_name`, `course_child_category_title`, `course_child_category_des`, `url`, `slug`, `creator_id`, `editor_id`, `status`, `public_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 'Science', 'Science', 'Science', 'science', '20688da25c14c8eWlovfW663382rM9lBpPU_69582-1754112604', 1, NULL, 1, 1, '2025-08-01 23:30:04', '2025-08-01 23:31:16', NULL),
-(2, 1, 1, 'Commerce', 'Commerce', 'Commerce', 'commerce', '20688da26cd8921Hj4oCTPgKeurbp80FVqN_37923-1754112620', 1, NULL, 1, 1, '2025-08-01 23:30:20', '2025-08-01 23:31:16', NULL),
-(3, 1, 1, 'Huminites', 'Huminites', 'Huminites', 'huminites', '20688da289be29a4Ww9IxXSe7dsB51iRxYC_21121-1754112649', 1, NULL, 1, 1, '2025-08-01 23:30:49', '2025-08-01 23:31:16', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -452,13 +419,6 @@ CREATE TABLE `course_enroments` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `course_enroments`
---
-
-INSERT INTO `course_enroments` (`id`, `course_id`, `user_id`, `enrolled_at`, `enrollment_type`, `payment_id`, `slug`, `creator_id`, `editor_id`, `status`, `public_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, '2025-08-01 23:53:10', 'paid', 1, '20688da7c5b87a9GgfmTFST6X7eJYj5vcBL_35925-1754113989', NULL, NULL, 1, 0, '2025-08-01 23:53:10', '2025-08-01 23:53:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -519,13 +479,6 @@ CREATE TABLE `course_modules` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `course_modules`
---
-
-INSERT INTO `course_modules` (`id`, `course_id`, `user_id`, `title`, `description`, `sort_order`, `slug`, `creator_id`, `editor_id`, `status`, `public_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 'Chemistry 2026 – Course Module', '<h3 data-start=\"277\" data-end=\"318\"><strong data-start=\"284\" data-end=\"318\">Chemistry 2026 &ndash; Course Module</strong></h3>\r\n<h4 data-start=\"320\" data-end=\"367\">🔹 <strong data-start=\"328\" data-end=\"367\">Module 1: Fundamentals of Chemistry</strong></h4>\r\n<ol data-start=\"368\" data-end=\"588\">\r\n<li data-start=\"368\" data-end=\"413\">\r\n<p data-start=\"371\" data-end=\"413\">Introduction to Chemistry &amp; Its Branches</p>\r\n</li>\r\n<li data-start=\"414\" data-end=\"470\">\r\n<p data-start=\"417\" data-end=\"470\">Atomic Structure &amp; Discovery of Subatomic Particles</p>\r\n</li>\r\n<li data-start=\"471\" data-end=\"506\">\r\n<p data-start=\"474\" data-end=\"506\">Mole Concept and Stoichiometry</p>\r\n</li>\r\n<li data-start=\"507\" data-end=\"554\">\r\n<p data-start=\"510\" data-end=\"554\">Chemical Calculations: Moles, Mass, Volume</p>\r\n</li>\r\n<li data-start=\"555\" data-end=\"588\">\r\n<p data-start=\"558\" data-end=\"588\">Laws of Chemical Combination</p>\r\n</li>\r\n</ol>\r\n<hr data-start=\"590\" data-end=\"593\">\r\n<h4 data-start=\"595\" data-end=\"653\">🔹 <strong data-start=\"603\" data-end=\"653\">Module 2: Structure of Atom and Periodic Table</strong></h4>\r\n<ol data-start=\"654\" data-end=\"882\">\r\n<li data-start=\"654\" data-end=\"703\">\r\n<p data-start=\"657\" data-end=\"703\">Electronic Configuration and Quantum Numbers</p>\r\n</li>\r\n<li data-start=\"704\" data-end=\"751\">\r\n<p data-start=\"707\" data-end=\"751\">Periodic Table and Periodicity of Elements</p>\r\n</li>\r\n<li data-start=\"752\" data-end=\"776\">\r\n<p data-start=\"755\" data-end=\"776\">Modern Periodic Law</p>\r\n</li>\r\n<li data-start=\"777\" data-end=\"841\">\r\n<p data-start=\"780\" data-end=\"841\">Trends: Ionization Energy, Electronegativity, Atomic Radius</p>\r\n</li>\r\n<li data-start=\"842\" data-end=\"882\">\r\n<p data-start=\"845\" data-end=\"882\">Applications of Periodic Properties</p>\r\n</li>\r\n</ol>\r\n<hr data-start=\"884\" data-end=\"887\">\r\n<h4 data-start=\"889\" data-end=\"951\">🔹 <strong data-start=\"897\" data-end=\"951\">Module 3: Chemical Bonding and Molecular Structure</strong></h4>\r\n<ol data-start=\"952\" data-end=\"1155\">\r\n<li data-start=\"952\" data-end=\"981\">\r\n<p data-start=\"955\" data-end=\"981\">Ionic and Covalent Bonds</p>\r\n</li>\r\n<li data-start=\"982\" data-end=\"1018\">\r\n<p data-start=\"985\" data-end=\"1018\">Lewis Structures and Octet Rule</p>\r\n</li>\r\n<li data-start=\"1019\" data-end=\"1059\">\r\n<p data-start=\"1022\" data-end=\"1059\">VSEPR Theory and Molecular Geometry</p>\r\n</li>\r\n<li data-start=\"1060\" data-end=\"1107\">\r\n<p data-start=\"1063\" data-end=\"1107\">Hybridization and Molecular Orbital Theory</p>\r\n</li>\r\n<li data-start=\"1108\" data-end=\"1155\">\r\n<p data-start=\"1111\" data-end=\"1155\">Intermolecular Forces and Hydrogen Bonding</p>\r\n</li>\r\n</ol>\r\n<hr data-start=\"1157\" data-end=\"1160\">\r\n<h4 data-start=\"1162\" data-end=\"1217\">🔹 <strong data-start=\"1170\" data-end=\"1217\">Module 4: States of Matter &amp; Thermodynamics</strong></h4>\r\n<ol data-start=\"1218\" data-end=\"1423\">\r\n<li data-start=\"1218\" data-end=\"1255\">\r\n<p data-start=\"1221\" data-end=\"1255\">Gaseous State and Ideal Gas Laws</p>\r\n</li>\r\n<li data-start=\"1256\" data-end=\"1298\">\r\n<p data-start=\"1259\" data-end=\"1298\">Real Gases and van der Waals Equation</p>\r\n</li>\r\n<li data-start=\"1299\" data-end=\"1347\">\r\n<p data-start=\"1302\" data-end=\"1347\">Liquid State and Surface Tension, Viscosity</p>\r\n</li>\r\n<li data-start=\"1348\" data-end=\"1377\">\r\n<p data-start=\"1351\" data-end=\"1377\">Basics of Thermodynamics</p>\r\n</li>\r\n<li data-start=\"1378\" data-end=\"1423\">\r\n<p data-start=\"1381\" data-end=\"1423\">Enthalpy, Entropy, and Gibbs Free Energy</p>\r\n</li>\r\n</ol>\r\n<hr data-start=\"1425\" data-end=\"1428\">\r\n<h4 data-start=\"1430\" data-end=\"1483\">🔹 <strong data-start=\"1438\" data-end=\"1483\">Module 5: Chemical Kinetics &amp; Equilibrium</strong></h4>\r\n<ol data-start=\"1484\" data-end=\"1714\">\r\n<li data-start=\"1484\" data-end=\"1532\">\r\n<p data-start=\"1487\" data-end=\"1532\">Rate of Reaction and Factors Affecting Rate</p>\r\n</li>\r\n<li data-start=\"1533\" data-end=\"1570\">\r\n<p data-start=\"1536\" data-end=\"1570\">Rate Laws and Order of Reactions</p>\r\n</li>\r\n<li data-start=\"1571\" data-end=\"1616\">\r\n<p data-start=\"1574\" data-end=\"1616\">Activation Energy and Arrhenius Equation</p>\r\n</li>\r\n<li data-start=\"1617\" data-end=\"1671\">\r\n<p data-start=\"1620\" data-end=\"1671\">Chemical Equilibrium and Le Chatelier&rsquo;s Principle</p>\r\n</li>\r\n<li data-start=\"1672\" data-end=\"1714\">\r\n<p data-start=\"1675\" data-end=\"1714\">Ionic Equilibrium and pH Calculations</p>\r\n</li>\r\n</ol>\r\n<hr data-start=\"1716\" data-end=\"1719\">\r\n<h4 data-start=\"1721\" data-end=\"1779\">🔹 <strong data-start=\"1729\" data-end=\"1779\">Module 6: Organic &amp; Inorganic Chemistry Basics</strong></h4>\r\n<ol data-start=\"1780\" data-end=\"2027\">\r\n<li data-start=\"1780\" data-end=\"1835\">\r\n<p data-start=\"1783\" data-end=\"1835\">Introduction to Organic Chemistry and Nomenclature</p>\r\n</li>\r\n<li data-start=\"1836\" data-end=\"1880\">\r\n<p data-start=\"1839\" data-end=\"1880\">Hydrocarbons: Alkanes, Alkenes, Alkynes</p>\r\n</li>\r\n<li data-start=\"1881\" data-end=\"1922\">\r\n<p data-start=\"1884\" data-end=\"1922\">Functional Groups and Reaction Types</p>\r\n</li>\r\n<li data-start=\"1923\" data-end=\"1969\">\r\n<p data-start=\"1926\" data-end=\"1969\">General Principles of Inorganic Chemistry</p>\r\n</li>\r\n<li data-start=\"1970\" data-end=\"2027\">\r\n<p data-start=\"1973\" data-end=\"2027\">Group Chemistry: Alkali, Halogens, Transition Metals</p>\r\n</li>\r\n</ol>\r\n<hr data-start=\"2029\" data-end=\"2032\">\r\n<p data-start=\"2034\" data-end=\"2065\">✅ <strong data-start=\"2036\" data-end=\"2063\">Extras (Optional/Bonus)</strong></p>\r\n<ul data-start=\"2066\" data-end=\"2227\">\r\n<li data-start=\"2066\" data-end=\"2101\">\r\n<p data-start=\"2068\" data-end=\"2101\">Lab Safety and Practical Skills</p>\r\n</li>\r\n<li data-start=\"2102\" data-end=\"2129\">\r\n<p data-start=\"2104\" data-end=\"2129\">Environmental Chemistry</p>\r\n</li>\r\n<li data-start=\"2130\" data-end=\"2162\">\r\n<p data-start=\"2132\" data-end=\"2162\">Introduction to Biochemistry</p>\r\n</li>\r\n<li data-start=\"2163\" data-end=\"2227\">\r\n<p data-start=\"2165\" data-end=\"2227\">Chemistry in Industry (Fertilizers, Polymers, Pharmaceuticals)</p>\r\n</li>\r\n</ul>', 0, '20688da8de2bd3fNqFUWfQizoN7vHo2RzKc_67098-1754114270', NULL, NULL, 1, 1, '2025-08-01 23:57:50', '2025-08-01 23:57:50', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -557,12 +510,8 @@ CREATE TABLE `course_prices` (
 --
 
 INSERT INTO `course_prices` (`id`, `course_id`, `user_id`, `original_price`, `discounted_price`, `currency`, `pricing_type`, `start_date`, `end_date`, `slug`, `creator_id`, `editor_id`, `status`, `public_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 3000.00, NULL, 'BDT', 'one_time', NULL, NULL, '20688da6eeefd3fcZGkQdVgEWp0lMk1m3KG_14669-1754113774', NULL, NULL, 1, 1, '2025-08-01 23:49:34', '2025-08-01 23:49:34', NULL),
-(2, 2, 1, 3000.00, NULL, 'BDT', 'one_time', NULL, NULL, '20688da7006a6fbKX52NAC1mCnrbIxy7Ntt_58765-1754113792', NULL, NULL, 1, 1, '2025-08-01 23:49:52', '2025-08-01 23:49:52', NULL),
-(3, 3, 1, 3500.00, NULL, 'BDT', 'one_time', NULL, NULL, '20688da7136fd3fBo7MerpmukNm1wwxnBHN_38123-1754113811', NULL, NULL, 1, 1, '2025-08-01 23:50:11', '2025-08-01 23:50:11', NULL),
-(4, 4, 1, 2000.00, NULL, 'BDT', 'one_time', NULL, NULL, '20688da72234376zhLYvzxbVxIlwyDaQ2pG_58798-1754113826', NULL, NULL, 1, 1, '2025-08-01 23:50:26', '2025-08-01 23:50:26', NULL),
-(5, 5, 1, 6000.00, NULL, 'BDT', 'one_time', NULL, NULL, '20688da734d2394TrkvrwAJ7dgtJ2TZaBAu_65620-1754113844', NULL, NULL, 1, 1, '2025-08-01 23:50:44', '2025-08-01 23:50:44', NULL),
-(6, 6, 1, 8000.00, NULL, 'BDT', 'one_time', NULL, NULL, '20688da747a0b9eS6siCtIr0JokFtDxaScD_46189-1754113863', NULL, NULL, 1, 1, '2025-08-01 23:51:03', '2025-08-01 23:51:03', NULL);
+(1, 1, 1, 500.00, NULL, 'BDT', 'one_time', NULL, NULL, '2068933a96e436eiAd1GToroVMpo9jfDZ6s_16593-1754479254', NULL, NULL, 1, 1, '2025-08-06 05:20:54', '2025-08-06 05:20:54', NULL),
+(2, 2, 1, 600.00, NULL, 'BDT', 'one_time', NULL, NULL, '2068933aa4d0b1dvhs7284qkrg0tINmJ5Go_88207-1754479268', NULL, NULL, 1, 1, '2025-08-06 05:21:08', '2025-08-06 05:21:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -593,7 +542,7 @@ CREATE TABLE `course_quizes` (
   `start_at` datetime DEFAULT NULL,
   `end_at` datetime DEFAULT NULL,
   `is_downloadable` int(11) DEFAULT NULL,
-  `user_count` int(11) DEFAULT NULL,
+  `user_count` int(11) NOT NULL DEFAULT 0,
   `slug` varchar(255) DEFAULT NULL,
   `creator_id` int(11) DEFAULT NULL,
   `editor_id` int(11) DEFAULT NULL,
@@ -604,26 +553,13 @@ CREATE TABLE `course_quizes` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `course_quizes`
---
-
-INSERT INTO `course_quizes` (`id`, `course_id`, `user_id`, `title`, `description`, `quize_time`, `pass_mark`, `start_at`, `end_at`, `is_downloadable`, `user_count`, `slug`, `creator_id`, `editor_id`, `status`, `public_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 'Fundamentals of Chemistry', 'Fundamentals of Chemistry', '40', 25, NULL, NULL, 0, NULL, '20688dad68dbb21tpB5VF2P0Rr2Rdii75Ka_11869-1754115432', NULL, NULL, 1, 1, '2025-08-02 00:17:12', '2025-08-02 00:17:12', NULL),
-(2, 1, 1, 'Structure of Atom and Periodic Table', 'Structure of Atom and Periodic Table', '40', 25, NULL, NULL, 1, NULL, '20688dad7a08537u3zVSm6o9vvqm9KqDZ0I_62464-1754115450', NULL, NULL, 1, 1, '2025-08-02 00:17:30', '2025-08-02 00:17:30', NULL),
-(3, 1, 1, 'Chemical Bonding and Molecular Structure', 'Chemical Bonding and Molecular Structure', '40', 25, NULL, NULL, 1, NULL, '20688dad8864f7eMNCEUeVWy1K33X8v1rY1_43256-1754115464', NULL, NULL, 1, 1, '2025-08-02 00:17:44', '2025-08-02 00:17:44', NULL),
-(4, 1, 1, 'States of Matter & Thermodynamics', 'States of Matter & Thermodynamics', '40', 25, NULL, NULL, 1, NULL, '20688dad966a662YuoZITJnlafCODOFhl7u_89834-1754115478', NULL, NULL, 1, 1, '2025-08-02 00:17:58', '2025-08-02 00:17:58', NULL),
-(5, 1, 1, 'Chemical Kinetics & Equilibrium', 'Chemical Kinetics & Equilibrium', '40', 25, NULL, NULL, 1, NULL, '20688dada6b3552sEb3oJ0hqCsaX0RW7beZ_33479-1754115494', NULL, NULL, 1, 1, '2025-08-02 00:18:14', '2025-08-02 00:18:14', NULL),
-(6, 1, 1, 'Organic & Inorganic Chemistry Basics', 'Organic & Inorganic Chemistry Basics', '40', 25, NULL, NULL, 1, NULL, '20688dadb519629A8mbgFCXd2ywhKOB7sZj_41365-1754115509', NULL, NULL, 1, 1, '2025-08-02 00:18:29', '2025-08-02 00:18:29', NULL),
-(7, 1, 1, 'Extras (Optional/Bonus)', 'Extras (Optional/Bonus)', '40', 25, NULL, NULL, 1, NULL, '20688dadc2398dfGBFsyALMFn8CvdZRDMmj_67838-1754115522', NULL, NULL, 1, 1, '2025-08-02 00:18:42', '2025-08-02 00:18:42', NULL);
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `course_quize_qustions`
+-- Table structure for table `course_quiz_questions`
 --
 
-CREATE TABLE `course_quize_qustions` (
+CREATE TABLE `course_quiz_questions` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `quize_id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -652,9 +588,10 @@ CREATE TABLE `course_quize_qustions` (
 
 CREATE TABLE `course_reviews` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `course_id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `rating` tinyint(4) NOT NULL COMMENT '1 to 5',
+  `course_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `rating` decimal(2,1) DEFAULT NULL,
   `review` text DEFAULT NULL,
   `slug` varchar(255) DEFAULT NULL,
   `creator_id` int(11) DEFAULT NULL,
@@ -665,6 +602,17 @@ CREATE TABLE `course_reviews` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `course_reviews`
+--
+
+INSERT INTO `course_reviews` (`id`, `course_id`, `user_id`, `title`, `rating`, `review`, `slug`, `creator_id`, `editor_id`, `status`, `public_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(2, NULL, NULL, 'This course exceeded my expectations!', 5.0, '<p>I joined just to learn the basics, but the content, instructor, and structure were far more advanced and helpful than I imagined.</p>', '2068931e2870149Ai2Hz44VEF5E7uXQQyqw_77929-1754471976', 1, NULL, 1, 1, '2025-08-06 03:19:36', '2025-08-06 03:21:26', NULL),
+(3, NULL, NULL, 'Perfect for beginners – explained in simple language!', 5.0, '<p>I was nervous to start, but every lesson made me more confident. Highly recommended for anyone new to this field.</p>', '2068931e4121a73WpqD5esTqrARAMC7K4p3_69267-1754472001', 1, NULL, 1, 1, '2025-08-06 03:20:01', '2025-08-06 03:21:26', NULL),
+(4, NULL, NULL, 'Real-world examples made all the difference.', 5.0, '<p>What I loved most was how the instructor tied theory to practical use cases &mdash; it felt like I was learning for the real world, not just for a certificate.</p>', '2068931e5482e1ai32tpD3aBhRXkrN8Ey2H_29464-1754472020', 1, NULL, 1, 1, '2025-08-06 03:20:20', '2025-08-06 03:21:26', NULL),
+(5, NULL, NULL, 'Clear, concise, and career-focused.', 5.0, '<p>I&rsquo;ve done many online courses before, but this one stood out because of its laser focus on industry skills that matter.</p>', '2068931e6a83721g9SwXTDmORqjkZGritfB_43524-1754472042', 1, NULL, 1, 1, '2025-08-06 03:20:42', '2025-08-06 03:21:26', NULL),
+(6, NULL, NULL, 'Amazing support and well-structured lessons.', 5.0, '<p>Whenever I got stuck, help was just a message away. The course flow was logical, and I always knew what to expect next.</p>', '2068931e813ffcaZCVybpjb9lJCmhpxlhlS_79192-1754472065', 1, NULL, 1, 1, '2025-08-06 03:21:05', '2025-08-06 03:21:26', NULL);
 
 -- --------------------------------------------------------
 
@@ -725,25 +673,6 @@ CREATE TABLE `course_sub_categories` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `course_sub_categories`
---
-
-INSERT INTO `course_sub_categories` (`id`, `course_category_id`, `course_sub_category_name`, `course_sub_category_title`, `course_sub_category_des`, `url`, `slug`, `creator_id`, `editor_id`, `status`, `public_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'SSC New Batch', 'SSC New Batch', 'SSC New Batch', 'ssc-new-batch', '20688da09852f67a0ts3fJCgPQWeH2rAbZx_73763-1754112152', 1, NULL, 1, 1, '2025-08-01 23:22:32', '2025-08-01 23:27:53', NULL),
-(2, 1, 'JSC/JDC Preparation', 'JSC/JDC Preparation', 'JSC/JDC Preparation', 'jscjdc-preparation', '20688da0ad43d3bEiDXPzxy0uJWK0xZ5T8m_30507-1754112173', 1, NULL, 1, 1, '2025-08-01 23:22:53', '2025-08-01 23:27:53', NULL),
-(3, 1, 'Job Preparation', 'Job Preparation', 'Job Preparation', 'job-preparation', '20688da0d62af303cqcY9t05lWTq7CL0ohq_86780-1754112214', 1, NULL, 1, 1, '2025-08-01 23:23:34', '2025-08-01 23:27:53', NULL),
-(4, 1, 'Admission Preparation', 'Admission Preparation', 'Admission Preparation', 'admission-preparation', '20688da111b471eE7nvjT0JRJ4r5apU6v5a_10173-1754112273', 1, NULL, 1, 1, '2025-08-01 23:24:33', '2025-08-01 23:27:53', NULL),
-(5, 2, 'Machen Learning', 'Machen Learning', 'Machen Learning', 'machen-learning', '20688da129c4ac9Uj43mRg6WEx4zCrDbi8I_59051-1754112297', 1, NULL, 1, 1, '2025-08-01 23:24:57', '2025-08-01 23:27:53', NULL),
-(6, 2, 'Data Science', 'Data Science', 'Data Science', 'data-science', '20688da138b2555U9ILE99uXTP7O6Xl9cES_68108-1754112312', 1, NULL, 1, 1, '2025-08-01 23:25:12', '2025-08-01 23:27:53', NULL),
-(7, 2, 'Algorithm', 'Algorithm', 'Algorithm', 'algorithm', '20688da14bc2f90QRoDIs4HgmPQehF8vnYe_61386-1754112331', 1, NULL, 1, 1, '2025-08-01 23:25:31', '2025-08-01 23:27:53', NULL),
-(8, 2, 'Personality Development', 'Personality Development', 'Personality Development', 'personality-development', '20688da1624fafemfirmvM81vLB0elIpXSa_85810-1754112354', 1, NULL, 1, 1, '2025-08-01 23:25:54', '2025-08-01 23:27:53', NULL),
-(9, 2, 'Business Development', 'Business Development', 'Business Development', 'business-development', '20688da17943656ahXRopKF0sTQk1Cny73S_42610-1754112377', 1, NULL, 1, 1, '2025-08-01 23:26:17', '2025-08-01 23:28:08', NULL),
-(10, 3, 'C#', 'C#', 'C#', 'c', '20688da189e53bdIC7Tnuk10X1np4cHeI3H_30522-1754112393', 1, NULL, 1, 1, '2025-08-01 23:26:33', '2025-08-01 23:28:08', NULL),
-(11, 3, 'Python', 'python', 'python', 'python', '20688da19d70e59rODTrtB6e3EtZmDLK3z3_56501-1754112413', 1, NULL, 1, 1, '2025-08-01 23:26:53', '2025-08-01 23:28:08', NULL),
-(12, 3, '.NET', '.NET', '.NET', 'net', '20688da1a9e1f8aRIlJ8rA2ItxDosSFq3Cl_58189-1754112425', 1, NULL, 1, 1, '2025-08-01 23:27:05', '2025-08-01 23:28:08', NULL),
-(13, 4, 'Graphics Design', 'Graphics Design', 'Graphics Design', 'graphics-design', '20688da1c449f60Ynw0XEoBPNHugvXu3NUg_82138-1754112452', 1, NULL, 1, 1, '2025-08-01 23:27:32', '2025-08-01 23:28:08', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -766,19 +695,6 @@ CREATE TABLE `course_topics` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `course_topics`
---
-
-INSERT INTO `course_topics` (`id`, `course_id`, `user_id`, `title`, `description`, `position`, `slug`, `creator_id`, `editor_id`, `status`, `public_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 'Class 01 :  Fundamentals of Chemistry', '<p>What is the Fundamentals of Chemistry&nbsp;</p>', 0, '20688da92eb7f5eX41GB3D7I2prTqOXlLAR_18461-1754114350', NULL, NULL, 1, 1, '2025-08-01 23:59:10', '2025-08-01 23:59:10', NULL),
-(2, 1, 1, 'Structure of Atom and Periodic Table', '<p>What is the Structure of Atom and Periodic Table</p>', 0, '20688da944e15a9b8tfIgzNlKPDmHL2Xw2A_94306-1754114372', NULL, NULL, 1, 1, '2025-08-01 23:59:32', '2025-08-01 23:59:32', NULL),
-(3, 1, 1, 'Chemical Bonding and Molecular Structure', '<p>Chemical Bonding and Molecular Structure</p>', 0, '20688da9536b6derhnsSwo4xY58SZtohGl1_94762-1754114387', NULL, NULL, 1, 1, '2025-08-01 23:59:47', '2025-08-01 23:59:47', NULL),
-(4, 1, 1, 'States of Matter & Thermodynamics', '<p>States of Matter &amp; Thermodynamics</p>', 0, '20688da96545ff3Xo3FOSdRuXjFd9R1L3Ws_52208-1754114405', NULL, NULL, 1, 1, '2025-08-02 00:00:05', '2025-08-02 00:00:05', NULL),
-(5, 1, 1, 'Chemical Kinetics & Equilibrium', '<p>&nbsp;Chemical Kinetics &amp; Equilibrium</p>', 0, '20688da972e988dBbpiL9RjQrQvCqgIU0dd_82439-1754114418', NULL, NULL, 1, 1, '2025-08-02 00:00:18', '2025-08-02 00:00:18', NULL),
-(6, 1, 1, 'Organic & Inorganic Chemistry Basics', '<p>&nbsp;Organic &amp; Inorganic Chemistry Basics</p>', 0, '20688da97eb05eeh27ppGV3y63L2G9yU2jC_64598-1754114430', NULL, NULL, 1, 1, '2025-08-02 00:00:30', '2025-08-02 00:00:30', NULL),
-(7, 1, 1, 'Extras (Optional/Bonus)', '<p>Extras (Optional/Bonus)</p>', 0, '20688da98cf19b6oxxqMo04lOha6uMH6KkH_60930-1754114444', NULL, NULL, 1, 1, '2025-08-02 00:00:44', '2025-08-02 00:00:44', NULL);
 
 -- --------------------------------------------------------
 
@@ -806,23 +722,6 @@ CREATE TABLE `course_topic_videos` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `course_topic_videos`
---
-
-INSERT INTO `course_topic_videos` (`id`, `topic_id`, `user_id`, `title`, `description`, `video_url`, `duration`, `video_type`, `position`, `is_preview`, `slug`, `creator_id`, `editor_id`, `status`, `public_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 'Introduction to Chemistry & Its Branches', '<p>Introduction to Chemistry &amp; Its Branches</p>', 'EGb_sedgppM', 130, 'youtube', 1, 1, '20688daa4ec3404DShMZmN3u36AfPDAqVjv_18265-1754114638', NULL, NULL, 1, 1, '2025-08-02 00:03:58', '2025-08-02 00:03:58', NULL),
-(2, 1, 1, 'Atomic Structure & Discovery of Subatomic Particles', '<p>Atomic Structure &amp; Discovery of Subatomic Particles</p>', 'EGb_sedgppM', 130, 'youtube', 2, 0, '20688daac6411c2ywE3sFcECLK7K8FObCbE_56204-1754114758', NULL, NULL, 1, 1, '2025-08-02 00:05:58', '2025-08-02 00:05:58', NULL),
-(3, 1, 1, 'Mole Concept and Stoichiometry', '<p>Mole Concept and Stoichiometry</p>', 'EGb_sedgppM', 130, 'youtube', 3, 0, '20688dab0c7fe39BYbIHKLazhXOPuqHNouZ_68361-1754114828', NULL, NULL, 1, 1, '2025-08-02 00:07:08', '2025-08-02 00:07:08', NULL),
-(4, 1, 1, 'Chemical Calculations: Moles, Mass, Volume', '<p>Chemical Calculations: Moles, Mass, Volume</p>', 'EGb_sedgppM', 130, 'youtube', 4, 0, '20688dab2b1009eNwHhCrQKuv9YMHUCwwAr_75572-1754114859', NULL, NULL, 1, 1, '2025-08-02 00:07:39', '2025-08-02 00:07:39', NULL),
-(5, 1, 1, 'Laws of Chemical Combination', '<p>Laws of Chemical Combination</p>', 'EGb_sedgppM', 130, 'youtube', 6, 0, '20688dab493fd3dbRNkgbFj1k9P3NGE3wWB_44062-1754114889', NULL, NULL, 1, 1, '2025-08-02 00:08:09', '2025-08-02 00:08:09', NULL),
-(6, 2, 1, 'Electronic Configuration and Quantum Numbers', '<p>Electronic Configuration and Quantum Numbers</p>', 'EGb_sedgppM', 5, 'youtube', 5, 0, '20688dabb95ba5cCHyGmsk5Na2v4CyddyJk_92279-1754115001', NULL, NULL, 1, 1, '2025-08-02 00:10:01', '2025-08-02 00:10:01', NULL),
-(7, 2, 1, 'Periodic Table and Periodicity of Elements', '<p>Periodic Table and Periodicity of Elements</p>', 'EGb_sedgppM', 5, 'youtube', 6, 0, '20688dabd4718d0zkSSzoaWCyLWnf7LqqM0_80370-1754115028', NULL, NULL, 1, 1, '2025-08-02 00:10:28', '2025-08-02 00:10:28', NULL),
-(8, 2, 1, 'Modern Periodic Law', '<p>Modern Periodic Law</p>', 'EGb_sedgppM', NULL, 'youtube', 4, 0, '20688dabf0719d1Zj8ybtIXGFDxEhGnNnbB_43133-1754115056', NULL, NULL, 1, 1, '2025-08-02 00:10:56', '2025-08-02 00:10:56', NULL),
-(9, 2, 1, 'Trends: Ionization Energy, Electronegativity, Atomic Radius', '<p>Trends: Ionization Energy, Electronegativity, Atomic Radius</p>', 'EGb_sedgppM', 5, 'youtube', 8, 0, '20688dac07f3bdaWQgKwEtfejF8jrZxZC6Z_97266-1754115079', NULL, NULL, 1, 1, '2025-08-02 00:11:19', '2025-08-02 00:11:19', NULL),
-(10, 2, 1, 'Applications of Periodic Properties', '<p>Applications of Periodic Properties</p>', 'EGb_sedgppM', 130, 'youtube', 2, 1, '20688dac1e4c808IFsrF4sRarlv3ZCyCx7q_26236-1754115102', NULL, NULL, 1, 1, '2025-08-02 00:11:42', '2025-08-02 00:11:42', NULL),
-(11, 3, 1, 'Ionic and Covalent Bonds', '<p>Ionic and Covalent Bonds</p>', 'EGb_sedgppM', 5, 'youtube', 10, 0, '20688dac4114f2ek9OAGWnFsPWln3WtzYi3_92306-1754115137', NULL, NULL, 1, 1, '2025-08-02 00:12:17', '2025-08-02 00:12:17', NULL);
 
 -- --------------------------------------------------------
 
@@ -1001,12 +900,104 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `faqs`
+--
+
+CREATE TABLE `faqs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `question` text DEFAULT NULL,
+  `answer` text DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `creator_id` int(11) DEFAULT NULL,
+  `editor_id` int(11) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 1,
+  `public_status` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `faqs`
+--
+
+INSERT INTO `faqs` (`id`, `user_id`, `title`, `question`, `answer`, `slug`, `creator_id`, `editor_id`, `status`, `public_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, NULL, NULL, 'How do I enroll in a course ?', '<p>To enroll, simply create an account, browse available courses, and click the &ldquo;Enroll Now&rdquo; button. You&rsquo;ll be guided through a secure payment (if applicable), and then you&rsquo;ll get instant access to course content.</p>', '206893104bbadf0baV8RPQm8KZ5QWj1e8bg_21261-1754468427', 1, NULL, 1, 1, '2025-08-06 02:20:27', '2025-08-06 02:21:47', NULL),
+(2, NULL, NULL, 'Can I access courses from mobile devices?', '<p>Yes! Our LMS is fully responsive and mobile-friendly. You can learn on the go using your smartphone or tablet without compromising experience.</p>', '206893105a249addC59DftITgi0vjtnBm9X_30297-1754468442', 1, NULL, 1, 1, '2025-08-06 02:20:42', '2025-08-06 02:21:47', NULL),
+(3, NULL, NULL, 'Are there any free courses available?', '<p>Absolutely. We offer a range of free courses in different categories. You can filter by &ldquo;Free&rdquo; in the course list to explore all free learning options.</p>', '206893106a21c983YgjhS2UP4o9EqKciArS_74491-1754468458', 1, NULL, 1, 1, '2025-08-06 02:20:58', '2025-08-06 02:21:47', NULL),
+(4, NULL, NULL, 'Will I get a certificate after completing a course?', '<p>Yes, once you complete a course and pass the final assessment, you&rsquo;ll receive a digitally verifiable certificate that you can download or share on LinkedIn.</p>', '206893107a3450fd1T6uWf8vFDmyrGdJSsy_19664-1754468474', 1, NULL, 1, 1, '2025-08-06 02:21:14', '2025-08-06 02:21:47', NULL),
+(5, NULL, NULL, 'Can I contact instructors if I have questions?', '<p>Yes, our messaging system allows you to connect directly with course instructors. You can ask questions, request feedback, and get support whenever you need.</p>', '2068931088e2c2cHvO2MpKOZD4zO44y8bud_91089-1754468488', 1, NULL, 1, 1, '2025-08-06 02:21:28', '2025-08-06 02:21:47', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `google_tag_managers`
 --
 
 CREATE TABLE `google_tag_managers` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `tag_manager_id` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `creator_id` int(11) DEFAULT NULL,
+  `editor_id` int(11) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 1,
+  `public_status` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `homebanners`
+--
+
+CREATE TABLE `homebanners` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `page_name` varchar(255) DEFAULT NULL,
+  `banner_title` varchar(255) DEFAULT NULL,
+  `banner_heading` varchar(255) DEFAULT NULL,
+  `banner_caption` text DEFAULT NULL,
+  `banner_button1` varchar(255) DEFAULT NULL,
+  `banner_button2` varchar(255) DEFAULT NULL,
+  `button1_url` varchar(255) DEFAULT NULL,
+  `button2_url` varchar(255) DEFAULT NULL,
+  `banner_image` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `creator_id` int(11) DEFAULT NULL,
+  `editor_id` int(11) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 1,
+  `public_status` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `homebanners`
+--
+
+INSERT INTO `homebanners` (`id`, `page_name`, `banner_title`, `banner_heading`, `banner_caption`, `banner_button1`, `banner_button2`, `button1_url`, `button2_url`, `banner_image`, `slug`, `creator_id`, `editor_id`, `status`, `public_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, NULL, 'Unlock Your Future with Expert-Led Courses', 'Learn Anytime, Anywhere', 'Join thousands of learners mastering new skills from top instructors. Learn at your own pace, from anywhere in the world.', NULL, NULL, NULL, NULL, 'uploads/banner/1754458664_16628.webp', '206892ea28ad364COnlbbxI2uffbW5hcPeL_65612-1754458664', 1, NULL, 1, 1, '2025-08-05 23:37:44', '2025-08-05 23:41:19', NULL),
+(2, NULL, 'Build Skills for Tomorrow', 'Empower Your Career with Practical Learning', 'Get hands-on knowledge through real-world projects and professional guidance. Start your journey to excellence today!', NULL, NULL, NULL, NULL, 'uploads/banner/1754459946_86668.webp', '206892ef2a01edbdA2fud6uxaRsBXPvcC1m_96180-1754459946', 1, NULL, 1, 1, '2025-08-05 23:59:06', '2025-08-06 00:00:06', NULL),
+(3, NULL, 'Education That Fits Your Life', 'Flexible Learning for Ambitious Minds', 'Choose from hundreds of courses tailored for your goals. Whether you\'re a beginner or a pro, we\'ve got you covered.', NULL, NULL, NULL, NULL, 'uploads/banner/1754459982_46812.webp', '206892ef4e2d7cdhi9SZ5as1zf0ScjZobsD_31585-1754459982', 1, NULL, 1, 1, '2025-08-05 23:59:42', '2025-08-06 00:00:06', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `home_abouts`
+--
+
+CREATE TABLE `home_abouts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `heading` varchar(255) DEFAULT NULL,
+  `caption` text DEFAULT NULL,
+  `description` longtext DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
   `slug` varchar(255) DEFAULT NULL,
   `creator_id` int(11) DEFAULT NULL,
   `editor_id` int(11) DEFAULT NULL,
@@ -1239,10 +1230,15 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (59, '2025_07_02_053541_create_assignment_submissions_table', 1),
 (60, '2025_07_09_054749_create_discount_coupons_table', 1),
 (61, '2025_07_16_072214_create_course_quizes_table', 1),
-(62, '2025_07_16_072251_create_course_quize_qustions_table', 1),
-(63, '2025_07_16_074231_create_quize_answers_table', 1),
-(64, '2025_07_16_074353_create_quize_results_table', 1),
-(65, '2025_07_19_060943_create_messages_table', 1);
+(62, '2025_07_16_074353_create_quize_results_table', 1),
+(63, '2025_07_19_060943_create_messages_table', 1),
+(64, '2025_08_03_081529_create_course_quiz_questions_table', 1),
+(65, '2025_08_03_081530_create_quize_answers_table', 1),
+(66, '2025_08_05_103400_create_homebanners_table', 1),
+(67, '2025_08_05_104318_create_posts_table', 1),
+(68, '2025_08_05_104343_create_post_comments_table', 1),
+(69, '2025_08_05_104416_create_home_abouts_table', 1),
+(70, '2025_08_05_104525_create_faqs_table', 1);
 
 -- --------------------------------------------------------
 
@@ -1309,7 +1305,7 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`id`, `course_id`, `user_id`, `payment_gateway`, `payment_id`, `tran_id`, `val_id`, `invoice_id`, `currency`, `amount`, `store_amount`, `payment_status`, `payment_mode`, `card_type`, `card_brand`, `card_issuer`, `card_no`, `bank_tran_id`, `verify_sign`, `verify_sign_sha2`, `verify_key`, `risk_title`, `risk_level`, `is_refunded`, `refunded_amount`, `refund_date`, `payment_date`, `ip_address`, `user_agent`, `payload`, `status`, `public_status`, `phone`, `division`, `city`, `country`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 'SSLCommerz', NULL, 'Trans175411397856547261', '2508021153081yIFsYOhsLBKqVU', 'YSXR73139', 'BDT', 3000.00, 2925.00, 'VALID', 'online', 'BKASH-BKash', 'MOBILEBANKING', 'BKash Mobile Banking', NULL, '2508021153081FSelIyPgdRhxIO', '71c8f6349d543ac3be98672541171bf9', 'ff115522a1ef58fb4d04e3041564933edfc743da4113ad922846e81a273d304d', 'amount,bank_tran_id,base_fair,card_brand,card_issuer,card_issuer_country,card_issuer_country_code,card_no,card_sub_brand,card_type,currency,currency_amount,currency_rate,currency_type,error,risk_level,risk_title,status,store_amount,store_id,tran_date,tran_id,val_id,value_a,value_b,value_c,value_d', 'Safe', '0', 0, NULL, NULL, '2025-08-01 23:53:10', '127.0.0.1', NULL, '{\"amount\":\"3000.00\",\"bank_tran_id\":\"2508021153081FSelIyPgdRhxIO\",\"base_fair\":\"0.00\",\"card_brand\":\"MOBILEBANKING\",\"card_issuer\":\"BKash Mobile Banking\",\"card_issuer_country\":\"Bangladesh\",\"card_issuer_country_code\":\"BD\",\"card_no\":null,\"card_sub_brand\":\"Classic\",\"card_type\":\"BKASH-BKash\",\"currency\":\"BDT\",\"currency_amount\":\"3000.00\",\"currency_rate\":\"1.0000\",\"currency_type\":\"BDT\",\"error\":null,\"risk_level\":\"0\",\"risk_title\":\"Safe\",\"status\":\"VALID\",\"store_amount\":\"2925.00\",\"store_id\":\"ngo683aab7718d99\",\"tran_date\":\"2025-08-02 11:53:00\",\"tran_id\":\"Trans175411397856547261\",\"val_id\":\"2508021153081yIFsYOhsLBKqVU\",\"value_a\":null,\"value_b\":null,\"value_c\":null,\"value_d\":null,\"verify_sign\":\"71c8f6349d543ac3be98672541171bf9\",\"verify_sign_sha2\":\"ff115522a1ef58fb4d04e3041564933edfc743da4113ad922846e81a273d304d\",\"verify_key\":\"amount,bank_tran_id,base_fair,card_brand,card_issuer,card_issuer_country,card_issuer_country_code,card_no,card_sub_brand,card_type,currency,currency_amount,currency_rate,currency_type,error,risk_level,risk_title,status,store_amount,store_id,tran_date,tran_id,val_id,value_a,value_b,value_c,value_d\"}', 1, 1, '01787204898', 'Dhaka', 'Dhaka', 'Bangladesh', '2025-08-01 23:52:58', '2025-08-01 23:53:10', NULL);
+(1, 2, 8, NULL, NULL, 'Trans175447965691399954', NULL, 'AQ7286510', 'BDT', 600.00, 600.00, 'PENDING', 'online', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, '01787204898', 'Dhaka', 'Dhaka', 'Bangladesh', '2025-08-06 05:27:36', '2025-08-06 05:27:36', NULL);
 
 -- --------------------------------------------------------
 
@@ -1345,6 +1341,63 @@ CREATE TABLE `payment_gateways` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `posts`
+--
+
+CREATE TABLE `posts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `short_des` text DEFAULT NULL,
+  `description` longtext DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `creator_id` int(11) DEFAULT NULL,
+  `editor_id` int(11) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 1,
+  `public_status` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`id`, `user_id`, `title`, `short_des`, `description`, `image`, `slug`, `creator_id`, `editor_id`, `status`, `public_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, NULL, 'Top 10 Skills You Need to Succeed in 2025', 'In today’s fast-changing job market, technical knowledge alone isn’t enough', '<p>In today&rsquo;s fast-changing job market, technical knowledge alone isn&rsquo;t enough. Learn about the most in-demand skills &mdash; from critical thinking to cloud computing &mdash; and how you can build them efficiently through our expert-led courses.</p>', 'uploads/post/1754469317_90679.webp', '20689313c589d7eK8HYLh7rWbnhBcT33bWX_97240-1754469317', 1, NULL, 1, 1, '2025-08-06 02:35:17', '2025-08-06 02:38:01', NULL),
+(2, NULL, 'Why Self-Paced Learning is the Future of Education', 'Flexibility and control are key to modern learning. Self-paced courses empower learners to progress on their', '<p data-start=\"692\" data-end=\"971\">Flexibility and control are key to modern learning. Self-paced courses empower learners to progress on their own time, revisit lessons, and truly understand concepts instead of rushing to meet deadlines. Discover how our platform supports this learning revolution.</p>', 'uploads/post/1754469356_21422.webp', '20689313ec802baKbtY0HVMzhQco2n2XuKW_95944-1754469356', 1, NULL, 1, 1, '2025-08-06 02:35:56', '2025-08-06 02:38:01', NULL),
+(3, NULL, 'How to Learn Effectively Using Just Your Smartphone', 'You don’t need a fancy setup to gain knowledge anymore. With our fully mobile-optimized platform,', '<p>You don&rsquo;t need a fancy setup to gain knowledge anymore. With our fully mobile-optimized platform, you can take full courses, join discussions, and even submit assignments from the palm of your hand &mdash; whether you&rsquo;re on a break or on a bus.</p>', 'uploads/post/1754469390_98920.webp', '206893140e79246jK8xvFo7RJY8Bt30u3qD_80801-1754469390', 1, NULL, 1, 1, '2025-08-06 02:36:30', '2025-08-06 02:38:01', NULL),
+(4, NULL, 'Build Real-World Projects That Impress Employers', 'Theory is great, but real skills come from building. That’s why our courses are designed with hands-on', '<p>Theory is great, but real skills come from building. That&rsquo;s why our courses are designed with hands-on projects that simulate real-world challenges. Whether it&rsquo;s a portfolio website or a data dashboard, your work will speak for itself in interviews.</p>', 'uploads/post/1754469431_33896.webp', '206893143747526R3s2ZChYldrRDVm4nt51_29982-1754469431', 1, NULL, 1, 1, '2025-08-06 02:37:11', '2025-08-06 02:38:01', NULL),
+(5, NULL, 'Become a Global Freelancer Through Our LMS', 'Freelancing is more accessible than ever — if you have the right skills. Our platform offers targeted courses', '<p>Freelancing is more accessible than ever &mdash; if you have the right skills. Our platform offers targeted courses that prepare you for freelancing marketplaces, teach you how to communicate with clients, manage payments, and build a brand that gets you hired internationally.</p>', 'uploads/post/1754469465_78303.webp', '2068931459caa04squi0n8HYEexlPsSOhFw_36951-1754469465', 1, NULL, 1, 1, '2025-08-06 02:37:45', '2025-08-06 02:38:01', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_comments`
+--
+
+CREATE TABLE `post_comments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `post_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `question` text DEFAULT NULL,
+  `answer` text DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `creator_id` int(11) DEFAULT NULL,
+  `editor_id` int(11) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 1,
+  `public_status` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `preloaders`
 --
 
@@ -1370,7 +1423,8 @@ CREATE TABLE `preloaders` (
 
 CREATE TABLE `quize_answers` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `answer_id` bigint(20) UNSIGNED NOT NULL,
+  `question_id` bigint(20) UNSIGNED NOT NULL,
+  `quiz_id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `qustion` text DEFAULT NULL,
   `student_answer` varchar(255) DEFAULT NULL,
@@ -1479,37 +1533,9 @@ CREATE TABLE `seos` (
 --
 
 INSERT INTO `seos` (`id`, `user_id`, `unique_id`, `model_type`, `meta_title`, `meta_description`, `meta_keywords`, `meta_robots`, `canonical_url`, `hreflang_tags`, `structured_data`, `og_title`, `og_description`, `og_url`, `og_type`, `og_locale`, `twitter_card`, `twitter_title`, `twitter_description`, `twitter_site`, `pinterest_description`, `pinterest_rich_pin`, `whatsapp_title`, `whatsapp_description`, `seo_image`, `slug`, `creator_id`, `editor_id`, `status`, `public_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, NULL, 1, 'App\\Models\\CourseCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688d9fbf2326etMEgrPUOzyiDMRPq15VA_29118-1754111935', 1, NULL, 1, 0, '2025-08-01 23:18:56', '2025-08-01 23:18:56', NULL),
-(2, NULL, 2, 'App\\Models\\CourseCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688d9fcb547e0yewg4LCMpLNyskLtdDFh_42550-1754111947', 1, NULL, 1, 0, '2025-08-01 23:19:07', '2025-08-01 23:19:07', NULL),
-(3, NULL, 3, 'App\\Models\\CourseCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688d9fd82f635XU7dvXcacyFWK9BYCi9S_60588-1754111960', 1, NULL, 1, 0, '2025-08-01 23:19:20', '2025-08-01 23:19:20', NULL),
-(4, NULL, 4, 'App\\Models\\CourseCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688d9fe98c5b0VtMjYQ3rWiNeN9LE3ZzL_63018-1754111977', 1, NULL, 1, 0, '2025-08-01 23:19:37', '2025-08-01 23:19:37', NULL),
-(5, NULL, 5, 'App\\Models\\CourseCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688d9ffb48c50OjaHl0VOQH5rxvTFW5CZ_85085-1754111995', 1, NULL, 1, 0, '2025-08-01 23:19:55', '2025-08-01 23:19:55', NULL),
-(6, NULL, 6, 'App\\Models\\CourseCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da01b7e7ebz8BbjaJhsfHHfCpREzvn_28128-1754112027', 1, NULL, 1, 0, '2025-08-01 23:20:27', '2025-08-01 23:20:27', NULL),
-(7, NULL, 7, 'App\\Models\\CourseCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da0364bee5yybKLJbQKT2SKY5AGa4v_90528-1754112054', 1, NULL, 1, 0, '2025-08-01 23:20:54', '2025-08-01 23:20:54', NULL),
-(8, NULL, 1, 'App\\Models\\CourseSubCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da09852f67a0ts3fJCgPQWeH2rAbZx_73763-1754112152', 1, NULL, 1, 0, '2025-08-01 23:22:32', '2025-08-01 23:22:32', NULL),
-(9, NULL, 2, 'App\\Models\\CourseSubCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da0ad43d3bEiDXPzxy0uJWK0xZ5T8m_30507-1754112173', 1, NULL, 1, 0, '2025-08-01 23:22:53', '2025-08-01 23:22:53', NULL),
-(10, NULL, 3, 'App\\Models\\CourseSubCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da0d62af303cqcY9t05lWTq7CL0ohq_86780-1754112214', 1, NULL, 1, 0, '2025-08-01 23:23:35', '2025-08-01 23:23:35', NULL),
-(11, NULL, 4, 'App\\Models\\CourseSubCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da111b471eE7nvjT0JRJ4r5apU6v5a_10173-1754112273', 1, NULL, 1, 0, '2025-08-01 23:24:33', '2025-08-01 23:24:33', NULL),
-(12, NULL, 5, 'App\\Models\\CourseSubCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da129c4ac9Uj43mRg6WEx4zCrDbi8I_59051-1754112297', 1, NULL, 1, 0, '2025-08-01 23:24:57', '2025-08-01 23:24:57', NULL),
-(13, NULL, 6, 'App\\Models\\CourseSubCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da138b2555U9ILE99uXTP7O6Xl9cES_68108-1754112312', 1, NULL, 1, 0, '2025-08-01 23:25:12', '2025-08-01 23:25:12', NULL),
-(14, NULL, 7, 'App\\Models\\CourseSubCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da14bc2f90QRoDIs4HgmPQehF8vnYe_61386-1754112331', 1, NULL, 1, 0, '2025-08-01 23:25:31', '2025-08-01 23:25:31', NULL),
-(15, NULL, 8, 'App\\Models\\CourseSubCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da1624fafemfirmvM81vLB0elIpXSa_85810-1754112354', 1, NULL, 1, 0, '2025-08-01 23:25:54', '2025-08-01 23:25:54', NULL),
-(16, NULL, 9, 'App\\Models\\CourseSubCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da17943656ahXRopKF0sTQk1Cny73S_42610-1754112377', 1, NULL, 1, 0, '2025-08-01 23:26:17', '2025-08-01 23:26:17', NULL),
-(17, NULL, 10, 'App\\Models\\CourseSubCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da189e53bdIC7Tnuk10X1np4cHeI3H_30522-1754112393', 1, NULL, 1, 0, '2025-08-01 23:26:33', '2025-08-01 23:26:33', NULL),
-(18, NULL, 11, 'App\\Models\\CourseSubCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da19d70e59rODTrtB6e3EtZmDLK3z3_56501-1754112413', 1, NULL, 1, 0, '2025-08-01 23:26:53', '2025-08-01 23:26:53', NULL),
-(19, NULL, 12, 'App\\Models\\CourseSubCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da1a9e1f8aRIlJ8rA2ItxDosSFq3Cl_58189-1754112425', 1, NULL, 1, 0, '2025-08-01 23:27:05', '2025-08-01 23:27:05', NULL),
-(20, NULL, 13, 'App\\Models\\CourseSubCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da1c449f60Ynw0XEoBPNHugvXu3NUg_82138-1754112452', 1, NULL, 1, 0, '2025-08-01 23:27:32', '2025-08-01 23:27:32', NULL),
-(21, NULL, 1, 'App\\Models\\CourseChildCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da25c14c8eWlovfW663382rM9lBpPU_69582-1754112604', 1, NULL, 1, 0, '2025-08-01 23:30:04', '2025-08-01 23:30:04', NULL),
-(22, NULL, 2, 'App\\Models\\CourseChildCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da26cd8921Hj4oCTPgKeurbp80FVqN_37923-1754112620', 1, NULL, 1, 0, '2025-08-01 23:30:20', '2025-08-01 23:30:20', NULL),
-(23, NULL, 3, 'App\\Models\\CourseChildCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da289be29a4Ww9IxXSe7dsB51iRxYC_21121-1754112649', 1, NULL, 1, 0, '2025-08-01 23:30:49', '2025-08-01 23:30:49', NULL),
-(24, 1, 1, 'App\\Models\\Course', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da42fb497dpN9fXeI8dwiCbiKtjQ3R_60744-1754113071', NULL, NULL, 1, 0, '2025-08-01 23:38:06', '2025-08-01 23:38:06', NULL),
-(25, 1, 2, 'App\\Models\\Course', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da46057d55TzJVyyCIc03BPx6j9OPj_54687-1754113120', NULL, NULL, 1, 0, '2025-08-01 23:38:41', '2025-08-01 23:38:41', NULL),
-(26, 1, 3, 'App\\Models\\Course', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da48fa7230SKeK0suqrNZaBgGX3LGs_33725-1754113167', NULL, NULL, 1, 0, '2025-08-01 23:39:29', '2025-08-01 23:39:29', NULL),
-(27, 1, 4, 'App\\Models\\Course', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da4b5cf3b8uJVYrOlHTyqYefbjQFJr_10227-1754113205', NULL, NULL, 1, 0, '2025-08-01 23:40:07', '2025-08-01 23:40:07', NULL),
-(28, 1, 5, 'App\\Models\\Course', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da4e45514bXTXpdRJj4YyeS45zWHKT_87832-1754113252', NULL, NULL, 1, 0, '2025-08-01 23:40:55', '2025-08-01 23:40:55', NULL),
-(29, 1, 6, 'App\\Models\\Course', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da51e0a246U1R2FZVYB9vkmORmAJeX_12463-1754113310', NULL, NULL, 1, 0, '2025-08-01 23:41:51', '2025-08-01 23:41:51', NULL),
-(30, 1, 7, 'App\\Models\\Course', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da567d734cRs3eq6z9JizP6OLszdQY_34385-1754113383', NULL, NULL, 1, 0, '2025-08-01 23:43:05', '2025-08-01 23:43:05', NULL),
-(31, 1, 8, 'App\\Models\\Course', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20688da635d7ee6rfTwCN7jt2GhHLtz2230_44923-1754113589', NULL, NULL, 1, 0, '2025-08-01 23:46:31', '2025-08-01 23:46:31', NULL);
+(1, NULL, 1, 'App\\Models\\CourseCategory', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20689339ac9c8f6qNCLYOwRM8y0OP42QNXk_72099-1754479020', 1, NULL, 1, 0, '2025-08-06 05:17:01', '2025-08-06 05:17:01', NULL),
+(2, 1, 1, 'App\\Models\\Course', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '20689339e11891a5TOsI4R6C1Wo6JzX9yPD_91046-1754479073', NULL, NULL, 1, 0, '2025-08-06 05:17:55', '2025-08-06 05:17:55', NULL),
+(3, 1, 2, 'App\\Models\\Course', NULL, NULL, NULL, 'index, follow', NULL, NULL, NULL, NULL, NULL, NULL, 'website', 'en_US', 'summary_large_image', NULL, NULL, NULL, NULL, 'article', NULL, NULL, NULL, '2068933a4481571crDRRvIsJ6Equ1SKWK6W_63988-1754479172', NULL, NULL, 1, 0, '2025-08-06 05:19:35', '2025-08-06 05:19:35', NULL);
 
 -- --------------------------------------------------------
 
@@ -1798,7 +1824,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `badge`, `avater`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Md Razu Hosssain Raj', 'razu@gmail.com', NULL, '$2y$12$Y4jXPs3a7I8cjFwqEhDyruDaZU2.K3vm1GDZRFtgvLaRbBQfOo57S', 1, 'regular', NULL, NULL, '2025-08-01 23:16:57', '2025-08-01 23:16:57');
+(1, 'Md Razu Hosssain Raj', 'mdrazuhossainraj@gmail.com', NULL, '$2y$12$1LgQAfCIvb40KZ13/kNw5uxf5MtBdrKITc8GYN5h6v1DoDgodLJQm', 1, 'regular', NULL, NULL, '2025-08-06 04:21:10', '2025-08-06 04:21:10'),
+(2, 'M. Rashiduzzaman Lhan', 'rashiduzzaman@gmail.com', NULL, '$2y$12$kp/eOnPNC6ypJaqduj7Oe.hIlHIb9qPvMjRG/1KXlucbLJwcNXVzS', 1, 'regular', NULL, NULL, '2025-08-06 04:22:08', '2025-08-06 04:22:08'),
+(3, 'RH Kamruzzaman', 'kamrul2345@gmail.com', NULL, '$2y$12$Jzm4iNZMi3N3N.XOjkXe9eeCTK42fbm8mQJ544R0ysr4YTWNWp25q', 1, 'regular', NULL, NULL, '2025-08-06 04:23:13', '2025-08-06 04:23:13'),
+(4, 'Roni Mahmud', 'roni@gmail.com', NULL, '$2y$12$HXO3sJMptAtLv/ixPCqRqeM3AHCx/GV0WixvLATaUsOTVouHi.pmi', 1, 'regular', NULL, NULL, '2025-08-06 04:23:56', '2025-08-06 04:23:56'),
+(5, 'user 1', 'user1@gmail.com', NULL, '$2y$12$D.NUp5HCDT62qLQwHOMKbefltOqnfcu7ww5c3Mhpc4dWkqFFc4aGe', 0, 'regular', NULL, NULL, '2025-08-06 05:22:11', '2025-08-06 05:22:11'),
+(6, 'user 2', 'user2@gmail.com', NULL, '$2y$12$2E./08BPy2XB7h46zYeDJ.sbsdUWqZ96rx9l8FQxMlAITRnQoa0.e', 0, 'regular', NULL, NULL, '2025-08-06 05:22:56', '2025-08-06 05:22:56'),
+(7, 'user 3', 'user3@gmail.com', NULL, '$2y$12$BAYir.5JPk2NAdK/EKRbueGIw8X.dvYemJ8nDaYjRcDmIDG1XNcQm', 0, 'regular', NULL, NULL, '2025-08-06 05:23:37', '2025-08-06 05:23:37'),
+(8, 'user 4', 'user4@gmail.com', NULL, '$2y$12$piSC4KvMK4Dr7ElixghFz.anP0nLipVk0UlMQHB64KVpFS.OjQ2vi', 0, 'regular', NULL, NULL, '2025-08-06 05:24:12', '2025-08-06 05:24:12');
 
 -- --------------------------------------------------------
 
@@ -2017,12 +2050,12 @@ ALTER TABLE `course_quizes`
   ADD KEY `course_quizes_user_id_foreign` (`user_id`);
 
 --
--- Indexes for table `course_quize_qustions`
+-- Indexes for table `course_quiz_questions`
 --
-ALTER TABLE `course_quize_qustions`
+ALTER TABLE `course_quiz_questions`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `course_quize_qustions_quize_id_foreign` (`quize_id`),
-  ADD KEY `course_quize_qustions_user_id_foreign` (`user_id`);
+  ADD KEY `course_quiz_questions_quize_id_foreign` (`quize_id`),
+  ADD KEY `course_quiz_questions_user_id_foreign` (`user_id`);
 
 --
 -- Indexes for table `course_reviews`
@@ -2124,9 +2157,28 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `faqs`
+--
+ALTER TABLE `faqs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `faqs_user_id_foreign` (`user_id`);
+
+--
 -- Indexes for table `google_tag_managers`
 --
 ALTER TABLE `google_tag_managers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `homebanners`
+--
+ALTER TABLE `homebanners`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `home_abouts`
+--
+ALTER TABLE `home_abouts`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2202,6 +2254,21 @@ ALTER TABLE `payment_gateways`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `posts_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `post_comments`
+--
+ALTER TABLE `post_comments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `post_comments_user_id_foreign` (`user_id`),
+  ADD KEY `post_comments_post_id_foreign` (`post_id`);
+
+--
 -- Indexes for table `preloaders`
 --
 ALTER TABLE `preloaders`
@@ -2212,8 +2279,9 @@ ALTER TABLE `preloaders`
 --
 ALTER TABLE `quize_answers`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `quize_answers_answer_id_foreign` (`answer_id`),
-  ADD KEY `quize_answers_user_id_foreign` (`user_id`);
+  ADD KEY `quize_answers_user_id_foreign` (`user_id`),
+  ADD KEY `quize_answers_quiz_id_foreign` (`quiz_id`),
+  ADD KEY `quize_answers_question_id_foreign` (`question_id`);
 
 --
 -- Indexes for table `quize_results`
@@ -2388,7 +2456,7 @@ ALTER TABLE `child_categories`
 -- AUTO_INCREMENT for table `class_assignments`
 --
 ALTER TABLE `class_assignments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `copy_rights`
@@ -2400,13 +2468,13 @@ ALTER TABLE `copy_rights`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `course_attchments`
 --
 ALTER TABLE `course_attchments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `course_batches`
@@ -2418,19 +2486,19 @@ ALTER TABLE `course_batches`
 -- AUTO_INCREMENT for table `course_categories`
 --
 ALTER TABLE `course_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `course_child_categories`
 --
 ALTER TABLE `course_child_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `course_enroments`
 --
 ALTER TABLE `course_enroments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `course_exames`
@@ -2454,13 +2522,13 @@ ALTER TABLE `course_liveclasses`
 -- AUTO_INCREMENT for table `course_modules`
 --
 ALTER TABLE `course_modules`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `course_prices`
 --
 ALTER TABLE `course_prices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `course_progress`
@@ -2472,19 +2540,19 @@ ALTER TABLE `course_progress`
 -- AUTO_INCREMENT for table `course_quizes`
 --
 ALTER TABLE `course_quizes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `course_quize_qustions`
+-- AUTO_INCREMENT for table `course_quiz_questions`
 --
-ALTER TABLE `course_quize_qustions`
+ALTER TABLE `course_quiz_questions`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `course_reviews`
 --
 ALTER TABLE `course_reviews`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `course_shedules`
@@ -2502,19 +2570,19 @@ ALTER TABLE `course_statistics`
 -- AUTO_INCREMENT for table `course_sub_categories`
 --
 ALTER TABLE `course_sub_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `course_topics`
 --
 ALTER TABLE `course_topics`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `course_topic_videos`
 --
 ALTER TABLE `course_topic_videos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `custom_csses`
@@ -2565,9 +2633,27 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `faqs`
+--
+ALTER TABLE `faqs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `google_tag_managers`
 --
 ALTER TABLE `google_tag_managers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `homebanners`
+--
+ALTER TABLE `homebanners`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `home_abouts`
+--
+ALTER TABLE `home_abouts`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -2610,7 +2696,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -2622,6 +2708,18 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `payment_gateways`
 --
 ALTER TABLE `payment_gateways`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `post_comments`
+--
+ALTER TABLE `post_comments`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -2652,7 +2750,7 @@ ALTER TABLE `send_emails`
 -- AUTO_INCREMENT for table `seos`
 --
 ALTER TABLE `seos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `seo_images`
@@ -2730,7 +2828,7 @@ ALTER TABLE `userotps`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user_socials`
@@ -2836,11 +2934,11 @@ ALTER TABLE `course_quizes`
   ADD CONSTRAINT `course_quizes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `course_quize_qustions`
+-- Constraints for table `course_quiz_questions`
 --
-ALTER TABLE `course_quize_qustions`
-  ADD CONSTRAINT `course_quize_qustions_quize_id_foreign` FOREIGN KEY (`quize_id`) REFERENCES `course_quizes` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `course_quize_qustions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+ALTER TABLE `course_quiz_questions`
+  ADD CONSTRAINT `course_quiz_questions_quize_id_foreign` FOREIGN KEY (`quize_id`) REFERENCES `course_quizes` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `course_quiz_questions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `course_reviews`
@@ -2891,6 +2989,12 @@ ALTER TABLE `emailattchements`
   ADD CONSTRAINT `emailattchements_send_email_id_foreign` FOREIGN KEY (`send_email_id`) REFERENCES `send_emails` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `faqs`
+--
+ALTER TABLE `faqs`
+  ADD CONSTRAINT `faqs_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `instructore_requests`
 --
 ALTER TABLE `instructore_requests`
@@ -2911,10 +3015,24 @@ ALTER TABLE `payments`
   ADD CONSTRAINT `payments_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `posts`
+--
+ALTER TABLE `posts`
+  ADD CONSTRAINT `posts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `post_comments`
+--
+ALTER TABLE `post_comments`
+  ADD CONSTRAINT `post_comments_post_id_foreign` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `post_comments_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `quize_answers`
 --
 ALTER TABLE `quize_answers`
-  ADD CONSTRAINT `quize_answers_answer_id_foreign` FOREIGN KEY (`answer_id`) REFERENCES `course_quize_qustions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `quize_answers_question_id_foreign` FOREIGN KEY (`question_id`) REFERENCES `course_quiz_questions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `quize_answers_quiz_id_foreign` FOREIGN KEY (`quiz_id`) REFERENCES `course_quizes` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `quize_answers_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
