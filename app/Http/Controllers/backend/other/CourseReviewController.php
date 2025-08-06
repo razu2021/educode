@@ -61,8 +61,9 @@ class CourseReviewController extends Controller
     public function edit($id,$slug){
         $totalpost  = Course_review::get()->count();
         $latestPost = Course_review::latest()->first();
+        $allcourse = Course::where('public_status')->get();
         $data= Course_review::where('status',1)->where('id',$id)->where('slug',$slug)->firstOrFail();
-        return view('backend.other.course_review.edit',compact('totalpost','latestPost','data'));
+        return view('backend.other.course_review.edit',compact('totalpost','latestPost','data','allcourse'));
     }
 
 
@@ -89,6 +90,7 @@ class CourseReviewController extends Controller
         $insert = Course_review::create([
             'course_id' => $request->course_id ?? null,
             'user_id' => $user_id,
+            'title'=>$request->title,
             'rating'=>$request->rating,
             'review'=>$request->review,
             'slug'=>$slug,
@@ -119,8 +121,10 @@ class CourseReviewController extends Controller
 
     //---------category update -------//
     $update = Course_review::where('id',$id)->where('slug',$slug)->update([
-        'question'=>$request->question,
-        'answer'=>$request->answer,
+        'course_id' => $request->course_id ?? null,
+        'title'=>$request->title,
+        'rating'=>$request->rating,
+        'review'=>$request->review,
         'editor_id' => $editor,
         'updated_at' => Carbon::now()->toDateTimeString(),
     ]);
@@ -129,7 +133,7 @@ class CourseReviewController extends Controller
     // ------insert Successfully--------// 
     if($update){
         flash()->success('Information Update Successfuly');
-        return redirect()->route('faq.view',[$id,$slug]);
+        return redirect()->route('course_review.view',[$id,$slug]);
     }else{
         flash()->error('Informatin Update Faild !');
     }

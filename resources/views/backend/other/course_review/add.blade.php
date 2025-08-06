@@ -52,6 +52,12 @@
                                 </div>
                               <!-- end -->
                                 <div class="col-12 mb-1">
+                                    <label class="form-label" for="title">Title</label>
+                                    <input type="text" name="title" id="title" value="{{old('title')}}" class="form-control">
+                                    <label class="text-danger fw-medium">@error('title') {{$message}} @enderror</label>
+                                </div>
+                              <!-- end -->
+                                <div class="col-12 mb-1">
                                     <label class="form-label" for="title">Reviews</label>
                                     <textarea name="review" id="description" cols="30" rows="10" ></textarea>
                                     <label class="text-danger fw-medium">@error('answer') {{$message}} @enderror</label>

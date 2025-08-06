@@ -3,9 +3,10 @@
 
 .banner1{
     padding: 4rem 0rem;
+    background-color: #6D28D1;
 }
 .banner1bg{
-    background-color: #a685ff;
+    background-color: #fff;
     border-radius: 1.5rem;
     overflow-x: hidden;
     min-height: 40rem;
@@ -18,12 +19,15 @@
     min-height: 100%; // যদি vertically center চাও
     padding: 0rem 2rem;
     h1{
-        @include heading_tag1($font-size:6rem,$font-weight:700,$color:#0D0C23);
+        @include heading_tag1($font-size:6rem,$font-weight:700,$color:#6D28D1);
         padding-bottom: 2rem ;
         span{
             color: #922bce;
         }
-    };
+    }
+    h3{
+      color:#0FAE0F;
+    }
     p{
         border-left: .6rem solid #754FFE;
         padding: 0rem .5rem ;
@@ -32,10 +36,121 @@
 .banner1_image{
     display: grid;
     align-content: center;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    border-radius: 1.2rem;
     img{
         width: 50rem;
+        border-radius: 1.2rem;
     }
 }
+
+// --banner content animation 
+// animation 
+.owl-carousel .owl-item.active .banner1_content p{
+  animation: fadeInUp 2s linear; 
+}
+.owl-carousel .owl-item.active .banner1_content h1{
+  animation: fadeInUp 2s linear; 
+}
+.owl-carousel .owl-item.active .banner1_content h3{
+  animation: fadeInUp 2s linear; 
+}
+.owl-carousel .owl-item.active .banner1_image{
+  animation: zoomIn 2s linear; 
+}
+
+
+// --- section heading design 
+.section-heading {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  
+
+  .section-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #212529;
+    display: inline-block;
+  }
+
+  .underline {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, #4e54c8, #8f94fb);
+    border-radius: 5px;
+    text-align: left;
+
+  }
+
+  .section-subtitle {
+    font-size: 1.6rem;
+    max-width: 800px;
+    color: #6c757d;
+    line-height: 1.8;
+  
+   
+  }
+}
+
+// ==== subscriber by mdrazuhossainraj 01817078309 section css 
+.subscribe-section {
+  background:  #fff;
+  border-top: 1px solid #dee2e6;
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #212529;
+  }
+
+  .section-subtitle {
+    font-size: 1.125rem;
+    color: #6c757d;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .subscribe-form {
+    input[type="email"] {
+      border-radius: 50px;
+      padding: 0.75rem 1.25rem;
+      border: 1px solid #ced4da;
+      box-shadow: none;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+      }
+    }
+
+    button {
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: darken(#0d6efd, 5%);
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*==========  info card ==*/
@@ -310,40 +425,65 @@
 /*===========  testimonial css start here =======*/
 
 .testimonial-card {
-  background: #fff;
-  border-radius: 1.6rem;
-  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.06);
-  transition: all 0.4s ease;
-  max-width: 36rem;
-  margin: auto;
-  opacity: 0.6;
-  transform: scale(0.95);
-  .testimonial_image{
-    img{
-      width: 4.8rem;         // 48px
-  height: 4.8rem;
-  border-radius: 50%;
-  object-fit: cover;     // 🔥 maintains proper aspect ratio
-  border: 0.2rem solid #ddd;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .usernames {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    img {
+      width: 4.5rem;
+      height: 4.5rem;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #0D0C23;
+    }
+
+    h4 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #0D0C23;
+      margin: 0;
     }
   }
 
-
-  .name {
-    font-size: 1.6rem;
-    font-weight: 600;
+  .testimonial_image {
+    h4 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #4a4a4a;
+      margin: 0 0 0.5rem 0;
+    }
   }
 
   .testimonial-text {
-    font-size: 1.4rem;
-    color: #444;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
     margin-bottom: 1rem;
   }
 
-  .rating i {
-    font-size: 1.4rem;
+  .rating {
+    i {
+      font-size: 1rem;
+      margin-right: 0.15rem;
+      color: #ffc107;
+    }
   }
 }
+
 
 // Center item gets this class from Owl:
 .owl-carousel .owl-item.center .testimonial-card {

@@ -25,14 +25,24 @@
                             <table class="table table-bordered">
                                 <tbody>
                                   <tr>
-                                    <td>Question</td>
+                                    <td>Course Title</td>
                                     <td><i class="bi bi-chevron-double-right"></i></td>
-                                    <td>{{$data->question ?? 'No Question Found'}}</td>
+                                    <td>{{$data->course?->course_name ?? 'No Course Found'}}</td>
                                   </tr>
                                   <tr>
-                                    <td>Answer </td>
+                                    <td>User Name  </td>
                                     <td><i class="bi bi-chevron-double-right"></i></td>
-                                    <td>{{$data->anser ?? 'No Anser Found'}}</td>
+                                    <td>{{$data->username?->name ?? 'Admin'}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Rating  </td>
+                                    <td><i class="bi bi-chevron-double-right"></i></td>
+                                    <td>{{$data->rating ?? 'No raring Found'}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Review </td>
+                                    <td><i class="bi bi-chevron-double-right"></i></td>
+                                    <td>{!! $data->review ?? 'No review Found' !!}</td>
                                   </tr>
                                 
                                   <tr>

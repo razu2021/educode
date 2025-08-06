@@ -7,11 +7,15 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\CourseCategory;
 use App\Models\Course;
+use App\Models\Course_review;
 use App\Models\CourseChildCategory;
 use App\Models\courseQuize;
 use App\Models\CourseQuizQuestion;
 use App\Models\CourseSubCategory;
 use App\Models\DiscountCoupon;
+use App\Models\Faq;
+use App\Models\homebanner;
+use App\Models\post;
 use App\Models\User;
 use App\Models\quizeAnswer;
 use App\Models\SiteAddress;
@@ -29,8 +33,17 @@ class FrontendController extends Controller
     use CourseFilterTrait;
     /**----------  index page function ----- */
     public function index(){
-       // $all = Course::where()->get();
-        return view('frontend.index');
+       
+        $bannerdata= homebanner::where('public_status',1)->get();
+
+        $instructors= User::where('role',1)->limit(8)->get();
+        $reviews =Course_review::where('public_status',1)->where('rating',5)->limit(10)->get();
+        $posts = post::where('public_status',1)->limit(4)->get();
+        $faqs = Faq::where('public_status',1)->limit(12)->get();
+
+
+        
+        return view('frontend.index',compact('bannerdata','instructors','reviews','faqs','posts'));
     }
     /**----------  about page function ----- */
     public function about(){

@@ -377,6 +377,14 @@ class PaymentController extends Controller
     }
 
 
+    public function free_enrolment($id,$slug){
+
+        
+
+
+        return "free enroment";
+    }
+
 
 
 /**  controller end here  */

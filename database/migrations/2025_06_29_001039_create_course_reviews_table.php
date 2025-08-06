@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade'); // কে রিভিউ দিল
 
             $table->decimal('rating',2,1)->nullable();
+            $table->string('title')->nullable();
             $table->text('review')->nullable();
             $table->string('slug',255)->nullable();
             $table->integer('creator_id')->nullable();

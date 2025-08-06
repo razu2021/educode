@@ -46,6 +46,8 @@ Route::controller(PaymentController::class)->middleware(['auth'])->group(functio
     Route::get('/invoice/download/{tran_id}','downloadInvoice')->name('invoice.download');
     //-------------------
     Route::get('/course/{id}/already-enrolled/download','exist_course')->name('exist.course');
+    Route::get('/course/enrolment/free/{id}/{slug}','free_enrolment')->name('free.enrolment');
+
 });
 
 

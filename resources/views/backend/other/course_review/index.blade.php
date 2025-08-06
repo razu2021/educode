@@ -42,7 +42,7 @@
 
       <div class="row flex-between-center">
         <div class="col-6 col-sm-auto d-flex align-items-center pe-0">
-          <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Faq Infomations </h5>
+          <h5 class="fs-9 mb-0 text-nowrap py-2 py-xl-0">All Course Review Infomations </h5>
         </div>
         <div class="col-6 col-sm-auto ms-auto text-end ps-0">
           <div class="d-none" id="table-purchases-actions">
@@ -110,8 +110,8 @@
                   <input class="form-check-input" id="checkbox-bulk-purchases-select" type="checkbox" data-bulk-select="{&quot;body&quot;:&quot;table-purchase-body&quot;,&quot;actions&quot;:&quot;table-purchases-actions&quot;,&quot;replacedElement&quot;:&quot;table-purchases-replace-element&quot;}">
                 </div>
               </th>
-           
-              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="des">Question</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="des">Rating</th>
+              <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="des">User Name</th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap " data-sort="time">Created At </th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap " data-sort="name">Creator</th>
               <th class="text-900 sort pe-1 align-middle white-space-nowrap text-center" data-sort="status">Public Status</th>
@@ -126,7 +126,8 @@
                   <input class="form-check-input" type="checkbox" data-bulk-select-row value="{{ $data->id }}">
                 </div>
               </td>
-              <td class="align-middle white-space-nowrap phone">{{$data->question}}</td>
+              <td class="align-middle white-space-nowrap phone">{{$data->rating ?? '0'}}</td>
+              <td class="align-middle white-space-nowrap phone">  {{ $data->username?->name ?? 'Admin' }}</td>
               <td class="align-middle white-space-nowrap product">{{ $data->created_at->format('d M, Y - h:i A') }}</td>
               <td class="align-middle white-space-nowrap product">{{ $data->creator->name }} </td>
               <td class="align-middle text-center fs-9 white-space-nowrap payment">

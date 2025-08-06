@@ -23,4 +23,8 @@ class Course_review extends Model
     public function username (){
         return $this->belongsTo(User::class,'user_id','id');
     }
+    // find the user 
+    public function course (){
+        return $this->belongsTo(Course::class,'course_id','id');
+    }
 }

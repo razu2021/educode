@@ -30,15 +30,40 @@
                                 <input class="form-control" name="slug" id="slug" type="hidden" value="{{$data->slug}}">
                                 {{-- input hidden --}}
                               
-                                 <div class="col-12 mb-1">
-                                    <label class="form-label" for="title">Question</label>
-                                    <input class="form-control" name="question" id="question" type="text" value="{{$data->question}}">
+                                <!-- end -->
+                                <div class="col-12 mb-1">
+                                    <label class="form-label" for="title">Course </label>
+                                    <select name="course_id" id="course_id" class="form-control">
+                                      <option value="{{$data->course?->id ?? null}}">{{$data->course?->course_name ?? 'Course not Found !'}}</option>
+                                     @foreach ($allcourse as $course)
+                                       <option value="{{$course->id ?? null}}">{{$course->course_name ?? 'No Name Found'}}</option>
+                                     @endforeach
+                                    </select>
                                     <label class="text-danger fw-medium">@error('question') {{$message}} @enderror</label>
                                 </div>
                               <!-- end -->
                                 <div class="col-12 mb-1">
-                                    <label class="form-label" for="title">Answer</label>
-                                    <textarea name="answer" id="description" cols="30" rows="10" value="{{$data->answer}}">{!! $data->answer !!}</textarea>
+                                    <label class="form-label" for="title">Course Rating</label>
+                                    <select name="rating" id="rating" class="form-control">
+                                      <option value="{{$data->rating}}">{{$data->rating}}</option>
+                                      <option value="5">5.0 out of 5.0</option>
+                                      <option value="4.5">4.5 out of 5.0</option>
+                                      <option value="4.0">4.0 out of 5.0</option>
+                                      <option value="3.5">3.5 out of 5.0</option>
+                                      <option value="3.0">3.0 out of 5.0</option>
+                                    </select>
+                                    <label class="text-danger fw-medium">@error('question') {{$message}} @enderror</label>
+                                </div>
+                              <!-- end -->
+                              <div class="col-12 mb-1">
+                                    <label class="form-label" for="title">Title</label>
+                                    <input type="text" name="title" id="title" value="{{$data->title }}" class="form-control">
+                                    <label class="text-danger fw-medium">@error('title') {{$message}} @enderror</label>
+                                </div>
+                                {{-- end --}}
+                                <div class="col-12 mb-1">
+                                    <label class="form-label" for="title">Reviews</label>
+                                    <textarea name="review" id="description" cols="30" rows="10" ></textarea>
                                     <label class="text-danger fw-medium">@error('answer') {{$message}} @enderror</label>
                                 </div>
                               <!-- end -->

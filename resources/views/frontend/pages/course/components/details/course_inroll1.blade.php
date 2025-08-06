@@ -25,7 +25,7 @@
           </div>
           @elseif ($data->course_type === 'Free')
               <a href="" class="btn btn-sm btn-warning w-100 mb-2">Add to Cart</a>
-              <a href="{{route('ssl_payment_initiate')}}" class="btn btn-sm btn-outline-success w-100">Free Enrolment </a>
+              <a href="{{route('free.enrolment',[$data->id,$data->slug])}}" class="btn btn-sm btn-outline-success w-100">Free Enrolment </a>
           @endif
          
          @if($data->course_type === 'Paid')

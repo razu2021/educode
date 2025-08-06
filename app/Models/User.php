@@ -48,6 +48,19 @@ class User extends Authenticatable
     }
 
 
+    // === one instructor hasmany courses 
+    public function course(){
+        return $this->hasMany(Course::class,'user_id','id');
+    }
+
+
+    public function scopeWithDetails($query)
+    {
+        return $query->with([
+            'course',
+            'course.enrolStudent',
+        ]);
+    }
 
     
 }

@@ -130,6 +130,11 @@ class Course extends Model
     }
 
 
+    //---  one student has many courses 
+    public function enrolStudent(){
+       return $this->hasMany(CourseEnroment::class, 'course_id', 'id');
+    }
+
 
 
 
