@@ -53,6 +53,16 @@ class User extends Authenticatable
         return $this->hasMany(Course::class,'user_id','id');
     }
 
+    // Total enrolled students in all courses of this instructor
+    public function totalEnrolledStudentsCount()
+    {
+        $courseIds = $this->course()->pluck('id'); // all course IDs of this instructor
+
+        return CourseEnroment::whereIn('course_id', $courseIds)->count();
+    }
+
+
+  
 
     public function scopeWithDetails($query)
     {

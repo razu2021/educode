@@ -135,6 +135,9 @@ class Course extends Model
        return $this->hasMany(CourseEnroment::class, 'course_id', 'id');
     }
 
+    public function reviews(){
+        return $this->hasMany(Course_review::class,'course_id','id');
+    }
 
 
 
@@ -157,6 +160,7 @@ class Course extends Model
             'category',
             'subcategory',
             'childcategory',
+            'reviews',
         ]);
     }
 

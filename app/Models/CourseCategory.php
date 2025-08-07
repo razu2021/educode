@@ -30,6 +30,7 @@ class CourseCategory extends Model
     public function CourseCategorys(){
         return $this->hasMany(Course::class,'course_category_id','id');
     }
+    
 
 
 

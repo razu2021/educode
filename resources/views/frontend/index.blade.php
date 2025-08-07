@@ -24,10 +24,10 @@
 
 
 {{-- course start here  --}}
-@include('frontend/pages/course/components/index/course1')
+@include('frontend/pages/course/components/index/course1',compact('topcourses','trandingcourses','latestcourse','freecourse'))
 {{-- --- course end here  --}}
 
-@include('frontend/pages/course/components/index/category_section')
+@include('frontend/pages/course/components/index/category_section',compact('allcategorys'))
 {{-- course category section end --}}
 
 

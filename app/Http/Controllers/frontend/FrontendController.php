@@ -4,7 +4,7 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Category;
+
 use App\Models\CourseCategory;
 use App\Models\Course;
 use App\Models\Course_review;
@@ -36,14 +36,39 @@ class FrontendController extends Controller
        
         $bannerdata= homebanner::where('public_status',1)->get();
 
-        $instructors= User::where('role',1)->limit(8)->get();
+     
+ 
+        $topcourses = Course::withDetails()->where('public_status',1)->where('sell','>',0)->orderBy('sell','DESC')->limit(20)->get();
+        $trandingcourses = Course::withDetails()->where('public_status',1)->where('view_count','>',0)->orderBy('view_count','DESC')->limit(20)->get();
+        $latestcourse = Course::withDetails()->where('public_status',1)->orderBy('created_at','DESC')->limit(10)->get();
+        $freecourse = Course::withDetails()->where('public_status',1)->where('course_type','Free')->inRandomOrder()->limit(30)->get();
+
+
+       // dd($freecourse);
+
+
+        $allcategorys = CourseCategory::withcount('CourseCategorys')->where('public_status',1)->get();
+        $instructors= User::WithDetails()->where('role',1)->limit(8)->get();
         $reviews =Course_review::where('public_status',1)->where('rating',5)->limit(10)->get();
         $posts = post::where('public_status',1)->limit(4)->get();
         $faqs = Faq::where('public_status',1)->limit(12)->get();
 
 
+
+            foreach ($topcourses as $course) {
+                $course->priceData = $this->calculatePrices($course);
+            }
+            foreach ($trandingcourses as $course) {
+                $course->priceData = $this->calculatePrices($course);
+            }
+            foreach ($latestcourse as $course) {
+                $course->priceData = $this->calculatePrices($course);
+            }
+            foreach ($freecourse as $course) {
+                $course->priceData = $this->calculatePrices($course);
+            }
         
-        return view('frontend.index',compact('bannerdata','instructors','reviews','faqs','posts'));
+        return view('frontend.index',compact('bannerdata','topcourses','trandingcourses','latestcourse','freecourse','allcategorys','instructors','reviews','faqs','posts'));
     }
     /**----------  about page function ----- */
     public function about(){
