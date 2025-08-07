@@ -46,6 +46,7 @@
   @stack('scriptssearch')
 </head>
 <body>
+  <h1 class="bg-warning text-center text-danger py-1">Site is Under the Maintainance Mode </h1>
   <header class="desktop-header" >
     <div id="desktop-header">
     <div class="container-fluid d-flex align-items-center justify-content-between">
