@@ -4,8 +4,10 @@
 
 
 
-    <!-- **************** MAIN CONTENT START **************** -->
+  <!-- **************** MAIN CONTENT START **************** -->
   <main>
+
+    
 
   {{--  Breadcrumb --}}
   @include('frontend/pages/course/components/index/banner1',compact('bannerdata'))
