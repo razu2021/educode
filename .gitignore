@@ -21,3 +21,6 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+# Extra ignore for public files
+/public/index.php
+/public/.htaccess
